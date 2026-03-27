@@ -4,138 +4,570 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Howdy — Your Australia Journey Starts Here</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet"/>
 <style>
+:root{
+  --y:#F5B800;
+  --yl:#FFD04D;
+  --yd:#E5A800;
+  --yp:#FFF8E1;
+  --bk:#1A1208;
+  --wh:#FFFFFF;
+  --gr:#16A34A;
+  --light:#F9F7F2;
+  --mid:#6B6152;
+  --border:#EDE8DC;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:#fff;color:#1A1208;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:#1A1208}
-.logo{display:flex;align-items:center;gap:8px}
-.logo-icon{width:34px;height:34px;background:#F5B800;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#1A1208}
-.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#fff}
-.nav-links{display:flex;gap:20px;align-items:center}
-.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,0.6);text-decoration:none}
-.nav-cta{background:#F5B800!important;color:#1A1208!important;padding:9px 18px;border-radius:50px;font-weight:700!important}
-.hero{min-height:100vh;background:#1A1208;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
-.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(245,184,0,0.12);border:1px solid rgba(245,184,0,0.3);border-radius:50px;padding:7px 16px;font-size:12px;font-weight:500;color:#F5B800;margin-bottom:28px}
-.dot{width:6px;height:6px;background:#22C55E;border-radius:50%}
-h1{font-family:'Syne',sans-serif;font-size:clamp(40px,8vw,80px);font-weight:800;line-height:1.05;letter-spacing:-2px;color:#fff;margin-bottom:20px}
-h1 span{color:#F5B800}
-.sub{font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,0.5);max-width:500px;line-height:1.65;margin:0 auto 36px}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
-.btn-y{background:#F5B800;color:#1A1208;padding:15px 32px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(245,184,0,0.3)}
-.btn-o{background:transparent;color:#fff;padding:15px 32px;border-radius:50px;font-size:15px;font-weight:500;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2)}
-.flags{display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap}
-.flags span{font-size:12px;color:rgba(255,255,255,0.3)}
-.flag{font-size:18px}
-.stats{background:#F5B800;padding:18px 24px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px}
-.stat{text-align:center}
-.stat-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#1A1208}
-.stat-l{font-size:11px;color:rgba(0,0,0,0.6);font-weight:500}
-.section{padding:72px 24px}
-.container{max-width:1100px;margin:0 auto}
-.s-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#F5B800;margin-bottom:8px}
-.s-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
-.s-sub{font-size:16px;color:#5C5446;line-height:1.6;margin-bottom:32px}
-.center{text-align:center}
-.center .s-sub{max-width:500px;margin:0 auto 32px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-.card{background:#1A1208;border-radius:18px;padding:28px 24px;text-decoration:none;color:inherit;display:block;border:1px solid rgba(255,255,255,0.05)}
-.card-icon{width:46px;height:46px;background:#F5B800;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px}
-.card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:7px}
-.card p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.55}
-.card-tag{display:inline-block;margin-top:14px;font-size:11px;font-weight:700;color:#F5B800}
-.cities-sec{background:#F7F5F0;padding:72px 24px}
-.cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
-.city{background:#fff;border:2px solid transparent;border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer}
-.city:hover{border-color:#F5B800}
-.city-em{font-size:32px;margin-bottom:10px}
-.city-n{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#1A1208;margin-bottom:5px}
-.city-t{font-size:10px;background:#FFFBEA;color:#8B6B00;padding:2px 8px;border-radius:50px;font-weight:600}
-.tools-sec{background:#1A1208;padding:72px 24px}
-.tools-sec .s-label{color:#F5B800}
-.tools-sec .s-title{color:#fff}
-.tools-sec .s-sub{color:rgba(255,255,255,0.4)}
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.tool{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
-.tool-ic{font-size:28px;flex-shrink:0}
-.tool h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
-.tool p{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.4}
-.cta-sec{background:#F5B800;padding:80px 24px;text-align:center}
-.cta-sec h2{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;color:#1A1208;letter-spacing:-1px;line-height:1.1;margin-bottom:12px}
-.cta-sec p{font-size:17px;color:rgba(0,0,0,0.6);margin-bottom:28px}
-.btn-black{background:#1A1208;color:#fff;padding:16px 36px;border-radius:50px;font-size:15px;font-weight:700;text-decoration:none;display:inline-block}
-footer{background:#1A1208;padding:44px 24px 28px;text-align:center}
-.footer-logo{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:18px}
-.footer-icon{width:28px;height:28px;background:#F5B800;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#1A1208}
-.footer-text{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff}
-.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 20px;margin-bottom:20px}
-.footer-links a{font-size:13px;color:rgba(255,255,255,0.35);text-decoration:none}
-footer p{font-size:12px;color:rgba(255,255,255,0.2)}
-@media(max-width:600px){.nav-links{display:none}.btns{flex-direction:column;align-items:center}.btn-y,.btn-o{width:100%;max-width:260px;text-align:center}}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--wh);color:var(--bk);overflow-x:hidden}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--wh)}
+::-webkit-scrollbar-thumb{background:var(--y);border-radius:2px}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:padding 0.3s;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{
+  width:36px;height:36px;
+  background:var(--y);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:900;font-size:16px;
+  color:var(--bk);font-style:italic;
+}
+.logo-name{font-family:'Fraunces',serif;font-weight:900;font-size:22px;color:var(--bk);letter-spacing:-0.5px;font-style:italic}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--bk)}
+.nav-btn{
+  background:var(--y);color:var(--bk)!important;
+  padding:10px 22px;border-radius:50px;
+  font-size:13px;font-weight:700;
+  text-decoration:none;
+  transition:background 0.2s,transform 0.2s;
+  box-shadow:0 4px 14px rgba(245,184,0,0.35);
+}
+.nav-btn:hover{background:var(--yl);transform:translateY(-1px)}
+.menu-btn{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.menu-btn span{display:block;width:22px;height:2px;background:var(--bk);margin:5px 0;border-radius:2px}
+
+/* MOBILE MENU */
+.mobile-menu{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:var(--wh);z-index:999;
+  flex-direction:column;align-items:center;justify-content:center;gap:32px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:var(--bk);text-decoration:none;font-style:italic}
+.mobile-menu a:hover{color:var(--y)}
+.mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--bk);font-size:28px;cursor:pointer}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:var(--y);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:140px 24px 100px;
+  position:relative;overflow:hidden;
+}
+.hero-pattern{
+  position:absolute;inset:0;pointer-events:none;opacity:0.06;
+  background-image:radial-gradient(circle,#000 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.hero-blob{
+  position:absolute;border-radius:50%;pointer-events:none;
+  background:rgba(255,255,255,0.15);filter:blur(60px);
+}
+.blob1{width:500px;height:500px;top:-100px;right:-100px}
+.blob2{width:400px;height:400px;bottom:-80px;left:-80px}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.08);
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:50px;padding:8px 18px;
+  font-size:12px;font-weight:600;color:var(--bk);
+  margin-bottom:36px;letter-spacing:0.3px;
+  animation:fadeUp 0.8s ease both;
+}
+.live-dot{
+  width:7px;height:7px;background:var(--gr);border-radius:50%;
+  box-shadow:0 0 0 2px rgba(22,163,74,0.3);
+  animation:livePulse 2s infinite;
+}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 2px rgba(22,163,74,0.3)}50%{box-shadow:0 0 0 5px rgba(22,163,74,0.1)}}
+
+.hero-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(52px,10vw,108px);
+  font-weight:900;
+  line-height:0.92;
+  letter-spacing:-3px;
+  color:var(--bk);
+  margin-bottom:28px;
+  animation:fadeUp 0.8s ease 0.1s both;
+}
+.hero-title .line2{display:block;font-style:italic;color:var(--wh)}
+.hero-title .line3{display:block;font-style:italic;color:rgba(0,0,0,0.35);font-size:0.72em}
+
+.hero-desc{
+  font-size:clamp(16px,2vw,19px);
+  color:rgba(0,0,0,0.55);
+  max-width:480px;line-height:1.7;
+  margin:0 auto 48px;font-weight:400;
+  animation:fadeUp 0.8s ease 0.2s both;
+}
+
+.hero-actions{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:64px;
+  animation:fadeUp 0.8s ease 0.3s both;
+}
+.btn-dark{
+  background:var(--bk);color:var(--wh);
+  padding:17px 36px;border-radius:50px;
+  font-size:15px;font-weight:700;
+  text-decoration:none;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  transition:transform 0.2s,background 0.2s;
+}
+.btn-dark:hover{transform:translateY(-2px);background:#2C2415}
+.btn-outline{
+  background:rgba(255,255,255,0.5);color:var(--bk);
+  padding:17px 36px;border-radius:50px;
+  font-size:15px;font-weight:600;
+  text-decoration:none;
+  border:1.5px solid rgba(0,0,0,0.15);
+  transition:background 0.2s,border-color 0.2s;
+  backdrop-filter:blur(8px);
+}
+.btn-outline:hover{background:rgba(255,255,255,0.75);border-color:rgba(0,0,0,0.25)}
+
+.hero-countries{
+  display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.8s ease 0.4s both;
+}
+.hero-countries p{font-size:11px;color:rgba(0,0,0,0.4);letter-spacing:2px;font-weight:600;text-transform:uppercase}
+.flag-row{display:flex;gap:4px}
+.fl{font-size:22px}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(32px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* STATS */
+.stats-strip{
+  background:var(--bk);padding:0 40px;
+  display:flex;align-items:stretch;
+}
+.stat-item{
+  flex:1;padding:28px 20px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Fraunces',serif;
+  font-size:36px;font-weight:900;
+  color:var(--y);letter-spacing:-1px;line-height:1;
+  margin-bottom:4px;font-style:italic;
+}
+.stat-label{font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;letter-spacing:0.3px}
+
+/* SECTIONS */
+.section{padding:100px 40px}
+.container{max-width:1140px;margin:0 auto}
+.sec-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--yd);margin-bottom:16px;
+}
+.sec-label::before{content:'';width:20px;height:1.5px;background:var(--yd);display:block}
+.sec-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(32px,4vw,52px);
+  font-weight:900;line-height:1.0;
+  letter-spacing:-1.5px;color:var(--bk);
+  margin-bottom:16px;
+}
+.sec-title em{font-style:italic;color:var(--yd)}
+.sec-sub{font-size:17px;color:var(--mid);line-height:1.7;max-width:480px;font-weight:400}
+
+/* FEATURES */
+.features-sec{background:var(--light)}
+.features-head{margin-bottom:60px}
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.feat-card{
+  background:var(--wh);padding:36px 28px;
+  border-radius:20px;
+  text-decoration:none;color:inherit;display:block;
+  border:1.5px solid var(--border);
+  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
+  position:relative;overflow:hidden;
+}
+.feat-card:hover{
+  border-color:var(--y);
+  transform:translateY(-4px);
+  box-shadow:0 20px 48px rgba(245,184,0,0.15);
+}
+.feat-num{
+  font-family:'Fraunces',serif;
+  font-size:13px;font-weight:900;color:rgba(245,184,0,0.4);
+  letter-spacing:1px;margin-bottom:20px;font-style:italic;
+}
+.feat-icon{
+  width:52px;height:52px;
+  background:var(--yp);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:20px;
+  transition:background 0.3s;
+}
+.feat-card:hover .feat-icon{background:var(--y)}
+.feat-title{
+  font-family:'Fraunces',serif;
+  font-size:20px;font-weight:900;color:var(--bk);
+  margin-bottom:10px;
+}
+.feat-desc{font-size:14px;color:var(--mid);line-height:1.65;font-weight:400}
+.feat-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:20px;font-size:12px;font-weight:700;
+  color:var(--yd);letter-spacing:0.5px;text-transform:uppercase;
+}
+
+/* CITIES */
+.cities-sec{background:var(--wh);padding:100px 40px}
+.cities-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.city-list{display:flex;flex-direction:column;gap:8px}
+.city-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-radius:16px;
+  border:1.5px solid var(--border);
+  cursor:pointer;transition:background 0.2s,border-color 0.2s,transform 0.2s;
+  text-decoration:none;color:inherit;
+}
+.city-row:hover{background:var(--yp);border-color:var(--y);transform:translateX(4px)}
+.city-left{display:flex;align-items:center;gap:14px}
+.city-emoji{font-size:28px}
+.city-name{font-family:'Fraunces',serif;font-size:18px;font-weight:900;color:var(--bk)}
+.city-tag{font-size:12px;color:var(--mid);margin-top:2px;font-weight:400}
+.city-arrow{font-size:18px;color:var(--border);transition:color 0.2s,transform 0.2s}
+.city-row:hover .city-arrow{color:var(--yd);transform:translateX(4px)}
+
+/* TOOLS */
+.tools-sec{background:var(--light);padding:100px 40px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px}
+.tool-card{
+  background:var(--wh);border:1.5px solid var(--border);
+  border-radius:18px;padding:24px;
+  display:flex;align-items:center;gap:16px;
+  text-decoration:none;color:inherit;
+  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+}
+.tool-card:hover{border-color:var(--y);transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,184,0,0.12)}
+.tool-icon{font-size:28px;flex-shrink:0;width:52px;height:52px;background:var(--yp);border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.tool-card:hover .tool-icon{background:var(--y)}
+.tool-name{font-family:'Fraunces',serif;font-size:16px;font-weight:900;color:var(--bk);margin-bottom:4px}
+.tool-desc{font-size:12px;color:var(--mid);line-height:1.5;font-weight:400}
+
+/* CTA */
+.cta-sec{
+  background:var(--y);padding:120px 40px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-pattern{
+  position:absolute;inset:0;pointer-events:none;opacity:0.05;
+  background-image:radial-gradient(circle,#000 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.cta-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(36px,5vw,68px);
+  font-weight:900;color:var(--bk);
+  line-height:1.0;letter-spacing:-2px;
+  margin-bottom:20px;font-style:italic;
+  position:relative;
+}
+.cta-sub{font-size:18px;color:rgba(0,0,0,0.55);margin-bottom:40px;font-weight:400;position:relative}
+.btn-cta-dark{
+  background:var(--bk);color:var(--wh);
+  padding:18px 44px;border-radius:50px;
+  font-size:16px;font-weight:700;
+  text-decoration:none;display:inline-block;
+  transition:transform 0.2s,background 0.2s;
+  position:relative;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+}
+.btn-cta-dark:hover{transform:translateY(-2px);background:#2C2415}
+
+/* FOOTER */
+footer{
+  background:var(--bk);
+  padding:60px 40px 40px;
+}
+.footer-inner{
+  max-width:1140px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:start;
+  flex-wrap:wrap;gap:40px;margin-bottom:48px;
+}
+.footer-brand-name{
+  font-family:'Fraunces',serif;font-weight:900;font-size:26px;
+  color:var(--y);font-style:italic;margin-bottom:10px;display:block;
+}
+.footer-brand p{font-size:14px;color:rgba(255,255,255,0.3);max-width:220px;line-height:1.6;font-weight:300}
+.footer-col h4{
+  font-size:11px;font-weight:700;
+  color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.footer-col a{
+  display:block;font-size:14px;color:rgba(255,255,255,0.45);
+  text-decoration:none;margin-bottom:10px;
+  transition:color 0.2s;font-weight:400;
+}
+.footer-col a:hover{color:var(--y)}
+.footer-bottom{
+  max-width:1140px;margin:0 auto;
+  padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-bottom p{font-size:13px;color:rgba(255,255,255,0.2);font-weight:300}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .menu-btn{display:block}
+  .stats-strip{flex-wrap:wrap;padding:0 20px}
+  .stat-item{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .section{padding:72px 20px}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .cities-layout{grid-template-columns:1fr;gap:40px}
+  .tools-grid{grid-template-columns:1fr 1fr}
+  .cta-sec,.cities-sec,.tools-sec,.features-sec{padding:72px 20px}
+  .footer-inner{flex-direction:column;gap:32px}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:600px){
+  .hero-actions{flex-direction:column;align-items:center}
+  .btn-dark,.btn-outline{width:100%;max-width:280px;text-align:center}
+  .tools-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<nav>
-  <div class="logo">
-    <div class="logo-icon">AU</div>
-    <span class="logo-text">Howdy</span>
-  </div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#features" onclick="toggleMenu()">Explore</a>
+  <a href="#cities" onclick="toggleMenu()">Cities</a>
+  <a href="#tools" onclick="toggleMenu()">Tools</a>
+  <a href="#resume" onclick="toggleMenu()" style="font-family:'Plus Jakarta Sans',sans-serif;font-style:normal;font-size:16px;background:var(--y);padding:14px 32px;border-radius:50px;color:var(--bk)">Free Resume</a>
+</div>
+
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-mark">H</div>
+    <span class="logo-name">Howdy</span>
+  </a>
   <div class="nav-links">
     <a href="#features">Explore</a>
     <a href="#cities">Cities</a>
     <a href="#tools">Tools</a>
-    <a href="#resume" class="nav-cta">Free Resume</a>
+    <a href="#resume" class="nav-btn">Free Resume</a>
   </div>
+  <button class="menu-btn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- HERO — YELLOW BACKGROUND -->
 <section class="hero">
-  <div class="badge"><span class="dot"></span>Built for international students in Australia</div>
-  <h1>Your <span>Australia</span><br/>Journey Starts Here</h1>
-  <p class="sub">Jobs, accommodation, visa guides, uni courses and student discounts — everything in one place.</p>
-  <div class="btns">
-    <a href="#features" class="btn-y">Explore Howdy →</a>
-    <a href="#resume" class="btn-o">Free Resume Builder</a>
+  <div class="hero-pattern"></div>
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+
+  <div class="hero-badge">
+    <span class="live-dot"></span>
+    Built for international students in Australia
   </div>
-  <div class="flags">
-    <span>Students from</span>
-    <span class="flag">🇮🇳</span><span class="flag">🇨🇳</span><span class="flag">🇵🇭</span>
-    <span class="flag">🇳🇵</span><span class="flag">🇻🇳</span><span class="flag">🌍</span>
-    <span>and beyond</span>
+
+  <h1 class="hero-title">
+    Your<br/>
+    <span class="line2">Australia</span>
+    <span class="line3">journey starts here</span>
+  </h1>
+
+  <p class="hero-desc">Jobs, housing, visa guides, uni courses and student discounts — everything you need, all in one place.</p>
+
+  <div class="hero-actions">
+    <a href="#features" class="btn-dark">Explore Howdy →</a>
+    <a href="#resume" class="btn-outline">Free Resume Builder</a>
+  </div>
+
+  <div class="hero-countries">
+    <p>Students from</p>
+    <div class="flag-row">
+      <span class="fl">🇮🇳</span><span class="fl">🇨🇳</span><span class="fl">🇵🇭</span>
+      <span class="fl">🇳🇵</span><span class="fl">🇻🇳</span><span class="fl">🇧🇩</span>
+      <span class="fl">🇰🇷</span><span class="fl">🌍</span>
+    </div>
+    <p>and beyond</p>
   </div>
 </section>
-<div class="stats">
-  <div class="stat"><div class="stat-n">700K+</div><div class="stat-l">Students in AU</div></div>
-  <div class="stat"><div class="stat-n">50+</div><div class="stat-l">Universities</div></div>
-  <div class="stat"><div class="stat-n">5</div><div class="stat-l">City guides</div></div>
-  <div class="stat"><div class="stat-n">Free</div><div class="stat-l">Always</div></div>
+
+<!-- STATS — DARK -->
+<div class="stats-strip">
+  <div class="stat-item reveal"><div class="stat-num">700K+</div><div class="stat-label">International students in AU</div></div>
+  <div class="stat-item reveal reveal-delay-1"><div class="stat-num">50+</div><div class="stat-label">Universities covered</div></div>
+  <div class="stat-item reveal reveal-delay-2"><div class="stat-num">5</div><div class="stat-label">Major city guides</div></div>
+  <div class="stat-item reveal reveal-delay-3"><div class="stat-num">Free</div><div class="stat-label">Always free to use</div></div>
 </div>
-<section class="section" id="features">
+
+<!-- FEATURES — LIGHT -->
+<section class="features-sec section" id="features">
   <div class="container">
-    <div class="center">
-      <div class="s-label">Everything You Need</div>
-      <h2 class="s-title">One app. Endless support.</h2>
-      <p class="s-sub">From landing at the airport to landing your first job.</p>
+    <div class="features-head reveal">
+      <div class="sec-label">Everything You Need</div>
+      <h2 class="sec-title">One app.<br/><em>Endless</em> support.</h2>
+      <p class="sec-sub">From landing at the airport to landing your first job — Howdy is with you every step.</p>
     </div>
-    <div class="grid">
-      <a href="#" class="card"><div class="card-icon">💼</div><h3>Part-Time Jobs</h3><p>Student-friendly roles near your uni. Updated daily.</p><span class="card-tag">Browse Jobs →</span></a>
-      <a href="#" class="card"><div class="card-icon">🏠</div><h3>Accommodation</h3><p>Affordable housing and homestays near campus.</p><span class="card-tag">Find Housing →</span></a>
-      <a href="#" class="card"><div class="card-icon">📋</div><h3>Visa Guide</h3><p>Work rights and renewals explained simply.</p><span class="card-tag">Read Guide →</span></a>
-      <a href="#" class="card"><div class="card-icon">🎓</div><h3>Uni & Courses</h3><p>Trending courses and top universities.</p><span class="card-tag">Explore →</span></a>
-      <a href="#" class="card"><div class="card-icon">🛍️</div><h3>Discounts</h3><p>Deals on food, transport and tech.</p><span class="card-tag">See Deals →</span></a>
-      <a href="#" class="card"><div class="card-icon">🤝</div><h3>Community</h3><p>Connect with students like you.</p><span class="card-tag">Join →</span></a>
+    <div class="feat-grid reveal">
+      <a href="#" class="feat-card"><div class="feat-num">01</div><div class="feat-icon">💼</div><div class="feat-title">Part-Time Jobs</div><p class="feat-desc">Find casual and student-friendly jobs across Australia. Updated daily with roles near your uni.</p><div class="feat-link">Browse Jobs →</div></a>
+      <a href="#" class="feat-card"><div class="feat-num">02</div><div class="feat-icon">🏠</div><div class="feat-title">Accommodation</div><p class="feat-desc">Affordable student housing, homestays and share houses near your university campus.</p><div class="feat-link">Find Housing →</div></a>
+      <a href="#" class="feat-card"><div class="feat-num">03</div><div class="feat-icon">📋</div><div class="feat-title">Visa Guide</div><p class="feat-desc">Student visa rules, work hour limits, renewals — all explained in plain simple language.</p><div class="feat-link">Read Guide →</div></a>
+      <a href="#" class="feat-card"><div class="feat-num">04</div><div class="feat-icon">🎓</div><div class="feat-title">Uni & Courses</div><p class="feat-desc">Trending courses, top universities and how to choose the right study path for your future.</p><div class="feat-link">Explore →</div></a>
+      <a href="#" class="feat-card"><div class="feat-num">05</div><div class="feat-icon">🛍️</div><div class="feat-title">Student Discounts</div><p class="feat-desc">Exclusive deals on food, transport, tech and entertainment — just for students like you.</p><div class="feat-link">See Deals →</div></a>
+      <a href="#" class="feat-card"><div class="feat-num">06</div><div class="feat-icon">🤝</div><div class="feat-title">Community</div><p class="feat-desc">Connect with students from your country, your uni, your city. You are never alone here.</p><div class="feat-link">Join →</div></a>
     </div>
   </div>
 </section>
+
+<!-- CITIES — WHITE -->
 <section class="cities-sec" id="cities">
   <div class="container">
-    <div class="center">
-      <div class="s-label">City Guides</div>
-      <h2 class="s-title">Where will you study?</h2>
-      <p class="s-sub">Best cities in Australia for international students.</p>
+    <div class="cities-layout">
+      <div class="cities-head reveal">
+        <div class="sec-label">City Guides</div>
+        <h2 class="sec-title">Where will<br/>you <em>study?</em></h2>
+        <p class="sec-sub">Explore the best cities in Australia for international students — costs, lifestyle, unis and more.</p>
+        <br/>
+        <a href="#" class="btn-dark" style="display:inline-block">View All Cities →</a>
+      </div>
+      <div class="city-list reveal">
+        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🌉</span><div><div class="city-name">Sydney</div><div class="city-tag">Most popular city for students</div></div></div><span class="city-arrow">→</span></a>
+        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">☕</span><div><div class="city-name">Melbourne</div><div class="city-tag">Best student lifestyle</div></div></div><span class="city-arrow">→</span></a>
+        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">☀️</span><div><div class="city-name">Brisbane</div><div class="city-tag">Most affordable option</div></div></div><span class="city-arrow">→</span></a>
+        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🌊</span><div><div class="city-name">Perth</div><div class="city-tag">Hidden gem of Australia</div></div></div><span class="city-arrow">→</span></a>
+        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🍷</span><div><div class="city-name">Adelaide</div><div class="city-tag">Most relaxed city</div></div></div><span class="city-arrow">→</span></a>
+      </div>
     </div>
-    <div class="cities-grid">
-      <div class="city"><div class="city-em">🌉</div><div class="city-n">Sydney</div><div class="city-t">Most popular</div></div>
-      <div class="city"><div class="city-em">☕</div><div class="city-n">Melbourne</div><div class="city-t">Best student life</div></div>
-      <div class="city"><div class="city-em">☀️</div><div class="city-n">Brisbane</div><div class="city-t">Most affordable</div></div>
-      <div class="city"><div class="city-em">🌊</div><div class="city-n">Perth</div><div class="city-t">Hidden gem</div></div>
-      <div class="city">
+  </div>
+</section>
+
+<!-- TOOLS — LIGHT -->
+<section class="tools-sec" id="tools">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Recommended Tools</div>
+      <h2 class="sec-title">Apps every<br/><em>student needs</em></h2>
+      <p class="sec-sub">Howdy-recommended tools to make your life in Australia easier and cheaper from day one.</p>
+    </div>
+    <div class="tools-grid">
+      <a href="#" class="tool-card reveal"><div class="tool-icon">💸</div><div><div class="tool-name">Wise</div><p class="tool-desc">Send money home with the best exchange rates. No hidden fees.</p></div></a>
+      <a href="#" class="tool-card reveal reveal-delay-1"><div class="tool-icon">✈️</div><div><div class="tool-name">Skyscanner</div><p class="tool-desc">Find the cheapest flights back home or around Australia.</p></div></a>
+      <a href="#" class="tool-card reveal reveal-delay-2"><div class="tool-icon">📚</div><div><div class="tool-name">Coursera</div><p class="tool-desc">Boost your skills with free and affordable online courses.</p></div></a>
+      <a href="#" class="tool-card reveal"><div class="tool-icon">🏨</div><div><div class="tool-name">Booking.com</div><p class="tool-desc">Best deals on accommodation when exploring Australia.</p></div></a>
+      <a href="#" class="tool-card reveal reveal-delay-1"><div class="tool-icon">🎨</div><div><div class="tool-name">Canva</div><p class="tool-desc">Design assignments, resumes and presentations for free.</p></div></a>
+      <a href="#" class="tool-card reveal reveal-delay-2"><div class="tool-icon">🛒</div><div><div class="tool-name">Amazon AU</div><p class="tool-desc">Student essentials delivered fast. Set up your new home.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA — YELLOW -->
+<section class="cta-sec" id="resume">
+  <div class="cta-pattern"></div>
+  <div class="container reveal">
+    <h2 class="cta-title">Build your Australian<br/>resume for free</h2>
+    <p class="cta-sub">AI-powered. Australian format. Designed to get you hired.</p>
+    <a href="#" class="btn-cta-dark">Try Free Resume Builder →</a>
+  </div>
+</section>
+
+<!-- FOOTER — DARK -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-name">Howdy</span>
+      <p>Your one-stop platform for international students in Australia. From landing to graduating.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#">Part-Time Jobs</a>
+      <a href="#">Accommodation</a>
+      <a href="#">Student Discounts</a>
+      <a href="#">Resume Builder</a>
+    </div>
+    <div class="footer-col">
+      <h4>Guides</h4>
+      <a href="#">Visa Guide</a>
+      <a href="#">Uni & Courses</a>
+      <a href="#">City Guides</a>
+      <a href="#">Community</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Partner With Us</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Howdy. Made with ❤️ for international students in Australia.</p>
+    <p style="color:rgba(255,255,255,0.15)">howdy.com.au</p>
+  </div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.style.padding = window.scrollY > 50 ? '12px 40px' : '18px 40px';
+});
+</script>
+</body>
+</html>
