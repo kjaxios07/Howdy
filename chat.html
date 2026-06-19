@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kip — Your Australian Life Copilot | Howdy</title>
+<meta name="description" content="Ask Kip anything about life in Australia — visas, work rights, housing, tax, healthcare and more. Free. Instant. Verified."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050A14;
+  --bg2:#0A0F1A;
+  --bg3:#0D1620;
+  --accent:#D95D39;
+  --gold:#E2B02B;
+  --kip:#4FC3F7;
+  --white:#fff;
+  --muted:rgba(255,255,255,0.42);
+  --subtle:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.06);
+  --font-display:'Be Vietnam Pro',sans-serif;
+  --font-body:'Noto Sans',sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{-webkit-font-smoothing:antialiased;height:100%}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:var(--font-body);
+  display:flex;flex-direction:column;
+  height:100%;overflow:hidden;
+}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--font-body);border:none;background:none}
+:focus-visible{outline:2px solid var(--kip);outline-offset:3px;border-radius:4px}
+
+/* ── HEADER ── */
+.chat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:56px;flex-shrink:0;
+  background:rgba(5,10,20,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  position:relative;z-index:10;
+}
+.back-btn{
+  display:flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.4);
+  padding:8px 12px;border-radius:6px;
+  transition:color .15s,background .15s;min-height:40px;
+}
+.back-btn:hover{color:#fff;background:rgba(255,255,255,.05)}
+.back-btn svg{opacity:.6}
+.header-identity{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:8px;
+}
+.header-kip-name{
+  font-family:var(--font-display);font-size:14px;font-weight:700;
+  letter-spacing:-.01em;
+}
+.header-status{display:flex;align-items:center;gap:5px;font-size:10.5px;color:rgba(255,255,255,.32)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.5)}
+.session-badge{
+  font-size:10px;color:rgba(255,255,255,.25);
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:99px;padding:4px 10px;letter-spacing:.02em;
+  white-space:nowrap;
+}
+
+/* ── CHAT AREA ── */
+.chat-area{
+  flex:1;overflow-y:auto;
+  padding:24px 0 16px;
+  display:flex;flex-direction:column;
+  gap:0;
+}
+.chat-area::-webkit-scrollbar{width:3px}
+.chat-area::-webkit-scrollbar-track{background:transparent}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+
+.msg-row{
+  display:flex;align-items:flex-end;gap:10px;
+  padding:5px 20px;max-width:100%;
+  animation:msgIn .3s var(--ease) both;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.msg-row.user{flex-direction:row-reverse}
+
+.msg-avatar{
+  width:28px;height:28px;border-radius:50%;
+  flex-shrink:0;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(79,195,247,.12);
+  align-self:flex-end;margin-bottom:20px;
+}
+.msg-avatar.user-av{
+  background:rgba(217,93,57,.15);font-size:12px;font-weight:700;
+  color:var(--accent);font-family:var(--font-display);
+}
+
+.msg-wrap{display:flex;flex-direction:column;gap:6px;max-width:min(680px,82%)}
+.msg-row.user .msg-wrap{align-items:flex-end}
+
+.msg-bubble{
+  padding:11px 15px;border-radius:16px;
+  font-size:13.5px;line-height:1.72;font-weight:400;
+}
+.kip-bubble{
+  background:var(--bg3);border:1px solid rgba(255,255,255,.07);
+  color:rgba(255,255,255,.88);
+  border-radius:4px 16px 16px 16px;
+}
+.user-bubble{
+  background:rgba(217,93,57,.14);border:1px solid rgba(217,93,57,.18);
+  color:rgba(255,255,255,.9);
+  border-radius:16px 16px 4px 16px;
+}
+
+/* Markdown inside bubbles */
+.kip-bubble strong{color:#fff;font-weight:600}
+.kip-bubble ul{padding-left:18px;margin:8px 0;display:flex;flex-direction:column;gap:4px}
+.kip-bubble li{font-size:13.5px;color:rgba(255,255,255,.8)}
+.kip-bubble p{margin:6px 0}
+.kip-bubble p:first-child{margin-top:0}
+.kip-bubble p:last-child{margin-bottom:0}
+
+/* Source citations */
+.msg-sources{
+  display:flex;flex-wrap:wrap;gap:5px;padding:0 2px;
+}
+.source-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(79,195,247,.06);border:1px solid rgba(79,195,247,.14);
+  border-radius:99px;padding:3px 10px;
+  font-size:10.5px;color:rgba(79,195,247,.7);letter-spacing:.02em;
+  cursor:default;transition:border-color .15s,color .15s;
+}
+.source-chip svg{opacity:.6;flex-shrink:0}
+
+/* Typing indicator */
+.typing-row{padding:8px 20px;display:flex;align-items:center;gap:10px}
+.typing-row .msg-avatar{margin-bottom:0}
+.typing-dots{
+  display:flex;align-items:center;gap:4px;
+  padding:11px 14px;
+  background:var(--bg3);border:1px solid rgba(255,255,255,.07);
+  border-radius:4px 16px 16px 16px;
+}
+.typing-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  animation:typeDot 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2){animation-delay:.16s}
+.typing-dot:nth-child(3){animation-delay:.32s}
+@keyframes typeDot{0%,60%,100%{transform:translateY(0);opacity:.25}30%{transform:translateY(-5px);opacity:.8}}
+
+/* ── INPUT ── */
+.chat-input-area{
+  flex-shrink:0;padding:12px 16px 16px;
+  background:rgba(5,10,20,.98);
+  border-top:1px solid var(--border);
+}
+.input-row{
+  display:flex;align-items:flex-end;gap:10px;
+  background:var(--bg3);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:8px 8px 8px 14px;
+  transition:border-color .2s;
+}
+.input-row:focus-within{border-color:rgba(79,195,247,.4)}
+.chat-textarea{
+  flex:1;background:none;border:none;outline:none;
+  color:#fff;font-family:var(--font-body);font-size:14px;line-height:1.5;
+  resize:none;max-height:120px;min-height:22px;
+  padding:0;
+}
+.chat-textarea::placeholder{color:rgba(255,255,255,.22)}
+.send-btn{
+  width:38px;height:38px;border-radius:9px;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:opacity .15s,transform .15s;
+}
+.send-btn:hover:not(:disabled){opacity:.9;transform:scale(1.05)}
+.send-btn:disabled{opacity:.35;cursor:not-allowed}
+.send-btn svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5}
+.input-footer{
+  display:flex;justify-content:center;
+  margin-top:8px;
+}
+.input-footer p{
+  font-size:10px;color:rgba(255,255,255,.18);
+  text-align:center;letter-spacing:.02em;line-height:1.5;
+}
+.input-footer a{color:rgba(255,255,255,.28);text-decoration:underline}
+
+/* ── STARTER PROMPTS ── */
+.starters{
+  padding:16px 20px 8px;
+  display:flex;flex-wrap:wrap;gap:7px;
+}
+.starter-btn{
+  font-family:var(--font-body);font-size:12px;font-weight:500;
+  color:rgba(255,255,255,.52);
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:99px;padding:7px 14px;min-height:34px;
+  transition:background .15s,border-color .15s,color .15s;
+  text-align:left;
+}
+.starter-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .session-badge{display:none}
+  .msg-row{padding:4px 12px}
+  .starters{padding:12px 12px 4px}
+  .chat-input-area{padding:10px 12px 12px}
+  .msg-wrap{max-width:88%}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="chat-header">
+  <a href="/" class="back-btn" aria-label="Back to Howdy">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    Howdy
+  </a>
+
+  <div class="header-identity">
+    <svg width="26" height="26" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <defs>
+        <radialGradient id="c-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+        <filter id="c-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <circle cx="60" cy="60" r="36" fill="url(#c-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
+      <circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#c-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/>
+      <circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#c-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/>
+      <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#c-gl)"/>
+    </svg>
+    <div>
+      <div class="header-kip-name">Kip</div>
+      <div class="header-status"><span class="status-dot"></span>Online · Verified sources</div>
+    </div>
+  </div>
+
+  <span class="session-badge">Session only · Nothing stored</span>
+</header>
+
+<!-- CHAT MESSAGES -->
+<div class="chat-area" id="chatArea" role="log" aria-live="polite" aria-label="Chat with Kip">
+  <!-- Starter prompts shown before first message -->
+  <div class="starters" id="starters" aria-label="Suggested questions">
+    <button class="starter-btn" onclick="sendStarter(this)">Can I work on a student visa?</button>
+    <button class="starter-btn" onclick="sendStarter(this)">How do I get a Tax File Number?</button>
+    <button class="starter-btn" onclick="sendStarter(this)">What's the minimum wage in Australia?</button>
+    <button class="starter-btn" onclick="sendStarter(this)">How do I rent a place in Sydney?</button>
+    <button class="starter-btn" onclick="sendStarter(this)">What is OSHC and do I need it?</button>
+    <button class="starter-btn" onclick="sendStarter(this)">Tell me about the 485 Graduate Visa</button>
+  </div>
+</div>
+
+<!-- INPUT -->
+<div class="chat-input-area">
+  <form id="chatForm" class="input-row" onsubmit="handleSubmit(event)">
+    <textarea
+      id="chatInput"
+      class="chat-textarea"
+      placeholder="Ask Kip anything about life in Australia…"
+      rows="1"
+      maxlength="800"
+      aria-label="Type your question"
+      autocomplete="off"
+      spellcheck="true"
+    ></textarea>
+    <button type="submit" class="send-btn" id="sendBtn" aria-label="Send message" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+      </svg>
+    </button>
+  </form>
+  <div class="input-footer">
+    <p>Kip uses official Australian government sources. For complex visa &amp; legal matters, consult a <a href="https://www.mara.gov.au" target="_blank" rel="noopener">MARA registered agent</a>.</p>
+  </div>
+</div>
+
+<script>
+const chatArea = document.getElementById('chatArea');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+const startersEl = document.getElementById('starters');
+
+// Conversation history — client-side session only, never persisted
+let history = [];
+let isWaiting = false;
+
+// ── INITIAL GREETING ──
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    appendKipMessage(
+      "G'day! I'm **Kip**, your Australian life copilot 👋\n\nI can help you with **visas**, **work rights**, **tax**, **housing**, **healthcare**, **banking**, **cost of living** and more — all grounded in official Australian government sources.\n\nWhat would you like to know?",
+      []
+    );
+  }, 300);
+});
+
+// ── TEXTAREA AUTO-RESIZE ──
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = 'auto';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+  sendBtn.disabled = !chatInput.value.trim() || isWaiting;
+});
+
+chatInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!sendBtn.disabled) handleSubmit(e);
+  }
+});
+
+// ── STARTER PROMPTS ──
+function sendStarter(btn) {
+  chatInput.value = btn.textContent;
+  chatInput.dispatchEvent(new Event('input'));
+  handleSubmit(new Event('submit'));
+}
+
+// ── SUBMIT HANDLER ──
+async function handleSubmit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const text = chatInput.value.trim();
+  if (!text || isWaiting) return;
+
+  // Hide starters on first message
+  if (startersEl) startersEl.style.display = 'none';
+
+  // Clear and reset input
+  chatInput.value = '';
+  chatInput.style.height = 'auto';
+  sendBtn.disabled = true;
+  isWaiting = true;
+
+  appendUserMessage(text);
+  const typingEl = showTyping();
+  scrollToBottom();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: history.slice(-8) })
+    });
+
+    const data = await res.json();
+    removeTyping(typingEl);
+
+    if (!res.ok || data.error) {
+      appendKipMessage(data.error || "Something went wrong. Please try again.", []);
+    } else {
+      appendKipMessage(data.reply, []);
+      history.push({ role: 'user', content: text });
+      history.push({ role: 'assistant', content: data.reply });
+      if (history.length > 30) history = history.slice(-30); // keep last 15 pairs
+    }
+  } catch {
+    removeTyping(typingEl);
+    appendKipMessage("I lost my connection for a moment. Please check your internet and try again.", []);
+  }
+
+  isWaiting = false;
+  sendBtn.disabled = !chatInput.value.trim();
+  scrollToBottom();
+}
+
+// ── RENDER HELPERS ──
+
+function kipSvg() {
+  return `<svg width="28" height="28" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="av-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+      <filter id="av-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <circle cx="60" cy="60" r="36" fill="url(#av-bg)" stroke="rgba(79,195,247,.25)" stroke-width="1"/>
+    <circle cx="48" cy="57" r="5" fill="#1B6FA8"/><circle cx="48" cy="57" r="2.8" fill="#4FC3F7" filter="url(#av-gl)"/><circle cx="48" cy="57" r="1.3" fill="#fff" opacity=".95"/>
+    <circle cx="72" cy="57" r="5" fill="#1B6FA8"/><circle cx="72" cy="57" r="2.8" fill="#4FC3F7" filter="url(#av-gl)"/><circle cx="72" cy="57" r="1.3" fill="#fff" opacity=".95"/>
+    <path d="M48 72 Q60 82 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.2" stroke-linecap="round" filter="url(#av-gl)"/>
+  </svg>`;
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Extract **Source: ...** citations and return { cleaned, sources }
+function extractSources(text) {
+  const sources = [];
+  const pattern = /\*{0,2}Source:\s*([^\n\*]+)\*{0,2}/gi;
+  let m;
+  while ((m = pattern.exec(text)) !== null) {
+    const s = m[1].trim();
+    if (s && !sources.includes(s)) sources.push(s);
+  }
+  const cleaned = text.replace(/\*{0,2}Source:[^\n]+\n?/gi, '').trim();
+  return { cleaned, sources };
+}
+
+// Safe markdown → HTML (HTML-escaped first, then markdown applied)
+function renderMarkdown(text) {
+  let s = escapeHtml(text);
+  // Bold
+  s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Bullet list lines
+  s = s.replace(/^[ \t]*[-•\*] (.+)$/gm, '<li>$1</li>');
+  // Wrap consecutive li into ul
+  s = s.replace(/(<li>[\s\S]*?<\/li>)(\n<li>[\s\S]*?<\/li>)*/g, m => `<ul>${m}</ul>`);
+  // Paragraph breaks
+  s = s.replace(/\n\n+/g, '</p><p>');
+  s = s.replace(/\n/g, '<br>');
+  return `<p>${s}</p>`;
+}
+
+function appendKipMessage(rawText, _unusedSources) {
+  const { cleaned, sources } = extractSources(rawText);
+  const row = document.createElement('div');
+  row.className = 'msg-row';
+  row.setAttribute('role', 'listitem');
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.innerHTML = kipSvg();
+  avatar.setAttribute('aria-hidden', 'true');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-wrap';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble kip-bubble';
+  bubble.innerHTML = renderMarkdown(cleaned);
+
+  wrap.appendChild(bubble);
+
+  if (sources.length) {
+    const sourcesEl = document.createElement('div');
+    sourcesEl.className = 'msg-sources';
+    sources.forEach(src => {
+      const chip = document.createElement('span');
+      chip.className = 'source-chip';
+      chip.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${escapeHtml(src)}`;
+      chip.setAttribute('title', `Source: ${src}`);
+      sourcesEl.appendChild(chip);
+    });
+    wrap.appendChild(sourcesEl);
+  }
+
+  row.appendChild(avatar);
+  row.appendChild(wrap);
+  chatArea.appendChild(row);
+  scrollToBottom();
+}
+
+function appendUserMessage(text) {
+  const row = document.createElement('div');
+  row.className = 'msg-row user';
+  row.setAttribute('role', 'listitem');
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar user-av';
+  avatar.textContent = 'You';
+  avatar.setAttribute('aria-hidden', 'true');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-wrap';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble user-bubble';
+  bubble.textContent = text; // textContent = no XSS risk
+
+  wrap.appendChild(bubble);
+  row.appendChild(wrap);
+  row.appendChild(avatar);
+  chatArea.appendChild(row);
+}
+
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'typing-row';
+  row.id = 'typingRow';
+  row.setAttribute('aria-label', 'Kip is typing');
+  row.innerHTML = `
+    <div class="msg-avatar" aria-hidden="true">${kipSvg()}</div>
+    <div class="typing-dots" aria-hidden="true">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>`;
+  chatArea.appendChild(row);
+  scrollToBottom();
+  return row;
+}
+
+function removeTyping(el) {
+  if (el && el.parentNode) el.parentNode.removeChild(el);
+}
+
+function scrollToBottom() {
+  requestAnimationFrame(() => {
+    chatArea.scrollTop = chatArea.scrollHeight;
+  });
+}
+</script>
+</body>
+</html>
