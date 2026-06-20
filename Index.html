@@ -2,571 +2,1110 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Howdy — Your Australia Journey Starts Here</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Howdy — Australia's AI Life Copilot</title>
+<meta name="description" content="Kip answers every question international students and new migrants have about life in Australia. Free. On your phone."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --y:#F5B800;
-  --yl:#FFD04D;
-  --yd:#E5A800;
-  --yp:#FFF8E1;
-  --bk:#1A1208;
-  --wh:#FFFFFF;
-  --gr:#16A34A;
-  --light:#F9F7F2;
-  --mid:#6B6152;
-  --border:#EDE8DC;
+  --bg:#050A14;
+  --bg2:#0A0F1A;
+  --bg3:#0D1620;
+  --accent:#D95D39;
+  --gold:#E2B02B;
+  --kip:#4FC3F7;
+  --white:#fff;
+  --muted:rgba(255,255,255,0.42);
+  --subtle:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.06);
+  --font-display:'Be Vietnam Pro',sans-serif;
+  --font-body:'Noto Sans',sans-serif;
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+  --dur-fast:150ms;
+  --dur-med:250ms;
+  --dur-slow:700ms;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--wh);color:var(--bk);overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--font-body)}
 
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--wh)}
-::-webkit-scrollbar-thumb{background:var(--y);border-radius:2px}
+:focus-visible{outline:2px solid var(--kip);outline-offset:3px;border-radius:4px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--kip);outline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.reveal-d4{transition-delay:.32s}
+.reveal-d5{transition-delay:.40s}
+
+@keyframes kipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes bubbleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes bubbleFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes tickerSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scrollBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes fadeUp{to{opacity:1;transform:none}}
 
 /* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 40px;
-  background:rgba(255,255,255,0.92);
+nav#nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  transition:background .4s,backdrop-filter .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav#nav.scrolled{
+  background:rgba(5,10,20,.96);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  transition:padding 0.3s;
+  -webkit-backdrop-filter:blur(20px);
+  border-color:var(--border);
 }
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{
-  width:36px;height:36px;
-  background:var(--y);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-weight:900;font-size:16px;
-  color:var(--bk);font-style:italic;
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-text{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.nav-logo-dot{color:var(--accent)}
+.nav-links{display:flex;gap:8px}
+.nav-links a{
+  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.6);
+  letter-spacing:.03em;padding:10px 12px;min-height:44px;
+  display:flex;align-items:center;border-radius:6px;
+  transition:color var(--dur-fast),background var(--dur-fast);
 }
-.logo-name{font-family:'Fraunces',serif;font-weight:900;font-size:22px;color:var(--bk);letter-spacing:-0.5px;font-style:italic}
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover{color:var(--bk)}
-.nav-btn{
-  background:var(--y);color:var(--bk)!important;
-  padding:10px 22px;border-radius:50px;
-  font-size:13px;font-weight:700;
-  text-decoration:none;
-  transition:background 0.2s,transform 0.2s;
-  box-shadow:0 4px 14px rgba(245,184,0,0.35);
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-cta{
+  background:var(--accent);color:#fff;border:none;
+  padding:10px 22px;min-height:44px;font-size:11.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;border-radius:6px;
+  transition:opacity var(--dur-fast),box-shadow var(--dur-fast);
+  box-shadow:0 2px 20px rgba(217,93,57,.4);
 }
-.nav-btn:hover{background:var(--yl);transform:translateY(-1px)}
-.menu-btn{display:none;background:none;border:none;cursor:pointer;padding:4px}
-.menu-btn span{display:block;width:22px;height:2px;background:var(--bk);margin:5px 0;border-radius:2px}
+.nav-cta:hover{opacity:.88;box-shadow:0 4px 28px rgba(217,93,57,.55)}
 
-/* MOBILE MENU */
-.mobile-menu{
-  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
-  background:var(--wh);z-index:999;
-  flex-direction:column;align-items:center;justify-content:center;gap:32px;
-}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:var(--bk);text-decoration:none;font-style:italic}
-.mobile-menu a:hover{color:var(--y)}
-.mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--bk);font-size:28px;cursor:pointer}
+.kip-svg{animation:kipFloat 3.5s ease-in-out infinite}
 
 /* HERO */
-.hero{
-  min-height:100vh;
-  background:var(--y);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:140px 24px 100px;
-  position:relative;overflow:hidden;
+.hero{position:relative;height:100vh;width:100%;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-overlay-lr{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(5,10,20,.94) 0%,rgba(5,10,20,.62) 52%,rgba(5,10,20,.28) 100%)}
+.hero-overlay-tb{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(5,10,20,.75) 0%,transparent 55%)}
+.hero-content{
+  position:relative;z-index:2;height:100%;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 56px 40px;max-width:780px;
 }
-.hero-pattern{
-  position:absolute;inset:0;pointer-events:none;opacity:0.06;
-  background-image:radial-gradient(circle,#000 1px,transparent 1px);
-  background-size:32px 32px;
+.hero-eyebrow{
+  display:flex;align-items:center;gap:14px;margin-bottom:32px;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp var(--dur-slow) .2s var(--ease-out) forwards;
 }
-.hero-blob{
-  position:absolute;border-radius:50%;pointer-events:none;
-  background:rgba(255,255,255,0.15);filter:blur(60px);
+.hero-eyebrow-label{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.hero-eyebrow-sub{font-size:11.5px;color:rgba(255,255,255,.48);letter-spacing:.05em;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.hero-h1{
+  font-family:var(--font-display);
+  font-size:clamp(32px,3.6vw,54px);font-weight:800;
+  line-height:1.06;letter-spacing:-.02em;text-transform:uppercase;
+  color:#fff;margin-bottom:26px;text-shadow:0 2px 24px rgba(0,0,0,.9);
+  opacity:0;transform:translateY(28px);
+  animation:fadeUp .8s .45s var(--ease-out) forwards;
 }
-.blob1{width:500px;height:500px;top:-100px;right:-100px}
-.blob2{width:400px;height:400px;bottom:-80px;left:-80px}
+.hero-sub{
+  font-size:15px;line-height:1.78;color:rgba(255,255,255,.76);
+  max-width:420px;margin-bottom:40px;font-weight:400;
+  text-shadow:0 1px 12px rgba(0,0,0,.9);
+  opacity:0;transform:translateY(24px);
+  animation:fadeUp var(--dur-slow) .85s var(--ease-out) forwards;
+}
+.hero-ctas{
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp var(--dur-slow) 1s var(--ease-out) forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(235,242,255,.97);color:#050A14;
+  border:none;border-radius:99px;
+  padding:12px 12px 12px 26px;font-size:14px;font-weight:700;
+  min-height:48px;box-shadow:0 4px 24px rgba(0,0,0,.4);
+  transition:opacity var(--dur-fast);
+}
+.btn-primary:hover{opacity:.9}
+.btn-primary-icon{width:38px;height:38px;border-radius:50%;background:#050A14;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-ghost{
+  background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2);
+  border-radius:99px;padding:12px 26px;font-size:14px;font-weight:600;
+  min-height:48px;transition:background var(--dur-fast);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.13)}
+.hero-trust{
+  display:flex;gap:24px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp var(--dur-slow) 1.15s var(--ease-out) forwards;
+}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.42);letter-spacing:.04em}
+.trust-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  animation:scrollBob 2s ease-in-out infinite;
+}
+.scroll-cue span{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:.22em;text-transform:uppercase}
 
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,0,0,0.08);
-  border:1px solid rgba(0,0,0,0.1);
-  border-radius:50px;padding:8px 18px;
-  font-size:12px;font-weight:600;color:var(--bk);
-  margin-bottom:36px;letter-spacing:0.3px;
-  animation:fadeUp 0.8s ease both;
-}
-.live-dot{
-  width:7px;height:7px;background:var(--gr);border-radius:50%;
-  box-shadow:0 0 0 2px rgba(22,163,74,0.3);
-  animation:livePulse 2s infinite;
-}
-@keyframes livePulse{0%,100%{box-shadow:0 0 0 2px rgba(22,163,74,0.3)}50%{box-shadow:0 0 0 5px rgba(22,163,74,0.1)}}
-
-.hero-title{
-  font-family:'Fraunces',serif;
-  font-size:clamp(52px,10vw,108px);
-  font-weight:900;
-  line-height:0.92;
-  letter-spacing:-3px;
-  color:var(--bk);
-  margin-bottom:28px;
-  animation:fadeUp 0.8s ease 0.1s both;
-}
-.hero-title .line2{display:block;font-style:italic;color:var(--wh)}
-.hero-title .line3{display:block;font-style:italic;color:rgba(0,0,0,0.35);font-size:0.72em}
-
-.hero-desc{
-  font-size:clamp(16px,2vw,19px);
-  color:rgba(0,0,0,0.55);
-  max-width:480px;line-height:1.7;
-  margin:0 auto 48px;font-weight:400;
-  animation:fadeUp 0.8s ease 0.2s both;
-}
-
-.hero-actions{
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
-  margin-bottom:64px;
-  animation:fadeUp 0.8s ease 0.3s both;
-}
-.btn-dark{
-  background:var(--bk);color:var(--wh);
-  padding:17px 36px;border-radius:50px;
-  font-size:15px;font-weight:700;
-  text-decoration:none;
-  box-shadow:0 8px 24px rgba(0,0,0,0.25);
-  transition:transform 0.2s,background 0.2s;
-}
-.btn-dark:hover{transform:translateY(-2px);background:#2C2415}
-.btn-outline{
-  background:rgba(255,255,255,0.5);color:var(--bk);
-  padding:17px 36px;border-radius:50px;
-  font-size:15px;font-weight:600;
-  text-decoration:none;
-  border:1.5px solid rgba(0,0,0,0.15);
-  transition:background 0.2s,border-color 0.2s;
-  backdrop-filter:blur(8px);
-}
-.btn-outline:hover{background:rgba(255,255,255,0.75);border-color:rgba(0,0,0,0.25)}
-
-.hero-countries{
-  display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp 0.8s ease 0.4s both;
-}
-.hero-countries p{font-size:11px;color:rgba(0,0,0,0.4);letter-spacing:2px;font-weight:600;text-transform:uppercase}
-.flag-row{display:flex;gap:4px}
-.fl{font-size:22px}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(32px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* STATS */
-.stats-strip{
-  background:var(--bk);padding:0 40px;
-  display:flex;align-items:stretch;
-}
-.stat-item{
-  flex:1;padding:28px 20px;text-align:center;
-  border-right:1px solid rgba(255,255,255,0.06);
-}
-.stat-item:last-child{border-right:none}
-.stat-num{
-  font-family:'Fraunces',serif;
-  font-size:36px;font-weight:900;
-  color:var(--y);letter-spacing:-1px;line-height:1;
-  margin-bottom:4px;font-style:italic;
-}
-.stat-label{font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;letter-spacing:0.3px}
+/* TICKER */
+.ticker{background:var(--accent);padding:11px 0;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;animation:tickerSlide 24s linear infinite}
+.ticker-item{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 30px}
+.ticker-sep{opacity:.35}
 
 /* SECTIONS */
-.section{padding:100px 40px}
-.container{max-width:1140px;margin:0 auto}
-.sec-label{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:700;letter-spacing:3px;
-  text-transform:uppercase;color:var(--yd);margin-bottom:16px;
+.section{padding:110px 56px}
+.section-inner{max-width:1160px;margin:0 auto}
+.section-label{
+  display:flex;align-items:center;gap:10px;margin-bottom:8px;
+  font-size:10px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent);
 }
-.sec-label::before{content:'';width:20px;height:1.5px;background:var(--yd);display:block}
-.sec-title{
-  font-family:'Fraunces',serif;
-  font-size:clamp(32px,4vw,52px);
-  font-weight:900;line-height:1.0;
-  letter-spacing:-1.5px;color:var(--bk);
-  margin-bottom:16px;
+.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+.section-h2{
+  font-family:var(--font-display);
+  font-size:clamp(26px,3vw,46px);font-weight:800;
+  letter-spacing:-.025em;text-transform:uppercase;
+  line-height:1.06;color:#fff;margin-bottom:14px;
 }
-.sec-title em{font-style:italic;color:var(--yd)}
-.sec-sub{font-size:17px;color:var(--mid);line-height:1.7;max-width:480px;font-weight:400}
+.section-sub{
+  font-size:15px;line-height:1.75;color:var(--muted);
+  max-width:480px;margin-bottom:64px;font-weight:400;
+}
 
-/* FEATURES */
-.features-sec{background:var(--light)}
-.features-head{margin-bottom:60px}
-.feat-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:16px;
+/* BENTO FEATURES */
+#features{background:var(--bg)}
+.bento-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto auto;
+  gap:14px;
 }
-.feat-card{
-  background:var(--wh);padding:36px 28px;
-  border-radius:20px;
-  text-decoration:none;color:inherit;display:block;
-  border:1.5px solid var(--border);
-  transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
-  position:relative;overflow:hidden;
+.bento-grid .glow-card:nth-child(1){grid-column:span 2}
+.bento-grid .glow-card:last-child{
+  grid-column:1/-1;
+  flex-direction:row;align-items:center;gap:32px;
 }
-.feat-card:hover{
-  border-color:var(--y);
-  transform:translateY(-4px);
-  box-shadow:0 20px 48px rgba(245,184,0,0.15);
+.glow-card{
+  position:relative;border-radius:26px;
+  min-height:240px;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform var(--dur-med) var(--ease-out);
 }
-.feat-num{
-  font-family:'Fraunces',serif;
-  font-size:13px;font-weight:900;color:rgba(245,184,0,0.4);
-  letter-spacing:1px;margin-bottom:20px;font-style:italic;
+.glow-card:hover{transform:translateY(-3px)}
+.glow-card-blob{
+  position:absolute;inset:-2px;border-radius:28px;
+  filter:blur(36px);opacity:.38;pointer-events:none;
+  transition:opacity var(--dur-med);
 }
-.feat-icon{
-  width:52px;height:52px;
-  background:var(--yp);
-  border-radius:14px;
+.glow-card:hover .glow-card-blob{opacity:.56}
+.glow-card-inner{
+  position:relative;z-index:1;flex:1;border-radius:26px;
+  padding:28px 26px 30px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:#111318;border:1.5px solid rgba(255,255,255,.08);
+  transition:border-color var(--dur-med);
+}
+.glow-card:hover .glow-card-inner{border-color:rgba(255,255,255,.17)}
+.bento-grid .glow-card:nth-child(1) .glow-card-inner{min-height:260px}
+.bento-grid .glow-card:last-child .glow-card-inner{
+  flex-direction:row;align-items:center;gap:32px;padding:28px 40px;min-height:160px;
+}
+.bento-grid .glow-card:last-child .card-body{flex:1}
+.card-icon{
+  width:48px;height:48px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  font-size:24px;margin-bottom:20px;
-  transition:background 0.3s;
+  background:rgba(255,255,255,.06);flex-shrink:0;
+  margin-bottom:20px;
 }
-.feat-card:hover .feat-icon{background:var(--y)}
-.feat-title{
-  font-family:'Fraunces',serif;
-  font-size:20px;font-weight:900;color:var(--bk);
-  margin-bottom:10px;
+.bento-grid .glow-card:last-child .card-icon{margin-bottom:0}
+.card-icon svg{width:24px;height:24px;stroke:rgba(255,255,255,.72);flex-shrink:0}
+.card-title{
+  font-family:var(--font-display);color:#fff;font-weight:700;
+  font-size:16px;margin-bottom:9px;letter-spacing:-.02em;line-height:1.25;
 }
-.feat-desc{font-size:14px;color:var(--mid);line-height:1.65;font-weight:400}
-.feat-link{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:20px;font-size:12px;font-weight:700;
-  color:var(--yd);letter-spacing:0.5px;text-transform:uppercase;
+.bento-grid .glow-card:nth-child(1) .card-title{font-size:20px}
+.bento-grid .glow-card:last-child .card-title{font-size:18px}
+.card-desc{color:rgba(155,163,175,1);font-size:13px;line-height:1.68}
+.bento-grid .glow-card:last-child .card-desc{font-size:14px}
+
+/* MEET KIP */
+#mascot{background:var(--bg2);border-top:1px solid var(--border)}
+.mascot-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.mascot-rich-text{font-size:15px;line-height:1.82;color:rgba(255,255,255,.46);margin-bottom:0}
+.mascot-highlight{color:rgba(255,255,255,.86);font-weight:600}
+.mascot-facts{display:flex;flex-direction:column;gap:18px;margin-top:32px}
+.mascot-fact{display:flex;gap:14px;align-items:flex-start}
+.mascot-fact-icon{font-size:16px;flex-shrink:0;margin-top:3px;opacity:.7}
+.mascot-fact-text{font-size:13.5px;color:rgba(255,255,255,.4);line-height:1.7}
+.mascot-visual{display:flex;justify-content:center;align-items:center;position:relative;padding:40px 0}
+.mascot-aura{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(79,195,247,.1) 0%,transparent 70%)}
+.bubble-1{
+  position:absolute;top:14px;right:-10px;
+  background:var(--bg3);border:1px solid rgba(79,195,247,.2);
+  border-radius:16px 16px 16px 4px;padding:11px 15px;max-width:192px;
+  animation:bubbleFloat 2.8s ease-in-out infinite;
 }
+.bubble-1 p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55}
+.bubble-2{
+  position:absolute;bottom:24px;left:-16px;
+  background:rgba(217,93,57,.1);border:1px solid rgba(217,93,57,.18);
+  border-radius:16px 16px 4px 16px;padding:11px 15px;max-width:172px;
+  animation:bubbleFloat2 3s ease-in-out .8s infinite;
+}
+.bubble-2 p{font-size:11.5px;color:rgba(255,255,255,.56);line-height:1.55}
+
+/* STATS */
+.stats{
+  background:var(--bg3);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat-cell{padding:48px 40px;border-right:1px solid var(--border)}
+.stat-cell:last-child{border-right:none}
+.stat-value{font-family:var(--font-display);font-size:clamp(36px,3.6vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+.stat-label{font-size:10.5px;color:rgba(255,255,255,.24);letter-spacing:.12em;text-transform:uppercase}
+
+/* SOCIAL PROOF */
+#social-proof{background:var(--bg2);border-top:1px solid var(--border)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proof-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:20px;padding:28px 26px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.proof-question{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:12px 14px;
+}
+.proof-q-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.22);flex-shrink:0;margin-top:1px}
+.proof-q-text{font-size:13px;color:rgba(255,255,255,.62);line-height:1.6}
+.proof-answer{display:flex;gap:12px;align-items:flex-start;padding:0 2px}
+.proof-kip-dot{width:22px;height:22px;border-radius:50%;background:var(--kip);opacity:.18;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.proof-kip-dot-inner{width:10px;height:10px;border-radius:50%;background:var(--kip);opacity:.8}
+.proof-a-text{font-size:13px;color:rgba(255,255,255,.42);line-height:1.6}
+.proof-a-text strong{color:rgba(255,255,255,.72);font-weight:600}
+.proof-source{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;margin-top:4px}
+.proof-bottom{margin-top:64px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.proof-badge{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:99px;padding:10px 20px;
+  font-size:12px;color:rgba(255,255,255,.38);
+}
+.proof-badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 8px rgba(34,197,94,.5)}
 
 /* CITIES */
-.cities-sec{background:var(--wh);padding:100px 40px}
-.cities-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.city-list{display:flex;flex-direction:column;gap:8px}
-.city-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 24px;border-radius:16px;
-  border:1.5px solid var(--border);
-  cursor:pointer;transition:background 0.2s,border-color 0.2s,transform 0.2s;
-  text-decoration:none;color:inherit;
+#cities{background:var(--bg)}
+.cities-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-left:1px solid var(--border);
 }
-.city-row:hover{background:var(--yp);border-color:var(--y);transform:translateX(4px)}
-.city-left{display:flex;align-items:center;gap:14px}
-.city-emoji{font-size:28px}
-.city-name{font-family:'Fraunces',serif;font-size:18px;font-weight:900;color:var(--bk)}
-.city-tag{font-size:12px;color:var(--mid);margin-top:2px;font-weight:400}
-.city-arrow{font-size:18px;color:var(--border);transition:color 0.2s,transform 0.2s}
-.city-row:hover .city-arrow{color:var(--yd);transform:translateX(4px)}
+.city-cell{
+  padding:24px 22px;
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  transition:background var(--dur-fast);cursor:default;
+}
+.city-cell:hover{background:rgba(255,255,255,.025)}
+.city-emoji{font-size:24px;margin-bottom:14px;display:block}
+.city-name{font-family:var(--font-display);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;margin-bottom:2px}
+.city-state{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:12px}
+.city-rent{font-size:13px;color:rgba(255,255,255,.44);margin-bottom:7px}
+.city-rent strong{color:var(--gold);font-weight:700}
+.city-note{font-size:11px;color:rgba(255,255,255,.2);line-height:1.55}
+.city-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(226,176,43,.3);padding:2px 8px;border-radius:3px}
 
-/* TOOLS */
-.tools-sec{background:var(--light);padding:100px 40px}
-.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px}
-.tool-card{
-  background:var(--wh);border:1.5px solid var(--border);
-  border-radius:18px;padding:24px;
-  display:flex;align-items:center;gap:16px;
-  text-decoration:none;color:inherit;
-  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+/* PRICING */
+#pricing{background:var(--bg2);border-top:1px solid var(--border)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.price-card{background:var(--bg3);border:1px solid var(--border);border-radius:24px;padding:40px 32px;display:flex;flex-direction:column;position:relative}
+.price-card.featured{border:2px solid var(--accent)}
+.featured-badge{position:absolute;top:0;right:28px;transform:translateY(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;border-radius:4px}
+.price-tier{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:18px}
+.price-amount{font-family:var(--font-display);font-size:50px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff;margin-bottom:4px;display:flex;align-items:flex-start}
+.price-currency{font-size:20px;font-weight:400;color:rgba(255,255,255,.28);margin-top:10px;margin-right:2px}
+.price-period{font-size:11.5px;color:rgba(255,255,255,.2);margin-bottom:24px}
+.price-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:22px}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;flex:1}
+.price-feat{display:flex;gap:9px;font-size:13px;color:rgba(255,255,255,.46);align-items:flex-start;line-height:1.5}
+.price-feat-arrow{color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px}
+.price-btn{
+  width:100%;padding:13px;font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  border-radius:8px;border:none;transition:opacity var(--dur-fast),background var(--dur-fast);
+  min-height:44px;
 }
-.tool-card:hover{border-color:var(--y);transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,184,0,0.12)}
-.tool-icon{font-size:28px;flex-shrink:0;width:52px;height:52px;background:var(--yp);border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
-.tool-card:hover .tool-icon{background:var(--y)}
-.tool-name{font-family:'Fraunces',serif;font-size:16px;font-weight:900;color:var(--bk);margin-bottom:4px}
-.tool-desc{font-size:12px;color:var(--mid);line-height:1.5;font-weight:400}
+.price-btn.filled{background:var(--accent);color:#fff}
+.price-btn.filled:hover{opacity:.88}
+.price-btn.outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.15)}
+.price-btn.outline:hover{background:rgba(255,255,255,.06)}
+.price-btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* CTA */
-.cta-sec{
-  background:var(--y);padding:120px 40px;
-  text-align:center;position:relative;overflow:hidden;
+/* CONTACT */
+#contact{background:var(--bg);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px}
+.contact-sub-h{font-family:var(--font-display);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:-.015em;color:#fff;margin-bottom:8px;margin-top:8px}
+.contact-sub-p{font-size:13.5px;color:rgba(255,255,255,.34);margin-bottom:36px;line-height:1.7}
+.form-field{margin-bottom:22px}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:9px}
+.form-input{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding:12px 0;font-size:14px;font-family:var(--font-body);
+  color:#fff;outline:none;transition:border-color var(--dur-fast);
+  min-height:44px;-webkit-appearance:none;
 }
-.cta-pattern{
-  position:absolute;inset:0;pointer-events:none;opacity:0.05;
-  background-image:radial-gradient(circle,#000 1px,transparent 1px);
-  background-size:32px 32px;
+.form-input::placeholder{color:rgba(255,255,255,.2)}
+.form-input:focus{border-color:rgba(79,195,247,.5)}
+select.form-input{cursor:pointer}
+select.form-input option{background:#0D1620}
+textarea.form-input{min-height:88px;resize:none}
+.form-submit{
+  width:100%;padding:14px;background:var(--accent);color:#fff;
+  border:none;border-radius:8px;font-size:12px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  transition:opacity var(--dur-fast),background var(--dur-fast);
+  box-shadow:0 2px 20px rgba(217,93,57,.3);min-height:48px;
 }
-.cta-title{
-  font-family:'Fraunces',serif;
-  font-size:clamp(36px,5vw,68px);
-  font-weight:900;color:var(--bk);
-  line-height:1.0;letter-spacing:-2px;
-  margin-bottom:20px;font-style:italic;
-  position:relative;
-}
-.cta-sub{font-size:18px;color:rgba(0,0,0,0.55);margin-bottom:40px;font-weight:400;position:relative}
-.btn-cta-dark{
-  background:var(--bk);color:var(--wh);
-  padding:18px 44px;border-radius:50px;
-  font-size:16px;font-weight:700;
-  text-decoration:none;display:inline-block;
-  transition:transform 0.2s,background 0.2s;
-  position:relative;
-  box-shadow:0 8px 24px rgba(0,0,0,0.2);
-}
-.btn-cta-dark:hover{transform:translateY(-2px);background:#2C2415}
+.form-submit:hover{opacity:.88}
+.form-submit.ok{background:#16a34a;box-shadow:0 2px 16px rgba(22,163,74,.3)}
 
 /* FOOTER */
-footer{
-  background:var(--bk);
-  padding:60px 40px 40px;
-}
-.footer-inner{
-  max-width:1140px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:start;
-  flex-wrap:wrap;gap:40px;margin-bottom:48px;
-}
-.footer-brand-name{
-  font-family:'Fraunces',serif;font-weight:900;font-size:26px;
-  color:var(--y);font-style:italic;margin-bottom:10px;display:block;
-}
-.footer-brand p{font-size:14px;color:rgba(255,255,255,0.3);max-width:220px;line-height:1.6;font-weight:300}
-.footer-col h4{
-  font-size:11px;font-weight:700;
-  color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:16px;
-}
-.footer-col a{
-  display:block;font-size:14px;color:rgba(255,255,255,0.45);
-  text-decoration:none;margin-bottom:10px;
-  transition:color 0.2s;font-weight:400;
-}
-.footer-col a:hover{color:var(--y)}
-.footer-bottom{
-  max-width:1140px;margin:0 auto;
-  padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:12px;
-}
-.footer-bottom p{font-size:13px;color:rgba(255,255,255,0.2);font-weight:300}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px 36px}
+.footer-inner{max-width:1160px;margin:0 auto}
+.footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.2);max-width:220px;line-height:1.7;margin-top:14px}
+.footer-cols{display:flex;gap:56px;flex-wrap:wrap}
+.footer-col-head{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.16);margin-bottom:16px}
+.footer-col-links{display:flex;flex-direction:column;gap:11px}
+.footer-col-links a{font-size:13px;color:rgba(255,255,255,.32);transition:color var(--dur-fast);padding:2px 0}
+.footer-col-links a:hover{color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;border-top:1px solid var(--border)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.14)}
+.footer-sources{display:flex;gap:18px;flex-wrap:wrap}
+.footer-sources a{font-size:10.5px;color:rgba(255,255,255,.14);transition:color var(--dur-fast)}
+.footer-sources a:hover{color:rgba(255,255,255,.5)}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:0.1s}
-.reveal-delay-2{transition-delay:0.2s}
-.reveal-delay-3{transition-delay:0.3s}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  nav{padding:16px 20px}
+@media(max-width:1024px){
+  .bento-grid{grid-template-columns:repeat(2,1fr)}
+  .bento-grid .glow-card:nth-child(1){grid-column:span 2}
+  .bento-grid .glow-card:last-child{grid-column:span 2}
+  .bento-grid .glow-card:last-child .glow-card-inner{flex-direction:column;padding:28px 26px}
+  .bento-grid .glow-card:last-child .card-icon{margin-bottom:20px}
+  .pricing-grid{grid-template-columns:1fr}
+  .mascot-grid{grid-template-columns:1fr}
+  .mascot-visual{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat-cell:nth-child(2){border-right:none}
+  .proof-grid{grid-template-columns:1fr}
+  .cities-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  nav#nav{padding:0 24px}
   .nav-links{display:none}
-  .menu-btn{display:block}
-  .stats-strip{flex-wrap:wrap;padding:0 20px}
-  .stat-item{min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}
-  .section{padding:72px 20px}
-  .feat-grid{grid-template-columns:1fr 1fr}
-  .cities-layout{grid-template-columns:1fr;gap:40px}
-  .tools-grid{grid-template-columns:1fr 1fr}
-  .cta-sec,.cities-sec,.tools-sec,.features-sec{padding:72px 20px}
-  .footer-inner{flex-direction:column;gap:32px}
-  .footer-bottom{flex-direction:column;text-align:center}
+  .section{padding:72px 24px}
+  .hero-content{padding:72px 24px 32px}
+  .contact-grid{grid-template-columns:1fr;gap:56px}
+  footer{padding:48px 24px 28px}
+  .footer-top{flex-direction:column}
 }
-@media(max-width:600px){
-  .hero-actions{flex-direction:column;align-items:center}
-  .btn-dark,.btn-outline{width:100%;max-width:280px;text-align:center}
-  .tools-grid{grid-template-columns:1fr}
-  .feat-grid{grid-template-columns:1fr}
+@media(max-width:480px){
+  .cities-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat-cell{border-right:none}
 }
 </style>
 </head>
 <body>
 
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMenu()">✕</button>
-  <a href="#features" onclick="toggleMenu()">Explore</a>
-  <a href="#cities" onclick="toggleMenu()">Cities</a>
-  <a href="#tools" onclick="toggleMenu()">Tools</a>
-  <a href="#resume" onclick="toggleMenu()" style="font-family:'Plus Jakarta Sans',sans-serif;font-style:normal;font-size:16px;background:var(--y);padding:14px 32px;border-radius:50px;color:var(--bk)">Free Resume</a>
-</div>
-
-<nav id="navbar">
-  <a href="#" class="logo">
-    <div class="logo-mark">H</div>
-    <span class="logo-name">Howdy</span>
-  </a>
-  <div class="nav-links">
-    <a href="#features">Explore</a>
-    <a href="#cities">Cities</a>
-    <a href="#tools">Tools</a>
-    <a href="#resume" class="nav-btn">Free Resume</a>
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-logo">
+    <svg class="kip-svg" width="34" height="34" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <defs>
+        <radialGradient id="n-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+        <filter id="n-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <circle cx="60" cy="60" r="36" fill="url(#n-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
+      <circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#n-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/>
+      <circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#n-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/>
+      <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#n-gl)"/>
+    </svg>
+    <span class="nav-logo-text">Howdy<span class="nav-logo-dot">.</span></span>
   </div>
-  <button class="menu-btn" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#cities">Cities</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="/chat" class="nav-cta" aria-label="Chat with Kip for free">Chat with Kip — Free</a>
 </nav>
 
-<!-- HERO — YELLOW BACKGROUND -->
-<section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-blob blob1"></div>
-  <div class="hero-blob blob2"></div>
+<!-- HERO -->
+<main>
+<section class="hero" aria-label="Hero">
+  <video autoplay muted loop playsinline aria-hidden="true">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260514_135830_bb6491d1-9b66-4aec-9722-13b4dfe3fb46.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-overlay-lr" aria-hidden="true"></div>
+  <div class="hero-overlay-tb" aria-hidden="true"></div>
+  <div class="hero-content">
 
-  <div class="hero-badge">
-    <span class="live-dot"></span>
-    Built for international students in Australia
-  </div>
-
-  <h1 class="hero-title">
-    Your<br/>
-    <span class="line2">Australia</span>
-    <span class="line3">journey starts here</span>
-  </h1>
-
-  <p class="hero-desc">Jobs, housing, visa guides, uni courses and student discounts — everything you need, all in one place.</p>
-
-  <div class="hero-actions">
-    <a href="#features" class="btn-dark">Explore Howdy →</a>
-    <a href="#resume" class="btn-outline">Free Resume Builder</a>
-  </div>
-
-  <div class="hero-countries">
-    <p>Students from</p>
-    <div class="flag-row">
-      <span class="fl">🇮🇳</span><span class="fl">🇨🇳</span><span class="fl">🇵🇭</span>
-      <span class="fl">🇳🇵</span><span class="fl">🇻🇳</span><span class="fl">🇧🇩</span>
-      <span class="fl">🇰🇷</span><span class="fl">🌍</span>
+    <div class="hero-eyebrow">
+      <svg class="kip-svg" width="58" height="58" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <defs>
+          <radialGradient id="h-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+          <radialGradient id="h-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(79,195,247,.2)"/><stop offset="100%" stop-color="rgba(79,195,247,0)"/></radialGradient>
+          <filter id="h-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="url(#h-aura)"/>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(79,195,247,.15)" stroke-width="1" stroke-dasharray="4 7"/>
+        <circle cx="60" cy="60" r="36" fill="url(#h-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
+        <circle cx="60" cy="22" r="3.5" fill="#4FC3F7" filter="url(#h-gl)" opacity=".9"/>
+        <line x1="60" y1="25" x2="60" y2="32" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        <circle cx="48" cy="57" r="8" fill="#061524"/><circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#h-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="50" cy="55" r="1.1" fill="#fff" opacity=".6"/>
+        <circle cx="72" cy="57" r="8" fill="#061524"/><circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#h-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="74" cy="55" r="1.1" fill="#fff" opacity=".6"/>
+        <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#h-gl)"/>
+        <ellipse cx="40" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
+        <ellipse cx="80" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
+        <circle cx="89" cy="30" r="2.2" fill="#fff" opacity=".9"/>
+        <circle cx="96" cy="40" r="2.7" fill="#fff" opacity=".95"/>
+        <circle cx="91" cy="50" r="1.7" fill="#fff" opacity=".8"/>
+        <circle cx="83" cy="43" r="1.4" fill="#fff" opacity=".7"/>
+      </svg>
+      <div>
+        <span class="hero-eyebrow-label">Meet Kip — Your Australian Life Copilot</span>
+        <span class="hero-eyebrow-sub">Powered by Claude AI · Official .gov.au sources · 8 cities</span>
+      </div>
     </div>
-    <p>and beyond</p>
+
+    <h1 class="hero-h1">Australia's AI<br/>Life Copilot.</h1>
+    <p class="hero-sub">Kip answers every question international students and new migrants have about life in Australia — from day one to permanent residency. Free. On your phone.</p>
+
+    <div class="hero-ctas">
+      <a href="/chat" class="btn-primary">
+        Start for Free
+        <span class="btn-primary-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(235,242,255,.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <button class="btn-ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">See What Kip Does</button>
+    </div>
+
+    <div class="hero-trust" role="list" aria-label="Trust indicators">
+      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Free to start</span>
+      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>No credit card</span>
+      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>8 Australian cities</span>
+      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Official .gov.au sources</span>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
 </section>
 
-<!-- STATS — DARK -->
-<div class="stats-strip">
-  <div class="stat-item reveal"><div class="stat-num">700K+</div><div class="stat-label">International students in AU</div></div>
-  <div class="stat-item reveal reveal-delay-1"><div class="stat-num">50+</div><div class="stat-label">Universities covered</div></div>
-  <div class="stat-item reveal reveal-delay-2"><div class="stat-num">5</div><div class="stat-label">Major city guides</div></div>
-  <div class="stat-item reveal reveal-delay-3"><div class="stat-num">Free</div><div class="stat-label">Always free to use</div></div>
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Visa Navigator <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Job Match AI <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Rental Search <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Cost of Living <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Student Discounts <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Travel Buddy <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Life Copilot <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">WhatsApp AI <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Visa Navigator <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Job Match AI <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Rental Search <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Cost of Living <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Student Discounts <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Travel Buddy <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Life Copilot <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">WhatsApp AI <span class="ticker-sep">·</span></span>
+  </div>
 </div>
 
-<!-- FEATURES — LIGHT -->
-<section class="features-sec section" id="features">
-  <div class="container">
-    <div class="features-head reveal">
-      <div class="sec-label">Everything You Need</div>
-      <h2 class="sec-title">One app.<br/><em>Endless</em> support.</h2>
-      <p class="sec-sub">From landing at the airport to landing your first job — Howdy is with you every step.</p>
-    </div>
-    <div class="feat-grid reveal">
-      <a href="#" class="feat-card"><div class="feat-num">01</div><div class="feat-icon">💼</div><div class="feat-title">Part-Time Jobs</div><p class="feat-desc">Find casual and student-friendly jobs across Australia. Updated daily with roles near your uni.</p><div class="feat-link">Browse Jobs →</div></a>
-      <a href="#" class="feat-card"><div class="feat-num">02</div><div class="feat-icon">🏠</div><div class="feat-title">Accommodation</div><p class="feat-desc">Affordable student housing, homestays and share houses near your university campus.</p><div class="feat-link">Find Housing →</div></a>
-      <a href="#" class="feat-card"><div class="feat-num">03</div><div class="feat-icon">📋</div><div class="feat-title">Visa Guide</div><p class="feat-desc">Student visa rules, work hour limits, renewals — all explained in plain simple language.</p><div class="feat-link">Read Guide →</div></a>
-      <a href="#" class="feat-card"><div class="feat-num">04</div><div class="feat-icon">🎓</div><div class="feat-title">Uni & Courses</div><p class="feat-desc">Trending courses, top universities and how to choose the right study path for your future.</p><div class="feat-link">Explore →</div></a>
-      <a href="#" class="feat-card"><div class="feat-num">05</div><div class="feat-icon">🛍️</div><div class="feat-title">Student Discounts</div><p class="feat-desc">Exclusive deals on food, transport, tech and entertainment — just for students like you.</p><div class="feat-link">See Deals →</div></a>
-      <a href="#" class="feat-card"><div class="feat-num">06</div><div class="feat-icon">🤝</div><div class="feat-title">Community</div><p class="feat-desc">Connect with students from your country, your uni, your city. You are never alone here.</p><div class="feat-link">Join →</div></a>
-    </div>
-  </div>
-</section>
+<!-- FEATURES (BENTO) -->
+<section class="section" id="features" aria-labelledby="features-h">
+  <div class="section-inner">
+    <p class="section-label reveal">8 AI Modules</p>
+    <h2 class="section-h2 reveal reveal-d1" id="features-h">Everything Kip<br/>can do for you.</h2>
+    <p class="section-sub reveal reveal-d2">One AI companion. Every answer grounded in verified Australian sources. Free on your phone.</p>
+    <div class="bento-grid">
 
-<!-- CITIES — WHITE -->
-<section class="cities-sec" id="cities">
-  <div class="container">
-    <div class="cities-layout">
-      <div class="cities-head reveal">
-        <div class="sec-label">City Guides</div>
-        <h2 class="sec-title">Where will<br/>you <em>study?</em></h2>
-        <p class="sec-sub">Explore the best cities in Australia for international students — costs, lifestyle, unis and more.</p>
-        <br/>
-        <a href="#" class="btn-dark" style="display:inline-block">View All Cities →</a>
+      <div class="glow-card reveal reveal-d1">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#FF3D77,#FFB1CE 45%,#FF9D3C)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Life Copilot</p>
+            <p class="card-desc">Ask Kip anything — visa rules, tax, banking, healthcare, work rights. Every answer cited from official .gov.au sources. No hallucination.</p>
+          </div>
+        </div>
       </div>
-      <div class="city-list reveal">
-        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🌉</span><div><div class="city-name">Sydney</div><div class="city-tag">Most popular city for students</div></div></div><span class="city-arrow">→</span></a>
-        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">☕</span><div><div class="city-name">Melbourne</div><div class="city-tag">Best student lifestyle</div></div></div><span class="city-arrow">→</span></a>
-        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">☀️</span><div><div class="city-name">Brisbane</div><div class="city-tag">Most affordable option</div></div></div><span class="city-arrow">→</span></a>
-        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🌊</span><div><div class="city-name">Perth</div><div class="city-tag">Hidden gem of Australia</div></div></div><span class="city-arrow">→</span></a>
-        <a href="#" class="city-row"><div class="city-left"><span class="city-emoji">🍷</span><div><div class="city-name">Adelaide</div><div class="city-tag">Most relaxed city</div></div></div><span class="city-arrow">→</span></a>
+
+      <div class="glow-card reveal reveal-d2">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#e0eafc,#7DD3FC 45%,#06B6D4)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Visa Navigator</p>
+            <p class="card-desc">Explore 485, 189, 190, 491 visa pathways with AI guidance tailored to your degree, city, and situation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d3">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#4361EE,#E0AEFF 45%,#F72585)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Rental Search AI</p>
+            <p class="card-desc">Tell Kip: 2 bed, 1 bath, parking near UNSW — get real listings pulled from Domain, REA &amp; Flatmates with full citations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d1">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#00C9A7,#92FE9D 50%,#00B09B)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Job Match AI</p>
+            <p class="card-desc">Find roles matching your visa. Australian resume tips, interview prep and employer rights — built for international students.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d2">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#F7971E,#FFD200 50%,#F7971E)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Cost of Living</p>
+            <p class="card-desc">Weekly budgets across all 8 cities. Suburb-by-suburb rent, groceries, transport and utilities before you commit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d3">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#A18CD1,#FBC2EB 50%,#A18CD1)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Student Discounts</p>
+            <p class="card-desc">UNiDAYS, Student Beans, cinema, Spotify, gym, transport concessions — every student discount in Australia.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d4">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#43E97B,#38F9D7 45%,#4facfe)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-.9 1 0 .3.1.6.3.8l4.4 4.4c.3.3.4.8.2 1.2l-2 4c-.1.3-.1.6 0 .9.4.8 1.3 1.1 2.1.7l4-2c.4-.2.9-.1 1.2.2l4.4 4.4c.3.3.5.4.8.4.5 0 .9-.4 1-.9z"/></svg>
+          </div>
+          <div>
+            <p class="card-title">Travel Buddy AI</p>
+            <p class="card-desc">Weekend trips, road trips, national parks and budget itineraries across every Australian state. Student-budget friendly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glow-card reveal reveal-d5">
+        <div class="glow-card-blob" style="background:linear-gradient(137deg,#0F9B8E,#38ef7d 50%,#0F9B8E)"></div>
+        <div class="glow-card-inner">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="card-body">
+            <p class="card-title">WhatsApp AI — Available 24/7</p>
+            <p class="card-desc">Ask Kip on WhatsApp any time of day. Same verified answers, no app download needed. Mandarin, Hindi, Vietnamese, Arabic support in Phase 2. Your questions. Your language. Your time zone.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MEET KIP -->
+<section class="section" id="mascot" aria-labelledby="mascot-h">
+  <div class="section-inner">
+    <div class="mascot-grid">
+      <div>
+        <p class="section-label reveal">Your AI Companion</p>
+        <h2 class="section-h2 reveal reveal-d1" id="mascot-h">Meet Kip.</h2>
+        <p class="mascot-rich-text reveal reveal-d2">
+          Kip is short for <span class="mascot-highlight">Navigator</span> — your trusted AI companion for Australian life. Warm, knowledgeable, and always on your side. Not a chatbot. Not a search engine. A companion.
+        </p>
+        <div class="mascot-facts reveal reveal-d3">
+          <div class="mascot-fact">
+            <span class="mascot-fact-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            </span>
+            <span class="mascot-fact-text">Kip always knows the way — through visas, jobs, housing and beyond.</span>
+          </div>
+          <div class="mascot-fact">
+            <span class="mascot-fact-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+            <span class="mascot-fact-text">Inspired by the Southern Cross — the constellation that guided people to Australia for centuries.</span>
+          </div>
+          <div class="mascot-fact">
+            <span class="mascot-fact-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </span>
+            <span class="mascot-fact-text">Lives on your phone. Available the moment you land in Australia.</span>
+          </div>
+        </div>
+      </div>
+      <div class="mascot-visual reveal reveal-d2" aria-hidden="true">
+        <div class="mascot-aura"></div>
+        <div class="kip-svg" style="animation:kipFloat 3.5s ease-in-out infinite">
+          <svg width="180" height="180" viewBox="0 0 120 120" fill="none">
+            <defs>
+              <radialGradient id="m-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+              <radialGradient id="m-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(79,195,247,.2)"/><stop offset="100%" stop-color="rgba(79,195,247,0)"/></radialGradient>
+              <filter id="m-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <circle cx="60" cy="60" r="56" fill="url(#m-aura)"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(79,195,247,.15)" stroke-width="1" stroke-dasharray="4 7"/>
+            <circle cx="60" cy="60" r="36" fill="url(#m-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
+            <circle cx="60" cy="22" r="3.5" fill="#4FC3F7" filter="url(#m-gl)" opacity=".9"/>
+            <line x1="60" y1="25" x2="60" y2="32" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+            <circle cx="48" cy="57" r="8" fill="#061524"/><circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#m-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="50" cy="55" r="1.1" fill="#fff" opacity=".6"/>
+            <circle cx="72" cy="57" r="8" fill="#061524"/><circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#m-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="74" cy="55" r="1.1" fill="#fff" opacity=".6"/>
+            <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#m-gl)"/>
+            <ellipse cx="40" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
+            <ellipse cx="80" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
+            <circle cx="89" cy="30" r="2.2" fill="#fff" opacity=".9"/>
+            <circle cx="96" cy="40" r="2.7" fill="#fff" opacity=".95"/>
+            <circle cx="91" cy="50" r="1.7" fill="#fff" opacity=".8"/>
+            <circle cx="83" cy="43" r="1.4" fill="#fff" opacity=".7"/>
+            <circle cx="93" cy="39" r="1" fill="#fff" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="bubble-1"><p>G'day! 👋 How can I help you today?</p></div>
+        <div class="bubble-2"><p>Kip found 3 listings near UNSW 🏠</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TOOLS — LIGHT -->
-<section class="tools-sec" id="tools">
-  <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Recommended Tools</div>
-      <h2 class="sec-title">Apps every<br/><em>student needs</em></h2>
-      <p class="sec-sub">Howdy-recommended tools to make your life in Australia easier and cheaper from day one.</p>
+<!-- STATS -->
+<div class="stats" role="list" aria-label="Key statistics">
+  <div class="stat-cell reveal" role="listitem">
+    <p class="stat-value" style="color:var(--accent)">750K+</p>
+    <p class="stat-label">Int'l students in AU</p>
+  </div>
+  <div class="stat-cell reveal reveal-d1" role="listitem">
+    <p class="stat-value" style="color:var(--gold)">8</p>
+    <p class="stat-label">Australian cities</p>
+  </div>
+  <div class="stat-cell reveal reveal-d2" role="listitem">
+    <p class="stat-value" style="color:var(--accent)">15+</p>
+    <p class="stat-label">Official sources</p>
+  </div>
+  <div class="stat-cell reveal reveal-d3" role="listitem">
+    <p class="stat-value" style="color:var(--gold)">Free</p>
+    <p class="stat-label">To get started</p>
+  </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<section class="section" id="social-proof" aria-labelledby="proof-h">
+  <div class="section-inner">
+    <p class="section-label reveal">Questions Students Ask Kip</p>
+    <h2 class="section-h2 reveal reveal-d1" id="proof-h">Real questions.<br/>Verified answers.</h2>
+    <p class="section-sub reveal reveal-d2">These are the questions international students search the web for hours trying to answer. Kip answers them instantly, with sources.</p>
+    <div class="proof-grid">
+
+      <div class="proof-card reveal reveal-d1">
+        <div class="proof-question">
+          <span class="proof-q-label">Q</span>
+          <span class="proof-q-text">"Can I work more than 48 hours per fortnight on a student visa during semester?"</span>
+        </div>
+        <div class="proof-answer">
+          <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
+          <div>
+            <p class="proof-a-text">No. Student visa holders can work a maximum of <strong>48 hours per fortnight</strong> during semester. Unlimited during scheduled course breaks. Breaching this can affect your visa.</p>
+            <p class="proof-source">Source: homeaffairs.gov.au</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proof-card reveal reveal-d2">
+        <div class="proof-question">
+          <span class="proof-q-label">Q</span>
+          <span class="proof-q-text">"How do I apply for a Tax File Number in Australia? Do I need one before starting work?"</span>
+        </div>
+        <div class="proof-answer">
+          <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
+          <div>
+            <p class="proof-a-text">Apply online at <strong>ato.gov.au</strong> using your ImmiAccount login. You don't need one before starting but without it, your employer must withhold <strong>47% tax</strong>. Takes 28 days to arrive.</p>
+            <p class="proof-source">Source: ato.gov.au</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proof-card reveal reveal-d3">
+        <div class="proof-question">
+          <span class="proof-q-label">Q</span>
+          <span class="proof-q-text">"What is the minimum wage in Australia and am I entitled to it on a student visa?"</span>
+        </div>
+        <div class="proof-answer">
+          <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
+          <div>
+            <p class="proof-a-text">Yes. The national minimum wage is <strong>$24.10/hr</strong> (2024–25). All visa holders working legally are entitled to Fair Work protections. Report underpayment anonymously at fairwork.gov.au.</p>
+            <p class="proof-source">Source: fairwork.gov.au</p>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="tools-grid">
-      <a href="#" class="tool-card reveal"><div class="tool-icon">💸</div><div><div class="tool-name">Wise</div><p class="tool-desc">Send money home with the best exchange rates. No hidden fees.</p></div></a>
-      <a href="#" class="tool-card reveal reveal-delay-1"><div class="tool-icon">✈️</div><div><div class="tool-name">Skyscanner</div><p class="tool-desc">Find the cheapest flights back home or around Australia.</p></div></a>
-      <a href="#" class="tool-card reveal reveal-delay-2"><div class="tool-icon">📚</div><div><div class="tool-name">Coursera</div><p class="tool-desc">Boost your skills with free and affordable online courses.</p></div></a>
-      <a href="#" class="tool-card reveal"><div class="tool-icon">🏨</div><div><div class="tool-name">Booking.com</div><p class="tool-desc">Best deals on accommodation when exploring Australia.</p></div></a>
-      <a href="#" class="tool-card reveal reveal-delay-1"><div class="tool-icon">🎨</div><div><div class="tool-name">Canva</div><p class="tool-desc">Design assignments, resumes and presentations for free.</p></div></a>
-      <a href="#" class="tool-card reveal reveal-delay-2"><div class="tool-icon">🛒</div><div><div class="tool-name">Amazon AU</div><p class="tool-desc">Student essentials delivered fast. Set up your new home.</p></div></a>
+    <div class="proof-bottom reveal reveal-d3">
+      <div class="proof-badge">
+        <span class="proof-badge-dot"></span>
+        Waitlist open — join 200+ early students
+      </div>
+      <div class="proof-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        All answers verified against official .gov.au sources
+      </div>
+      <div class="proof-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        No app download required
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA — YELLOW -->
-<section class="cta-sec" id="resume">
-  <div class="cta-pattern"></div>
-  <div class="container reveal">
-    <h2 class="cta-title">Build your Australian<br/>resume for free</h2>
-    <p class="cta-sub">AI-powered. Australian format. Designed to get you hired.</p>
-    <a href="#" class="btn-cta-dark">Try Free Resume Builder →</a>
+<!-- CITIES -->
+<section class="section" id="cities" aria-labelledby="cities-h">
+  <div class="section-inner">
+    <p class="section-label reveal">City Intelligence</p>
+    <h2 class="section-h2 reveal reveal-d1" id="cities-h">Every city.<br/>Kip knows them all.</h2>
+    <p class="section-sub reveal reveal-d2">Transport cards, student suburbs, rent ranges and weekly budgets for every major Australian city.</p>
+    <div class="cities-grid" role="list">
+      <div class="city-cell reveal reveal-d1" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🌉</span>
+        <p class="city-name">Sydney</p><p class="city-state">NSW</p>
+        <p class="city-rent">Share room <strong>$300–420</strong>/wk</p>
+        <p class="city-note">Opal · 50% off · UNSW USyd UTS</p>
+      </div>
+      <div class="city-cell reveal reveal-d2" role="listitem">
+        <span class="city-emoji" aria-hidden="true">☕</span>
+        <p class="city-name">Melbourne</p><p class="city-state">VIC</p>
+        <p class="city-rent">Share room <strong>$260–360</strong>/wk</p>
+        <p class="city-note">myki · Free tram · UniMelb RMIT</p>
+      </div>
+      <div class="city-cell reveal reveal-d3" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🌞</span>
+        <p class="city-name">Brisbane</p><p class="city-state">QLD</p>
+        <p class="city-rent">Share room <strong>$220–310</strong>/wk</p>
+        <span class="city-badge">2032 Olympics 🏅</span>
+      </div>
+      <div class="city-cell reveal reveal-d4" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🌊</span>
+        <p class="city-name">Perth</p><p class="city-state">WA</p>
+        <p class="city-rent">Share room <strong>$240–340</strong>/wk</p>
+        <p class="city-note">SmartRider · Free CAT · UWA</p>
+      </div>
+      <div class="city-cell reveal reveal-d1" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🏛️</span>
+        <p class="city-name">Adelaide</p><p class="city-state">SA</p>
+        <p class="city-rent">Share room <strong>$180–280</strong>/wk</p>
+        <p class="city-note">Most affordable capital</p>
+      </div>
+      <div class="city-cell reveal reveal-d2" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🌿</span>
+        <p class="city-name">Darwin</p><p class="city-state">NT</p>
+        <p class="city-rent">Share room <strong>$200–300</strong>/wk</p>
+        <p class="city-note">Tropical · CDU</p>
+      </div>
+      <div class="city-cell reveal reveal-d3" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🏔️</span>
+        <p class="city-name">Canberra</p><p class="city-state">ACT</p>
+        <p class="city-rent">Share room <strong>$220–320</strong>/wk</p>
+        <p class="city-note">Light rail · ANU · UC</p>
+      </div>
+      <div class="city-cell reveal reveal-d4" role="listitem">
+        <span class="city-emoji" aria-hidden="true">🧊</span>
+        <p class="city-name">Hobart</p><p class="city-state">TAS</p>
+        <p class="city-rent">Share room <strong>$160–280</strong>/wk</p>
+        <p class="city-note">Cheapest capital · UTAS</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER — DARK -->
-<footer>
+<!-- PRICING -->
+<section class="section" id="pricing" aria-labelledby="pricing-h">
+  <div class="section-inner">
+    <p class="section-label reveal">Pricing</p>
+    <h2 class="section-h2 reveal reveal-d1" id="pricing-h">Start Free. Always.</h2>
+    <p class="section-sub reveal reveal-d2">Full access free during launch. Pro at $9 AUD/month. Enterprise for universities.</p>
+    <div class="pricing-grid">
+
+      <div class="price-card featured reveal reveal-d1">
+        <div class="featured-badge" aria-label="Live now">Live Now</div>
+        <p class="price-tier">Free</p>
+        <div class="price-amount"><span class="price-currency" aria-hidden="true">$</span><span>0</span></div>
+        <p class="price-period">Forever during launch</p>
+        <div class="price-divider"></div>
+        <ul class="price-feats" aria-label="Free plan features">
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Life Copilot (unlimited)</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>All 8 City Guides</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Visa Navigator</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Rental Search AI</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Cost of Living Optimizer</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Student Discount Engine</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Travel Buddy AI</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Q&amp;A Library</li>
+        </ul>
+        <a href="/chat" class="price-btn filled" style="text-align:center;display:block">Chat with Kip — Free</a>
+      </div>
+
+      <div class="price-card reveal reveal-d2">
+        <p class="price-tier">Pro</p>
+        <div class="price-amount"><span class="price-currency" aria-hidden="true">$</span><span>9</span></div>
+        <p class="price-period">AUD/month · Coming soon</p>
+        <div class="price-divider"></div>
+        <ul class="price-feats" aria-label="Pro plan features">
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Everything in Free</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Job Match AI</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>WhatsApp AI Assistant</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>PDF exports</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Priority support</li>
+        </ul>
+        <button class="price-btn outline" disabled aria-disabled="true">Coming Soon</button>
+      </div>
+
+      <div class="price-card reveal reveal-d3">
+        <p class="price-tier">Enterprise</p>
+        <div class="price-amount" style="font-size:36px;align-items:center;letter-spacing:-.03em"><span>Custom</span></div>
+        <p class="price-period">Universities &amp; institutions</p>
+        <div class="price-divider"></div>
+        <ul class="price-feats" aria-label="Enterprise plan features">
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Everything in Pro</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>University branding</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Bulk accounts</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Admin dashboard</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Custom knowledge base</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>API access</li>
+          <li class="price-feat"><span class="price-feat-arrow" aria-hidden="true">→</span>Account manager</li>
+        </ul>
+        <button class="price-btn outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Us</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / WAITLIST -->
+<section class="section" id="contact" aria-labelledby="contact-h">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="section-label">Early Access</p>
+        <h3 class="contact-sub-h" id="contact-h">Join the Waitlist</h3>
+        <p class="contact-sub-p">Free forever during launch. Be first when Kip goes live with Pro features.</p>
+        <form id="waitlistForm" novalidate>
+          <div class="form-field">
+            <label class="form-label" for="w-name">Full Name</label>
+            <input type="text" id="w-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="w-email">Email</label>
+            <input type="email" id="w-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/>
+          </div>
+          <div class="form-field" style="margin-bottom:28px">
+            <label class="form-label" for="w-module">Most Interested In</label>
+            <select id="w-module" name="module" class="form-input">
+              <option value="">Select a module</option>
+              <option>Life Copilot</option>
+              <option>Visa Navigator</option>
+              <option>Rental Search AI</option>
+              <option>Job Match AI</option>
+              <option>Cost of Living</option>
+              <option>All of them!</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit" id="waitlist-btn">Join Waitlist — Free</button>
+        </form>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <p class="section-label">Get In Touch</p>
+        <h3 class="contact-sub-h">Contact Us</h3>
+        <p class="contact-sub-p">Universities, partners, media or just want to say g'day.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-field">
+            <label class="form-label" for="c-name">Full Name</label>
+            <input type="text" id="c-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="c-email">Email</label>
+            <input type="email" id="c-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/>
+          </div>
+          <div class="form-field" style="margin-bottom:28px">
+            <label class="form-label" for="c-msg">Message</label>
+            <textarea id="c-msg" name="message" placeholder="Tell us what's on your mind..." class="form-input" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="contact-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-brand-name">Howdy</span>
-      <p>Your one-stop platform for international students in Australia. From landing to graduating.</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <svg width="34" height="34" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+            <defs>
+              <radialGradient id="f-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
+              <filter id="f-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <circle cx="60" cy="60" r="36" fill="url(#f-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
+            <circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#f-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".9"/>
+            <circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#f-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".9"/>
+            <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#f-gl)"/>
+          </svg>
+          <span class="nav-logo-text">Howdy<span class="nav-logo-dot">.</span></span>
+        </div>
+        <p>Australia's AI Life Copilot. Powered by Claude AI. Built for international students &amp; migrants.</p>
+      </div>
+      <div class="footer-cols">
+        <nav aria-label="Platform links">
+          <p class="footer-col-head">Platform</p>
+          <div class="footer-col-links">
+            <a href="/chat">Chat with Kip</a>
+            <a href="#features">Features</a>
+            <a href="#cities">City Guides</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Waitlist</a>
+          </div>
+        </nav>
+        <nav aria-label="Resource links">
+          <p class="footer-col-head">Resources</p>
+          <div class="footer-col-links">
+            <a href="https://homeaffairs.gov.au" target="_blank" rel="noopener">Visa Info</a>
+            <a href="https://fairwork.gov.au" target="_blank" rel="noopener">Work Rights</a>
+            <a href="https://ato.gov.au" target="_blank" rel="noopener">Tax &amp; TFN</a>
+            <a href="https://domain.com.au" target="_blank" rel="noopener">Rental Search</a>
+          </div>
+        </nav>
+        <nav aria-label="Company links">
+          <p class="footer-col-head">Company</p>
+          <div class="footer-col-links">
+            <a href="#mascot">About Kip</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </nav>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Platform</h4>
-      <a href="#">Part-Time Jobs</a>
-      <a href="#">Accommodation</a>
-      <a href="#">Student Discounts</a>
-      <a href="#">Resume Builder</a>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Howdy AI Pty Ltd · All rights reserved</p>
+      <div class="footer-sources">
+        <a href="https://ato.gov.au" target="_blank" rel="noopener noreferrer">ato.gov.au</a>
+        <a href="https://homeaffairs.gov.au" target="_blank" rel="noopener noreferrer">homeaffairs.gov.au</a>
+        <a href="https://fairwork.gov.au" target="_blank" rel="noopener noreferrer">fairwork.gov.au</a>
+        <a href="https://domain.com.au" target="_blank" rel="noopener noreferrer">domain.com.au</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Guides</h4>
-      <a href="#">Visa Guide</a>
-      <a href="#">Uni & Courses</a>
-      <a href="#">City Guides</a>
-      <a href="#">Community</a>
-    </div>
-    <div class="footer-col">
-      <h4>Connect</h4>
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">Partner With Us</a>
-      <a href="#">Contact</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Howdy. Made with ❤️ for international students in Australia.</p>
-    <p style="color:rgba(255,255,255,0.15)">howdy.com.au</p>
   </div>
 </footer>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-reveals.forEach(r => observer.observe(r));
-
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
+// Nav scroll glass
+const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  nav.style.padding = window.scrollY > 50 ? '12px 40px' : '18px 40px';
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+// Waitlist form — posts to /api/subscribe
+document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('waitlist-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('w-name').value,
+        email: document.getElementById('w-email').value,
+        module: document.getElementById('w-module').value
+      })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      btn.textContent = "✓ You're on the list!";
+      btn.classList.add('ok');
+    } else {
+      btn.textContent = data.error || 'Something went wrong. Try again.';
+      btn.disabled = false;
+    }
+  } catch {
+    btn.textContent = 'Network error. Try again.';
+    btn.disabled = false;
+  }
+});
+
+// Contact form (MVP: simulated — wire to email service in production)
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('contact-btn');
+  btn.textContent = '✓ Message received!';
+  btn.classList.add('ok');
+  btn.disabled = true;
 });
 </script>
 </body>
