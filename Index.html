@@ -7,331 +7,242 @@
 <meta name="description" content="Kip answers every question international students and new migrants have about life in Australia. Free. On your phone."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07090F;
-  --bg2:#0C101C;
-  --bg3:#111827;
-  --surface:#161C2D;
-  --accent:#6366F1;
-  --accent-hover:#818CF8;
-  --accent-glow:rgba(99,102,241,0.35);
-  --gold:#818CF8;
-  --kip:#4FC3F7;
-  --white:#fff;
-  --text-primary:#F1F5F9;
-  --text-secondary:rgba(241,245,249,0.65);
-  --text-muted:rgba(241,245,249,0.38);
-  --muted:rgba(241,245,249,0.42);
-  --subtle:rgba(255,255,255,0.05);
-  --border:rgba(255,255,255,0.07);
-  --font-display:'Be Vietnam Pro',sans-serif;
-  --font-body:'Noto Sans',sans-serif;
-  --ease-out:cubic-bezier(0.22,1,0.36,1);
-  --dur-fast:150ms;
-  --dur-med:250ms;
-  --dur-slow:700ms;
+  --bg:#07080F;--bg2:#0B0D1B;--bg3:#101326;--surface:#141830;
+  --accent:#7C3AED;--accent-hover:#8B5CF6;--accent-glow:rgba(124,58,237,.4);
+  --kip:#38BDF8;--kip-glow:rgba(56,189,248,.3);
+  --gold:#F59E0B;--pink:#F472B6;--green:#34D399;
+  --white:#fff;--text-primary:#F0F4FF;--text-secondary:rgba(240,244,255,.65);
+  --text-muted:rgba(240,244,255,.38);--muted:rgba(240,244,255,.42);
+  --subtle:rgba(255,255,255,.05);--border:rgba(255,255,255,.08);
+  --font-display:'Be Vietnam Pro',sans-serif;--font-body:'Noto Sans',sans-serif;
+  --ease-out:cubic-bezier(.22,1,.36,1);--dur-fast:150ms;--dur-med:250ms;--dur-slow:700ms;
+  --r:28px;
 }
 [data-theme="light"]{
-  --bg:#F8FAFC;
-  --bg2:#F1F5F9;
-  --bg3:#E8EEF6;
-  --surface:#FFFFFF;
-  --accent:#4F46E5;
-  --accent-hover:#4338CA;
-  --accent-glow:rgba(79,70,229,0.2);
-  --gold:#6366F1;
-  --kip:#0284C7;
-  --white:#0F172A;
-  --text-primary:#0F172A;
-  --text-secondary:rgba(15,23,42,0.68);
-  --text-muted:rgba(15,23,42,0.42);
-  --muted:rgba(15,23,42,0.52);
-  --subtle:rgba(0,0,0,0.04);
-  --border:rgba(0,0,0,0.08);
+  --bg:#F5F3FF;--bg2:#EDE9FE;--bg3:#E9E5FF;--surface:#fff;
+  --accent:#6D28D9;--accent-hover:#5B21B6;--accent-glow:rgba(109,40,217,.2);
+  --kip:#0284C7;--kip-glow:rgba(2,132,199,.2);
+  --gold:#D97706;--pink:#DB2777;
+  --white:#0F0B2E;--text-primary:#0F0B2E;--text-secondary:rgba(15,11,46,.68);
+  --text-muted:rgba(15,11,46,.42);--muted:rgba(15,11,46,.52);
+  --subtle:rgba(0,0,0,.04);--border:rgba(0,0,0,.08);
 }
-[data-theme="light"] body{color:#0F172A}
-[data-theme="light"] nav#nav.scrolled{background:rgba(248,250,252,.97);border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .nav-links a{color:rgba(15,23,42,.6)}
-[data-theme="light"] .nav-links a:hover{color:#0F172A;background:rgba(0,0,0,.05)}
-[data-theme="light"] .nav-logo-text{color:#0F172A}
-[data-theme="light"] .hero-overlay-lr{background:linear-gradient(to right,rgba(248,250,252,.95) 0%,rgba(248,250,252,.68) 52%,rgba(248,250,252,.18) 100%)}
-[data-theme="light"] .hero-overlay-tb{background:linear-gradient(to top,rgba(248,250,252,.82) 0%,transparent 55%)}
-[data-theme="light"] .hero-h1{color:#0F172A;text-shadow:none}
-[data-theme="light"] .hero-sub{color:rgba(15,23,42,.7);text-shadow:none}
-[data-theme="light"] .hero-eyebrow-sub{color:rgba(15,23,42,.45);text-shadow:none}
-[data-theme="light"] .trust-item{color:rgba(15,23,42,.48)}
-[data-theme="light"] .scroll-cue span{color:rgba(15,23,42,.28)}
-[data-theme="light"] .section-h2{color:#0F172A}
-[data-theme="light"] .section-sub{color:rgba(15,23,42,.58)}
-[data-theme="light"] .glow-card-inner{background:#FFFFFF;border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .glow-card:hover .glow-card-inner{border-color:rgba(99,102,241,.25)}
-[data-theme="light"] .card-title{color:#0F172A}
-[data-theme="light"] .card-desc{color:rgba(15,23,42,.58)}
-[data-theme="light"] .mascot-rich-text{color:rgba(15,23,42,.58)}
-[data-theme="light"] .mascot-highlight{color:#0F172A}
-[data-theme="light"] .mascot-fact-text{color:rgba(15,23,42,.48)}
-[data-theme="light"] .mascot-aura{background:radial-gradient(circle,rgba(79,70,229,.08) 0%,transparent 70%)}
-[data-theme="light"] .bubble-1{background:#FFFFFF;border-color:rgba(79,195,247,.22)}
-[data-theme="light"] .bubble-1 p{color:rgba(15,23,42,.75)}
-[data-theme="light"] .bubble-2{background:rgba(99,102,241,.06);border-color:rgba(99,102,241,.18)}
-[data-theme="light"] .bubble-2 p{color:rgba(15,23,42,.58)}
-[data-theme="light"] .stat-label{color:rgba(15,23,42,.38)}
-[data-theme="light"] .proof-card{background:#FFFFFF;border-color:rgba(0,0,0,.07)}
+[data-theme="light"] body{color:#0F0B2E}
+[data-theme="light"] nav#nav.scrolled{background:rgba(245,243,255,.97);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .nav-links a{color:rgba(15,11,46,.6)}
+[data-theme="light"] .nav-links a:hover{color:#0F0B2E;background:rgba(0,0,0,.05)}
+[data-theme="light"] .nav-logo-text{color:#0F0B2E}
+[data-theme="light"] .hero-overlay-lr{background:linear-gradient(to right,rgba(245,243,255,.96) 0%,rgba(245,243,255,.72) 55%,rgba(245,243,255,.22) 100%)}
+[data-theme="light"] .hero-overlay-tb{background:linear-gradient(to top,rgba(245,243,255,.85) 0%,transparent 60%)}
+[data-theme="light"] .hero-h1{color:#0F0B2E;text-shadow:none}
+[data-theme="light"] .hero-sub{color:rgba(15,11,46,.72);text-shadow:none}
+[data-theme="light"] .hero-eyebrow-sub{color:rgba(15,11,46,.45);text-shadow:none}
+[data-theme="light"] .trust-item{color:rgba(15,11,46,.48)}
+[data-theme="light"] .scroll-cue span{color:rgba(15,11,46,.28)}
+[data-theme="light"] .section-h2{color:#0F0B2E}
+[data-theme="light"] .section-sub{color:rgba(15,11,46,.58)}
+[data-theme="light"] .glow-card-inner{background:#fff;border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .glow-card:hover .glow-card-inner{border-color:rgba(124,58,237,.25)}
+[data-theme="light"] .card-title{color:#0F0B2E}
+[data-theme="light"] .card-desc{color:rgba(15,11,46,.58)}
+[data-theme="light"] .mascot-rich-text{color:rgba(15,11,46,.58)}
+[data-theme="light"] .mascot-highlight{color:#0F0B2E}
+[data-theme="light"] .mascot-fact-text{color:rgba(15,11,46,.48)}
+[data-theme="light"] .bubble-1{background:#fff;border-color:rgba(56,189,248,.25)}
+[data-theme="light"] .bubble-1 p{color:rgba(15,11,46,.75)}
+[data-theme="light"] .bubble-2{background:rgba(109,40,217,.06);border-color:rgba(109,40,217,.2)}
+[data-theme="light"] .bubble-2 p{color:rgba(15,11,46,.58)}
+[data-theme="light"] .stat-label{color:rgba(15,11,46,.38)}
+[data-theme="light"] .proof-card{background:#fff;border-color:rgba(0,0,0,.07)}
 [data-theme="light"] .proof-question{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.06)}
-[data-theme="light"] .proof-q-label{color:rgba(15,23,42,.28)}
-[data-theme="light"] .proof-q-text{color:rgba(15,23,42,.68)}
-[data-theme="light"] .proof-a-text{color:rgba(15,23,42,.55)}
-[data-theme="light"] .proof-a-text strong{color:#0F172A;font-weight:600}
-[data-theme="light"] .proof-source{color:rgba(15,23,42,.32)}
-[data-theme="light"] .proof-badge{background:#FFFFFF;border-color:rgba(0,0,0,.08);color:rgba(15,23,42,.48)}
-[data-theme="light"] .cities-grid{border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .city-cell{border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .city-name{color:#0F172A}
-[data-theme="light"] .city-state{color:rgba(15,23,42,.28)}
-[data-theme="light"] .city-rent{color:rgba(15,23,42,.52)}
-[data-theme="light"] .city-note{color:rgba(15,23,42,.32)}
-[data-theme="light"] .city-cell:hover{background:rgba(0,0,0,.025)}
-[data-theme="light"] .price-card{background:#FFFFFF;border-color:rgba(0,0,0,.09)}
+[data-theme="light"] .proof-q-label{color:rgba(15,11,46,.28)}
+[data-theme="light"] .proof-q-text{color:rgba(15,11,46,.68)}
+[data-theme="light"] .proof-a-text{color:rgba(15,11,46,.55)}
+[data-theme="light"] .proof-a-text strong{color:#0F0B2E;font-weight:600}
+[data-theme="light"] .proof-source{color:rgba(15,11,46,.32)}
+[data-theme="light"] .proof-badge{background:#fff;border-color:rgba(0,0,0,.08);color:rgba(15,11,46,.48)}
+[data-theme="light"] .cities-grid,.city-cell{border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .city-name{color:#0F0B2E}
+[data-theme="light"] .city-state{color:rgba(15,11,46,.28)}
+[data-theme="light"] .city-rent{color:rgba(15,11,46,.52)}
+[data-theme="light"] .city-note{color:rgba(15,11,46,.32)}
+[data-theme="light"] .city-cell:hover{background:rgba(109,40,217,.04)}
+[data-theme="light"] .price-card{background:#fff;border-color:rgba(0,0,0,.09)}
 [data-theme="light"] .price-card.featured{border-color:var(--accent)}
-[data-theme="light"] .price-tier{color:rgba(15,23,42,.32)}
-[data-theme="light"] .price-amount{color:#0F172A}
-[data-theme="light"] .price-currency{color:rgba(15,23,42,.32)}
-[data-theme="light"] .price-period{color:rgba(15,23,42,.38)}
+[data-theme="light"] .price-tier{color:rgba(15,11,46,.32)}
+[data-theme="light"] .price-amount{color:#0F0B2E}
+[data-theme="light"] .price-currency,.price-period{color:rgba(15,11,46,.32)}
 [data-theme="light"] .price-divider{background:rgba(0,0,0,.07)}
-[data-theme="light"] .price-feat{color:rgba(15,23,42,.55)}
-[data-theme="light"] .price-btn.outline{color:#0F172A;border-color:rgba(0,0,0,.15)}
+[data-theme="light"] .price-feat{color:rgba(15,11,46,.55)}
+[data-theme="light"] .price-btn.outline{color:#0F0B2E;border-color:rgba(0,0,0,.15)}
 [data-theme="light"] .price-btn.outline:hover{background:rgba(0,0,0,.04)}
-[data-theme="light"] .contact-sub-h{color:#0F172A}
-[data-theme="light"] .contact-sub-p{color:rgba(15,23,42,.48)}
-[data-theme="light"] .form-label{color:rgba(15,23,42,.38)}
-[data-theme="light"] .form-input{color:#0F172A;border-color:rgba(0,0,0,.14)}
-[data-theme="light"] .form-input::placeholder{color:rgba(15,23,42,.28)}
-[data-theme="light"] select.form-input option{background:#F1F5F9;color:#0F172A}
-[data-theme="light"] .footer-brand p{color:rgba(15,23,42,.38)}
-[data-theme="light"] .footer-col-head{color:rgba(15,23,42,.28)}
-[data-theme="light"] .footer-col-links a{color:rgba(15,23,42,.42)}
-[data-theme="light"] .footer-col-links a:hover{color:#0F172A}
+[data-theme="light"] .contact-sub-h{color:#0F0B2E}
+[data-theme="light"] .contact-sub-p{color:rgba(15,11,46,.48)}
+[data-theme="light"] .form-label{color:rgba(15,11,46,.38)}
+[data-theme="light"] .form-input{color:#0F0B2E;border-color:rgba(0,0,0,.14)}
+[data-theme="light"] .form-input::placeholder{color:rgba(15,11,46,.28)}
+[data-theme="light"] select.form-input option{background:#EDE9FE;color:#0F0B2E}
+[data-theme="light"] .footer-brand p{color:rgba(15,11,46,.38)}
+[data-theme="light"] .footer-col-head{color:rgba(15,11,46,.28)}
+[data-theme="light"] .footer-col-links a{color:rgba(15,11,46,.42)}
+[data-theme="light"] .footer-col-links a:hover{color:#0F0B2E}
 [data-theme="light"] .footer-bottom{border-color:rgba(0,0,0,.08)}
-[data-theme="light"] .footer-copy{color:rgba(15,23,42,.28)}
-[data-theme="light"] .footer-sources a{color:rgba(15,23,42,.28)}
-[data-theme="light"] .footer-sources a:hover{color:rgba(15,23,42,.6)}
+[data-theme="light"] .footer-copy{color:rgba(15,11,46,.28)}
+[data-theme="light"] .footer-sources a{color:rgba(15,11,46,.28)}
+[data-theme="light"] .footer-sources a:hover{color:rgba(15,11,46,.6)}
+
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{background:var(--bg);color:var(--white);font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:var(--font-body)}
-
 :focus-visible{outline:2px solid var(--kip);outline-offset:3px;border-radius:4px}
-button:focus-visible,a:focus-visible{outline:2px solid var(--kip);outline-offset:3px}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 .reveal{opacity:0;transform:translateY(28px);transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
 .reveal.visible{opacity:1;transform:none}
-.reveal-d1{transition-delay:.08s}
-.reveal-d2{transition-delay:.16s}
-.reveal-d3{transition-delay:.24s}
-.reveal-d4{transition-delay:.32s}
-.reveal-d5{transition-delay:.40s}
+.reveal-d1{transition-delay:.08s}.reveal-d2{transition-delay:.16s}.reveal-d3{transition-delay:.24s}.reveal-d4{transition-delay:.32s}.reveal-d5{transition-delay:.40s}
 
-@keyframes kipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* ─── KIP CHARACTER ANIMATIONS ─── */
+@keyframes kipFloat{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-20px) rotate(1.5deg)}}
+@keyframes kipBlink{0%,78%,84%,100%{transform:scaleY(1)}81%{transform:scaleY(.06)}}
+@keyframes kipWave{0%,52%,100%{transform:rotate(0deg)}57%{transform:rotate(-42deg)}62%{transform:rotate(-22deg)}68%{transform:rotate(-38deg)}74%{transform:rotate(-18deg)}82%{transform:rotate(0deg)}}
+@keyframes kipSway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(10deg)}}
+@keyframes auraBreath{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.9)}}
+@keyframes sp1{0%,100%{opacity:0;transform:translateY(0) scale(.5) rotate(0deg)}30%,65%{opacity:1;transform:translateY(-14px) scale(1) rotate(45deg)}90%{opacity:0;transform:translateY(-26px) scale(.3) rotate(90deg)}}
+@keyframes sp2{0%,100%{opacity:0;transform:translateY(0) scale(.5) rotate(0deg)}30%,65%{opacity:1;transform:translateY(-11px) scale(1) rotate(-30deg)}90%{opacity:0;transform:translateY(-20px) scale(.3) rotate(-60deg)}}
+@keyframes sp3{0%,100%{opacity:0;transform:translateY(0) scale(.4) rotate(0deg)}25%,60%{opacity:1;transform:translateY(-9px) scale(1) rotate(20deg)}85%{opacity:0;transform:translateY(-17px) scale(.3) rotate(40deg)}}
 @keyframes bubbleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes bubbleFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes tickerSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes scrollBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 @keyframes fadeUp{to{opacity:1;transform:none}}
+@keyframes partFloat{0%{opacity:0;transform:translateY(0)}10%{opacity:.7}90%{opacity:.7}100%{opacity:0;transform:translateY(-90px)}}
+@keyframes orb1{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.1) translate(22px,-12px)}}
+@keyframes orb2{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(.9) translate(-18px,22px)}}
+@keyframes pulseRing{0%,100%{opacity:.28;transform:scale(1)}50%{opacity:.07;transform:scale(1.1)}}
+@keyframes headBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* NAV */
-nav#nav{
-  position:fixed;top:0;left:0;right:0;z-index:9999;
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;
-  transition:background .4s,backdrop-filter .4s,border-color .4s;
-  border-bottom:1px solid transparent;
-}
-nav#nav.scrolled{
-  background:rgba(5,10,20,.96);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-color:var(--border);
-}
+/* KIP character classes */
+.kip-char{position:relative;display:inline-block;animation:kipFloat 3.8s ease-in-out infinite}
+.kip-sparkles{position:absolute;inset:0;pointer-events:none}
+.kip-spark{position:absolute}
+.ks1{width:18px;top:10%;left:-2%;animation:sp1 3.5s ease-in-out infinite}
+.ks2{width:14px;top:4%;right:0%;animation:sp2 4.2s ease-in-out 1.2s infinite}
+.ks3{width:12px;bottom:25%;right:-2%;animation:sp3 3.8s ease-in-out 2.5s infinite}
+.kip-eye-l,.kip-eye-r{transform-box:fill-box;transform-origin:center center;animation:kipBlink 5s ease-in-out infinite}
+.kip-eye-r{animation-delay:.08s}
+.kip-arm-r{transform-box:fill-box;transform-origin:12% 50%;animation:kipWave 7s ease-in-out infinite}
+.kip-arm-l{transform-box:fill-box;transform-origin:88% 50%;animation:kipSway 5s ease-in-out 1s infinite}
+.kip-aura-el{transform-box:fill-box;transform-origin:center center;animation:auraBreath 3.8s ease-in-out infinite}
+/* Small nav Kip bobs gently */
+.kip-nav{display:inline-block;animation:headBob 3s ease-in-out infinite}
+
+/* ─── NAV ─── */
+nav#nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+nav#nav.scrolled{background:rgba(7,8,15,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--border)}
 .nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo-text{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-.03em;line-height:1}
 .nav-logo-dot{color:var(--accent)}
 .nav-links{display:flex;gap:8px}
-.nav-links a{
-  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.6);
-  letter-spacing:.03em;padding:10px 12px;min-height:44px;
-  display:flex;align-items:center;border-radius:6px;
-  transition:color var(--dur-fast),background var(--dur-fast);
-}
+.nav-links a{font-size:12.5px;font-weight:500;color:rgba(255,255,255,.6);letter-spacing:.03em;padding:10px 12px;min-height:44px;display:flex;align-items:center;border-radius:6px;transition:color var(--dur-fast),background var(--dur-fast)}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
-.nav-cta{
-  background:var(--accent);color:#fff;border:none;
-  padding:10px 22px;min-height:44px;font-size:11.5px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;border-radius:6px;
-  transition:opacity var(--dur-fast),box-shadow var(--dur-fast);
-  box-shadow:0 2px 20px var(--accent-glow);
-}
-.nav-cta:hover{opacity:.88;box-shadow:0 4px 28px var(--accent-glow)}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:10px 22px;min-height:44px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;transition:opacity var(--dur-fast),box-shadow var(--dur-fast),transform var(--dur-fast);box-shadow:0 2px 24px var(--accent-glow)}
+.nav-cta:hover{opacity:.9;box-shadow:0 4px 32px var(--accent-glow);transform:translateY(-1px)}
 
-.kip-svg{animation:kipFloat 3.5s ease-in-out infinite}
-
-/* HERO */
+/* ─── HERO ─── */
 .hero{position:relative;height:100vh;width:100%;overflow:hidden}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.hero-overlay-lr{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(5,10,20,.94) 0%,rgba(5,10,20,.62) 52%,rgba(5,10,20,.28) 100%)}
-.hero-overlay-tb{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(5,10,20,.75) 0%,transparent 55%)}
-.hero-content{
-  position:relative;z-index:2;height:100%;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:80px 56px 40px;max-width:780px;
-}
-.hero-eyebrow{
-  display:flex;align-items:center;gap:14px;margin-bottom:32px;
-  opacity:0;transform:translateY(20px);
-  animation:fadeUp var(--dur-slow) .2s var(--ease-out) forwards;
-}
+.hero-overlay-lr{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(7,8,15,.97) 0%,rgba(7,8,15,.75) 55%,rgba(7,8,15,.32) 100%)}
+.hero-overlay-tb{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(7,8,15,.82) 0%,transparent 62%)}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(72px);pointer-events:none;z-index:1}
+.hero-orb-1{width:580px;height:580px;background:radial-gradient(circle,rgba(124,58,237,.18) 0%,transparent 70%);top:-140px;right:-80px;animation:orb1 12s ease-in-out infinite}
+.hero-orb-2{width:440px;height:440px;background:radial-gradient(circle,rgba(56,189,248,.11) 0%,transparent 70%);bottom:-90px;left:-70px;animation:orb2 15s ease-in-out infinite}
+.hero-particles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hpart{position:absolute;border-radius:50%;background:rgba(255,255,255,.65);animation:partFloat linear infinite}
+.hp1{width:3px;height:3px;top:12%;left:22%;animation-duration:14s;animation-delay:0s}
+.hp2{width:2px;height:2px;top:38%;left:78%;animation-duration:18s;animation-delay:3s}
+.hp3{width:4px;height:4px;top:62%;left:14%;animation-duration:12s;animation-delay:6s}
+.hp4{width:2px;height:2px;top:72%;left:62%;animation-duration:20s;animation-delay:1s}
+.hp5{width:3px;height:3px;top:22%;left:52%;animation-duration:16s;animation-delay:4s}
+.hp6{width:2px;height:2px;top:48%;left:33%;animation-duration:22s;animation-delay:8s}
+.hp7{width:3px;height:3px;top:82%;left:42%;animation-duration:15s;animation-delay:2s}
+.hp8{width:2px;height:2px;top:55%;left:88%;animation-duration:19s;animation-delay:5s}
+
+.hero-layout{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:1fr 460px;align-items:center;padding:80px 56px 40px;max-width:1320px;margin:0 auto;gap:60px}
+.hero-content{display:flex;flex-direction:column;justify-content:center}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:32px;opacity:0;transform:translateY(20px);animation:fadeUp var(--dur-slow) .2s var(--ease-out) forwards}
 .hero-eyebrow-label{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .hero-eyebrow-sub{font-size:11.5px;color:rgba(255,255,255,.48);letter-spacing:.05em;text-shadow:0 1px 8px rgba(0,0,0,.9)}
-.hero-h1{
-  font-family:var(--font-display);
-  font-size:clamp(32px,3.6vw,54px);font-weight:800;
-  line-height:1.06;letter-spacing:-.02em;text-transform:uppercase;
-  color:#fff;margin-bottom:26px;text-shadow:0 2px 24px rgba(0,0,0,.9);
-  opacity:0;transform:translateY(28px);
-  animation:fadeUp .8s .45s var(--ease-out) forwards;
-}
-.hero-sub{
-  font-size:15px;line-height:1.78;color:rgba(255,255,255,.76);
-  max-width:420px;margin-bottom:40px;font-weight:400;
-  text-shadow:0 1px 12px rgba(0,0,0,.9);
-  opacity:0;transform:translateY(24px);
-  animation:fadeUp var(--dur-slow) .85s var(--ease-out) forwards;
-}
-.hero-ctas{
-  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;
-  opacity:0;transform:translateY(20px);
-  animation:fadeUp var(--dur-slow) 1s var(--ease-out) forwards;
-}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:10px;
-  background:rgba(235,242,255,.97);color:#050A14;
-  border:none;border-radius:99px;
-  padding:12px 12px 12px 26px;font-size:14px;font-weight:700;
-  min-height:48px;box-shadow:0 4px 24px rgba(0,0,0,.4);
-  transition:opacity var(--dur-fast);
-}
-.btn-primary:hover{opacity:.9}
-.btn-primary-icon{width:38px;height:38px;border-radius:50%;background:#050A14;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.btn-ghost{
-  background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2);
-  border-radius:99px;padding:12px 26px;font-size:14px;font-weight:600;
-  min-height:48px;transition:background var(--dur-fast);
-}
-.btn-ghost:hover{background:rgba(255,255,255,.13)}
-.hero-trust{
-  display:flex;gap:24px;flex-wrap:wrap;
-  opacity:0;animation:fadeUp var(--dur-slow) 1.15s var(--ease-out) forwards;
-}
+.hero-h1{font-family:var(--font-display);font-size:clamp(32px,3.8vw,58px);font-weight:900;line-height:1.04;letter-spacing:-.025em;text-transform:uppercase;color:#fff;margin-bottom:26px;text-shadow:0 2px 24px rgba(0,0,0,.9);opacity:0;transform:translateY(28px);animation:fadeUp .8s .45s var(--ease-out) forwards}
+.h1-grad{background:linear-gradient(135deg,#ffffff 0%,#c4b5fd 55%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:15px;line-height:1.78;color:rgba(255,255,255,.76);max-width:440px;margin-bottom:40px;font-weight:400;text-shadow:0 1px 12px rgba(0,0,0,.9);opacity:0;transform:translateY(24px);animation:fadeUp var(--dur-slow) .85s var(--ease-out) forwards}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;opacity:0;transform:translateY(20px);animation:fadeUp var(--dur-slow) 1s var(--ease-out) forwards}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;border:none;border-radius:99px;padding:14px 14px 14px 28px;font-size:14px;font-weight:700;min-height:50px;box-shadow:0 4px 28px var(--accent-glow);transition:opacity var(--dur-fast),box-shadow var(--dur-fast),transform var(--dur-fast)}
+.btn-primary:hover{opacity:.9;box-shadow:0 6px 36px var(--accent-glow);transform:translateY(-2px)}
+.btn-primary-icon{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-ghost{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:14px 28px;font-size:14px;font-weight:600;min-height:50px;transition:background var(--dur-fast),transform var(--dur-fast)}
+.btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.hero-trust{display:flex;gap:24px;flex-wrap:wrap;opacity:0;animation:fadeUp var(--dur-slow) 1.15s var(--ease-out) forwards}
 .trust-item{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.42);letter-spacing:.04em}
 .trust-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.scroll-cue{
-  position:absolute;bottom:32px;left:50%;
-  transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  animation:scrollBob 2s ease-in-out infinite;
-}
+
+/* Hero right: Kip */
+.hero-kip-area{display:flex;justify-content:center;align-items:center;position:relative}
+.hero-kip-ring{position:absolute;border-radius:50%;border:1px solid rgba(124,58,237,.14);pointer-events:none}
+.hero-kip-ring-1{width:360px;height:360px;animation:pulseRing 5s ease-in-out infinite}
+.hero-kip-ring-2{width:460px;height:460px;animation:pulseRing 5s ease-in-out 2s infinite}
+.hero-kip-wrap{position:relative;z-index:1}
+.hero-bubble-1{position:absolute;top:14px;right:-28px;background:rgba(11,13,27,.9);border:1px solid rgba(56,189,248,.28);border-radius:18px 18px 18px 4px;padding:12px 16px;max-width:200px;animation:bubbleFloat 2.8s ease-in-out infinite;backdrop-filter:blur(10px)}
+.hero-bubble-1 p{font-size:12px;color:rgba(255,255,255,.82);line-height:1.55}
+.hero-bubble-2{position:absolute;bottom:32px;left:-38px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.24);border-radius:18px 18px 4px 18px;padding:12px 16px;max-width:178px;animation:bubbleFloat2 3s ease-in-out .8s infinite;backdrop-filter:blur(10px)}
+.hero-bubble-2 p{font-size:11.5px;color:rgba(255,255,255,.62);line-height:1.55}
+
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:scrollBob 2s ease-in-out infinite;z-index:2}
 .scroll-cue span{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:.22em;text-transform:uppercase}
 
-/* TICKER */
-.ticker{background:var(--accent);padding:11px 0;overflow:hidden;white-space:nowrap}
+/* ─── TICKER ─── */
+.ticker{background:linear-gradient(90deg,var(--accent) 0%,#6D28D9 50%,var(--accent) 100%);padding:12px 0;overflow:hidden;white-space:nowrap}
 .ticker-track{display:inline-flex;animation:tickerSlide 24s linear infinite}
-.ticker-item{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 30px}
+.ticker-item{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.88);padding:0 30px}
 .ticker-sep{opacity:.35}
 
-/* SECTIONS */
+/* ─── SECTIONS ─── */
 .section{padding:110px 56px}
 .section-inner{max-width:1160px;margin:0 auto}
-.section-label{
-  display:flex;align-items:center;gap:10px;margin-bottom:8px;
-  font-size:10px;font-weight:700;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--accent);
-}
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
 .section-label::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
-.section-h2{
-  font-family:var(--font-display);
-  font-size:clamp(26px,3vw,46px);font-weight:800;
-  letter-spacing:-.025em;text-transform:uppercase;
-  line-height:1.06;color:#fff;margin-bottom:14px;
-}
-.section-sub{
-  font-size:15px;line-height:1.75;color:var(--muted);
-  max-width:480px;margin-bottom:64px;font-weight:400;
-}
+.section-h2{font-family:var(--font-display);font-size:clamp(26px,3vw,46px);font-weight:900;letter-spacing:-.025em;text-transform:uppercase;line-height:1.06;color:#fff;margin-bottom:14px}
+.section-sub{font-size:15px;line-height:1.75;color:var(--muted);max-width:480px;margin-bottom:64px;font-weight:400}
+.sec-grad{background:linear-gradient(135deg,#fff 0%,#c4b5fd 55%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* BENTO FEATURES */
+/* ─── BENTO FEATURES ─── */
 #features{background:var(--bg)}
-.bento-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:auto auto;
-  gap:14px;
-}
+.bento-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto auto;gap:14px}
 .bento-grid .glow-card:nth-child(1){grid-column:span 2}
-.bento-grid .glow-card:last-child{
-  grid-column:1/-1;
-  flex-direction:row;align-items:center;gap:32px;
-}
-.glow-card{
-  position:relative;border-radius:26px;
-  min-height:240px;overflow:hidden;
-  display:flex;flex-direction:column;
-  transition:transform var(--dur-med) var(--ease-out);
-}
-.glow-card:hover{transform:translateY(-3px)}
-.glow-card-blob{
-  position:absolute;inset:-2px;border-radius:28px;
-  filter:blur(36px);opacity:.38;pointer-events:none;
-  transition:opacity var(--dur-med);
-}
-.glow-card:hover .glow-card-blob{opacity:.56}
-.glow-card-inner{
-  position:relative;z-index:1;flex:1;border-radius:26px;
-  padding:28px 26px 30px;
-  display:flex;flex-direction:column;justify-content:space-between;
-  background:#111318;border:1.5px solid rgba(255,255,255,.08);
-  transition:border-color var(--dur-med);
-}
-.glow-card:hover .glow-card-inner{border-color:rgba(255,255,255,.17)}
+.bento-grid .glow-card:last-child{grid-column:1/-1;flex-direction:row;align-items:center;gap:32px}
+.glow-card{position:relative;border-radius:var(--r);min-height:240px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--dur-med) var(--ease-out)}
+.glow-card:hover{transform:translateY(-4px)}
+.glow-card-blob{position:absolute;inset:-2px;border-radius:calc(var(--r)+2px);filter:blur(40px);opacity:.3;pointer-events:none;transition:opacity var(--dur-med)}
+.glow-card:hover .glow-card-blob{opacity:.52}
+.glow-card-inner{position:relative;z-index:1;flex:1;border-radius:var(--r);padding:28px 26px 30px;display:flex;flex-direction:column;justify-content:space-between;background:#0E1022;border:1.5px solid rgba(255,255,255,.07);transition:border-color var(--dur-med)}
+.glow-card:hover .glow-card-inner{border-color:rgba(255,255,255,.16)}
 .bento-grid .glow-card:nth-child(1) .glow-card-inner{min-height:260px}
-.bento-grid .glow-card:last-child .glow-card-inner{
-  flex-direction:row;align-items:center;gap:32px;padding:28px 40px;min-height:160px;
-}
+.bento-grid .glow-card:last-child .glow-card-inner{flex-direction:row;align-items:center;gap:32px;padding:28px 40px;min-height:160px}
 .bento-grid .glow-card:last-child .card-body{flex:1}
-.card-icon{
-  width:48px;height:48px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.06);flex-shrink:0;
-  margin-bottom:20px;
-}
+.card-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);flex-shrink:0;margin-bottom:20px}
 .bento-grid .glow-card:last-child .card-icon{margin-bottom:0}
 .card-icon svg{width:24px;height:24px;stroke:rgba(255,255,255,.72);flex-shrink:0}
-.card-title{
-  font-family:var(--font-display);color:#fff;font-weight:700;
-  font-size:16px;margin-bottom:9px;letter-spacing:-.02em;line-height:1.25;
-}
+.card-title{font-family:var(--font-display);color:#fff;font-weight:700;font-size:16px;margin-bottom:9px;letter-spacing:-.02em;line-height:1.25}
 .bento-grid .glow-card:nth-child(1) .card-title{font-size:20px}
 .bento-grid .glow-card:last-child .card-title{font-size:18px}
 .card-desc{color:rgba(155,163,175,1);font-size:13px;line-height:1.68}
 .bento-grid .glow-card:last-child .card-desc{font-size:14px}
 
-/* MEET KIP */
+/* ─── MEET KIP ─── */
 #mascot{background:var(--bg2);border-top:1px solid var(--border)}
 .mascot-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .mascot-rich-text{font-size:15px;line-height:1.82;color:rgba(255,255,255,.46);margin-bottom:0}
@@ -340,140 +251,90 @@ nav#nav.scrolled{
 .mascot-fact{display:flex;gap:14px;align-items:flex-start}
 .mascot-fact-icon{font-size:16px;flex-shrink:0;margin-top:3px;opacity:.7}
 .mascot-fact-text{font-size:13.5px;color:rgba(255,255,255,.4);line-height:1.7}
-.mascot-visual{display:flex;justify-content:center;align-items:center;position:relative;padding:40px 0}
-.mascot-aura{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(79,195,247,.1) 0%,transparent 70%)}
-.bubble-1{
-  position:absolute;top:14px;right:-10px;
-  background:var(--bg3);border:1px solid rgba(79,195,247,.2);
-  border-radius:16px 16px 16px 4px;padding:11px 15px;max-width:192px;
-  animation:bubbleFloat 2.8s ease-in-out infinite;
-}
+.mascot-visual{display:flex;justify-content:center;align-items:center;position:relative;padding:60px 20px}
+.bubble-1{position:absolute;top:26px;right:-10px;background:var(--bg3);border:1px solid rgba(56,189,248,.24);border-radius:18px 18px 18px 4px;padding:12px 16px;max-width:200px;animation:bubbleFloat 2.8s ease-in-out infinite}
 .bubble-1 p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55}
-.bubble-2{
-  position:absolute;bottom:24px;left:-16px;
-  background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.18);
-  border-radius:16px 16px 4px 16px;padding:11px 15px;max-width:172px;
-  animation:bubbleFloat2 3s ease-in-out .8s infinite;
-}
+.bubble-2{position:absolute;bottom:38px;left:-18px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:18px 18px 4px 18px;padding:12px 16px;max-width:176px;animation:bubbleFloat2 3s ease-in-out .8s infinite}
 .bubble-2 p{font-size:11.5px;color:rgba(255,255,255,.56);line-height:1.55}
 
-/* STATS */
-.stats{
-  background:var(--bg3);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  display:grid;grid-template-columns:repeat(4,1fr);
-}
+/* ─── STATS ─── */
+.stats{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
 .stat-cell{padding:48px 40px;border-right:1px solid var(--border)}
 .stat-cell:last-child{border-right:none}
-.stat-value{font-family:var(--font-display);font-size:clamp(36px,3.6vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+.stat-value{font-family:var(--font-display);font-size:clamp(36px,3.6vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:8px}
 .stat-label{font-size:10.5px;color:rgba(255,255,255,.24);letter-spacing:.12em;text-transform:uppercase}
 
-/* SOCIAL PROOF */
+/* ─── PROOF ─── */
 #social-proof{background:var(--bg2);border-top:1px solid var(--border)}
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.proof-card{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:20px;padding:28px 26px;
-  display:flex;flex-direction:column;gap:16px;
-}
-.proof-question{
-  display:flex;gap:12px;align-items:flex-start;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
-  border-radius:12px;padding:12px 14px;
-}
+.proof-card{background:var(--bg3);border:1px solid var(--border);border-radius:22px;padding:28px 26px;display:flex;flex-direction:column;gap:16px;transition:border-color var(--dur-med),transform var(--dur-med)}
+.proof-card:hover{border-color:rgba(124,58,237,.25);transform:translateY(-2px)}
+.proof-question{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px}
 .proof-q-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.22);flex-shrink:0;margin-top:1px}
 .proof-q-text{font-size:13px;color:rgba(255,255,255,.62);line-height:1.6}
 .proof-answer{display:flex;gap:12px;align-items:flex-start;padding:0 2px}
-.proof-kip-dot{width:22px;height:22px;border-radius:50%;background:var(--kip);opacity:.18;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.proof-kip-dot{width:24px;height:24px;border-radius:50%;background:rgba(56,189,248,.12);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
 .proof-kip-dot-inner{width:10px;height:10px;border-radius:50%;background:var(--kip);opacity:.8}
 .proof-a-text{font-size:13px;color:rgba(255,255,255,.42);line-height:1.6}
 .proof-a-text strong{color:rgba(255,255,255,.72);font-weight:600}
 .proof-source{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;margin-top:4px}
 .proof-bottom{margin-top:64px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
-.proof-badge{
-  display:flex;align-items:center;gap:10px;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:99px;padding:10px 20px;
-  font-size:12px;color:rgba(255,255,255,.38);
-}
+.proof-badge{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:12px;color:rgba(255,255,255,.38)}
 .proof-badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 8px rgba(34,197,94,.5)}
 
-/* CITIES */
+/* ─── CITIES ─── */
 #cities{background:var(--bg)}
-.cities-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--border);border-left:1px solid var(--border);
-}
-.city-cell{
-  padding:24px 22px;
-  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
-  transition:background var(--dur-fast);cursor:default;
-}
-.city-cell:hover{background:rgba(255,255,255,.025)}
-.city-emoji{font-size:24px;margin-bottom:14px;display:block}
+.cities-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.city-cell{padding:24px 22px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:background var(--dur-fast);cursor:default}
+.city-cell:hover{background:rgba(124,58,237,.04)}
+.city-emoji{font-size:26px;margin-bottom:14px;display:block}
 .city-name{font-family:var(--font-display);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;margin-bottom:2px}
 .city-state{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:12px}
 .city-rent{font-size:13px;color:rgba(255,255,255,.44);margin-bottom:7px}
 .city-rent strong{color:var(--gold);font-weight:700}
 .city-note{font-size:11px;color:rgba(255,255,255,.2);line-height:1.55}
-.city-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(226,176,43,.3);padding:2px 8px;border-radius:3px}
+.city-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.3);padding:2px 8px;border-radius:3px}
 
-/* PRICING */
+/* ─── PRICING ─── */
 #pricing{background:var(--bg2);border-top:1px solid var(--border)}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.price-card{background:var(--bg3);border:1px solid var(--border);border-radius:24px;padding:40px 32px;display:flex;flex-direction:column;position:relative}
-.price-card.featured{border:2px solid var(--accent)}
-.featured-badge{position:absolute;top:0;right:28px;transform:translateY(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;border-radius:4px}
+.price-card{background:var(--bg3);border:1px solid var(--border);border-radius:26px;padding:40px 32px;display:flex;flex-direction:column;position:relative;transition:transform var(--dur-med)}
+.price-card:hover{transform:translateY(-3px)}
+.price-card.featured{border:2px solid var(--accent);box-shadow:0 0 40px rgba(124,58,237,.14)}
+.featured-badge{position:absolute;top:0;right:28px;transform:translateY(-50%);background:var(--accent);color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:99px}
 .price-tier{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:18px}
-.price-amount{font-family:var(--font-display);font-size:50px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff;margin-bottom:4px;display:flex;align-items:flex-start}
+.price-amount{font-family:var(--font-display);font-size:50px;font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff;margin-bottom:4px;display:flex;align-items:flex-start}
 .price-currency{font-size:20px;font-weight:400;color:rgba(255,255,255,.28);margin-top:10px;margin-right:2px}
 .price-period{font-size:11.5px;color:rgba(255,255,255,.2);margin-bottom:24px}
 .price-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:22px}
 .price-feats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;flex:1}
 .price-feat{display:flex;gap:9px;font-size:13px;color:rgba(255,255,255,.46);align-items:flex-start;line-height:1.5}
 .price-feat-arrow{color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px}
-.price-btn{
-  width:100%;padding:13px;font-size:11px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  border-radius:8px;border:none;transition:opacity var(--dur-fast),background var(--dur-fast);
-  min-height:44px;
-}
+.price-btn{width:100%;padding:13px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;border:none;transition:opacity var(--dur-fast),background var(--dur-fast),transform var(--dur-fast);min-height:44px}
 .price-btn.filled{background:var(--accent);color:#fff}
-.price-btn.filled:hover{opacity:.88}
+.price-btn.filled:hover{opacity:.88;transform:translateY(-1px)}
 .price-btn.outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.15)}
 .price-btn.outline:hover{background:rgba(255,255,255,.06)}
 .price-btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* CONTACT */
+/* ─── CONTACT ─── */
 #contact{background:var(--bg);border-top:1px solid var(--border)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px}
 .contact-sub-h{font-family:var(--font-display);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:-.015em;color:#fff;margin-bottom:8px;margin-top:8px}
 .contact-sub-p{font-size:13.5px;color:rgba(255,255,255,.34);margin-bottom:36px;line-height:1.7}
 .form-field{margin-bottom:22px}
 .form-label{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:9px}
-.form-input{
-  width:100%;background:transparent;border:none;
-  border-bottom:1px solid rgba(255,255,255,.12);
-  padding:12px 0;font-size:14px;font-family:var(--font-body);
-  color:#fff;outline:none;transition:border-color var(--dur-fast);
-  min-height:44px;-webkit-appearance:none;
-}
+.form-input{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);padding:12px 0;font-size:14px;font-family:var(--font-body);color:#fff;outline:none;transition:border-color var(--dur-fast);min-height:44px;-webkit-appearance:none}
 .form-input::placeholder{color:rgba(255,255,255,.2)}
-.form-input:focus{border-color:rgba(79,195,247,.5)}
+.form-input:focus{border-color:rgba(56,189,248,.5)}
 select.form-input{cursor:pointer}
-select.form-input option{background:#0D1620}
+select.form-input option{background:#0D1121}
 textarea.form-input{min-height:88px;resize:none}
-.form-submit{
-  width:100%;padding:14px;background:var(--accent);color:#fff;
-  border:none;border-radius:8px;font-size:12px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  transition:opacity var(--dur-fast),background var(--dur-fast);
-  box-shadow:0 2px 20px var(--accent-glow);min-height:48px;
-}
-.form-submit:hover{opacity:.88}
+.form-submit{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:opacity var(--dur-fast),background var(--dur-fast),transform var(--dur-fast);box-shadow:0 2px 20px var(--accent-glow);min-height:48px}
+.form-submit:hover{opacity:.88;transform:translateY(-1px)}
 .form-submit.ok{background:#16a34a;box-shadow:0 2px 16px rgba(22,163,74,.3)}
 
-/* FOOTER */
+/* ─── FOOTER ─── */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px 36px}
 .footer-inner{max-width:1160px;margin:0 auto}
 .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:48px;margin-bottom:48px}
@@ -489,6 +350,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 .footer-sources a{font-size:10.5px;color:rgba(255,255,255,.14);transition:color var(--dur-fast)}
 .footer-sources a:hover{color:rgba(255,255,255,.5)}
 
+/* ─── RESPONSIVE ─── */
+@media(max-width:1200px){.hero-layout{grid-template-columns:1fr}.hero-kip-area{display:none}}
 @media(max-width:1024px){
   .bento-grid{grid-template-columns:repeat(2,1fr)}
   .bento-grid .glow-card:nth-child(1){grid-column:span 2}
@@ -524,16 +387,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 <!-- NAV -->
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-logo">
-    <svg class="kip-svg" width="34" height="34" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-      <defs>
-        <radialGradient id="n-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
-        <filter id="n-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      </defs>
-      <circle cx="60" cy="60" r="36" fill="url(#n-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
-      <circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#n-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/>
-      <circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#n-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/>
-      <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#n-gl)"/>
-    </svg>
+    <div class="kip-nav" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 120 120" fill="none">
+        <defs>
+          <radialGradient id="N-bg" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+          <radialGradient id="N-iris" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5B21B6"/></radialGradient>
+          <filter id="N-gl"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <circle cx="60" cy="60" r="36" fill="url(#N-bg)" stroke="rgba(124,58,237,.35)" stroke-width="1.2"/>
+        <g class="kip-eye-l"><circle cx="48" cy="57" r="9" fill="white"/><circle cx="50" cy="59" r="5.5" fill="#0F0820"/><circle cx="50" cy="59" r="3.5" fill="url(#N-iris)" filter="url(#N-gl)"/><circle cx="52" cy="56" r="2" fill="white"/></g>
+        <g class="kip-eye-r"><circle cx="72" cy="57" r="9" fill="white"/><circle cx="74" cy="59" r="5.5" fill="#0F0820"/><circle cx="74" cy="59" r="3.5" fill="url(#N-iris)" filter="url(#N-gl)"/><circle cx="76" cy="56" r="2" fill="white"/></g>
+        <path d="M48 72 Q60 83 72 72" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" filter="url(#N-gl)"/>
+        <ellipse cx="39" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.2)"/>
+        <ellipse cx="81" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.2)"/>
+      </svg>
+    </div>
     <span class="nav-logo-text">Howdy<span class="nav-logo-dot">.</span></span>
   </div>
   <div class="nav-links">
@@ -543,12 +411,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
     <a href="#contact">Contact</a>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
-    <button id="themeToggle" aria-label="Toggle light/dark mode" style="
-      width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
-      background:var(--subtle);display:flex;align-items:center;justify-content:center;
-      color:var(--text-secondary);transition:background .2s,border-color .2s;cursor:pointer;
-      flex-shrink:0;
-    ">
+    <button id="themeToggle" aria-label="Toggle light/dark mode" style="width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--subtle);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:background .2s,border-color .2s;cursor:pointer;flex-shrink:0;">
       <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg id="iconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
@@ -564,54 +427,131 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
   </video>
   <div class="hero-overlay-lr" aria-hidden="true"></div>
   <div class="hero-overlay-tb" aria-hidden="true"></div>
-  <div class="hero-content">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-particles" aria-hidden="true">
+    <span class="hpart hp1"></span><span class="hpart hp2"></span><span class="hpart hp3"></span>
+    <span class="hpart hp4"></span><span class="hpart hp5"></span><span class="hpart hp6"></span>
+    <span class="hpart hp7"></span><span class="hpart hp8"></span>
+  </div>
 
-    <div class="hero-eyebrow">
-      <svg class="kip-svg" width="58" height="58" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <defs>
-          <radialGradient id="h-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
-          <radialGradient id="h-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(79,195,247,.2)"/><stop offset="100%" stop-color="rgba(79,195,247,0)"/></radialGradient>
-          <filter id="h-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <circle cx="60" cy="60" r="56" fill="url(#h-aura)"/>
-        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(79,195,247,.15)" stroke-width="1" stroke-dasharray="4 7"/>
-        <circle cx="60" cy="60" r="36" fill="url(#h-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
-        <circle cx="60" cy="22" r="3.5" fill="#4FC3F7" filter="url(#h-gl)" opacity=".9"/>
-        <line x1="60" y1="25" x2="60" y2="32" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
-        <circle cx="48" cy="57" r="8" fill="#061524"/><circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#h-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="50" cy="55" r="1.1" fill="#fff" opacity=".6"/>
-        <circle cx="72" cy="57" r="8" fill="#061524"/><circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#h-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="74" cy="55" r="1.1" fill="#fff" opacity=".6"/>
-        <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#h-gl)"/>
-        <ellipse cx="40" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
-        <ellipse cx="80" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
-        <circle cx="89" cy="30" r="2.2" fill="#fff" opacity=".9"/>
-        <circle cx="96" cy="40" r="2.7" fill="#fff" opacity=".95"/>
-        <circle cx="91" cy="50" r="1.7" fill="#fff" opacity=".8"/>
-        <circle cx="83" cy="43" r="1.4" fill="#fff" opacity=".7"/>
-      </svg>
-      <div>
-        <span class="hero-eyebrow-label">Meet Kip — Your Australian Life Copilot</span>
-        <span class="hero-eyebrow-sub">Powered by Claude AI · Official .gov.au sources · 8 cities</span>
+  <div class="hero-layout">
+    <!-- LEFT: Text -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="kip-nav" style="animation-duration:3.2s" aria-hidden="true">
+          <svg width="52" height="52" viewBox="0 0 120 120" fill="none">
+            <defs>
+              <radialGradient id="HE-bg" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+              <radialGradient id="HE-iris" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5B21B6"/></radialGradient>
+              <filter id="HE-gl"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <circle cx="60" cy="60" r="36" fill="url(#HE-bg)" stroke="rgba(124,58,237,.35)" stroke-width="1.2"/>
+            <g class="kip-eye-l"><circle cx="48" cy="57" r="9" fill="white"/><circle cx="50" cy="59" r="5.5" fill="#0F0820"/><circle cx="50" cy="59" r="3.5" fill="url(#HE-iris)" filter="url(#HE-gl)"/><circle cx="52" cy="56" r="2" fill="white"/></g>
+            <g class="kip-eye-r"><circle cx="72" cy="57" r="9" fill="white"/><circle cx="74" cy="59" r="5.5" fill="#0F0820"/><circle cx="74" cy="59" r="3.5" fill="url(#HE-iris)" filter="url(#HE-gl)"/><circle cx="76" cy="56" r="2" fill="white"/></g>
+            <path d="M48 72 Q60 83 72 72" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" filter="url(#HE-gl)"/>
+            <ellipse cx="39" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.22)"/>
+            <ellipse cx="81" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.22)"/>
+          </svg>
+        </div>
+        <div>
+          <span class="hero-eyebrow-label">Meet Kip — Your Australian Life Copilot</span>
+          <span class="hero-eyebrow-sub">Powered by Claude AI · Official .gov.au sources · 8 cities</span>
+        </div>
+      </div>
+      <h1 class="hero-h1">Australia's AI<br/><span class="h1-grad">Life Copilot.</span></h1>
+      <p class="hero-sub">Kip answers every question international students and new migrants have about life in Australia — from day one to permanent residency. Free. On your phone.</p>
+      <div class="hero-ctas">
+        <a href="/chat" class="btn-primary">
+          Start for Free
+          <span class="btn-primary-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+        <button class="btn-ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">See What Kip Does</button>
+      </div>
+      <div class="hero-trust" role="list" aria-label="Trust indicators">
+        <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Free to start</span>
+        <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>No credit card</span>
+        <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>8 Australian cities</span>
+        <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Official .gov.au sources</span>
       </div>
     </div>
 
-    <h1 class="hero-h1">Australia's AI<br/>Life Copilot.</h1>
-    <p class="hero-sub">Kip answers every question international students and new migrants have about life in Australia — from day one to permanent residency. Free. On your phone.</p>
-
-    <div class="hero-ctas">
-      <a href="/chat" class="btn-primary">
-        Start for Free
-        <span class="btn-primary-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(235,242,255,.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-      </a>
-      <button class="btn-ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">See What Kip Does</button>
-    </div>
-
-    <div class="hero-trust" role="list" aria-label="Trust indicators">
-      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Free to start</span>
-      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>No credit card</span>
-      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>8 Australian cities</span>
-      <span class="trust-item" role="listitem"><span class="trust-dot" aria-hidden="true"></span>Official .gov.au sources</span>
+    <!-- RIGHT: Full Kip Character -->
+    <div class="hero-kip-area" aria-hidden="true">
+      <div class="hero-kip-ring hero-kip-ring-1"></div>
+      <div class="hero-kip-ring hero-kip-ring-2"></div>
+      <div class="hero-kip-wrap">
+        <!-- Full Kip character -->
+        <div class="kip-char">
+          <div class="kip-sparkles">
+            <svg class="kip-spark ks1" viewBox="0 0 16 16" fill="none"><path d="M8 0L9.8 6.2L16 8L9.8 9.8L8 16L6.2 9.8L0 8L6.2 6.2Z" fill="#C4B5FD"/></svg>
+            <svg class="kip-spark ks2" viewBox="0 0 12 12" fill="none"><path d="M6 0L7.5 4.5L12 6L7.5 7.5L6 12L4.5 7.5L0 6L4.5 4.5Z" fill="#67E8F9"/></svg>
+            <svg class="kip-spark ks3" viewBox="0 0 10 10" fill="none"><path d="M5 0L6.3 3.7L10 5L6.3 6.3L5 10L3.7 6.3L0 5L3.7 3.7Z" fill="#F9A8D4"/></svg>
+          </div>
+          <svg width="240" height="280" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="HK-body" cx="38%" cy="32%" r="70%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="50%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+              <radialGradient id="HK-ear" cx="50%" cy="25%" r="75%"><stop offset="0%" stop-color="#4B93F5"/><stop offset="100%" stop-color="#1D4ED8"/></radialGradient>
+              <radialGradient id="HK-iris" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#5B21B6"/></radialGradient>
+              <radialGradient id="HK-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(124,58,237,.22)"/><stop offset="100%" stop-color="rgba(124,58,237,0)"/></radialGradient>
+              <filter id="HK-gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="HK-gls" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <!-- Aura glow -->
+            <ellipse class="kip-aura-el" cx="100" cy="148" rx="80" ry="76" fill="url(#HK-aura)"/>
+            <!-- Left arm -->
+            <g class="kip-arm-l">
+              <ellipse cx="30" cy="152" rx="20" ry="14" fill="url(#HK-ear)" transform="rotate(-22 30 152)"/>
+              <circle cx="14" cy="144" r="13" fill="#3B82F6"/>
+            </g>
+            <!-- Right arm (waves) -->
+            <g class="kip-arm-r">
+              <ellipse cx="170" cy="152" rx="20" ry="14" fill="url(#HK-ear)" transform="rotate(22 170 152)"/>
+              <circle cx="186" cy="144" r="13" fill="#3B82F6"/>
+            </g>
+            <!-- Left ear -->
+            <ellipse cx="65" cy="68" rx="18" ry="30" fill="url(#HK-ear)" transform="rotate(-18 65 68)"/>
+            <ellipse cx="65" cy="71" rx="10" ry="19" fill="rgba(244,114,182,.42)" transform="rotate(-18 65 71)"/>
+            <!-- Right ear -->
+            <ellipse cx="135" cy="68" rx="18" ry="30" fill="url(#HK-ear)" transform="rotate(18 135 68)"/>
+            <ellipse cx="135" cy="71" rx="10" ry="19" fill="rgba(244,114,182,.42)" transform="rotate(18 135 71)"/>
+            <!-- Body -->
+            <ellipse cx="100" cy="148" rx="68" ry="66" fill="url(#HK-body)"/>
+            <!-- Top shine -->
+            <ellipse cx="78" cy="108" rx="34" ry="20" fill="rgba(255,255,255,.16)" transform="rotate(-14 78 108)"/>
+            <!-- Belly glow -->
+            <ellipse cx="100" cy="172" rx="36" ry="26" fill="rgba(255,255,255,.06)"/>
+            <!-- Left eye -->
+            <g class="kip-eye-l">
+              <circle cx="75" cy="132" r="22" fill="white"/>
+              <circle cx="80" cy="137" r="14" fill="#0B0622"/>
+              <circle cx="80" cy="137" r="9.5" fill="url(#HK-iris)" filter="url(#HK-gls)"/>
+              <circle cx="85" cy="131" r="5" fill="white"/>
+              <circle cx="90" cy="127" r="2.5" fill="white" opacity=".6"/>
+            </g>
+            <!-- Right eye -->
+            <g class="kip-eye-r">
+              <circle cx="125" cy="132" r="22" fill="white"/>
+              <circle cx="130" cy="137" r="14" fill="#0B0622"/>
+              <circle cx="130" cy="137" r="9.5" fill="url(#HK-iris)" filter="url(#HK-gls)"/>
+              <circle cx="135" cy="131" r="5" fill="white"/>
+              <circle cx="140" cy="127" r="2.5" fill="white" opacity=".6"/>
+            </g>
+            <!-- Cheeks -->
+            <ellipse cx="54" cy="158" rx="18" ry="11" fill="rgba(251,113,133,.22)"/>
+            <ellipse cx="146" cy="158" rx="18" ry="11" fill="rgba(251,113,133,.22)"/>
+            <!-- Smile -->
+            <path d="M 74 168 Q 100 194 126 168" fill="none" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round"/>
+            <!-- Shadow -->
+            <ellipse cx="100" cy="218" rx="56" ry="10" fill="rgba(30,58,138,.28)"/>
+          </svg>
+        </div>
+        <!-- Floating bubbles near Kip -->
+        <div class="hero-bubble-1"><p>G'day! 👋 How can I help?</p></div>
+        <div class="hero-bubble-2"><p>Found 3 listings near UNSW 🏠</p></div>
+      </div>
     </div>
   </div>
 
@@ -643,118 +583,72 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
   </div>
 </div>
 
-<!-- FEATURES (BENTO) -->
+<!-- FEATURES -->
 <section class="section" id="features" aria-labelledby="features-h">
   <div class="section-inner">
     <p class="section-label reveal">8 AI Modules</p>
-    <h2 class="section-h2 reveal reveal-d1" id="features-h">Everything Kip<br/>can do for you.</h2>
+    <h2 class="section-h2 reveal reveal-d1" id="features-h">Everything Kip<br/><span class="sec-grad">can do for you.</span></h2>
     <p class="section-sub reveal reveal-d2">One AI companion. Every answer grounded in verified Australian sources. Free on your phone.</p>
     <div class="bento-grid">
-
       <div class="glow-card reveal reveal-d1">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#FF3D77,#FFB1CE 45%,#FF9D3C)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Life Copilot</p>
-            <p class="card-desc">Ask Kip anything — visa rules, tax, banking, healthcare, work rights. Every answer cited from official .gov.au sources. No hallucination.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
+          <div><p class="card-title">Life Copilot</p><p class="card-desc">Ask Kip anything — visa rules, tax, banking, healthcare, work rights. Every answer cited from official .gov.au sources. No hallucination.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d2">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#e0eafc,#7DD3FC 45%,#06B6D4)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Visa Navigator</p>
-            <p class="card-desc">Explore 485, 189, 190, 491 visa pathways with AI guidance tailored to your degree, city, and situation.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+          <div><p class="card-title">Visa Navigator</p><p class="card-desc">Explore 485, 189, 190, 491 visa pathways with AI guidance tailored to your degree, city, and situation.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d3">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#4361EE,#E0AEFF 45%,#F72585)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Rental Search AI</p>
-            <p class="card-desc">Tell Kip: 2 bed, 1 bath, parking near UNSW — get real listings pulled from Domain, REA &amp; Flatmates with full citations.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div><p class="card-title">Rental Search AI</p><p class="card-desc">Tell Kip: 2 bed, 1 bath, parking near UNSW — get real listings from Domain, REA &amp; Flatmates with full citations.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d1">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#00C9A7,#92FE9D 50%,#00B09B)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Job Match AI</p>
-            <p class="card-desc">Find roles matching your visa. Australian resume tips, interview prep and employer rights — built for international students.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div><p class="card-title">Job Match AI</p><p class="card-desc">Find roles matching your visa. Australian resume tips, interview prep and employer rights — built for international students.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d2">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#F7971E,#FFD200 50%,#F7971E)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Cost of Living</p>
-            <p class="card-desc">Weekly budgets across all 8 cities. Suburb-by-suburb rent, groceries, transport and utilities before you commit.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+          <div><p class="card-title">Cost of Living</p><p class="card-desc">Weekly budgets across all 8 cities. Suburb-by-suburb rent, groceries, transport and utilities before you commit.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d3">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#A18CD1,#FBC2EB 50%,#A18CD1)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Student Discounts</p>
-            <p class="card-desc">UNiDAYS, Student Beans, cinema, Spotify, gym, transport concessions — every student discount in Australia.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+          <div><p class="card-title">Student Discounts</p><p class="card-desc">UNiDAYS, Student Beans, cinema, Spotify, gym, transport concessions — every student discount in Australia.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d4">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#43E97B,#38F9D7 45%,#4facfe)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-.9 1 0 .3.1.6.3.8l4.4 4.4c.3.3.4.8.2 1.2l-2 4c-.1.3-.1.6 0 .9.4.8 1.3 1.1 2.1.7l4-2c.4-.2.9-.1 1.2.2l4.4 4.4c.3.3.5.4.8.4.5 0 .9-.4 1-.9z"/></svg>
-          </div>
-          <div>
-            <p class="card-title">Travel Buddy AI</p>
-            <p class="card-desc">Weekend trips, road trips, national parks and budget itineraries across every Australian state. Student-budget friendly.</p>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-.9 1 0 .3.1.6.3.8l4.4 4.4c.3.3.4.8.2 1.2l-2 4c-.1.3-.1.6 0 .9.4.8 1.3 1.1 2.1.7l4-2c.4-.2.9-.1 1.2.2l4.4 4.4c.3.3.5.4.8.4.5 0 .9-.4 1-.9z"/></svg></div>
+          <div><p class="card-title">Travel Buddy AI</p><p class="card-desc">Weekend trips, road trips, national parks and budget itineraries across every Australian state. Student-budget friendly.</p></div>
         </div>
       </div>
-
       <div class="glow-card reveal reveal-d5">
         <div class="glow-card-blob" style="background:linear-gradient(137deg,#0F9B8E,#38ef7d 50%,#0F9B8E)"></div>
         <div class="glow-card-inner">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
+          <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <div class="card-body">
             <p class="card-title">WhatsApp AI — Available 24/7</p>
-            <p class="card-desc">Ask Kip on WhatsApp any time of day. Same verified answers, no app download needed. Mandarin, Hindi, Vietnamese, Arabic support in Phase 2. Your questions. Your language. Your time zone.</p>
+            <p class="card-desc">Ask Kip on WhatsApp any time. Same verified answers, no app download needed. Mandarin, Hindi, Vietnamese, Arabic support in Phase 2.</p>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -765,7 +659,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
     <div class="mascot-grid">
       <div>
         <p class="section-label reveal">Your AI Companion</p>
-        <h2 class="section-h2 reveal reveal-d1" id="mascot-h">Meet Kip.</h2>
+        <h2 class="section-h2 reveal reveal-d1" id="mascot-h">Meet <span class="sec-grad">Kip.</span></h2>
         <p class="mascot-rich-text reveal reveal-d2">
           Kip is short for <span class="mascot-highlight">Navigator</span> — your trusted AI companion for Australian life. Warm, knowledgeable, and always on your side. Not a chatbot. Not a search engine. A companion.
         </p>
@@ -790,30 +684,38 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
           </div>
         </div>
       </div>
+      <!-- BIG KIP in mascot section -->
       <div class="mascot-visual reveal reveal-d2" aria-hidden="true">
-        <div class="mascot-aura"></div>
-        <div class="kip-svg" style="animation:kipFloat 3.5s ease-in-out infinite">
-          <svg width="180" height="180" viewBox="0 0 120 120" fill="none">
+        <div class="kip-char" style="animation-duration:4s">
+          <div class="kip-sparkles">
+            <svg class="kip-spark ks1" viewBox="0 0 16 16" fill="none"><path d="M8 0L9.8 6.2L16 8L9.8 9.8L8 16L6.2 9.8L0 8L6.2 6.2Z" fill="#C4B5FD"/></svg>
+            <svg class="kip-spark ks2" viewBox="0 0 12 12" fill="none"><path d="M6 0L7.5 4.5L12 6L7.5 7.5L6 12L4.5 7.5L0 6L4.5 4.5Z" fill="#67E8F9"/></svg>
+            <svg class="kip-spark ks3" viewBox="0 0 10 10" fill="none"><path d="M5 0L6.3 3.7L10 5L6.3 6.3L5 10L3.7 6.3L0 5L3.7 3.7Z" fill="#F9A8D4"/></svg>
+          </div>
+          <svg width="200" height="240" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient id="m-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
-              <radialGradient id="m-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(79,195,247,.2)"/><stop offset="100%" stop-color="rgba(79,195,247,0)"/></radialGradient>
-              <filter id="m-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <radialGradient id="MK-body" cx="38%" cy="32%" r="70%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="50%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+              <radialGradient id="MK-ear" cx="50%" cy="25%" r="75%"><stop offset="0%" stop-color="#4B93F5"/><stop offset="100%" stop-color="#1D4ED8"/></radialGradient>
+              <radialGradient id="MK-iris" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#5B21B6"/></radialGradient>
+              <radialGradient id="MK-aura" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(124,58,237,.2)"/><stop offset="100%" stop-color="rgba(124,58,237,0)"/></radialGradient>
+              <filter id="MK-gls" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <circle cx="60" cy="60" r="56" fill="url(#m-aura)"/>
-            <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(79,195,247,.15)" stroke-width="1" stroke-dasharray="4 7"/>
-            <circle cx="60" cy="60" r="36" fill="url(#m-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
-            <circle cx="60" cy="22" r="3.5" fill="#4FC3F7" filter="url(#m-gl)" opacity=".9"/>
-            <line x1="60" y1="25" x2="60" y2="32" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
-            <circle cx="48" cy="57" r="8" fill="#061524"/><circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#m-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="50" cy="55" r="1.1" fill="#fff" opacity=".6"/>
-            <circle cx="72" cy="57" r="8" fill="#061524"/><circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#m-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".95"/><circle cx="74" cy="55" r="1.1" fill="#fff" opacity=".6"/>
-            <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#m-gl)"/>
-            <ellipse cx="40" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
-            <ellipse cx="80" cy="68" rx="6" ry="3" fill="#26C5DA" opacity=".14"/>
-            <circle cx="89" cy="30" r="2.2" fill="#fff" opacity=".9"/>
-            <circle cx="96" cy="40" r="2.7" fill="#fff" opacity=".95"/>
-            <circle cx="91" cy="50" r="1.7" fill="#fff" opacity=".8"/>
-            <circle cx="83" cy="43" r="1.4" fill="#fff" opacity=".7"/>
-            <circle cx="93" cy="39" r="1" fill="#fff" opacity=".6"/>
+            <ellipse class="kip-aura-el" cx="100" cy="148" rx="80" ry="76" fill="url(#MK-aura)"/>
+            <g class="kip-arm-l"><ellipse cx="30" cy="152" rx="20" ry="14" fill="url(#MK-ear)" transform="rotate(-22 30 152)"/><circle cx="14" cy="144" r="13" fill="#3B82F6"/></g>
+            <g class="kip-arm-r"><ellipse cx="170" cy="152" rx="20" ry="14" fill="url(#MK-ear)" transform="rotate(22 170 152)"/><circle cx="186" cy="144" r="13" fill="#3B82F6"/></g>
+            <ellipse cx="65" cy="68" rx="18" ry="30" fill="url(#MK-ear)" transform="rotate(-18 65 68)"/>
+            <ellipse cx="65" cy="71" rx="10" ry="19" fill="rgba(244,114,182,.42)" transform="rotate(-18 65 71)"/>
+            <ellipse cx="135" cy="68" rx="18" ry="30" fill="url(#MK-ear)" transform="rotate(18 135 68)"/>
+            <ellipse cx="135" cy="71" rx="10" ry="19" fill="rgba(244,114,182,.42)" transform="rotate(18 135 71)"/>
+            <ellipse cx="100" cy="148" rx="68" ry="66" fill="url(#MK-body)"/>
+            <ellipse cx="78" cy="108" rx="34" ry="20" fill="rgba(255,255,255,.16)" transform="rotate(-14 78 108)"/>
+            <ellipse cx="100" cy="172" rx="36" ry="26" fill="rgba(255,255,255,.06)"/>
+            <g class="kip-eye-l"><circle cx="75" cy="132" r="22" fill="white"/><circle cx="80" cy="137" r="14" fill="#0B0622"/><circle cx="80" cy="137" r="9.5" fill="url(#MK-iris)" filter="url(#MK-gls)"/><circle cx="85" cy="131" r="5" fill="white"/><circle cx="90" cy="127" r="2.5" fill="white" opacity=".6"/></g>
+            <g class="kip-eye-r"><circle cx="125" cy="132" r="22" fill="white"/><circle cx="130" cy="137" r="14" fill="#0B0622"/><circle cx="130" cy="137" r="9.5" fill="url(#MK-iris)" filter="url(#MK-gls)"/><circle cx="135" cy="131" r="5" fill="white"/><circle cx="140" cy="127" r="2.5" fill="white" opacity=".6"/></g>
+            <ellipse cx="54" cy="158" rx="18" ry="11" fill="rgba(251,113,133,.22)"/>
+            <ellipse cx="146" cy="158" rx="18" ry="11" fill="rgba(251,113,133,.22)"/>
+            <path d="M 74 168 Q 100 194 126 168" fill="none" stroke="#1E3A8A" stroke-width="6" stroke-linecap="round"/>
+            <ellipse cx="100" cy="218" rx="56" ry="10" fill="rgba(30,58,138,.28)"/>
           </svg>
         </div>
         <div class="bubble-1"><p>G'day! 👋 How can I help you today?</p></div>
@@ -825,88 +727,45 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 
 <!-- STATS -->
 <div class="stats" role="list" aria-label="Key statistics">
-  <div class="stat-cell reveal" role="listitem">
-    <p class="stat-value" style="color:var(--accent)">750K+</p>
-    <p class="stat-label">Int'l students in AU</p>
-  </div>
-  <div class="stat-cell reveal reveal-d1" role="listitem">
-    <p class="stat-value" style="color:var(--gold)">8</p>
-    <p class="stat-label">Australian cities</p>
-  </div>
-  <div class="stat-cell reveal reveal-d2" role="listitem">
-    <p class="stat-value" style="color:var(--accent)">15+</p>
-    <p class="stat-label">Official sources</p>
-  </div>
-  <div class="stat-cell reveal reveal-d3" role="listitem">
-    <p class="stat-value" style="color:var(--gold)">Free</p>
-    <p class="stat-label">To get started</p>
-  </div>
+  <div class="stat-cell reveal" role="listitem"><p class="stat-value" style="color:var(--accent)">750K+</p><p class="stat-label">Int'l students in AU</p></div>
+  <div class="stat-cell reveal reveal-d1" role="listitem"><p class="stat-value" style="color:var(--kip)">8</p><p class="stat-label">Australian cities</p></div>
+  <div class="stat-cell reveal reveal-d2" role="listitem"><p class="stat-value" style="color:var(--accent)">15+</p><p class="stat-label">Official sources</p></div>
+  <div class="stat-cell reveal reveal-d3" role="listitem"><p class="stat-value" style="color:var(--gold)">Free</p><p class="stat-label">To get started</p></div>
 </div>
 
 <!-- SOCIAL PROOF -->
 <section class="section" id="social-proof" aria-labelledby="proof-h">
   <div class="section-inner">
     <p class="section-label reveal">Questions Students Ask Kip</p>
-    <h2 class="section-h2 reveal reveal-d1" id="proof-h">Real questions.<br/>Verified answers.</h2>
-    <p class="section-sub reveal reveal-d2">These are the questions international students search the web for hours trying to answer. Kip answers them instantly, with sources.</p>
+    <h2 class="section-h2 reveal reveal-d1" id="proof-h">Real questions.<br/><span class="sec-grad">Verified answers.</span></h2>
+    <p class="section-sub reveal reveal-d2">These are the questions international students search for hours. Kip answers instantly, with sources.</p>
     <div class="proof-grid">
-
       <div class="proof-card reveal reveal-d1">
-        <div class="proof-question">
-          <span class="proof-q-label">Q</span>
-          <span class="proof-q-text">"Can I work more than 48 hours per fortnight on a student visa during semester?"</span>
-        </div>
+        <div class="proof-question"><span class="proof-q-label">Q</span><span class="proof-q-text">"Can I work more than 48 hours per fortnight on a student visa during semester?"</span></div>
         <div class="proof-answer">
           <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
-          <div>
-            <p class="proof-a-text">No. Student visa holders can work a maximum of <strong>48 hours per fortnight</strong> during semester. Unlimited during scheduled course breaks. Breaching this can affect your visa.</p>
-            <p class="proof-source">Source: homeaffairs.gov.au</p>
-          </div>
+          <div><p class="proof-a-text">No. Student visa holders can work a maximum of <strong>48 hours per fortnight</strong> during semester. Unlimited during scheduled course breaks. Breaching this can affect your visa.</p><p class="proof-source">Source: homeaffairs.gov.au</p></div>
         </div>
       </div>
-
       <div class="proof-card reveal reveal-d2">
-        <div class="proof-question">
-          <span class="proof-q-label">Q</span>
-          <span class="proof-q-text">"How do I apply for a Tax File Number in Australia? Do I need one before starting work?"</span>
-        </div>
+        <div class="proof-question"><span class="proof-q-label">Q</span><span class="proof-q-text">"How do I apply for a Tax File Number in Australia? Do I need one before starting work?"</span></div>
         <div class="proof-answer">
           <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
-          <div>
-            <p class="proof-a-text">Apply online at <strong>ato.gov.au</strong> using your ImmiAccount login. You don't need one before starting but without it, your employer must withhold <strong>47% tax</strong>. Takes 28 days to arrive.</p>
-            <p class="proof-source">Source: ato.gov.au</p>
-          </div>
+          <div><p class="proof-a-text">Apply online at <strong>ato.gov.au</strong> using your ImmiAccount login. You don't need one before starting but without it, your employer must withhold <strong>47% tax</strong>. Takes 28 days to arrive.</p><p class="proof-source">Source: ato.gov.au</p></div>
         </div>
       </div>
-
       <div class="proof-card reveal reveal-d3">
-        <div class="proof-question">
-          <span class="proof-q-label">Q</span>
-          <span class="proof-q-text">"What is the minimum wage in Australia and am I entitled to it on a student visa?"</span>
-        </div>
+        <div class="proof-question"><span class="proof-q-label">Q</span><span class="proof-q-text">"What is the minimum wage in Australia and am I entitled to it on a student visa?"</span></div>
         <div class="proof-answer">
           <div class="proof-kip-dot"><div class="proof-kip-dot-inner"></div></div>
-          <div>
-            <p class="proof-a-text">Yes. The national minimum wage is <strong>$24.10/hr</strong> (2024–25). All visa holders working legally are entitled to Fair Work protections. Report underpayment anonymously at fairwork.gov.au.</p>
-            <p class="proof-source">Source: fairwork.gov.au</p>
-          </div>
+          <div><p class="proof-a-text">Yes. The national minimum wage is <strong>$24.10/hr</strong> (2024–25). All visa holders working legally are entitled to Fair Work protections. Report underpayment anonymously at fairwork.gov.au.</p><p class="proof-source">Source: fairwork.gov.au</p></div>
         </div>
       </div>
-
     </div>
     <div class="proof-bottom reveal reveal-d3">
-      <div class="proof-badge">
-        <span class="proof-badge-dot"></span>
-        Waitlist open — join 200+ early students
-      </div>
-      <div class="proof-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        All answers verified against official .gov.au sources
-      </div>
-      <div class="proof-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        No app download required
-      </div>
+      <div class="proof-badge"><span class="proof-badge-dot"></span>Waitlist open — join 200+ early students</div>
+      <div class="proof-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>All answers verified against official .gov.au sources</div>
+      <div class="proof-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>No app download required</div>
     </div>
   </div>
 </section>
@@ -915,57 +774,17 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 <section class="section" id="cities" aria-labelledby="cities-h">
   <div class="section-inner">
     <p class="section-label reveal">City Intelligence</p>
-    <h2 class="section-h2 reveal reveal-d1" id="cities-h">Every city.<br/>Kip knows them all.</h2>
+    <h2 class="section-h2 reveal reveal-d1" id="cities-h">Every city.<br/><span class="sec-grad">Kip knows them all.</span></h2>
     <p class="section-sub reveal reveal-d2">Transport cards, student suburbs, rent ranges and weekly budgets for every major Australian city.</p>
     <div class="cities-grid" role="list">
-      <div class="city-cell reveal reveal-d1" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🌉</span>
-        <p class="city-name">Sydney</p><p class="city-state">NSW</p>
-        <p class="city-rent">Share room <strong>$300–420</strong>/wk</p>
-        <p class="city-note">Opal · 50% off · UNSW USyd UTS</p>
-      </div>
-      <div class="city-cell reveal reveal-d2" role="listitem">
-        <span class="city-emoji" aria-hidden="true">☕</span>
-        <p class="city-name">Melbourne</p><p class="city-state">VIC</p>
-        <p class="city-rent">Share room <strong>$260–360</strong>/wk</p>
-        <p class="city-note">myki · Free tram · UniMelb RMIT</p>
-      </div>
-      <div class="city-cell reveal reveal-d3" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🌞</span>
-        <p class="city-name">Brisbane</p><p class="city-state">QLD</p>
-        <p class="city-rent">Share room <strong>$220–310</strong>/wk</p>
-        <span class="city-badge">2032 Olympics 🏅</span>
-      </div>
-      <div class="city-cell reveal reveal-d4" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🌊</span>
-        <p class="city-name">Perth</p><p class="city-state">WA</p>
-        <p class="city-rent">Share room <strong>$240–340</strong>/wk</p>
-        <p class="city-note">SmartRider · Free CAT · UWA</p>
-      </div>
-      <div class="city-cell reveal reveal-d1" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🏛️</span>
-        <p class="city-name">Adelaide</p><p class="city-state">SA</p>
-        <p class="city-rent">Share room <strong>$180–280</strong>/wk</p>
-        <p class="city-note">Most affordable capital</p>
-      </div>
-      <div class="city-cell reveal reveal-d2" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🌿</span>
-        <p class="city-name">Darwin</p><p class="city-state">NT</p>
-        <p class="city-rent">Share room <strong>$200–300</strong>/wk</p>
-        <p class="city-note">Tropical · CDU</p>
-      </div>
-      <div class="city-cell reveal reveal-d3" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🏔️</span>
-        <p class="city-name">Canberra</p><p class="city-state">ACT</p>
-        <p class="city-rent">Share room <strong>$220–320</strong>/wk</p>
-        <p class="city-note">Light rail · ANU · UC</p>
-      </div>
-      <div class="city-cell reveal reveal-d4" role="listitem">
-        <span class="city-emoji" aria-hidden="true">🧊</span>
-        <p class="city-name">Hobart</p><p class="city-state">TAS</p>
-        <p class="city-rent">Share room <strong>$160–280</strong>/wk</p>
-        <p class="city-note">Cheapest capital · UTAS</p>
-      </div>
+      <div class="city-cell reveal reveal-d1" role="listitem"><span class="city-emoji" aria-hidden="true">🌉</span><p class="city-name">Sydney</p><p class="city-state">NSW</p><p class="city-rent">Share room <strong>$300–420</strong>/wk</p><p class="city-note">Opal · 50% off · UNSW USyd UTS</p></div>
+      <div class="city-cell reveal reveal-d2" role="listitem"><span class="city-emoji" aria-hidden="true">☕</span><p class="city-name">Melbourne</p><p class="city-state">VIC</p><p class="city-rent">Share room <strong>$260–360</strong>/wk</p><p class="city-note">myki · Free tram · UniMelb RMIT</p></div>
+      <div class="city-cell reveal reveal-d3" role="listitem"><span class="city-emoji" aria-hidden="true">🌞</span><p class="city-name">Brisbane</p><p class="city-state">QLD</p><p class="city-rent">Share room <strong>$220–310</strong>/wk</p><span class="city-badge">2032 Olympics 🏅</span></div>
+      <div class="city-cell reveal reveal-d4" role="listitem"><span class="city-emoji" aria-hidden="true">🌊</span><p class="city-name">Perth</p><p class="city-state">WA</p><p class="city-rent">Share room <strong>$240–340</strong>/wk</p><p class="city-note">SmartRider · Free CAT · UWA</p></div>
+      <div class="city-cell reveal reveal-d1" role="listitem"><span class="city-emoji" aria-hidden="true">🏛️</span><p class="city-name">Adelaide</p><p class="city-state">SA</p><p class="city-rent">Share room <strong>$180–280</strong>/wk</p><p class="city-note">Most affordable capital</p></div>
+      <div class="city-cell reveal reveal-d2" role="listitem"><span class="city-emoji" aria-hidden="true">🌿</span><p class="city-name">Darwin</p><p class="city-state">NT</p><p class="city-rent">Share room <strong>$200–300</strong>/wk</p><p class="city-note">Tropical · CDU</p></div>
+      <div class="city-cell reveal reveal-d3" role="listitem"><span class="city-emoji" aria-hidden="true">🏔️</span><p class="city-name">Canberra</p><p class="city-state">ACT</p><p class="city-rent">Share room <strong>$220–320</strong>/wk</p><p class="city-note">Light rail · ANU · UC</p></div>
+      <div class="city-cell reveal reveal-d4" role="listitem"><span class="city-emoji" aria-hidden="true">🧊</span><p class="city-name">Hobart</p><p class="city-state">TAS</p><p class="city-rent">Share room <strong>$160–280</strong>/wk</p><p class="city-note">Cheapest capital · UTAS</p></div>
     </div>
   </div>
 </section>
@@ -974,10 +793,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 <section class="section" id="pricing" aria-labelledby="pricing-h">
   <div class="section-inner">
     <p class="section-label reveal">Pricing</p>
-    <h2 class="section-h2 reveal reveal-d1" id="pricing-h">Start Free. Always.</h2>
+    <h2 class="section-h2 reveal reveal-d1" id="pricing-h">Start <span class="sec-grad">Free. Always.</span></h2>
     <p class="section-sub reveal reveal-d2">Full access free during launch. Pro at $9 AUD/month. Enterprise for universities.</p>
     <div class="pricing-grid">
-
       <div class="price-card featured reveal reveal-d1">
         <div class="featured-badge" aria-label="Live now">Live Now</div>
         <p class="price-tier">Free</p>
@@ -996,7 +814,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         </ul>
         <a href="/chat" class="price-btn filled" style="text-align:center;display:block">Chat with Kip — Free</a>
       </div>
-
       <div class="price-card reveal reveal-d2">
         <p class="price-tier">Pro</p>
         <div class="price-amount"><span class="price-currency" aria-hidden="true">$</span><span>9</span></div>
@@ -1011,7 +828,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         </ul>
         <button class="price-btn outline" disabled aria-disabled="true">Coming Soon</button>
       </div>
-
       <div class="price-card reveal reveal-d3">
         <p class="price-tier">Enterprise</p>
         <div class="price-amount" style="font-size:36px;align-items:center;letter-spacing:-.03em"><span>Custom</span></div>
@@ -1028,12 +844,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         </ul>
         <button class="price-btn outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Us</button>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- CONTACT / WAITLIST -->
+<!-- CONTACT -->
 <section class="section" id="contact" aria-labelledby="contact-h">
   <div class="section-inner">
     <div class="contact-grid">
@@ -1042,47 +857,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         <h3 class="contact-sub-h" id="contact-h">Join the Waitlist</h3>
         <p class="contact-sub-p">Free forever during launch. Be first when Kip goes live with Pro features.</p>
         <form id="waitlistForm" novalidate>
-          <div class="form-field">
-            <label class="form-label" for="w-name">Full Name</label>
-            <input type="text" id="w-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/>
-          </div>
-          <div class="form-field">
-            <label class="form-label" for="w-email">Email</label>
-            <input type="email" id="w-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/>
-          </div>
+          <div class="form-field"><label class="form-label" for="w-name">Full Name</label><input type="text" id="w-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/></div>
+          <div class="form-field"><label class="form-label" for="w-email">Email</label><input type="email" id="w-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/></div>
           <div class="form-field" style="margin-bottom:28px">
             <label class="form-label" for="w-module">Most Interested In</label>
             <select id="w-module" name="module" class="form-input">
               <option value="">Select a module</option>
-              <option>Life Copilot</option>
-              <option>Visa Navigator</option>
-              <option>Rental Search AI</option>
-              <option>Job Match AI</option>
-              <option>Cost of Living</option>
-              <option>All of them!</option>
+              <option>Life Copilot</option><option>Visa Navigator</option><option>Rental Search AI</option><option>Job Match AI</option><option>Cost of Living</option><option>All of them!</option>
             </select>
           </div>
           <button type="submit" class="form-submit" id="waitlist-btn">Join Waitlist — Free</button>
         </form>
       </div>
-
       <div class="reveal reveal-d2">
         <p class="section-label">Get In Touch</p>
         <h3 class="contact-sub-h">Contact Us</h3>
         <p class="contact-sub-p">Universities, partners, media or just want to say g'day.</p>
         <form id="contactForm" novalidate>
-          <div class="form-field">
-            <label class="form-label" for="c-name">Full Name</label>
-            <input type="text" id="c-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/>
-          </div>
-          <div class="form-field">
-            <label class="form-label" for="c-email">Email</label>
-            <input type="email" id="c-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/>
-          </div>
-          <div class="form-field" style="margin-bottom:28px">
-            <label class="form-label" for="c-msg">Message</label>
-            <textarea id="c-msg" name="message" placeholder="Tell us what's on your mind..." class="form-input" rows="3" required></textarea>
-          </div>
+          <div class="form-field"><label class="form-label" for="c-name">Full Name</label><input type="text" id="c-name" name="name" placeholder="Your name" class="form-input" autocomplete="name" required/></div>
+          <div class="form-field"><label class="form-label" for="c-email">Email</label><input type="email" id="c-email" name="email" placeholder="your@email.com" class="form-input" autocomplete="email" required/></div>
+          <div class="form-field" style="margin-bottom:28px"><label class="form-label" for="c-msg">Message</label><textarea id="c-msg" name="message" placeholder="Tell us what's on your mind..." class="form-input" rows="3" required></textarea></div>
           <button type="submit" class="form-submit" id="contact-btn">Send Message</button>
         </form>
       </div>
@@ -1097,16 +891,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
     <div class="footer-top">
       <div class="footer-brand">
         <div class="nav-logo">
-          <svg width="34" height="34" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <defs>
-              <radialGradient id="f-bg" cx="50%" cy="42%" r="52%"><stop offset="0%" stop-color="#1B4A7A"/><stop offset="100%" stop-color="#0A1E3A"/></radialGradient>
-              <filter id="f-gl"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <circle cx="60" cy="60" r="36" fill="url(#f-bg)" stroke="rgba(79,195,247,.3)" stroke-width="1.2"/>
-            <circle cx="48" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="48" cy="57" r="3" fill="#4FC3F7" filter="url(#f-gl)"/><circle cx="48" cy="57" r="1.5" fill="#fff" opacity=".9"/>
-            <circle cx="72" cy="57" r="5.5" fill="#1B6FA8"/><circle cx="72" cy="57" r="3" fill="#4FC3F7" filter="url(#f-gl)"/><circle cx="72" cy="57" r="1.5" fill="#fff" opacity=".9"/>
-            <path d="M48 72 Q60 83 72 72" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" filter="url(#f-gl)"/>
-          </svg>
+          <div class="kip-nav" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+              <defs>
+                <radialGradient id="F-bg" cx="40%" cy="35%" r="65%"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient>
+                <radialGradient id="F-iris" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5B21B6"/></radialGradient>
+                <filter id="F-gl"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <circle cx="60" cy="60" r="36" fill="url(#F-bg)" stroke="rgba(124,58,237,.3)" stroke-width="1.2"/>
+              <g class="kip-eye-l"><circle cx="48" cy="57" r="9" fill="white"/><circle cx="50" cy="59" r="5.5" fill="#0F0820"/><circle cx="50" cy="59" r="3.5" fill="url(#F-iris)" filter="url(#F-gl)"/><circle cx="52" cy="56" r="2" fill="white"/></g>
+              <g class="kip-eye-r"><circle cx="72" cy="57" r="9" fill="white"/><circle cx="74" cy="59" r="5.5" fill="#0F0820"/><circle cx="74" cy="59" r="3.5" fill="url(#F-iris)" filter="url(#F-gl)"/><circle cx="76" cy="56" r="2" fill="white"/></g>
+              <path d="M48 72 Q60 83 72 72" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round" filter="url(#F-gl)"/>
+              <ellipse cx="39" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.2)"/>
+              <ellipse cx="81" cy="67" rx="7" ry="4" fill="rgba(244,114,182,.2)"/>
+            </svg>
+          </div>
           <span class="nav-logo-text">Howdy<span class="nav-logo-dot">.</span></span>
         </div>
         <p>Australia's AI Life Copilot. Powered by Claude AI. Built for international students &amp; migrants.</p>
@@ -1115,11 +914,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         <nav aria-label="Platform links">
           <p class="footer-col-head">Platform</p>
           <div class="footer-col-links">
-            <a href="/chat">Chat with Kip</a>
-            <a href="#features">Features</a>
-            <a href="#cities">City Guides</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#contact">Waitlist</a>
+            <a href="/chat">Chat with Kip</a><a href="#features">Features</a><a href="#cities">City Guides</a><a href="#pricing">Pricing</a><a href="#contact">Waitlist</a>
           </div>
         </nav>
         <nav aria-label="Resource links">
@@ -1134,10 +929,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
         <nav aria-label="Company links">
           <p class="footer-col-head">Company</p>
           <div class="footer-col-links">
-            <a href="#mascot">About Kip</a>
-            <a href="#contact">Contact</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
+            <a href="#mascot">About Kip</a><a href="#contact">Contact</a><a href="#">Privacy</a><a href="#">Terms</a>
           </div>
         </nav>
       </div>
@@ -1155,86 +947,46 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 </footer>
 
 <script>
-// ── THEME TOGGLE ──
 (function(){
-  const THEME_KEY = 'howdy-theme';
-  const html = document.documentElement;
-  const toggle = document.getElementById('themeToggle');
-  const moon = document.getElementById('iconMoon');
-  const sun  = document.getElementById('iconSun');
-
-  function applyTheme(theme){
-    html.setAttribute('data-theme', theme);
-    localStorage.setItem(THEME_KEY, theme);
-    if(theme === 'light'){
-      moon.style.display = 'none';
-      sun.style.display  = 'block';
-    } else {
-      moon.style.display = 'block';
-      sun.style.display  = 'none';
-    }
+  const THEME_KEY='howdy-theme';
+  const html=document.documentElement;
+  const toggle=document.getElementById('themeToggle');
+  const moon=document.getElementById('iconMoon');
+  const sun=document.getElementById('iconSun');
+  function applyTheme(t){
+    html.setAttribute('data-theme',t);
+    localStorage.setItem(THEME_KEY,t);
+    moon.style.display=t==='light'?'none':'block';
+    sun.style.display=t==='light'?'block':'none';
   }
-
-  // Load saved preference (default: dark)
-  applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-
-  toggle.addEventListener('click', () => {
-    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  });
+  applyTheme(localStorage.getItem(THEME_KEY)||'dark');
+  toggle.addEventListener('click',()=>applyTheme(html.getAttribute('data-theme')==='dark'?'light':'dark'));
 })();
 
-// Nav scroll glass
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
 
-// Scroll reveal
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-revealEls.forEach(el => io.observe(el));
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// Waitlist form — posts to /api/subscribe
-document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
+document.getElementById('waitlistForm').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const btn = document.getElementById('waitlist-btn');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  try {
-    const res = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: document.getElementById('w-name').value,
-        email: document.getElementById('w-email').value,
-        module: document.getElementById('w-module').value
-      })
-    });
-    const data = await res.json();
-    if (res.ok && data.success) {
-      btn.textContent = "✓ You're on the list!";
-      btn.classList.add('ok');
-    } else {
-      btn.textContent = data.error || 'Something went wrong. Try again.';
-      btn.disabled = false;
-    }
-  } catch {
-    btn.textContent = 'Network error. Try again.';
-    btn.disabled = false;
-  }
+  const btn=document.getElementById('waitlist-btn');
+  btn.textContent='Sending…';btn.disabled=true;
+  try{
+    const res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('w-name').value,email:document.getElementById('w-email').value,module:document.getElementById('w-module').value})});
+    const data=await res.json();
+    if(res.ok&&data.success){btn.textContent="✓ You're on the list!";btn.classList.add('ok');}
+    else{btn.textContent=data.error||'Something went wrong.';btn.disabled=false;}
+  }catch{btn.textContent='Network error. Try again.';btn.disabled=false;}
 });
 
-// Contact form (MVP: simulated — wire to email service in production)
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+document.getElementById('contactForm').addEventListener('submit',(e)=>{
   e.preventDefault();
-  const btn = document.getElementById('contact-btn');
-  btn.textContent = '✓ Message received!';
-  btn.classList.add('ok');
-  btn.disabled = true;
+  const btn=document.getElementById('contact-btn');
+  btn.textContent='✓ Message received!';btn.classList.add('ok');btn.disabled=true;
 });
 </script>
 </body>
