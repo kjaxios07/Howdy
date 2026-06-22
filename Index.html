@@ -11,16 +11,22 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#050A14;
-  --bg2:#0A0F1A;
-  --bg3:#0D1620;
-  --accent:#D95D39;
-  --gold:#E2B02B;
+  --bg:#07090F;
+  --bg2:#0C101C;
+  --bg3:#111827;
+  --surface:#161C2D;
+  --accent:#6366F1;
+  --accent-hover:#818CF8;
+  --accent-glow:rgba(99,102,241,0.35);
+  --gold:#818CF8;
   --kip:#4FC3F7;
   --white:#fff;
-  --muted:rgba(255,255,255,0.42);
-  --subtle:rgba(255,255,255,0.07);
-  --border:rgba(255,255,255,0.06);
+  --text-primary:#F1F5F9;
+  --text-secondary:rgba(241,245,249,0.65);
+  --text-muted:rgba(241,245,249,0.38);
+  --muted:rgba(241,245,249,0.42);
+  --subtle:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.07);
   --font-display:'Be Vietnam Pro',sans-serif;
   --font-body:'Noto Sans',sans-serif;
   --ease-out:cubic-bezier(0.22,1,0.36,1);
@@ -28,6 +34,90 @@
   --dur-med:250ms;
   --dur-slow:700ms;
 }
+[data-theme="light"]{
+  --bg:#F8FAFC;
+  --bg2:#F1F5F9;
+  --bg3:#E8EEF6;
+  --surface:#FFFFFF;
+  --accent:#4F46E5;
+  --accent-hover:#4338CA;
+  --accent-glow:rgba(79,70,229,0.2);
+  --gold:#6366F1;
+  --kip:#0284C7;
+  --white:#0F172A;
+  --text-primary:#0F172A;
+  --text-secondary:rgba(15,23,42,0.68);
+  --text-muted:rgba(15,23,42,0.42);
+  --muted:rgba(15,23,42,0.52);
+  --subtle:rgba(0,0,0,0.04);
+  --border:rgba(0,0,0,0.08);
+}
+[data-theme="light"] body{color:#0F172A}
+[data-theme="light"] nav#nav.scrolled{background:rgba(248,250,252,.97);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .nav-links a{color:rgba(15,23,42,.6)}
+[data-theme="light"] .nav-links a:hover{color:#0F172A;background:rgba(0,0,0,.05)}
+[data-theme="light"] .nav-logo-text{color:#0F172A}
+[data-theme="light"] .hero-overlay-lr{background:linear-gradient(to right,rgba(248,250,252,.95) 0%,rgba(248,250,252,.68) 52%,rgba(248,250,252,.18) 100%)}
+[data-theme="light"] .hero-overlay-tb{background:linear-gradient(to top,rgba(248,250,252,.82) 0%,transparent 55%)}
+[data-theme="light"] .hero-h1{color:#0F172A;text-shadow:none}
+[data-theme="light"] .hero-sub{color:rgba(15,23,42,.7);text-shadow:none}
+[data-theme="light"] .hero-eyebrow-sub{color:rgba(15,23,42,.45);text-shadow:none}
+[data-theme="light"] .trust-item{color:rgba(15,23,42,.48)}
+[data-theme="light"] .scroll-cue span{color:rgba(15,23,42,.28)}
+[data-theme="light"] .section-h2{color:#0F172A}
+[data-theme="light"] .section-sub{color:rgba(15,23,42,.58)}
+[data-theme="light"] .glow-card-inner{background:#FFFFFF;border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .glow-card:hover .glow-card-inner{border-color:rgba(99,102,241,.25)}
+[data-theme="light"] .card-title{color:#0F172A}
+[data-theme="light"] .card-desc{color:rgba(15,23,42,.58)}
+[data-theme="light"] .mascot-rich-text{color:rgba(15,23,42,.58)}
+[data-theme="light"] .mascot-highlight{color:#0F172A}
+[data-theme="light"] .mascot-fact-text{color:rgba(15,23,42,.48)}
+[data-theme="light"] .mascot-aura{background:radial-gradient(circle,rgba(79,70,229,.08) 0%,transparent 70%)}
+[data-theme="light"] .bubble-1{background:#FFFFFF;border-color:rgba(79,195,247,.22)}
+[data-theme="light"] .bubble-1 p{color:rgba(15,23,42,.75)}
+[data-theme="light"] .bubble-2{background:rgba(99,102,241,.06);border-color:rgba(99,102,241,.18)}
+[data-theme="light"] .bubble-2 p{color:rgba(15,23,42,.58)}
+[data-theme="light"] .stat-label{color:rgba(15,23,42,.38)}
+[data-theme="light"] .proof-card{background:#FFFFFF;border-color:rgba(0,0,0,.07)}
+[data-theme="light"] .proof-question{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.06)}
+[data-theme="light"] .proof-q-label{color:rgba(15,23,42,.28)}
+[data-theme="light"] .proof-q-text{color:rgba(15,23,42,.68)}
+[data-theme="light"] .proof-a-text{color:rgba(15,23,42,.55)}
+[data-theme="light"] .proof-a-text strong{color:#0F172A;font-weight:600}
+[data-theme="light"] .proof-source{color:rgba(15,23,42,.32)}
+[data-theme="light"] .proof-badge{background:#FFFFFF;border-color:rgba(0,0,0,.08);color:rgba(15,23,42,.48)}
+[data-theme="light"] .cities-grid{border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .city-cell{border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .city-name{color:#0F172A}
+[data-theme="light"] .city-state{color:rgba(15,23,42,.28)}
+[data-theme="light"] .city-rent{color:rgba(15,23,42,.52)}
+[data-theme="light"] .city-note{color:rgba(15,23,42,.32)}
+[data-theme="light"] .city-cell:hover{background:rgba(0,0,0,.025)}
+[data-theme="light"] .price-card{background:#FFFFFF;border-color:rgba(0,0,0,.09)}
+[data-theme="light"] .price-card.featured{border-color:var(--accent)}
+[data-theme="light"] .price-tier{color:rgba(15,23,42,.32)}
+[data-theme="light"] .price-amount{color:#0F172A}
+[data-theme="light"] .price-currency{color:rgba(15,23,42,.32)}
+[data-theme="light"] .price-period{color:rgba(15,23,42,.38)}
+[data-theme="light"] .price-divider{background:rgba(0,0,0,.07)}
+[data-theme="light"] .price-feat{color:rgba(15,23,42,.55)}
+[data-theme="light"] .price-btn.outline{color:#0F172A;border-color:rgba(0,0,0,.15)}
+[data-theme="light"] .price-btn.outline:hover{background:rgba(0,0,0,.04)}
+[data-theme="light"] .contact-sub-h{color:#0F172A}
+[data-theme="light"] .contact-sub-p{color:rgba(15,23,42,.48)}
+[data-theme="light"] .form-label{color:rgba(15,23,42,.38)}
+[data-theme="light"] .form-input{color:#0F172A;border-color:rgba(0,0,0,.14)}
+[data-theme="light"] .form-input::placeholder{color:rgba(15,23,42,.28)}
+[data-theme="light"] select.form-input option{background:#F1F5F9;color:#0F172A}
+[data-theme="light"] .footer-brand p{color:rgba(15,23,42,.38)}
+[data-theme="light"] .footer-col-head{color:rgba(15,23,42,.28)}
+[data-theme="light"] .footer-col-links a{color:rgba(15,23,42,.42)}
+[data-theme="light"] .footer-col-links a:hover{color:#0F172A}
+[data-theme="light"] .footer-bottom{border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .footer-copy{color:rgba(15,23,42,.28)}
+[data-theme="light"] .footer-sources a{color:rgba(15,23,42,.28)}
+[data-theme="light"] .footer-sources a:hover{color:rgba(15,23,42,.6)}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{background:var(--bg);color:var(--white);font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
 a{text-decoration:none;color:inherit}
@@ -85,9 +175,9 @@ nav#nav.scrolled{
   padding:10px 22px;min-height:44px;font-size:11.5px;font-weight:700;
   letter-spacing:.08em;text-transform:uppercase;border-radius:6px;
   transition:opacity var(--dur-fast),box-shadow var(--dur-fast);
-  box-shadow:0 2px 20px rgba(217,93,57,.4);
+  box-shadow:0 2px 20px var(--accent-glow);
 }
-.nav-cta:hover{opacity:.88;box-shadow:0 4px 28px rgba(217,93,57,.55)}
+.nav-cta:hover{opacity:.88;box-shadow:0 4px 28px var(--accent-glow)}
 
 .kip-svg{animation:kipFloat 3.5s ease-in-out infinite}
 
@@ -261,7 +351,7 @@ nav#nav.scrolled{
 .bubble-1 p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55}
 .bubble-2{
   position:absolute;bottom:24px;left:-16px;
-  background:rgba(217,93,57,.1);border:1px solid rgba(217,93,57,.18);
+  background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.18);
   border-radius:16px 16px 4px 16px;padding:11px 15px;max-width:172px;
   animation:bubbleFloat2 3s ease-in-out .8s infinite;
 }
@@ -378,7 +468,7 @@ textarea.form-input{min-height:88px;resize:none}
   border:none;border-radius:8px;font-size:12px;font-weight:700;
   letter-spacing:.08em;text-transform:uppercase;
   transition:opacity var(--dur-fast),background var(--dur-fast);
-  box-shadow:0 2px 20px rgba(217,93,57,.3);min-height:48px;
+  box-shadow:0 2px 20px var(--accent-glow);min-height:48px;
 }
 .form-submit:hover{opacity:.88}
 .form-submit.ok{background:#16a34a;box-shadow:0 2px 16px rgba(22,163,74,.3)}
@@ -452,7 +542,18 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
     <a href="#pricing">Pricing</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="/chat" class="nav-cta" aria-label="Chat with Kip for free">Chat with Kip — Free</a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button id="themeToggle" aria-label="Toggle light/dark mode" style="
+      width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
+      background:var(--subtle);display:flex;align-items:center;justify-content:center;
+      color:var(--text-secondary);transition:background .2s,border-color .2s;cursor:pointer;
+      flex-shrink:0;
+    ">
+      <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="iconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <a href="/chat" class="nav-cta" aria-label="Chat with Kip for free">Chat with Kip — Free</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1054,6 +1155,34 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 56px
 </footer>
 
 <script>
+// ── THEME TOGGLE ──
+(function(){
+  const THEME_KEY = 'howdy-theme';
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const moon = document.getElementById('iconMoon');
+  const sun  = document.getElementById('iconSun');
+
+  function applyTheme(theme){
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    if(theme === 'light'){
+      moon.style.display = 'none';
+      sun.style.display  = 'block';
+    } else {
+      moon.style.display = 'block';
+      sun.style.display  = 'none';
+    }
+  }
+
+  // Load saved preference (default: dark)
+  applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+  toggle.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
 // Nav scroll glass
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {

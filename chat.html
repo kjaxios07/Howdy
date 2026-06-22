@@ -11,20 +11,68 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#050A14;
-  --bg2:#0A0F1A;
-  --bg3:#0D1620;
-  --accent:#D95D39;
-  --gold:#E2B02B;
+  --bg:#07090F;
+  --bg2:#0C101C;
+  --bg3:#111827;
+  --surface:#161C2D;
+  --accent:#6366F1;
+  --accent-hover:#818CF8;
+  --accent-glow:rgba(99,102,241,0.35);
+  --gold:#818CF8;
   --kip:#4FC3F7;
   --white:#fff;
-  --muted:rgba(255,255,255,0.42);
-  --subtle:rgba(255,255,255,0.07);
-  --border:rgba(255,255,255,0.06);
+  --text-primary:#F1F5F9;
+  --text-secondary:rgba(241,245,249,0.65);
+  --text-muted:rgba(241,245,249,0.38);
+  --muted:rgba(241,245,249,0.42);
+  --subtle:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.07);
   --font-display:'Be Vietnam Pro',sans-serif;
   --font-body:'Noto Sans',sans-serif;
   --ease:cubic-bezier(0.22,1,0.36,1);
 }
+[data-theme="light"]{
+  --bg:#F8FAFC;
+  --bg2:#F1F5F9;
+  --bg3:#E8EEF6;
+  --surface:#FFFFFF;
+  --accent:#4F46E5;
+  --accent-hover:#4338CA;
+  --accent-glow:rgba(79,70,229,0.2);
+  --gold:#6366F1;
+  --kip:#0284C7;
+  --white:#0F172A;
+  --text-primary:#0F172A;
+  --text-secondary:rgba(15,23,42,0.68);
+  --text-muted:rgba(15,23,42,0.42);
+  --muted:rgba(15,23,42,0.52);
+  --subtle:rgba(0,0,0,0.04);
+  --border:rgba(0,0,0,0.08);
+}
+[data-theme="light"] body{color:#0F172A;background:var(--bg)}
+[data-theme="light"] .chat-header{background:rgba(248,250,252,.97);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .header-kip-name{color:#0F172A}
+[data-theme="light"] .header-status{color:rgba(15,23,42,.38)}
+[data-theme="light"] .back-btn{color:rgba(15,23,42,.45)}
+[data-theme="light"] .back-btn:hover{color:#0F172A;background:rgba(0,0,0,.05)}
+[data-theme="light"] .session-badge{color:rgba(15,23,42,.3);background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.07)}
+[data-theme="light"] .kip-bubble{background:#FFFFFF;border-color:rgba(0,0,0,.08);color:#0F172A}
+[data-theme="light"] .kip-bubble strong{color:#0F172A}
+[data-theme="light"] .kip-bubble li{color:rgba(15,23,42,.78)}
+[data-theme="light"] .user-bubble{background:rgba(79,70,229,.08);border-color:rgba(79,70,229,.18);color:#0F172A}
+[data-theme="light"] .typing-dots{background:#FFFFFF;border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .typing-dot{background:rgba(15,23,42,.2)}
+[data-theme="light"] .chat-input-area{background:rgba(248,250,252,.99);border-color:rgba(0,0,0,.08)}
+[data-theme="light"] .input-row{background:#FFFFFF;border-color:rgba(0,0,0,.12)}
+[data-theme="light"] .input-row:focus-within{border-color:rgba(79,70,229,.4)}
+[data-theme="light"] .chat-textarea{color:#0F172A}
+[data-theme="light"] .chat-textarea::placeholder{color:rgba(15,23,42,.28)}
+[data-theme="light"] .input-footer p{color:rgba(15,23,42,.28)}
+[data-theme="light"] .input-footer a{color:rgba(15,23,42,.42)}
+[data-theme="light"] .starter-btn{color:rgba(15,23,42,.55);background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.09)}
+[data-theme="light"] .starter-btn:hover{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.15);color:#0F172A}
+[data-theme="light"] .msg-avatar{background:rgba(79,70,229,.1)}
+[data-theme="light"] .msg-avatar.user-av{background:rgba(79,70,229,.12);color:var(--accent)}
 html{-webkit-font-smoothing:antialiased;height:100%}
 body{
   background:var(--bg);color:var(--white);
@@ -249,7 +297,17 @@ button{cursor:pointer;font-family:var(--font-body);border:none;background:none}
     </div>
   </div>
 
-  <span class="session-badge">Session only · Nothing stored</span>
+  <div style="display:flex;align-items:center;gap:8px">
+    <span class="session-badge">Session only · Nothing stored</span>
+    <button id="themeToggle" aria-label="Toggle light/dark mode" style="
+      width:32px;height:32px;border-radius:7px;border:1px solid var(--border);
+      background:var(--subtle);display:flex;align-items:center;justify-content:center;
+      color:var(--text-secondary);transition:background .2s,border-color .2s;cursor:pointer;flex-shrink:0;
+    ">
+      <svg id="iconMoon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="iconSun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
 </header>
 
 <!-- CHAT MESSAGES -->
@@ -290,6 +348,25 @@ button{cursor:pointer;font-family:var(--font-body);border:none;background:none}
 </div>
 
 <script>
+// ── THEME TOGGLE ──
+(function(){
+  const THEME_KEY = 'howdy-theme';
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const moon = document.getElementById('iconMoon');
+  const sun  = document.getElementById('iconSun');
+  function applyTheme(theme){
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    moon.style.display = theme === 'light' ? 'none'  : 'block';
+    sun.style.display  = theme === 'light' ? 'block' : 'none';
+  }
+  applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+  toggle.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
 const chatArea = document.getElementById('chatArea');
 const chatInput = document.getElementById('chatInput');
 const sendBtn = document.getElementById('sendBtn');
