@@ -1,15 +1,16 @@
 {
   "name": "howdy-au",
-  "version": "1.0.0",
-  "description": "Howdy — Australia's AI Life Copilot for international students and new migrants",
+  "version": "2.0.0",
+  "description": "Howdy — a verified-source companion for international students and new migrants in Australia. Guidance, not legal advice.",
   "private": true,
   "engines": {
     "node": ">=20.x"
   },
+  "scripts": {
+    "test": "node test/run-tests.js",
+    "update-knowledge": "node scripts/update-knowledge.js"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0"
-  },
-  "devDependencies": {
-    "node-fetch": "^3.3.2"
   }
 }
