@@ -3,111 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0E7C66">
 <title>Kip — Ask anything about life in Australia | Howdy</title>
-<meta name="description" content="Ask Kip about visas, tax, housing, work and health in Australia. Every answer cites verified official sources.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Ask Kip about visas, tax, housing, work and health in Australia. Verified sources on every answer. Sessions self-destruct after 2 minutes of inactivity — nothing is ever saved.">
 <style>
+/* System fonts only — zero font network requests, instant first paint */
 :root{
-  --bg:#FAF7F2; --card:#FFFFFF; --ink:#1F2933; --ink-2:#52606D; --ink-3:#9AA5B1;
-  --brand:#0E7C66; --brand-dark:#0A5C4C; --brand-soft:#E3F2EE;
-  --line:#E4E0D8; --user-bubble:#0E7C66;
-  --fd:'Fraunces',Georgia,serif; --fb:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ink:#17222B; --ink-2:#44545F; --ink-3:#7E8E98;
+  --brand:#0E7C66; --brand-2:#12A184;
+  --violet:#7C5CFC; --coral:#FF7A59; --gold:#FFC24B; --sky:#38BDF8; --pink:#F472B6;
+  --glass:rgba(255,255,255,.62); --glass-2:rgba(255,255,255,.45);
+  --glass-line:rgba(255,255,255,.75); --shadow:0 8px 32px rgba(23,34,43,.12);
+  --fb:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+  --blur:blur(18px) saturate(1.4);
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#12181D; --card:#1B242B; --ink:#F0F4F8; --ink-2:#AEBAC5; --ink-3:#66737E;
-    --brand:#2FB899; --brand-dark:#25997F; --brand-soft:#173A32; --line:#2A353D;
-    --user-bubble:#0E7C66;
+    --ink:#EDF3F7; --ink-2:#ADBEC9; --ink-3:#66767F;
+    --brand:#2FD3AE; --brand-2:#1FB899;
+    --glass:rgba(18,26,34,.62); --glass-2:rgba(18,26,34,.45);
+    --glass-line:rgba(255,255,255,.12); --shadow:0 8px 32px rgba(0,0,0,.35);
   }
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:var(--fb);background:var(--bg);color:var(--ink);display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+body{
+  font-family:var(--fb);color:var(--ink);overflow:hidden;
+  background:
+    radial-gradient(38rem 30rem at 8% -5%, color-mix(in srgb,var(--violet) 34%,transparent), transparent 62%),
+    radial-gradient(34rem 26rem at 105% 12%, color-mix(in srgb,var(--coral) 30%,transparent), transparent 60%),
+    radial-gradient(40rem 32rem at 50% 118%, color-mix(in srgb,var(--brand-2) 36%,transparent), transparent 62%),
+    radial-gradient(24rem 20rem at 85% 90%, color-mix(in srgb,var(--gold) 26%,transparent), transparent 60%),
+    linear-gradient(160deg,#F4F1FB, #EAF6F3 55%, #FDF3EC);
+}
+@media (prefers-color-scheme: dark){
+  body{background:
+    radial-gradient(38rem 30rem at 8% -5%, rgba(124,92,252,.28), transparent 62%),
+    radial-gradient(34rem 26rem at 105% 12%, rgba(255,122,89,.20), transparent 60%),
+    radial-gradient(40rem 32rem at 50% 118%, rgba(18,161,132,.30), transparent 62%),
+    linear-gradient(160deg,#0C1218,#10181F 55%,#141119);}
+}
 a{color:var(--brand)}
+button{font-family:var(--fb)}
 
-/* Header */
-header{border-bottom:1px solid var(--line);background:var(--card)}
-.head-in{max-width:860px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
-.kip-face{width:40px;height:40px;border-radius:50%;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-.head-txt{flex:1;min-width:0}
-.head-txt h1{font-family:var(--fd);font-size:1.1rem;font-weight:600}
-.head-txt p{font-size:.75rem;color:var(--ink-2);display:flex;align-items:center;gap:5px}
-.dot{width:7px;height:7px;border-radius:50%;background:#3BA55C;display:inline-block}
-.home-link{font-size:.82rem;font-weight:600;text-decoration:none}
+/* ── Layout: dashboard grid ─────────────────────────────── */
+.app{display:grid;grid-template-columns:300px 1fr;gap:18px;height:100%;max-width:1240px;margin:0 auto;padding:18px}
+.glass{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow)}
 
-/* Module chips */
-.chips{border-bottom:1px solid var(--line);background:var(--card)}
-.chips-in{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-.chips-in::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;border:1.5px solid var(--line);background:transparent;color:var(--ink-2);border-radius:99px;padding:7px 14px;font-family:var(--fb);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s}
-.chip:hover,.chip.active{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+/* ── Sidebar ────────────────────────────────────────────── */
+aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrollbar-width:thin}
+.side-kip{text-align:center;margin-bottom:6px}
+.side-kip .kip-svg{width:96px;height:96px;filter:drop-shadow(0 6px 14px rgba(23,34,43,.18))}
+.side-kip h1{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.side-kip h1 span{background:linear-gradient(90deg,var(--brand),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.side-kip p{font-size:.78rem;color:var(--ink-2);margin-top:2px}
 
-/* Messages */
-main{flex:1;overflow-y:auto}
-.msgs{max-width:860px;margin:0 auto;padding:24px 16px 12px;display:flex;flex-direction:column;gap:18px}
-.msg{display:flex;gap:10px;max-width:85%}
+/* privacy timer card */
+.timer-card{margin:16px 0;padding:14px;border-radius:16px;background:var(--glass-2);border:1px solid var(--glass-line);display:flex;align-items:center;gap:12px}
+.ring{position:relative;width:52px;height:52px;flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring .track{stroke:color-mix(in srgb,var(--ink-3) 30%,transparent)}
+.ring .bar{stroke:var(--brand);transition:stroke-dashoffset 1s linear,stroke .3s}
+.ring .bar.warn{stroke:var(--coral)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800}
+.timer-card .txt{font-size:.74rem;line-height:1.45;color:var(--ink-2)}
+.timer-card .txt strong{color:var(--ink);font-size:.8rem;display:block}
+
+.side-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:8px 4px 8px}
+.side-mods{display:flex;flex-direction:column;gap:6px}
+.smod{display:flex;align-items:center;gap:10px;border:1px solid transparent;background:transparent;border-radius:14px;padding:9px 12px;cursor:pointer;color:var(--ink-2);font-size:.86rem;font-weight:600;text-align:left;transition:background .15s,color .15s,border-color .15s}
+.smod:hover{background:var(--glass-2);color:var(--ink)}
+.smod.active{background:var(--glass-2);border-color:var(--glass-line);color:var(--ink)}
+.smod .em{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--em-bg,rgba(14,124,102,.14))}
+
+/* ── Main panel ─────────────────────────────────────────── */
+.panel{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.panel-head{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--glass-line)}
+.panel-head .kip-svg{width:40px;height:40px;display:none}
+.ph-txt{flex:1;min-width:0}
+.ph-txt b{font-size:.98rem}
+.ph-txt p{font-size:.74rem;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:#3BA55C;box-shadow:0 0 0 3px rgba(59,165,92,.2)}
+.pill{font-size:.7rem;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--glass-2);border:1px solid var(--glass-line);color:var(--ink-2);white-space:nowrap}
+.pill.timer-pill{display:none}
+.home-link{font-size:.8rem;font-weight:700;text-decoration:none}
+
+/* chips (mobile) */
+.chips{display:none;gap:8px;overflow-x:auto;padding:10px 16px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);border-radius:99px;padding:7px 13px;font-size:.78rem;font-weight:700;cursor:pointer}
+.chip.active{color:var(--brand);border-color:var(--brand)}
+
+/* messages */
+main{flex:1;overflow-y:auto;padding:20px 20px 8px;scrollbar-width:thin}
+.msgs{display:flex;flex-direction:column;gap:16px;max-width:760px;margin:0 auto}
+.msg{display:flex;gap:10px;max-width:88%;animation:pop .28s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
-.avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:2px}
-.bubble{border-radius:16px;padding:12px 16px;font-size:.94rem;line-height:1.65;overflow-wrap:break-word}
-.msg.kip .bubble{background:var(--card);border:1px solid var(--line);border-top-left-radius:4px}
-.msg.user .bubble{background:var(--user-bubble);color:#fff;border-top-right-radius:4px}
+.mav{width:34px;height:34px;flex-shrink:0;margin-top:2px}
+.bubble{border-radius:18px;padding:12px 16px;font-size:.93rem;line-height:1.65;overflow-wrap:break-word;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line)}
+.msg.kip .bubble{border-top-left-radius:6px}
+.msg.user .bubble{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#fff;border-top-right-radius:6px}
 .bubble ul{padding-left:20px;margin:6px 0}
 .bubble p{margin:6px 0}
 .bubble p:first-child{margin-top:0}
 .bubble p:last-child{margin-bottom:0}
 
-/* Verified sources panel */
-.sources{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.78rem}
-.sources .badge{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--brand);margin-bottom:6px}
+.sources{margin-top:10px;padding-top:10px;border-top:1px dashed var(--glass-line);font-size:.76rem}
+.sources .badge{display:inline-flex;align-items:center;gap:5px;font-weight:800;color:var(--brand);margin-bottom:5px}
 .sources a{display:block;color:var(--ink-2);text-decoration:none;padding:2px 0;word-break:break-all}
 .sources a:hover{color:var(--brand)}
 
-/* Typing indicator */
 .typing{display:inline-flex;gap:5px;padding:6px 2px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:blink 1.2s infinite}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:blinkdots 1.2s infinite}
 .typing i:nth-child(2){animation-delay:.2s}
 .typing i:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+@keyframes blinkdots{0%,60%,100%{opacity:.25}30%{opacity:1}}
 
-/* Suggestions */
-.suggest{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.suggest button{border:1.5px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:12px;padding:8px 13px;font-family:var(--fb);font-size:.82rem;cursor:pointer;text-align:left;transition:all .15s}
+.suggest{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.suggest button{border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);border-radius:12px;padding:8px 13px;font-size:.8rem;font-weight:600;cursor:pointer;text-align:left;transition:color .15s,border-color .15s}
 .suggest button:hover{border-color:var(--brand);color:var(--brand)}
 
-/* Composer */
-.composer{border-top:1px solid var(--line);background:var(--card);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
-.comp-in{max-width:860px;margin:0 auto;display:flex;gap:10px}
-.comp-in input{flex:1;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:13px 20px;font-family:var(--fb);font-size:.95rem}
-.comp-in input:focus{outline:none;border-color:var(--brand)}
-.comp-in button{border:none;background:var(--brand);color:#fff;border-radius:99px;padding:0 22px;font-family:var(--fb);font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s}
-.comp-in button:hover{background:var(--brand-dark)}
-.comp-in button:disabled{opacity:.5;cursor:default}
-.fine{max-width:860px;margin:8px auto 0;text-align:center;font-size:.7rem;color:var(--ink-3)}
+/* composer */
+.composer{padding:12px 20px calc(14px + env(safe-area-inset-bottom))}
+.comp-in{max-width:760px;margin:0 auto;display:flex;gap:10px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line);border-radius:99px;padding:6px 6px 6px 20px;box-shadow:var(--shadow)}
+.comp-in input{flex:1;border:none;background:transparent;color:var(--ink);font-family:var(--fb);font-size:.95rem;min-width:0}
+.comp-in input:focus{outline:none}
+.comp-in input::placeholder{color:var(--ink-3)}
+.comp-in button{border:none;background:linear-gradient(135deg,var(--brand),var(--violet));color:#fff;border-radius:99px;padding:11px 22px;font-weight:800;font-size:.9rem;cursor:pointer;transition:transform .12s,opacity .2s}
+.comp-in button:hover{transform:scale(1.04)}
+.comp-in button:disabled{opacity:.5;transform:none;cursor:default}
+.fine{max-width:760px;margin:8px auto 0;text-align:center;font-size:.67rem;color:var(--ink-3)}
+
+/* ── Kip SVG animation ──────────────────────────────────── */
+.kip-svg .eye{transform-origin:center;animation:blink 4.6s infinite}
+.kip-svg .earL{transform-origin:22px 30px;animation:wiggle 7s ease-in-out infinite}
+.kip-svg .earR{transform-origin:78px 30px;animation:wiggle 7s ease-in-out 3.5s infinite}
+.kip-float{animation:floaty 4s ease-in-out infinite}
+@keyframes blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+@keyframes wiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-7deg)}96%{transform:rotate(5deg)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion: reduce){
+  .kip-svg .eye,.kip-svg .earL,.kip-svg .earR,.kip-float{animation:none}
+  .msg{animation:none}
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px){
+  .app{grid-template-columns:1fr;padding:10px;gap:10px}
+  aside{display:none}
+  .chips{display:flex}
+  .panel-head .kip-svg{display:block}
+  .pill.timer-pill{display:inline-block}
+  :root{--blur:blur(12px) saturate(1.3)} /* lighter blur = faster mobile paint */
+}
 </style>
 </head>
 <body>
 
-<header><div class="head-in">
-  <div class="kip-face">🐨</div>
-  <div class="head-txt">
-    <h1>Kip</h1>
-    <p><span class="dot"></span> Verified sources on every answer</p>
+<!-- Kip avatar (reused everywhere via <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="kip">
+      <g class="earL"><circle cx="22" cy="30" r="15" fill="#8FA6B3"/><circle cx="22" cy="30" r="8.5" fill="#F5A9BE"/></g>
+      <g class="earR"><circle cx="78" cy="30" r="15" fill="#8FA6B3"/><circle cx="78" cy="30" r="8.5" fill="#F5A9BE"/></g>
+      <circle cx="50" cy="56" r="33" fill="#A9BFCC"/>
+      <circle cx="50" cy="56" r="33" fill="url(#kipshade)"/>
+      <ellipse cx="50" cy="63" rx="9.5" ry="12" fill="#37424B"/>
+      <ellipse cx="47" cy="59" rx="2.6" ry="3.2" fill="#5A6771"/>
+      <circle class="eye" cx="35" cy="49" r="4.2" fill="#232C33"/>
+      <circle class="eye" cx="65" cy="49" r="4.2" fill="#232C33"/>
+      <circle cx="36.4" cy="47.6" r="1.3" fill="#fff"/>
+      <circle cx="66.4" cy="47.6" r="1.3" fill="#fff"/>
+      <path d="M42 80 Q50 85 58 80" stroke="#37424B" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <circle cx="29" cy="66" r="4.5" fill="#F5A9BE" opacity=".55"/>
+      <circle cx="71" cy="66" r="4.5" fill="#F5A9BE" opacity=".55"/>
+    </g>
+    <radialGradient id="kipshade" cx=".38" cy=".3" r="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".06"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div class="app">
+
+  <!-- ── Sidebar dashboard ── -->
+  <aside class="glass">
+    <div class="side-kip">
+      <svg class="kip-svg kip-float" viewBox="0 0 100 100"><use href="#kip"/></svg>
+      <h1>Kip <span>· Howdy</span></h1>
+      <p>Your companion for life in Australia</p>
+    </div>
+
+    <div class="timer-card" title="For your privacy, this chat self-destructs after 2 minutes of inactivity. Nothing is ever saved.">
+      <div class="ring">
+        <svg width="52" height="52" viewBox="0 0 52 52">
+          <circle class="track" cx="26" cy="26" r="22" fill="none" stroke-width="5"/>
+          <circle class="bar" id="ringbar" cx="26" cy="26" r="22" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="0"/>
+        </svg>
+        <b id="ringtxt">2:00</b>
+      </div>
+      <div class="txt"><strong>Privacy auto-clear</strong>Idle chats are wiped after 2 min. Nothing is saved — ever.</div>
+    </div>
+
+    <div class="side-label">Modules</div>
+    <div class="side-mods" id="side-mods"></div>
+  </aside>
+
+  <!-- ── Chat panel ── -->
+  <div class="panel glass">
+    <div class="panel-head">
+      <svg class="kip-svg" viewBox="0 0 100 100"><use href="#kip"/></svg>
+      <div class="ph-txt">
+        <b>Chat with Kip</b>
+        <p><span class="dot"></span> Verified sources on every answer</p>
+      </div>
+      <span class="pill timer-pill" id="timer-pill">🔒 2:00</span>
+      <span class="pill">🇦🇺 .gov.au verified</span>
+      <a class="home-link" href="/">← Howdy</a>
+    </div>
+
+    <div class="chips" id="chips"></div>
+
+    <main id="main"><div class="msgs" id="msgs"></div></main>
+
+    <div class="composer">
+      <form class="comp-in" id="form">
+        <input id="input" type="text" placeholder="Ask about visas, tax, housing…" maxlength="800" autocomplete="off">
+        <button id="send" type="submit">Ask ✦</button>
+      </form>
+      <p class="fine">General guidance from official sources — not legal, migration or financial advice. Don't share personal details. Idle sessions are wiped after 2 minutes; nothing you type is ever stored.</p>
+    </div>
   </div>
-  <a class="home-link" href="/">← Howdy</a>
-</div></header>
-
-<div class="chips"><div class="chips-in" id="chips"></div></div>
-
-<main id="main"><div class="msgs" id="msgs"></div></main>
-
-<div class="composer">
-  <form class="comp-in" id="form">
-    <input id="input" type="text" placeholder="Ask about visas, tax, housing…" maxlength="800" autocomplete="off">
-    <button id="send" type="submit">Ask</button>
-  </form>
-  <p class="fine">Kip gives general guidance from official sources — not legal, migration or financial advice. Don't share personal details like your TFN or passport number.</p>
 </div>
 
 <script>
@@ -115,16 +242,16 @@ main{flex:1;overflow-y:auto}
 
 // ── Modules (kept in sync with lib/modules.js) ─────────────────────────────
 const MODULES = [
-  {id:'arrive',emoji:'🛬',name:'Just Landed',examples:['What should I do in my first week in Australia?','What documents do I need to set up my life here?']},
-  {id:'visa',emoji:'🛂',name:'Visas & Work',examples:['How many hours can I work on a student visa?','How do I apply for the 485 visa after graduation?','How do I check my visa conditions?']},
-  {id:'tax',emoji:'🧾',name:'TFN & Tax',examples:['How do I apply for a TFN?','What happens if I work without a TFN?','Can I claim my super when I leave Australia?']},
-  {id:'work',emoji:'💼',name:'Jobs & Pay',examples:['What is the minimum wage in Australia?','My employer pays me cash below minimum wage — what can I do?']},
-  {id:'housing',emoji:'🏠',name:'Housing',examples:['Two bedroom house near Acacia Ridge 4110 Brisbane','How much bond do I pay and how do I get it back?','What do I need to apply for a rental?']},
-  {id:'health',emoji:'🏥',name:'Health & OSHC',examples:['What does my OSHC actually cover?','Am I eligible for Medicare as a student?']},
-  {id:'money',emoji:'🏦',name:'Banking',examples:['Which bank account is best for students?','Can I open a bank account before I arrive?']},
-  {id:'transport',emoji:'🚋',name:'Transport',examples:['How do I get a student discount on public transport in Brisbane?']},
-  {id:'study',emoji:'🎓',name:'Student Life',examples:['What student discounts can I get in Australia?','How much should I budget for groceries each week?']},
-  {id:'safety',emoji:'🛡️',name:'Safety & Scams',examples:['Someone called saying my visa will be cancelled unless I pay — is this a scam?','Where can I get mental health support as a student?']},
+  {id:'arrive',emoji:'🛬',name:'Just Landed',color:'56,189,248',examples:['What should I do in my first week in Australia?','What documents do I need to set up my life here?']},
+  {id:'visa',emoji:'🛂',name:'Visas & Work',color:'124,92,252',examples:['How many hours can I work on a student visa?','How do I apply for the 485 visa after graduation?','How do I check my visa conditions?']},
+  {id:'tax',emoji:'🧾',name:'TFN & Tax',color:'255,194,75',examples:['How do I apply for a TFN?','What happens if I work without a TFN?','Can I claim my super when I leave Australia?']},
+  {id:'work',emoji:'💼',name:'Jobs & Pay',color:'18,161,132',examples:['What is the minimum wage in Australia?','My employer pays me cash below minimum wage — what can I do?']},
+  {id:'housing',emoji:'🏠',name:'Housing',color:'255,122,89',examples:['Two bedroom house near Acacia Ridge 4110 Brisbane','How much bond do I pay and how do I get it back?','What do I need to apply for a rental?']},
+  {id:'health',emoji:'🏥',name:'Health & OSHC',color:'244,114,182',examples:['What does my OSHC actually cover?','Am I eligible for Medicare as a student?']},
+  {id:'money',emoji:'🏦',name:'Banking',color:'56,189,248',examples:['Which bank account is best for students?','Can I open a bank account before I arrive?']},
+  {id:'transport',emoji:'🚋',name:'Transport',color:'124,92,252',examples:['How do I get a student discount on public transport in Brisbane?']},
+  {id:'study',emoji:'🎓',name:'Student Life',color:'255,194,75',examples:['What student discounts can I get in Australia?','How much should I budget for groceries each week?']},
+  {id:'safety',emoji:'🛡️',name:'Safety & Scams',color:'255,122,89',examples:['Someone called saying my visa will be cancelled unless I pay — is this a scam?','Where can I get mental health support as a student?']},
 ];
 
 const msgs = document.getElementById('msgs');
@@ -132,12 +259,50 @@ const main = document.getElementById('main');
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 const send = document.getElementById('send');
-const history = [];
+
+// History lives ONLY in this array, in this tab, in memory.
+// No localStorage, no sessionStorage, no cookies, no server logs.
+let history = [];
 let busy = false;
 
-// ── Safe rendering ─────────────────────────────────────────────────────────
-// 1) escape ALL html from the model  2) apply minimal markdown
-// 3) linkify only http(s) URLs (server already stripped unverified ones)
+// ── Privacy auto-clear: nuke the session after 2 min idle ─────────────────
+const SESSION_TTL_MS = 2 * 60 * 1000;
+const RING_LEN = 138.2;
+let lastActivity = Date.now();
+let hadActivity = false; // only show the "wiped" notice if there was a conversation
+
+function touch(){ lastActivity = Date.now(); }
+['pointerdown','keydown','input'].forEach(ev =>
+  document.addEventListener(ev, touch, { passive: true }));
+
+function nukeSession(){
+  history = [];          // wipe memory
+  msgs.replaceChildren(); // wipe DOM
+  input.value = '';
+  const notice = hadActivity
+    ? '<p>🔒 <strong>Session cleared.</strong> You were away for 2 minutes, so I wiped our whole conversation — nothing was saved, nothing ever is.</p><p>Fresh start! What would you like to know?</p>'
+    : null;
+  hadActivity = false;
+  welcome(notice);
+  touch();
+}
+
+// Timestamp-based countdown — survives background-tab throttling.
+setInterval(() => {
+  const left = Math.max(0, SESSION_TTL_MS - (Date.now() - lastActivity));
+  const secs = Math.ceil(left / 1000);
+  const mm = Math.floor(secs / 60), ss = String(secs % 60).padStart(2, '0');
+  const label = `${mm}:${ss}`;
+  const bar = document.getElementById('ringbar');
+  document.getElementById('ringtxt').textContent = label;
+  const pill = document.getElementById('timer-pill');
+  if (pill) pill.textContent = '🔒 ' + label;
+  bar.style.strokeDashoffset = (RING_LEN * (1 - left / SESSION_TTL_MS)).toFixed(1);
+  bar.classList.toggle('warn', secs <= 20);
+  if (left <= 0) nukeSession();
+}, 1000);
+
+// ── Safe rendering (escape first, then minimal markdown) ──────────────────
 function escapeHtml(s){
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
           .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -145,9 +310,8 @@ function escapeHtml(s){
 function renderMarkdown(raw){
   let s = escapeHtml(raw);
   s = s.replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>');
-  s = s.replace(/https?:\/\/[^\s<)]+/g, (u) =>
+  s = s.replace(/https?:\/\/[^\s<)]+/g, u =>
     `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
-  // bullets
   const lines = s.split('\n');
   let html = '', inList = false;
   for (const line of lines){
@@ -164,11 +328,12 @@ function renderMarkdown(raw){
   return html;
 }
 
+const KIP_AVATAR = '<svg class="mav kip-svg" viewBox="0 0 100 100"><use href="#kip"/></svg>';
+
 function addMsg(role, contentHtml){
   const div = document.createElement('div');
   div.className = 'msg ' + role;
-  div.innerHTML = (role === 'kip' ? '<div class="avatar">🐨</div>' : '') +
-    `<div class="bubble">${contentHtml}</div>`;
+  div.innerHTML = (role === 'kip' ? KIP_AVATAR : '') + `<div class="bubble">${contentHtml}</div>`;
   msgs.appendChild(div);
   main.scrollTop = main.scrollHeight;
   return div;
@@ -185,6 +350,7 @@ function sourcesHtml(sources, verified){
 async function ask(text){
   if (busy || !text.trim()) return;
   busy = true; send.disabled = true; input.value = '';
+  touch(); hadActivity = true;
 
   addMsg('user', escapeHtml(text));
   history.push({ role: 'user', content: text });
@@ -210,46 +376,59 @@ async function ask(text){
     typing.remove();
     addMsg('kip', '<p>Network hiccup — please check your connection and try again.</p>');
   } finally {
-    busy = false; send.disabled = false; input.focus();
+    busy = false; send.disabled = false; input.focus(); touch();
   }
 }
 
 form.addEventListener('submit', (e) => { e.preventDefault(); ask(input.value); });
 
-// ── Module chips + suggestions ─────────────────────────────────────────────
+// ── Module UI: sidebar (desktop) + chips (mobile) ──────────────────────────
+const sideMods = document.getElementById('side-mods');
 const chipsEl = document.getElementById('chips');
+
 MODULES.forEach((m) => {
-  const b = document.createElement('button');
-  b.className = 'chip';
-  b.textContent = `${m.emoji} ${m.name}`;
-  b.addEventListener('click', () => showSuggestions(m, b));
-  chipsEl.appendChild(b);
+  const sb = document.createElement('button');
+  sb.className = 'smod';
+  sb.innerHTML = `<span class="em" style="--em-bg:rgba(${m.color},.16)">${m.emoji}</span>${m.name}`;
+  sb.addEventListener('click', () => showSuggestions(m, sb));
+  sideMods.appendChild(sb);
+
+  const cb = document.createElement('button');
+  cb.className = 'chip';
+  cb.textContent = `${m.emoji} ${m.name}`;
+  cb.addEventListener('click', () => showSuggestions(m, cb));
+  chipsEl.appendChild(cb);
 });
 
-function showSuggestions(mod, chipBtn){
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  chipBtn.classList.add('active');
+function showSuggestions(mod, btn){
+  document.querySelectorAll('.smod,.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  touch();
   const old = document.getElementById('suggest-box');
   if (old) old.remove();
   const div = document.createElement('div');
   div.id = 'suggest-box';
   div.className = 'msg kip';
-  div.innerHTML = '<div class="avatar">🐨</div>' +
-    `<div class="bubble"><p><strong>${mod.emoji} ${mod.name}</strong> — here's what students often ask:</p><div class="suggest">` +
+  div.innerHTML = KIP_AVATAR +
+    `<div class="bubble"><p><strong>${mod.emoji} ${mod.name}</strong> — students often ask:</p><div class="suggest">` +
     mod.examples.map(q => `<button type="button">${escapeHtml(q)}</button>`).join('') +
     '</div></div>';
   msgs.appendChild(div);
-  div.querySelectorAll('.suggest button').forEach((btn) => {
-    btn.addEventListener('click', () => { div.remove(); ask(btn.textContent); });
+  div.querySelectorAll('.suggest button').forEach((b) => {
+    b.addEventListener('click', () => { div.remove(); ask(b.textContent); });
   });
   main.scrollTop = main.scrollHeight;
 }
 
 // ── Welcome ────────────────────────────────────────────────────────────────
-addMsg('kip',
-  "<p>G'day! I'm <strong>Kip</strong> 🐨 — your companion for life in Australia.</p>" +
-  '<p>Ask me anything about visas, work, tax, housing or health. Every answer comes with <strong>verified official sources</strong>, and I never store anything personal.</p>' +
-  '<p>Pick a topic above, or just type your question.</p>');
+function welcome(extraHtml){
+  addMsg('kip',
+    (extraHtml || '') +
+    "<p>G'day! I'm <strong>Kip</strong> — your companion for life in Australia. 🇦🇺</p>" +
+    '<p>Ask me about visas, work, tax, housing or health. Every answer comes with <strong>verified official sources</strong>.</p>' +
+    '<p>🔒 <strong>Private by design:</strong> nothing you type is saved, and idle chats self-destruct after 2 minutes.</p>');
+}
+welcome();
 
 // Deep link: /chat?ask=...
 const preset = new URLSearchParams(location.search).get('ask');

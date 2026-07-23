@@ -26,7 +26,8 @@ Howdy serves vulnerable users — newcomers who may not recognise scams, who hol
 ## What we deliberately do NOT do
 
 - No accounts, no cookies, no analytics beacons in the MVP — the chat works anonymously.
-- No storage of conversations. History lives only in the browser tab and is capped at 8 turns when sent for context.
+- No storage of conversations. History lives only in a JavaScript array in the browser tab (no localStorage/sessionStorage/cookies) and is capped at 8 turns when sent for context.
+- **Sessions self-destruct.** After 2 minutes without user activity, the client wipes the entire conversation (memory + DOM) and shows a fresh start. The countdown is timestamp-based so background-tab throttling cannot delay the wipe. Server-side there is nothing to wipe — no request content is ever logged or persisted.
 - No scraping of listing sites — we link to their own search pages instead.
 
 ## Known limitations / production hardening

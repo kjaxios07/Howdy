@@ -30,13 +30,10 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Please provide a valid email address.' });
   }
 
-  const safeInterest = String(interest || '').trim().substring(0, 100);
-
-  // MVP: no PII is stored or logged. In production, POST to your email
-  // service (Resend/Mailchimp) here over HTTPS and nothing else.
-  console.log(
-    `[waitlist] signup interest="${safeInterest}" at="${new Date().toISOString()}"`
-  );
+  // MVP: nothing is stored or logged — not even metadata. In production,
+  // POST directly to your email service (Resend/Mailchimp) over HTTPS
+  // and still log nothing here.
+  void interest;
 
   return res.status(200).json({
     success: true,
