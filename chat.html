@@ -136,15 +136,14 @@ main{flex:1;overflow-y:auto;padding:20px 20px 8px;scrollbar-width:thin}
 .fine{max-width:760px;margin:8px auto 0;text-align:center;font-size:.67rem;color:var(--ink-3)}
 
 /* ── Kip SVG animation ──────────────────────────────────── */
-.kip-svg .eye{transform-origin:center;animation:blink 4.6s infinite}
-.kip-svg .earL{transform-origin:22px 30px;animation:wiggle 7s ease-in-out infinite}
-.kip-svg .earR{transform-origin:78px 30px;animation:wiggle 7s ease-in-out 3.5s infinite}
+.kip-svg .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
+.kip-svg .hat{transform-box:fill-box;transform-origin:50% 90%;animation:hattip 7s ease-in-out infinite}
 .kip-float{animation:floaty 4s ease-in-out infinite}
 @keyframes blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
-@keyframes wiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-7deg)}96%{transform:rotate(5deg)}}
+@keyframes hattip{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-9deg) translateY(-2px)}95%{transform:rotate(3deg)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @media (prefers-reduced-motion: reduce){
-  .kip-svg .eye,.kip-svg .earL,.kip-svg .earR,.kip-float{animation:none}
+  .kip-svg .eye,.kip-svg .hat,.kip-float{animation:none}
   .msg{animation:none}
 }
 
@@ -165,19 +164,31 @@ main{flex:1;overflow-y:auto;padding:20px 20px 8px;scrollbar-width:thin}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <g id="kip">
-      <g class="earL"><circle cx="22" cy="30" r="15" fill="#8FA6B3"/><circle cx="22" cy="30" r="8.5" fill="#F5A9BE"/></g>
-      <g class="earR"><circle cx="78" cy="30" r="15" fill="#8FA6B3"/><circle cx="78" cy="30" r="8.5" fill="#F5A9BE"/></g>
-      <circle cx="50" cy="56" r="33" fill="#A9BFCC"/>
-      <circle cx="50" cy="56" r="33" fill="url(#kipshade)"/>
-      <ellipse cx="50" cy="63" rx="9.5" ry="12" fill="#37424B"/>
-      <ellipse cx="47" cy="59" rx="2.6" ry="3.2" fill="#5A6771"/>
-      <circle class="eye" cx="35" cy="49" r="4.2" fill="#232C33"/>
-      <circle class="eye" cx="65" cy="49" r="4.2" fill="#232C33"/>
-      <circle cx="36.4" cy="47.6" r="1.3" fill="#fff"/>
-      <circle cx="66.4" cy="47.6" r="1.3" fill="#fff"/>
-      <path d="M42 80 Q50 85 58 80" stroke="#37424B" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-      <circle cx="29" cy="66" r="4.5" fill="#F5A9BE" opacity=".55"/>
-      <circle cx="71" cy="66" r="4.5" fill="#F5A9BE" opacity=".55"/>
+      <!-- Kip: a sunny little Aussie mate in a bush hat -->
+      <g class="hat">
+        <path d="M35 25 Q35 7 50 7 Q65 7 65 25 Z" fill="#A9713C"/>
+        <path d="M35 25 Q35 20 50 20 Q65 20 65 25 L65 25 Q50 29 35 25 Z" fill="#0E7C66"/>
+        <ellipse cx="50" cy="26" rx="31" ry="6.5" fill="#8F5C2E"/>
+        <ellipse cx="50" cy="24.6" rx="31" ry="6.5" fill="#A9713C"/>
+      </g>
+      <circle cx="50" cy="59" r="31" fill="#FFB761"/>
+      <circle cx="50" cy="59" r="31" fill="url(#kipshade)"/>
+      <!-- freckles -->
+      <circle cx="44" cy="64" r="1.1" fill="#D98A3D" opacity=".7"/>
+      <circle cx="49" cy="66" r="1.1" fill="#D98A3D" opacity=".7"/>
+      <circle cx="54" cy="64.4" r="1.1" fill="#D98A3D" opacity=".7"/>
+      <!-- brows: one raised = always thinking -->
+      <path d="M31.5 44 Q37.5 41 43.5 44" stroke="#8F5C2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M56.5 42.5 Q62.5 38 69 42" stroke="#8F5C2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <!-- big friendly eyes -->
+      <g class="eye"><ellipse cx="38" cy="54" rx="6.4" ry="7.2" fill="#fff"/><circle cx="39.3" cy="55.2" r="3.3" fill="#232C33"/><circle cx="40.5" cy="53.9" r="1.1" fill="#fff"/></g>
+      <g class="eye"><ellipse cx="62" cy="54" rx="6.4" ry="7.2" fill="#fff"/><circle cx="63.3" cy="55.2" r="3.3" fill="#232C33"/><circle cx="64.5" cy="53.9" r="1.1" fill="#fff"/></g>
+      <!-- rosy cheeks -->
+      <circle cx="29.5" cy="64" r="4.6" fill="#FF8A66" opacity=".5"/>
+      <circle cx="70.5" cy="64" r="4.6" fill="#FF8A66" opacity=".5"/>
+      <!-- crooked cheeky grin -->
+      <path d="M39 71 Q49 80 61 71.5 Q56 74.5 39 71 Z" fill="#7A3E1D"/>
+      <path d="M47 76.6 Q51 78.4 55 76.2 Q51 80 47 76.6 Z" fill="#FF8A66"/>
     </g>
     <radialGradient id="kipshade" cx=".38" cy=".3" r="1">
       <stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".06"/>
