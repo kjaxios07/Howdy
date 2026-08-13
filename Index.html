@@ -117,13 +117,24 @@ footer .disclaimer{max-width:820px;margin:0 auto 16px;text-align:center;line-hei
 footer .fine{text-align:center}
 
 /* Kip animation */
-.kip-svg .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
-.kip-svg .hat{transform-box:fill-box;transform-origin:50% 90%;animation:hattip 7s ease-in-out infinite}
+/* Kip orb — rotating halo rings + pulsing core */
+.kip-svg .ring,.kip-svg .orbit,.kip-svg .core,.kip-svg .glow,.kip-svg .core-ring{
+  transform-box:view-box;transform-origin:center}
+.kip-svg .r1{animation:spin 9s linear infinite}
+.kip-svg .r2{animation:spinrev 15s linear infinite}
+.kip-svg .r3{animation:spin 6.5s linear infinite}
+.kip-svg .o1{animation:spin 5s linear infinite}
+.kip-svg .o2{animation:spinrev 8s linear infinite}
+.kip-svg .core{animation:corepulse 3.4s ease-in-out infinite}
+.kip-svg .core-ring{animation:spinrev 12s linear infinite}
+.kip-svg .glow{animation:glowpulse 3.4s ease-in-out infinite}
 .kip-float{animation:floaty 4s ease-in-out infinite}
-@keyframes blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
-@keyframes hattip{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-9deg) translateY(-2px)}95%{transform:rotate(3deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinrev{to{transform:rotate(-360deg)}}
+@keyframes corepulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes glowpulse{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@media (prefers-reduced-motion: reduce){.kip-svg .eye,.kip-svg .hat,.kip-float{animation:none}}
+@media (prefers-reduced-motion: reduce){.kip-svg .ring,.kip-svg .orbit,.kip-svg .core,.kip-svg .glow,.kip-svg .core-ring,.kip-float{animation:none}}
 @media (max-width:700px){ :root{--blur:blur(12px) saturate(1.3)} body{background-attachment:scroll} }
 </style>
 </head>
@@ -132,35 +143,32 @@ footer .fine{text-align:center}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <g id="kip">
-      <!-- Kip: a sunny little Aussie mate in a bush hat -->
-      <g class="hat">
-        <path d="M35 25 Q35 7 50 7 Q65 7 65 25 Z" fill="#A9713C"/>
-        <path d="M35 25 Q35 20 50 20 Q65 20 65 25 L65 25 Q50 29 35 25 Z" fill="#0E7C66"/>
-        <ellipse cx="50" cy="26" rx="31" ry="6.5" fill="#8F5C2E"/>
-        <ellipse cx="50" cy="24.6" rx="31" ry="6.5" fill="#A9713C"/>
-      </g>
-      <circle cx="50" cy="59" r="31" fill="#FFB761"/>
-      <circle cx="50" cy="59" r="31" fill="url(#kipshade)"/>
-      <!-- freckles -->
-      <circle cx="44" cy="64" r="1.1" fill="#D98A3D" opacity=".7"/>
-      <circle cx="49" cy="66" r="1.1" fill="#D98A3D" opacity=".7"/>
-      <circle cx="54" cy="64.4" r="1.1" fill="#D98A3D" opacity=".7"/>
-      <!-- brows: one raised = always thinking -->
-      <path d="M31.5 44 Q37.5 41 43.5 44" stroke="#8F5C2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <path d="M56.5 42.5 Q62.5 38 69 42" stroke="#8F5C2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <!-- big friendly eyes -->
-      <g class="eye"><ellipse cx="38" cy="54" rx="6.4" ry="7.2" fill="#fff"/><circle cx="39.3" cy="55.2" r="3.3" fill="#232C33"/><circle cx="40.5" cy="53.9" r="1.1" fill="#fff"/></g>
-      <g class="eye"><ellipse cx="62" cy="54" rx="6.4" ry="7.2" fill="#fff"/><circle cx="63.3" cy="55.2" r="3.3" fill="#232C33"/><circle cx="64.5" cy="53.9" r="1.1" fill="#fff"/></g>
-      <!-- rosy cheeks -->
-      <circle cx="29.5" cy="64" r="4.6" fill="#FF8A66" opacity=".5"/>
-      <circle cx="70.5" cy="64" r="4.6" fill="#FF8A66" opacity=".5"/>
-      <!-- crooked cheeky grin -->
-      <path d="M39 71 Q49 80 61 71.5 Q56 74.5 39 71 Z" fill="#7A3E1D"/>
-      <path d="M47 76.6 Q51 78.4 55 76.2 Q51 80 47 76.6 Z" fill="#FF8A66"/>
+      <!-- Kip: a luminous AI orb — glowing core, halo rings, orbiting sparks -->
+      <circle class="glow" cx="50" cy="50" r="47" fill="url(#orbGlow)"/>
+      <g class="ring r2"><circle cx="50" cy="50" r="40" fill="none" stroke="url(#orbRing)" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="60 191" opacity=".5"/></g>
+      <g class="ring r1"><circle cx="50" cy="50" r="34" fill="none" stroke="url(#orbRing)" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="150 64" opacity=".9"/></g>
+      <g class="ring r3"><circle cx="50" cy="50" r="28" fill="none" stroke="url(#orbRing)" stroke-width="2" stroke-linecap="round" stroke-dasharray="40 136" opacity=".7"/></g>
+      <g class="orbit o1"><circle cx="50" cy="13" r="2.4" fill="#7EF0DC"/></g>
+      <g class="orbit o2"><circle cx="88" cy="50" r="1.7" fill="#B9A8FF"/></g>
+      <circle class="core" cx="50" cy="50" r="20" fill="url(#orbCore)"/>
+      <circle class="core-ring" cx="50" cy="50" r="14" fill="none" stroke="#EAF9FF" stroke-width="1" stroke-dasharray="3 5" opacity=".55"/>
+      <ellipse cx="44" cy="42.5" rx="8" ry="5" fill="#fff" opacity=".45"/>
     </g>
-    <radialGradient id="kipshade" cx=".38" cy=".3" r="1">
-      <stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".06"/>
+    <radialGradient id="orbCore" cx="35%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#D8FBFF"/>
+      <stop offset="45%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#7C5CFC"/>
     </radialGradient>
+    <radialGradient id="orbGlow">
+      <stop offset="0%" stop-color="#2FD3AE" stop-opacity=".45"/>
+      <stop offset="55%" stop-color="#38BDF8" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="#7C5CFC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orbRing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2FD3AE"/>
+      <stop offset=".5" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#7C5CFC"/>
+    </linearGradient>
   </defs>
 </svg>
 

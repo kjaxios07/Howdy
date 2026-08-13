@@ -2,7 +2,7 @@
 
 **A verified-source companion for international students and new migrants in Australia.**
 
-Kip (our sunny little mate in a bush hat) answers everyday questions — visas, work rights, tax, housing, health, banking — grounded in official Australian government sources. Every reply is source-verified server-side before the user sees it.
+Kip (our luminous AI orb) answers everyday questions — visas, work rights, tax, housing, health, banking — grounded in official Australian government sources. Every reply is source-verified server-side before the user sees it.
 
 > Guidance, not legal advice. A companion, not a lawyer.
 
