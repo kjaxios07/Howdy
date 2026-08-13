@@ -3,3 +3,9 @@ node_modules/
 .env
 .env.*
 *.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+server/.env

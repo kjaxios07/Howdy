@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "version": "2.0.0",
+    "last_updated": "2026-07-22",
+    "structure": "Organised by Kip module id. Every section carries a source_url pointing at the official page the facts came from.",
+    "update_frequency": "daily via .github/workflows/update-knowledge.yml",
+    "trusted_sources": [
+      "homeaffairs.gov.au",
+      "immi.homeaffairs.gov.au",
+      "vevo.homeaffairs.gov.au",
+      "ato.gov.au",
+      "fairwork.gov.au",
+      "servicesaustralia.gov.au",
+      "studyaustralia.gov.au",
+      "moneysmart.gov.au",
+      "scamwatch.gov.au",
+      "healthdirect.gov.au"
+    ]
+  },
+
+  "arrive": {
+    "first_30_days_checklist": {
+      "source_url": "https://www.studyaustralia.gov.au/en/plan-your-move",
+      "steps": [
+        "Activate OSHC health cover (it should start from your arrival date)",
+        "Get an Australian SIM card (major networks: Telstra, Optus, Vodafone; budget: Amaysim, Boost)",
+        "Open a bank account (or activate the one you opened from overseas)",
+        "Apply for your TFN at ato.gov.au (needed before your first payday)",
+        "Get your transport concession card through your university",
+        "Register your Australian address with your education provider within 7 days",
+        "Attend your university orientation and international student welcome",
+        "Save the emergency number 000 and Healthdirect 1800 022 222"
+      ]
+    }
+  },
+
+  "visa": {
+    "student_500": {
+      "name": "Student Visa (Subclass 500)",
+      "source_url": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/student-500",
+      "work_rights": {
+        "during_semester": "Maximum 48 hours per fortnight",
+        "during_course_breaks": "Unlimited hours (no restriction)",
+        "note": "Breaching the 48-hour limit is a visa condition breach and may affect your visa"
+      },
+      "key_conditions": [
+        "Must remain enrolled in and actively studying a registered CRICOS course",
+        "Must maintain Overseas Student Health Cover (OSHC) for the duration of your visa",
+        "Must achieve satisfactory course progress",
+        "Must notify your education provider of address changes within 7 days"
+      ],
+      "costs": {
+        "application_fee": "AUD 710 (as of 2024-25)",
+        "oshc": "Approx AUD 600-800/year depending on provider"
+      },
+      "check_conditions_at": "https://vevo.homeaffairs.gov.au"
+    },
+    "graduate_485": {
+      "name": "Temporary Graduate Visa (Subclass 485)",
+      "source_url": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-graduate-485",
+      "description": "Live, study and work in Australia after completing your studies",
+      "streams": {
+        "post_study_work": {
+          "bachelor_or_masters_by_coursework": "2 years",
+          "masters_by_research_or_honours": "3 years",
+          "doctoral_degree": "4 years"
+        }
+      },
+      "full_work_rights": true,
+      "deadline": "Must apply within 6 months of receiving final results",
+      "application_fee": "AUD 1,895 (2024-25)"
+    },
+    "skilled_pathways": {
+      "source_url": "https://immi.homeaffairs.gov.au/visas/working-in-australia/skillselect",
+      "subclass_189": "Skilled Independent (permanent, points-based, min 65 points, no sponsor)",
+      "subclass_190": "Skilled Nominated (permanent, state nomination adds 5 points, 2-year commitment to state)",
+      "subclass_491": "Skilled Work Regional (provisional 5 years, +15 points, pathway to PR via 191 after 3 years)",
+      "professional_advice": "For visa strategy, consult a MARA-registered migration agent: https://www.mara.gov.au"
+    }
+  },
+
+  "tax": {
+    "tfn": {
+      "name": "Tax File Number (TFN)",
+      "source_url": "https://www.ato.gov.au/individuals-and-families/tax-file-number",
+      "description": "A unique 9-digit number for tax and superannuation. Free, never expires.",
+      "how_to_apply": "Apply online at ato.gov.au once you are in Australia",
+      "processing_time": "Up to 28 days",
+      "without_tfn": "47% withholding tax applies to your wages",
+      "never_share": "Only share your TFN with the ATO, your employer (after you start), your bank, or your super fund"
+    },
+    "income_tax": {
+      "name": "Income Tax (2024-25 resident rates)",
+      "source_url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents",
+      "resident_rates": [
+        { "bracket": "$0 – $18,200", "rate": "0% (tax-free threshold)" },
+        { "bracket": "$18,201 – $45,000", "rate": "19%" },
+        { "bracket": "$45,001 – $120,000", "rate": "32.5%" },
+        { "bracket": "$120,001 – $180,000", "rate": "37%" },
+        { "bracket": "$180,001+", "rate": "45%" }
+      ],
+      "residency_note": "Tax residency is different from visa residency — many students ARE Australian residents for tax purposes if they stay 6+ months in one place. Check the ATO residency tool.",
+      "lodge_return": "Lodge at my.gov.au (myTax) each year by 31 October. Financial year runs 1 July – 30 June."
+    },
+    "superannuation": {
+      "name": "Superannuation (Super)",
+      "source_url": "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super",
+      "rate": "11.5% of ordinary time earnings (2024-25)",
+      "eligibility": "All employees with work rights are entitled to super from the first dollar earned",
+      "dasp": {
+        "name": "Departing Australia Superannuation Payment (DASP)",
+        "source_url": "https://www.ato.gov.au/individuals-and-families/coming-to-australia-or-going-overseas/coming-to-australia/departing-australia-superannuation-payment-dasp",
+        "description": "Claim your super back after you permanently leave Australia and your visa has ended",
+        "tax_rate": "65% withholding for most temporary visa holders (35% for working holiday makers)"
+      }
+    }
+  },
+
+  "work": {
+    "minimum_wage": {
+      "name": "National Minimum Wage",
+      "source_url": "https://www.fairwork.gov.au/pay-and-wages/minimum-wages",
+      "rate": "$24.10 per hour (from 1 July 2024)",
+      "casual_loading": "Casual workers get +25% loading — minimum $30.13/hour",
+      "award_note": "Many industries have higher award rates — check fairwork.gov.au/pay"
+    },
+    "rights": {
+      "name": "Your Work Rights",
+      "source_url": "https://www.fairwork.gov.au/find-help-for/visa-holders-migrants",
+      "key_rights": [
+        "At least minimum wage for every hour worked, regardless of visa",
+        "A payslip within 1 working day of pay day",
+        "Superannuation contributions (11.5%)",
+        "A safe workplace, free from discrimination and harassment"
+      ],
+      "underpayment_help": {
+        "phone": "13 13 94 (Fair Work Ombudsman)",
+        "anonymous_report": "https://www.fairwork.gov.au/workplace-problems/anonymous-report",
+        "visa_protection": "Fair Work has an agreement with Home Affairs: your visa will not be cancelled for reporting workplace exploitation"
+      }
+    }
+  },
+
+  "housing": {
+    "finding_a_place": {
+      "name": "Where to search for rentals",
+      "source_url": "https://www.realestate.com.au",
+      "trusted_platforms": [
+        { "name": "realestate.com.au", "best_for": "Houses and apartments (whole property)" },
+        { "name": "domain.com.au", "best_for": "Houses and apartments (whole property)" },
+        { "name": "flatmates.com.au", "best_for": "Share houses and rooms — usually the most affordable option" }
+      ],
+      "policy": "Kip links students to live search results on these trusted platforms. Kip never invents or quotes individual listings — always check the live site."
+    },
+    "renting_process": {
+      "name": "Renting in Australia",
+      "source_url": "https://www.studyaustralia.gov.au/en/live-in-australia/accommodation",
+      "typical_requirements": [
+        "Passport + visa (ID)",
+        "Proof of income or savings (bank statements)",
+        "Student enrollment confirmation",
+        "References if you have them"
+      ],
+      "upfront_costs": {
+        "bond": "Usually 4 weeks rent — held by the state bond authority, NOT the landlord",
+        "advance_rent": "Usually 2 weeks rent",
+        "total": "Budget about 6 weeks rent to move in"
+      },
+      "bond_protection": "Your bond must be lodged with your state's bond authority. You get it back at the end if there is no damage or unpaid rent.",
+      "scam_warning": "Never transfer money before inspecting a property in person and signing a lease. Report rental scams to scamwatch.gov.au"
+    }
+  },
+
+  "health": {
+    "oshc": {
+      "name": "Overseas Student Health Cover (OSHC)",
+      "source_url": "https://www.privatehealth.gov.au/health_insurance/overseas/overseas_student_health_cover.htm",
+      "requirement": "Mandatory for all student visa holders for the full visa duration",
+      "covers": "Hospital, limited GP visits, ambulance, some prescriptions",
+      "approved_providers": ["Medibank", "Bupa", "nib", "AHM", "CBHS International"],
+      "cost_estimate": "Approx AUD 600–800/year single cover",
+      "tip": "Ask clinics: 'Do you bulk bill OSHC?' — some GPs charge no gap for OSHC holders"
+    },
+    "medicare": {
+      "name": "Medicare",
+      "source_url": "https://www.servicesaustralia.gov.au/medicare",
+      "student_eligibility": "Most student visa holders are NOT eligible for Medicare",
+      "rhca_exception": "Citizens of RHCA countries (UK, Ireland, NZ, Sweden, Netherlands, Finland, Italy, Belgium, Malta, Slovenia, Norway) may get some Medicare benefits",
+      "check_at": "https://www.servicesaustralia.gov.au/reciprocal-health-care-agreements"
+    },
+    "emergency": {
+      "source_url": "https://www.healthdirect.gov.au",
+      "triple_zero": "000 — Police, Fire, Ambulance (life-threatening emergencies)",
+      "healthdirect": "1800 022 222 — free 24/7 nurse advice line",
+      "police_non_emergency": "131 444"
+    }
+  },
+
+  "money": {
+    "bank_accounts": {
+      "name": "Opening a Bank Account",
+      "source_url": "https://moneysmart.gov.au/banking",
+      "before_arrival": "Major banks (CommBank, ANZ, Westpac) let you open an account online up to 3 months before arriving",
+      "documents": ["Passport", "Visa grant letter", "Australian address (can add after arrival)"],
+      "student_accounts": "All big four banks offer no-monthly-fee student accounts — compare features at moneysmart.gov.au",
+      "sending_money_home": "Compare transfer providers' full cost (fee + exchange rate margin) at moneysmart.gov.au before choosing — over-the-counter bank transfers are usually the most expensive option"
+    }
+  },
+
+  "transport": {
+    "concessions_by_city": {
+      "source_url": "https://www.studyaustralia.gov.au/en/live-in-australia/transport",
+      "sydney": { "card": "Opal", "concession": "50% off for eligible tertiary students", "info": "https://transportnsw.info/opal" },
+      "melbourne": { "card": "myki", "concession": "Concession myki for eligible full-time students; free CBD tram zone", "info": "https://www.ptv.vic.gov.au" },
+      "brisbane": { "card": "go card", "concession": "Concession go card for eligible students", "info": "https://translink.com.au" },
+      "perth": { "card": "SmartRider", "concession": "Concession for eligible students; free CAT buses in CBD", "info": "https://www.transperth.wa.gov.au" },
+      "adelaide": { "card": "Metrocard", "concession": "Concession Metrocard for eligible students", "info": "https://www.adelaidemetro.com.au" },
+      "note": "Apply for concession status through your university — international student eligibility varies by state"
+    }
+  },
+
+  "study": {
+    "discounts": {
+      "source_url": "https://www.unidays.com",
+      "unidays": "Verify with your .edu.au email for discounts on tech, clothing, food",
+      "student_beans": "studentbeans.com/au — additional student discounts",
+      "budgeting": {
+        "weekly_groceries": "$70–120 depending on city",
+        "share_room_weekly": "Sydney $300-420 · Melbourne $260-360 · Brisbane $220-310 · Perth $240-340 · Adelaide $180-280 · Hobart $160-280",
+        "tip": "ALDI and marked-down items at Coles/Woolworths after 7pm stretch a student budget"
+      }
+    },
+    "support": {
+      "source_url": "https://www.studyaustralia.gov.au",
+      "university_support": "Every university has a free international student support office — use it for visa, housing, academic and personal issues"
+    }
+  },
+
+  "safety": {
+    "emergencies": {
+      "source_url": "https://www.healthdirect.gov.au",
+      "triple_zero": "000 — Police, Fire, Ambulance",
+      "lifeline": "13 11 14 — crisis support, 24/7",
+      "beyond_blue": "1300 22 4636 — mental health support",
+      "healthdirect": "1800 022 222 — 24/7 nurse advice"
+    },
+    "common_scams": {
+      "name": "Scams targeting international students",
+      "source_url": "https://www.scamwatch.gov.au",
+      "visa_scam": "Callers claiming to be Home Affairs/police demanding payment to avoid visa cancellation or arrest. Government agencies NEVER demand payment by phone, gift cards or crypto. Hang up.",
+      "rental_scam": "Landlords asking for bond/rent before you inspect. Never pay before seeing the property and signing a lease.",
+      "job_scam": "Jobs requiring you to pay upfront or receive/forward money through your bank account (money muling is a crime).",
+      "report_at": "https://www.scamwatch.gov.au/report-a-scam"
+    },
+    "legal_note": "Kip gives general guidance from official sources — not legal, migration or financial advice. For visa decisions use a MARA-registered agent (mara.gov.au); for legal issues contact your university's student legal service."
+  }
+}

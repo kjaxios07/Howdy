@@ -1,0 +1,46 @@
+# Caddy handles TLS automatically — certificates, renewal, OCSP, HTTP/3.
+# Set DOMAIN in .env; Caddy reads it from the environment.
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+		X-Content-Type-Options    "nosniff"
+		X-Frame-Options           "DENY"
+		Referrer-Policy           "strict-origin-when-cross-origin"
+		Permissions-Policy        "camera=(), microphone=(), geolocation=(), payment=()"
+		Content-Security-Policy   "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+		-Server
+	}
+
+	# Edge rate limit — a crude backstop in front of the app's own limiter.
+	# Blocks a flood before it ever reaches Python.
+	@api path /api/*
+	handle @api {
+		reverse_proxy app:8000 {
+			health_uri /api/health
+			health_interval 20s
+		}
+	}
+
+	handle /chat {
+		rewrite * /chat.html
+		root * /srv
+		file_server
+	}
+
+	handle {
+		root * /srv
+		try_files {path} /Index.html
+		file_server
+	}
+
+	log {
+		output file /data/access.log {
+			roll_size 20mb
+			roll_keep 5
+		}
+		# Do not log request bodies. Caddy does not by default — keep it that way.
+	}
+}

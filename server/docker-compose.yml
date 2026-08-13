@@ -1,0 +1,94 @@
+# Howdy — single-VPS deployment.
+#
+# ⚠️  The ports below bind to 127.0.0.1 deliberately. Docker writes its own
+#     iptables rules and BYPASSES ufw: publishing "5432:5432" exposes Postgres
+#     to the whole internet while `ufw status` still reports it as blocked.
+#     Verify from another machine with `nmap -Pn <your-ip>` before launch.
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"          # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../web:/srv:ro          # static front-end (Index.html, chat.html)
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [app]
+
+  app:
+    build: .
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    environment:
+      HOWDY_ENV: production
+      HOWDY_BASE_URL: "https://${DOMAIN}"
+      HOWDY_DATABASE_URL: "postgresql+asyncpg://howdy_app:${DB_PASSWORD}@db:5432/howdy"
+      HOWDY_REDIS_URL: "redis://cache:6379/0"
+      HOWDY_MODEL: "${KIP_MODEL:-claude-sonnet-5}"
+      HOWDY_GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
+      HOWDY_SENTRY_DSN: "${SENTRY_DSN:-}"
+    secrets:
+      - kek_v1
+      - pepper
+      - anthropic_key
+      - google_client_secret
+      - cookie_secret
+    depends_on:
+      db: {condition: service_healthy}
+      cache: {condition: service_started}
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports: ["127.0.0.1:5432:5432"]      # ← loopback ONLY
+    environment:
+      POSTGRES_DB: howdy
+      POSTGRES_USER: howdy_app
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U howdy_app -d howdy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cache:
+    image: valkey/valkey:8-alpine
+    restart: unless-stopped
+    ports: ["127.0.0.1:6379:6379"]      # ← loopback ONLY
+    command: valkey-server --save "" --appendonly no --maxmemory 256mb --maxmemory-policy allkeys-lru
+    # Sessions are disposable: losing the cache logs everyone out, it loses no data.
+
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    depends_on: [db]
+    environment:
+      PGPASSWORD: "${DB_PASSWORD}"
+      B2_BUCKET: "${B2_BUCKET:-}"
+    volumes:
+      - ./deploy/backup.sh:/backup.sh:ro
+      - backups:/backups
+    entrypoint: ["/bin/sh", "-c", "while true; do /backup.sh; sleep 86400; done"]
+
+secrets:
+  kek_v1:               {file: /etc/howdy/secrets/kek_v1}
+  pepper:               {file: /etc/howdy/secrets/pepper}
+  anthropic_key:        {file: /etc/howdy/secrets/anthropic_key}
+  google_client_secret: {file: /etc/howdy/secrets/google_client_secret}
+  cookie_secret:        {file: /etc/howdy/secrets/cookie_secret}
+
+volumes:
+  pgdata: {}
+  caddy_data: {}
+  caddy_config: {}
+  backups: {}
