@@ -117,68 +117,58 @@ footer .disclaimer{max-width:820px;margin:0 auto 16px;text-align:center;line-hei
 footer .fine{text-align:center}
 
 /* Kip animation */
-/* Kip orb — rotating halo rings + pulsing core */
-.kip-svg .ring,.kip-svg .orbit,.kip-svg .core,.kip-svg .glow,.kip-svg .core-ring{
-  transform-box:view-box;transform-origin:center}
-.kip-svg .r1{animation:spin 9s linear infinite}
-.kip-svg .r2{animation:spinrev 15s linear infinite}
-.kip-svg .r3{animation:spin 6.5s linear infinite}
-.kip-svg .o1{animation:spin 5s linear infinite}
-.kip-svg .o2{animation:spinrev 8s linear infinite}
-.kip-svg .core{animation:corepulse 3.4s ease-in-out infinite}
-.kip-svg .core-ring{animation:spinrev 12s linear infinite}
-.kip-svg .glow{animation:glowpulse 3.4s ease-in-out infinite}
+/* ── Kip v4: a living aurora companion ── */
+.kip-svg{position:relative;display:inline-block;aspect-ratio:1;flex-shrink:0}
+.kip-svg::before{
+  content:'';position:absolute;inset:-16%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(56,189,248,.38),rgba(124,92,252,.16) 55%,transparent 72%);
+  animation:aura 4.2s ease-in-out infinite;
+}
+.kip-svg .blob{
+  position:absolute;inset:2%;
+  background:conic-gradient(from 210deg,#2FD3AE,#38BDF8 28%,#7C5CFC 58%,#F472B6 82%,#2FD3AE);
+  border-radius:46% 54% 52% 48%/48% 46% 54% 52%;
+  animation:morph 9s ease-in-out infinite;
+  box-shadow:inset -4px -6px 14px rgba(30,20,80,.28), inset 4px 6px 14px rgba(255,255,255,.25);
+}
+.kip-svg .blob2{
+  position:absolute;inset:10%;
+  background:radial-gradient(58% 52% at 34% 28%,rgba(255,255,255,.85),rgba(255,255,255,.12) 55%,transparent 75%);
+  border-radius:52% 48% 44% 56%/56% 44% 56% 44%;
+  animation:morph 7s ease-in-out reverse infinite;
+  pointer-events:none;
+}
+.kip-svg .e{
+  position:absolute;top:37%;width:12%;height:23%;background:#fff;border-radius:99px;
+  box-shadow:0 0 8px rgba(255,255,255,.9);
+  animation:blink 4.6s infinite, gaze 9s ease-in-out infinite;
+}
+.kip-svg .e.l{left:33%}
+.kip-svg .e.r{right:33%}
 .kip-float{animation:floaty 4s ease-in-out infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes spinrev{to{transform:rotate(-360deg)}}
-@keyframes corepulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-@keyframes glowpulse{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes morph{
+  0%,100%{border-radius:46% 54% 52% 48%/48% 46% 54% 52%;rotate:0deg}
+  25%{border-radius:58% 42% 46% 54%/50% 58% 42% 50%;rotate:4deg}
+  50%{border-radius:46% 54% 60% 40%/42% 48% 52% 58%;rotate:-3deg}
+  75%{border-radius:54% 46% 42% 58%/58% 42% 58% 42%;rotate:3deg}
+}
+@keyframes aura{0%,100%{opacity:.7;scale:1}50%{opacity:1;scale:1.06}}
+@keyframes blink{0%,91%,100%{scale:1 1}94%{scale:1 .08}}
+@keyframes gaze{0%,22%,100%{translate:0 0}30%,44%{translate:38% -9%}58%,74%{translate:-32% 7%}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@media (prefers-reduced-motion: reduce){.kip-svg .ring,.kip-svg .orbit,.kip-svg .core,.kip-svg .glow,.kip-svg .core-ring,.kip-float{animation:none}}
+@media (prefers-reduced-motion: reduce){.kip-svg .blob,.kip-svg .blob2,.kip-svg .e,.kip-svg::before,.kip-float{animation:none}}
 @media (max-width:700px){ :root{--blur:blur(12px) saturate(1.3)} body{background-attachment:scroll} }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <g id="kip">
-      <!-- Kip: a luminous AI orb — glowing core, halo rings, orbiting sparks -->
-      <circle class="glow" cx="50" cy="50" r="47" fill="url(#orbGlow)"/>
-      <g class="ring r2"><circle cx="50" cy="50" r="40" fill="none" stroke="url(#orbRing)" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="60 191" opacity=".5"/></g>
-      <g class="ring r1"><circle cx="50" cy="50" r="34" fill="none" stroke="url(#orbRing)" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="150 64" opacity=".9"/></g>
-      <g class="ring r3"><circle cx="50" cy="50" r="28" fill="none" stroke="url(#orbRing)" stroke-width="2" stroke-linecap="round" stroke-dasharray="40 136" opacity=".7"/></g>
-      <g class="orbit o1"><circle cx="50" cy="13" r="2.4" fill="#7EF0DC"/></g>
-      <g class="orbit o2"><circle cx="88" cy="50" r="1.7" fill="#B9A8FF"/></g>
-      <circle class="core" cx="50" cy="50" r="20" fill="url(#orbCore)"/>
-      <circle class="core-ring" cx="50" cy="50" r="14" fill="none" stroke="#EAF9FF" stroke-width="1" stroke-dasharray="3 5" opacity=".55"/>
-      <ellipse cx="44" cy="42.5" rx="8" ry="5" fill="#fff" opacity=".45"/>
-    </g>
-    <radialGradient id="orbCore" cx="35%" cy="30%" r="85%">
-      <stop offset="0%" stop-color="#D8FBFF"/>
-      <stop offset="45%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#7C5CFC"/>
-    </radialGradient>
-    <radialGradient id="orbGlow">
-      <stop offset="0%" stop-color="#2FD3AE" stop-opacity=".45"/>
-      <stop offset="55%" stop-color="#38BDF8" stop-opacity=".16"/>
-      <stop offset="100%" stop-color="#7C5CFC" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="orbRing" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2FD3AE"/>
-      <stop offset=".5" stop-color="#38BDF8"/>
-      <stop offset="1" stop-color="#7C5CFC"/>
-    </linearGradient>
-  </defs>
-</svg>
-
 <nav><div class="nav-in glass">
-  <div class="logo"><svg class="kip-svg" viewBox="0 0 100 100"><use href="#kip"/></svg>Howdy<em>.</em></div>
+  <div class="logo"><div class="kip-svg"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>Howdy<em>.</em></div>
   <a class="nav-cta" href="/chat">Ask Kip ✦</a>
 </div></nav>
 
 <header class="hero wrap">
-  <svg class="kip-svg kip-float" viewBox="0 0 100 100"><use href="#kip"/></svg><br>
+  <div class="kip-svg kip-float"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div><br>
   <span class="kicker">For international students &amp; new migrants</span>
   <h1>Live your Aussie life <em>confidently</em> — with a companion who checks the source.</h1>
   <p>Kip answers your questions about visas, work, tax, housing and health — grounded in official Australian sources, verified on every reply. Guidance you can trust, never legal advice.</p>
