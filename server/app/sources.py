@@ -13,33 +13,11 @@ import re
 from dataclasses import dataclass
 from urllib.parse import urlparse
 
-# Any subdomain of these is trusted.
-TRUSTED_SUFFIXES = (".gov.au", ".edu.au")
+from .appconfig import housing_platforms, trusted_domains, trusted_suffixes
 
-TRUSTED_DOMAINS: frozenset[str] = frozenset(
-    {
-        # Government
-        "gov.au", "ato.gov.au", "fairwork.gov.au", "homeaffairs.gov.au",
-        "immi.homeaffairs.gov.au", "vevo.homeaffairs.gov.au",
-        "servicesaustralia.gov.au", "studyaustralia.gov.au", "moneysmart.gov.au",
-        "scamwatch.gov.au", "healthdirect.gov.au", "mara.gov.au", "my.gov.au",
-        "privatehealth.gov.au", "oaic.gov.au",
-        # Property listings — the only housing-search sources Kip may link
-        "realestate.com.au", "domain.com.au", "flatmates.com.au",
-        # OSHC providers (government-approved insurers)
-        "medibank.com.au", "bupa.com.au", "nib.com.au", "ahmoshc.com",
-        "cbhsinternational.com.au", "allianzcare.com.au",
-        # Major banks
-        "commbank.com.au", "anz.com.au", "westpac.com.au", "nab.com.au",
-        # Transport authorities not under .gov.au
-        "translink.com.au", "adelaidemetro.com.au", "transportnsw.info",
-        "transperth.wa.gov.au", "ptv.vic.gov.au",
-        # Student services
-        "unidays.com", "studentbeans.com",
-        # Crisis support
-        "lifeline.org.au", "beyondblue.org.au", "kidshelpline.com.au",
-    }
-)
+# Loaded from howdy.config.json → sources.*  (edit the JSON, not this file)
+TRUSTED_SUFFIXES: tuple[str, ...] = trusted_suffixes()
+TRUSTED_DOMAINS: frozenset[str] = trusted_domains()
 
 _URL_RE = re.compile(
     r"\bhttps?://[^\s<>()\"']+"
@@ -117,38 +95,25 @@ def verify_reply(raw: str) -> VerifiedReply:
 def build_listing_links(
     suburb: str, state: str = "", postcode: str = "", bedrooms: str = ""
 ) -> list[dict]:
-    """Deterministic property-search links.
+    """Deterministic property-search links, templated from howdy.config.json.
 
     Kip never invents listings. For any housing query we hand the student live
     search results on the trusted platforms instead.
     """
-    slug = suburb.strip().lower().replace(" ", "-")
-    plus = suburb.strip().lower().replace(" ", "+")
-    st, pc, beds = state.strip().lower(), postcode.strip(), bedrooms.strip()
+    fields = {
+        "suburb_dash": suburb.strip().lower().replace(" ", "-"),
+        "suburb_plus": suburb.strip().lower().replace(" ", "+"),
+        "state": state.strip().lower(),
+        "postcode": postcode.strip(),
+        "beds": bedrooms.strip(),
+    }
 
-    rea_loc = ",+".join(x for x in (plus, st, pc) if x)
-    dom_loc = "-".join(x for x in (slug, st, pc) if x)
-
-    links = [
-        {
-            "name": "realestate.com.au",
-            "url": (
-                f"https://www.realestate.com.au/rent/property-house-with-{beds}-bedrooms-in-{rea_loc}/list-1"
-                if beds
-                else f"https://www.realestate.com.au/rent/in-{rea_loc}/list-1"
-            ),
-        },
-        {
-            "name": "domain.com.au",
-            "url": (
-                f"https://www.domain.com.au/rent/{dom_loc}/?bedrooms={beds}"
-                if beds
-                else f"https://www.domain.com.au/rent/{dom_loc}/"
-            ),
-        },
-        {
-            "name": "flatmates.com.au",
-            "url": f"https://flatmates.com.au/rooms/{slug}" + (f"-{pc}" if pc else ""),
-        },
-    ]
+    links = []
+    for platform in housing_platforms():
+        template = platform["with_bedrooms"] if fields["beds"] else platform["without_bedrooms"]
+        url = template.format(**fields)
+        # Collapse separators left behind by an empty state or postcode.
+        url = re.sub(r",\+(?=[,/])|,\+$", "", url)
+        url = re.sub(r"-(?=[-/?])|-$", "", url)
+        links.append({"name": platform["name"], "url": url})
     return links

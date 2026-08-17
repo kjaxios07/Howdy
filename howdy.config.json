@@ -1,0 +1,288 @@
+{
+  "_readme": [
+    "Single source of truth for the whole Howdy deployment.",
+    "Edit this file, re-run deploy.sh, and the app picks up the changes.",
+    "You can add a module or a trusted source domain here WITHOUT touching Python.",
+    "Secrets never live here — they are generated into /etc/howdy/secrets/ by deploy.sh."
+  ],
+
+  "app": {
+    "name": "Howdy",
+    "assistant": "Kip",
+    "tagline": "Your companion for life in Australia",
+    "description": "Verified-source guidance for international students and new migrants in Australia. Guidance, not legal advice.",
+    "domain": "CHANGE-ME.au",
+    "admin_email": "you@example.com",
+    "locale": "en-AU",
+    "min_age": 16
+  },
+
+  "hosting": {
+    "_comment": "Sizing hints for deploy.sh. Cheapest first.",
+    "profile": "free",
+    "profiles": {
+      "free": {
+        "target": "Oracle Cloud Always Free — ARM Ampere",
+        "region": "ap-singapore-1",
+        "shape": "VM.Standard.A1.Flex",
+        "ocpu": 2,
+        "memory_gb": 12,
+        "monthly_usd": 0,
+        "note": "Free tier was halved to 2 OCPU / 12 GB in June 2026. Stay at or under or the instance gets terminated."
+      },
+      "beta": {
+        "target": "Vultr / Contabo Singapore",
+        "region": "Singapore",
+        "vcpu": 1,
+        "memory_gb": 2,
+        "monthly_usd": 6,
+        "note": "Paid, small, reliable. Right for a public beta."
+      },
+      "launch": {
+        "target": "Vultr / DigitalOcean / Linode Sydney",
+        "region": "Sydney",
+        "vcpu": 2,
+        "memory_gb": 4,
+        "monthly_usd": 24,
+        "note": "Australian data residency. Required by most university procurement."
+      }
+    }
+  },
+
+  "model": {
+    "id": "claude-sonnet-5",
+    "max_tokens": 700,
+    "prompt_caching": true,
+    "_alternatives": {
+      "claude-haiku-4-5": "~60% cheaper. Worth a blind quality test before launch.",
+      "claude-opus-4-8": "Higher ceiling, ~2x cost. Overkill for knowledge-base-grounded answers."
+    }
+  },
+
+  "limits": {
+    "max_message_chars": 800,
+    "max_history_turns": 8,
+    "max_history_chars": 1500,
+    "max_body_bytes": 32768,
+    "rate_limit_anon_per_min": 10,
+    "rate_limit_user_per_min": 30
+  },
+
+  "privacy": {
+    "guest_mode": true,
+    "incognito_mode": true,
+    "default_retention_days": 365,
+    "retention_options_days": [30, 365, 0],
+    "session_ttl_days": 30,
+    "store_ip_addresses": false,
+    "log_message_content": false,
+    "_note": "0 retention days means 'keep until the user deletes it'. Guest and incognito write nothing at all."
+  },
+
+  "sources": {
+    "_note": "Kip may ONLY cite these. Verified server-side after every reply; anything else is stripped.",
+    "trusted_suffixes": [".gov.au", ".edu.au"],
+    "trusted_domains": [
+      "gov.au", "ato.gov.au", "fairwork.gov.au", "homeaffairs.gov.au",
+      "immi.homeaffairs.gov.au", "vevo.homeaffairs.gov.au",
+      "servicesaustralia.gov.au", "studyaustralia.gov.au", "moneysmart.gov.au",
+      "scamwatch.gov.au", "healthdirect.gov.au", "mara.gov.au", "my.gov.au",
+      "privatehealth.gov.au", "oaic.gov.au",
+
+      "realestate.com.au", "domain.com.au", "flatmates.com.au",
+
+      "medibank.com.au", "bupa.com.au", "nib.com.au", "ahmoshc.com",
+      "cbhsinternational.com.au", "allianzcare.com.au",
+
+      "commbank.com.au", "anz.com.au", "westpac.com.au", "nab.com.au",
+
+      "translink.com.au", "adelaidemetro.com.au", "transportnsw.info",
+      "transperth.wa.gov.au", "ptv.vic.gov.au",
+
+      "unidays.com", "studentbeans.com",
+
+      "lifeline.org.au", "beyondblue.org.au", "kidshelpline.com.au"
+    ]
+  },
+
+  "housing_search": {
+    "_note": "Kip never invents listings. It builds live search URLs on these platforms.",
+    "platforms": [
+      {
+        "name": "realestate.com.au",
+        "with_bedrooms": "https://www.realestate.com.au/rent/property-house-with-{beds}-bedrooms-in-{suburb_plus},+{state},+{postcode}/list-1",
+        "without_bedrooms": "https://www.realestate.com.au/rent/in-{suburb_plus},+{state},+{postcode}/list-1"
+      },
+      {
+        "name": "domain.com.au",
+        "with_bedrooms": "https://www.domain.com.au/rent/{suburb_dash}-{state}-{postcode}/?bedrooms={beds}",
+        "without_bedrooms": "https://www.domain.com.au/rent/{suburb_dash}-{state}-{postcode}/"
+      },
+      {
+        "name": "flatmates.com.au",
+        "with_bedrooms": "https://flatmates.com.au/rooms/{suburb_dash}-{postcode}",
+        "without_bedrooms": "https://flatmates.com.au/rooms/{suburb_dash}"
+      }
+    ]
+  },
+
+  "modules": [
+    {
+      "id": "arrive",
+      "name": "Just Landed",
+      "emoji": "🛬",
+      "colour": "56,189,248",
+      "tagline": "Your first 30 days in Australia, step by step",
+      "examples": [
+        "What should I do in my first week in Australia?",
+        "What documents do I need to set up my life here?"
+      ],
+      "sources": ["studyaustralia.gov.au", "homeaffairs.gov.au"]
+    },
+    {
+      "id": "visa",
+      "name": "Visas & Work Rights",
+      "emoji": "🛂",
+      "colour": "124,92,252",
+      "tagline": "Student 500, Graduate 485, and your work-hour limits",
+      "examples": [
+        "How many hours can I work on a student visa?",
+        "How do I apply for the 485 visa after graduation?",
+        "How do I check my visa conditions?"
+      ],
+      "sources": ["immi.homeaffairs.gov.au", "vevo.homeaffairs.gov.au"]
+    },
+    {
+      "id": "tax",
+      "name": "TFN, Tax & Super",
+      "emoji": "🧾",
+      "colour": "255,194,75",
+      "tagline": "Get your Tax File Number, understand tax and superannuation",
+      "examples": [
+        "How do I apply for a TFN?",
+        "What happens if I work without a TFN?",
+        "Can I claim my super when I leave Australia?"
+      ],
+      "sources": ["ato.gov.au", "my.gov.au"]
+    },
+    {
+      "id": "work",
+      "name": "Jobs & Pay Rights",
+      "emoji": "💼",
+      "colour": "18,161,132",
+      "tagline": "Minimum wage, payslips, and what to do if you are underpaid",
+      "examples": [
+        "What is the minimum wage in Australia?",
+        "My employer pays me cash below minimum wage — what can I do?"
+      ],
+      "sources": ["fairwork.gov.au"]
+    },
+    {
+      "id": "housing",
+      "name": "Housing & Rentals",
+      "emoji": "🏠",
+      "colour": "255,122,89",
+      "tagline": "Find listings on trusted sites, understand bond and your rights",
+      "examples": [
+        "Two bedroom house near Acacia Ridge 4110 Brisbane",
+        "How much bond do I pay and how do I get it back?",
+        "What do I need to apply for a rental?"
+      ],
+      "sources": ["realestate.com.au", "domain.com.au", "flatmates.com.au"]
+    },
+    {
+      "id": "health",
+      "name": "OSHC & Healthcare",
+      "emoji": "🏥",
+      "colour": "244,114,182",
+      "tagline": "Your health cover, seeing a doctor, and emergency numbers",
+      "examples": [
+        "What does my OSHC actually cover?",
+        "Am I eligible for Medicare as a student?"
+      ],
+      "sources": ["servicesaustralia.gov.au", "privatehealth.gov.au", "healthdirect.gov.au"]
+    },
+    {
+      "id": "money",
+      "name": "Banking & Money",
+      "emoji": "🏦",
+      "colour": "56,189,248",
+      "tagline": "Open a bank account, send money home, avoid bad exchange rates",
+      "examples": [
+        "Which bank account is best for students?",
+        "Can I open a bank account before I arrive?"
+      ],
+      "sources": ["moneysmart.gov.au"]
+    },
+    {
+      "id": "transport",
+      "name": "Getting Around",
+      "emoji": "🚋",
+      "colour": "124,92,252",
+      "tagline": "Transport cards, student concessions, city by city",
+      "examples": [
+        "How do I get a student discount on public transport in Brisbane?"
+      ],
+      "sources": ["translink.com.au", "transportnsw.info", "ptv.vic.gov.au"]
+    },
+    {
+      "id": "study",
+      "name": "Student Life & Discounts",
+      "emoji": "🎓",
+      "colour": "255,194,75",
+      "tagline": "UNiDAYS, cheap groceries, and making the most of student life",
+      "examples": [
+        "What student discounts can I get in Australia?",
+        "How much should I budget for groceries each week?"
+      ],
+      "sources": ["unidays.com", "studentbeans.com", "studyaustralia.gov.au"]
+    },
+    {
+      "id": "safety",
+      "name": "Safety, Scams & Emergencies",
+      "emoji": "🛡️",
+      "colour": "255,122,89",
+      "tagline": "Emergency numbers, scams targeting students, mental health support",
+      "examples": [
+        "Someone called saying my visa will be cancelled unless I pay — is this a scam?",
+        "What number do I call in an emergency?",
+        "Where can I get mental health support as a student?"
+      ],
+      "sources": ["scamwatch.gov.au", "healthdirect.gov.au", "lifeline.org.au"]
+    }
+  ],
+
+  "safety": {
+    "emergency_number": "000",
+    "crisis_lines": [
+      { "name": "Triple Zero", "number": "000", "for": "Police, fire, ambulance — life-threatening emergencies" },
+      { "name": "Lifeline", "number": "13 11 14", "for": "Crisis support, 24/7" },
+      { "name": "Beyond Blue", "number": "1300 22 4636", "for": "Mental health support" },
+      { "name": "Healthdirect", "number": "1800 022 222", "for": "Free 24/7 nurse advice" },
+      { "name": "Fair Work Ombudsman", "number": "13 13 94", "for": "Underpayment and workplace problems" }
+    ],
+    "pii_guard": true,
+    "injection_guard": true,
+    "referral_disclosure_required": true
+  },
+
+  "legal": {
+    "guidance_not_advice": true,
+    "referrals": {
+      "migration": "https://www.mara.gov.au",
+      "financial": "https://moneysmart.gov.au",
+      "legal": "your university's free student legal service"
+    },
+    "disclaimer": "Kip provides general information sourced from official Australian government websites. It is not legal, migration, tax or financial advice, and is not a substitute for a registered professional.",
+    "consent_version": "2026-08-01",
+    "_critical": "Under the Migration Act 1958, giving immigration assistance without registration is a criminal offence. Kip must only ever give GENERAL information and refer individual matters to a MARA-registered agent. Have a registered agent review app/prompt.py and knowledge/base.json before launch."
+  },
+
+  "monitoring": {
+    "healthcheck_path": "/api/health",
+    "sentry_enabled": false,
+    "backup_schedule": "daily",
+    "backup_retention_local": 7,
+    "alert_if_no_backup_hours": 26
+  }
+}

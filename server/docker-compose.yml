@@ -15,7 +15,7 @@ services:
       - "443:443/udp"          # HTTP/3
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ../web:/srv:ro          # static front-end (Index.html, chat.html)
+      - ../web:/srv:ro                   # static front-end ONLY — never mount the repo root
       - caddy_data:/data
       - caddy_config:/config
     depends_on: [app]
@@ -35,6 +35,8 @@ services:
       HOWDY_MODEL: "${KIP_MODEL:-claude-sonnet-5}"
       HOWDY_GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
       HOWDY_SENTRY_DSN: "${SENTRY_DSN:-}"
+    volumes:
+      - /etc/howdy/howdy.config.json:/etc/howdy/howdy.config.json:ro
     secrets:
       - kek_v1
       - pepper
