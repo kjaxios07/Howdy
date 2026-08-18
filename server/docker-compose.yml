@@ -70,6 +70,23 @@ services:
     command: valkey-server --save "" --appendonly no --maxmemory 256mb --maxmemory-policy allkeys-lru
     # Sessions are disposable: losing the cache logs everyone out, it loses no data.
 
+  evolve:
+    # Daily self-improvement. VERIFY runs unsupervised (re-checks figures we
+    # already publish against their own source). PROPOSE only stages drafts —
+    # a human approves before anything reaches the knowledge base.
+    build: .
+    restart: unless-stopped
+    environment:
+      HOWDY_DATABASE_URL: "postgresql+asyncpg://howdy_app:${DB_PASSWORD}@db:5432/howdy"
+      HOWDY_REDIS_URL: "redis://cache:6379/0"
+      HOWDY_MODEL: "${KIP_MODEL:-claude-sonnet-5}"
+    volumes:
+      - /etc/howdy/howdy.config.json:/etc/howdy/howdy.config.json:ro
+    secrets: [kek_v1, pepper, anthropic_key, google_client_secret, cookie_secret]
+    depends_on:
+      db: {condition: service_healthy}
+    entrypoint: ["/bin/sh","-c","while true; do sleep 86400; python -m app.evolve run; done"]
+
   backup:
     image: postgres:16-alpine
     restart: unless-stopped

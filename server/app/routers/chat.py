@@ -30,7 +30,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .. import websearch
+from .. import gaps, websearch
 from ..config import get_settings
 from ..crypto import Sealed, open_sealed, seal
 from ..db import get_db
@@ -203,6 +203,8 @@ async def chat(
             db, current, conversation, body.module_id, message, checked, merged
         )
 
+    await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
+
     return ChatResponse(
         reply=checked.reply,
         sources=[SourceOut(**s) for s in merged],
@@ -322,6 +324,8 @@ async def chat_stream(
             except Exception:
                 log.exception("persist_failed")  # a save failure must not lose the answer
 
+        await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
+
         yield _sse("done", {
             "reply": checked.reply,
             "sources": merged,
@@ -337,6 +341,22 @@ async def chat_stream(
         media_type="text/event-stream",
         headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
     )
+
+
+
+async def _record_gap(db, message: str, module_id, reply: str, sources, searched: bool) -> None:
+    """Log coverage, never the user. Failures here must never break a reply."""
+    try:
+        await gaps.record(
+            db,
+            question=message,
+            module_id=module_id,
+            answered_well=gaps.answered_well(reply, sources),
+            searched=searched,
+        )
+        await db.commit()
+    except Exception:
+        log.exception("gap_record_failed")
 
 
 # ── helpers ──────────────────────────────────────────────────────────────

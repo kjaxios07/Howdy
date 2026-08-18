@@ -14,6 +14,7 @@ from sqlalchemy import (
     JSON,
     Boolean,
     CheckConstraint,
+    Date,
     DateTime,
     ForeignKey,
     Index,
@@ -124,6 +125,38 @@ class Message(Base):
     __table_args__ = (
         CheckConstraint("role in ('user','assistant')", name="ck_message_role"),
         Index("ix_msg_conv_created", "conversation_id", "created_at"),
+    )
+
+
+class QuestionGap(Base):
+    """What students ask, deliberately detached from who asked it.
+
+    NOTE the column types: `first_seen`/`last_seen` are Date, not DateTime.
+    That is a privacy control, not an oversight — a timestamp would let anyone
+    holding this table correlate a question against a login and re-identify the
+    student who asked it. See gaps.py for the full reasoning.
+    """
+
+    __tablename__ = "question_gaps"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    fingerprint: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
+    question: Mapped[str] = mapped_column(String(300), nullable=False)
+    module_id: Mapped[str | None] = mapped_column(String(32))
+
+    occurrences: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    answered_well: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    needed_search: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    first_seen: Mapped[Date] = mapped_column(Date, nullable=False)   # date only
+    last_seen: Mapped[Date] = mapped_column(Date, nullable=False)    # date only
+
+    # Set when the knowledge base gains an entry covering this question.
+    resolved_at: Mapped[Date | None] = mapped_column(Date)
+    proposal: Mapped[dict | None] = mapped_column(JSON)   # staged KB addition, pending review
+
+    __table_args__ = (
+        Index("ix_gap_open", "answered_well", "occurrences"),
     )
 
 

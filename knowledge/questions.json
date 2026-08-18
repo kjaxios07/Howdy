@@ -1,0 +1,1226 @@
+{
+ "_meta": {
+  "version": "1.0.0",
+  "count": 200,
+  "generated": "2026-08-18",
+  "purpose": [
+   "Seed bank of the questions international students actually ask.",
+   "Used for: UI suggestions, the coverage report, and the daily evolve job's regression set.",
+   "'volatile: true' means the answer contains a figure or date that changes — those must be answered with a live source check, never from memory."
+  ],
+  "modules": [
+   "arrive",
+   "health",
+   "housing",
+   "money",
+   "safety",
+   "study",
+   "tax",
+   "transport",
+   "visa",
+   "work"
+  ]
+ },
+ "questions": [
+  {
+   "id": "arrive-001",
+   "module": "arrive",
+   "q": "What should I do in my first week in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-002",
+   "module": "arrive",
+   "q": "What documents do I need to set up my life here?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-003",
+   "module": "arrive",
+   "q": "Do I need to tell my university my Australian address?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-004",
+   "module": "arrive",
+   "q": "How do I get an Australian phone number?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-005",
+   "module": "arrive",
+   "q": "Which SIM card is best for international students?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-006",
+   "module": "arrive",
+   "q": "How much money should I bring for my first month?",
+   "volatile": true
+  },
+  {
+   "id": "arrive-007",
+   "module": "arrive",
+   "q": "Do I need a power adapter for Australia?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-008",
+   "module": "arrive",
+   "q": "How do I get from the airport to the city?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-009",
+   "module": "arrive",
+   "q": "What happens at Australian border control?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-010",
+   "module": "arrive",
+   "q": "Can I bring food into Australia?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-011",
+   "module": "arrive",
+   "q": "What can't I bring through Australian customs?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-012",
+   "module": "arrive",
+   "q": "How do I activate my OSHC before I arrive?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-013",
+   "module": "arrive",
+   "q": "What is the very first thing I should do after landing?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-014",
+   "module": "arrive",
+   "q": "How do I set up a myGov account?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-015",
+   "module": "arrive",
+   "q": "When does the Australian academic year start?",
+   "volatile": true
+  },
+  {
+   "id": "arrive-016",
+   "module": "arrive",
+   "q": "What is orientation week?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-017",
+   "module": "arrive",
+   "q": "How do I meet people when I first arrive?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-018",
+   "module": "arrive",
+   "q": "What if my luggage is lost at the airport?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-019",
+   "module": "arrive",
+   "q": "Do I need to register with my embassy?",
+   "volatile": false
+  },
+  {
+   "id": "arrive-020",
+   "module": "arrive",
+   "q": "What is a Tax File Number and when do I need it?",
+   "volatile": false
+  },
+  {
+   "id": "visa-001",
+   "module": "visa",
+   "q": "How many hours can I work on a student visa?",
+   "volatile": true
+  },
+  {
+   "id": "visa-002",
+   "module": "visa",
+   "q": "Does the 48 hour limit include unpaid work?",
+   "volatile": false
+  },
+  {
+   "id": "visa-003",
+   "module": "visa",
+   "q": "Can I work unlimited hours during semester break?",
+   "volatile": false
+  },
+  {
+   "id": "visa-004",
+   "module": "visa",
+   "q": "How do I check my visa conditions?",
+   "volatile": false
+  },
+  {
+   "id": "visa-005",
+   "module": "visa",
+   "q": "What is VEVO and how do I use it?",
+   "volatile": false
+  },
+  {
+   "id": "visa-006",
+   "module": "visa",
+   "q": "How do I apply for the 485 visa after graduation?",
+   "volatile": true
+  },
+  {
+   "id": "visa-007",
+   "module": "visa",
+   "q": "How long does the 485 visa last?",
+   "volatile": true
+  },
+  {
+   "id": "visa-008",
+   "module": "visa",
+   "q": "What happens if my student visa expires?",
+   "volatile": false
+  },
+  {
+   "id": "visa-009",
+   "module": "visa",
+   "q": "Can I change my course on a student visa?",
+   "volatile": false
+  },
+  {
+   "id": "visa-010",
+   "module": "visa",
+   "q": "Can I change my education provider?",
+   "volatile": false
+  },
+  {
+   "id": "visa-011",
+   "module": "visa",
+   "q": "What is visa condition 8202?",
+   "volatile": false
+  },
+  {
+   "id": "visa-012",
+   "module": "visa",
+   "q": "What happens to my visa if I fail a subject?",
+   "volatile": false
+  },
+  {
+   "id": "visa-013",
+   "module": "visa",
+   "q": "Can I bring my partner on my student visa?",
+   "volatile": false
+  },
+  {
+   "id": "visa-014",
+   "module": "visa",
+   "q": "Can my dependants work in Australia?",
+   "volatile": true
+  },
+  {
+   "id": "visa-015",
+   "module": "visa",
+   "q": "How do I extend my student visa?",
+   "volatile": false
+  },
+  {
+   "id": "visa-016",
+   "module": "visa",
+   "q": "What is a bridging visa?",
+   "volatile": false
+  },
+  {
+   "id": "visa-017",
+   "module": "visa",
+   "q": "How much does a student visa cost?",
+   "volatile": true
+  },
+  {
+   "id": "visa-018",
+   "module": "visa",
+   "q": "What is the Genuine Student requirement?",
+   "volatile": false
+  },
+  {
+   "id": "visa-019",
+   "module": "visa",
+   "q": "Can I travel overseas and return on my student visa?",
+   "volatile": false
+  },
+  {
+   "id": "visa-020",
+   "module": "visa",
+   "q": "What happens if I breach a visa condition?",
+   "volatile": false
+  },
+  {
+   "id": "tax-001",
+   "module": "tax",
+   "q": "How do I apply for a TFN?",
+   "volatile": false
+  },
+  {
+   "id": "tax-002",
+   "module": "tax",
+   "q": "What happens if I work without a TFN?",
+   "volatile": true
+  },
+  {
+   "id": "tax-003",
+   "module": "tax",
+   "q": "How long does a TFN take to arrive?",
+   "volatile": true
+  },
+  {
+   "id": "tax-004",
+   "module": "tax",
+   "q": "Am I a resident for tax purposes?",
+   "volatile": false
+  },
+  {
+   "id": "tax-005",
+   "module": "tax",
+   "q": "Do I get the tax-free threshold?",
+   "volatile": true
+  },
+  {
+   "id": "tax-006",
+   "module": "tax",
+   "q": "When do I have to lodge my tax return?",
+   "volatile": true
+  },
+  {
+   "id": "tax-007",
+   "module": "tax",
+   "q": "How do I lodge a tax return?",
+   "volatile": false
+  },
+  {
+   "id": "tax-008",
+   "module": "tax",
+   "q": "What is myTax?",
+   "volatile": false
+  },
+  {
+   "id": "tax-009",
+   "module": "tax",
+   "q": "What work expenses can I claim as a deduction?",
+   "volatile": false
+  },
+  {
+   "id": "tax-010",
+   "module": "tax",
+   "q": "What is superannuation?",
+   "volatile": false
+  },
+  {
+   "id": "tax-011",
+   "module": "tax",
+   "q": "How much super should my employer pay me?",
+   "volatile": true
+  },
+  {
+   "id": "tax-012",
+   "module": "tax",
+   "q": "Can I claim my super when I leave Australia?",
+   "volatile": false
+  },
+  {
+   "id": "tax-013",
+   "module": "tax",
+   "q": "What is DASP and how do I claim it?",
+   "volatile": false
+  },
+  {
+   "id": "tax-014",
+   "module": "tax",
+   "q": "How much tax is taken from my DASP?",
+   "volatile": true
+  },
+  {
+   "id": "tax-015",
+   "module": "tax",
+   "q": "What is an income statement?",
+   "volatile": false
+  },
+  {
+   "id": "tax-016",
+   "module": "tax",
+   "q": "Do I pay tax on scholarship money?",
+   "volatile": false
+  },
+  {
+   "id": "tax-017",
+   "module": "tax",
+   "q": "What is the Medicare levy and do I pay it?",
+   "volatile": true
+  },
+  {
+   "id": "tax-018",
+   "module": "tax",
+   "q": "Can I get a Medicare levy exemption?",
+   "volatile": false
+  },
+  {
+   "id": "tax-019",
+   "module": "tax",
+   "q": "What is an ABN and do I need one?",
+   "volatile": false
+  },
+  {
+   "id": "tax-020",
+   "module": "tax",
+   "q": "Is my overseas income taxed in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "work-001",
+   "module": "work",
+   "q": "What is the minimum wage in Australia?",
+   "volatile": true
+  },
+  {
+   "id": "work-002",
+   "module": "work",
+   "q": "What is casual loading?",
+   "volatile": true
+  },
+  {
+   "id": "work-003",
+   "module": "work",
+   "q": "What has to be on my payslip?",
+   "volatile": false
+  },
+  {
+   "id": "work-004",
+   "module": "work",
+   "q": "What do I do if I'm being underpaid?",
+   "volatile": false
+  },
+  {
+   "id": "work-005",
+   "module": "work",
+   "q": "Can I legally be paid cash in hand?",
+   "volatile": false
+  },
+  {
+   "id": "work-006",
+   "module": "work",
+   "q": "Is unpaid trial work legal?",
+   "volatile": false
+  },
+  {
+   "id": "work-007",
+   "module": "work",
+   "q": "What are my rights as a casual worker?",
+   "volatile": false
+  },
+  {
+   "id": "work-008",
+   "module": "work",
+   "q": "Can my employer fire me without notice?",
+   "volatile": false
+  },
+  {
+   "id": "work-009",
+   "module": "work",
+   "q": "What is a Fair Work award?",
+   "volatile": false
+  },
+  {
+   "id": "work-010",
+   "module": "work",
+   "q": "How do I find a part-time job as a student?",
+   "volatile": false
+  },
+  {
+   "id": "work-011",
+   "module": "work",
+   "q": "Do I get paid extra on public holidays?",
+   "volatile": true
+  },
+  {
+   "id": "work-012",
+   "module": "work",
+   "q": "What are penalty rates?",
+   "volatile": true
+  },
+  {
+   "id": "work-013",
+   "module": "work",
+   "q": "Can my employer keep my passport?",
+   "volatile": false
+  },
+  {
+   "id": "work-014",
+   "module": "work",
+   "q": "What if my employer asks me to work over 48 hours a fortnight?",
+   "volatile": false
+  },
+  {
+   "id": "work-015",
+   "module": "work",
+   "q": "Do casual workers get sick leave?",
+   "volatile": false
+  },
+  {
+   "id": "work-016",
+   "module": "work",
+   "q": "What is unfair dismissal?",
+   "volatile": false
+  },
+  {
+   "id": "work-017",
+   "module": "work",
+   "q": "How do I report an employer anonymously?",
+   "volatile": false
+  },
+  {
+   "id": "work-018",
+   "module": "work",
+   "q": "Will reporting my employer affect my visa?",
+   "volatile": false
+  },
+  {
+   "id": "work-019",
+   "module": "work",
+   "q": "What counts as workplace bullying and what do I do?",
+   "volatile": false
+  },
+  {
+   "id": "work-020",
+   "module": "work",
+   "q": "Do I need a police check to work?",
+   "volatile": false
+  },
+  {
+   "id": "housing-001",
+   "module": "housing",
+   "q": "Two bedroom house near Acacia Ridge 4110 Brisbane",
+   "volatile": false
+  },
+  {
+   "id": "housing-002",
+   "module": "housing",
+   "q": "How much bond do I have to pay?",
+   "volatile": true
+  },
+  {
+   "id": "housing-003",
+   "module": "housing",
+   "q": "How do I get my bond back?",
+   "volatile": false
+  },
+  {
+   "id": "housing-004",
+   "module": "housing",
+   "q": "What do I need to apply for a rental?",
+   "volatile": false
+  },
+  {
+   "id": "housing-005",
+   "module": "housing",
+   "q": "How do I find a share house?",
+   "volatile": false
+  },
+  {
+   "id": "housing-006",
+   "module": "housing",
+   "q": "What is a condition report and why does it matter?",
+   "volatile": false
+  },
+  {
+   "id": "housing-007",
+   "module": "housing",
+   "q": "Can my landlord increase my rent whenever they want?",
+   "volatile": true
+  },
+  {
+   "id": "housing-008",
+   "module": "housing",
+   "q": "How much notice do I give to leave a rental?",
+   "volatile": true
+  },
+  {
+   "id": "housing-009",
+   "module": "housing",
+   "q": "What is a lease break fee?",
+   "volatile": false
+  },
+  {
+   "id": "housing-010",
+   "module": "housing",
+   "q": "Can my landlord enter without telling me?",
+   "volatile": true
+  },
+  {
+   "id": "housing-011",
+   "module": "housing",
+   "q": "What if my landlord won't fix something broken?",
+   "volatile": false
+  },
+  {
+   "id": "housing-012",
+   "module": "housing",
+   "q": "How do I avoid rental scams?",
+   "volatile": false
+  },
+  {
+   "id": "housing-013",
+   "module": "housing",
+   "q": "What's the difference between student accommodation and a share house?",
+   "volatile": false
+  },
+  {
+   "id": "housing-014",
+   "module": "housing",
+   "q": "Which bills am I responsible for as a renter?",
+   "volatile": false
+  },
+  {
+   "id": "housing-015",
+   "module": "housing",
+   "q": "How do I set up electricity and internet?",
+   "volatile": false
+  },
+  {
+   "id": "housing-016",
+   "module": "housing",
+   "q": "What is a rooming house?",
+   "volatile": false
+  },
+  {
+   "id": "housing-017",
+   "module": "housing",
+   "q": "Can I be evicted without a reason?",
+   "volatile": true
+  },
+  {
+   "id": "housing-018",
+   "module": "housing",
+   "q": "What is 100 points of ID?",
+   "volatile": false
+  },
+  {
+   "id": "housing-019",
+   "module": "housing",
+   "q": "How much rent can I afford as a student?",
+   "volatile": true
+  },
+  {
+   "id": "housing-020",
+   "module": "housing",
+   "q": "What is a rental ledger and how do I get one?",
+   "volatile": false
+  },
+  {
+   "id": "health-001",
+   "module": "health",
+   "q": "What does my OSHC actually cover?",
+   "volatile": false
+  },
+  {
+   "id": "health-002",
+   "module": "health",
+   "q": "Is OSHC compulsory for student visa holders?",
+   "volatile": false
+  },
+  {
+   "id": "health-003",
+   "module": "health",
+   "q": "Am I eligible for Medicare as a student?",
+   "volatile": false
+  },
+  {
+   "id": "health-004",
+   "module": "health",
+   "q": "What is a Reciprocal Health Care Agreement?",
+   "volatile": false
+  },
+  {
+   "id": "health-005",
+   "module": "health",
+   "q": "How do I see a doctor in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "health-006",
+   "module": "health",
+   "q": "What is bulk billing?",
+   "volatile": false
+  },
+  {
+   "id": "health-007",
+   "module": "health",
+   "q": "How much does a GP visit cost?",
+   "volatile": true
+  },
+  {
+   "id": "health-008",
+   "module": "health",
+   "q": "What do I do in a medical emergency?",
+   "volatile": false
+  },
+  {
+   "id": "health-009",
+   "module": "health",
+   "q": "Is an ambulance free in Australia?",
+   "volatile": true
+  },
+  {
+   "id": "health-010",
+   "module": "health",
+   "q": "How do I get a prescription filled?",
+   "volatile": false
+  },
+  {
+   "id": "health-011",
+   "module": "health",
+   "q": "Does OSHC cover dental?",
+   "volatile": false
+  },
+  {
+   "id": "health-012",
+   "module": "health",
+   "q": "Does OSHC cover mental health support?",
+   "volatile": false
+  },
+  {
+   "id": "health-013",
+   "module": "health",
+   "q": "How do I find a doctor who bulk bills OSHC?",
+   "volatile": false
+  },
+  {
+   "id": "health-014",
+   "module": "health",
+   "q": "Can I change my OSHC provider?",
+   "volatile": false
+  },
+  {
+   "id": "health-015",
+   "module": "health",
+   "q": "Does OSHC cover pregnancy?",
+   "volatile": false
+  },
+  {
+   "id": "health-016",
+   "module": "health",
+   "q": "Is there a waiting period on OSHC?",
+   "volatile": false
+  },
+  {
+   "id": "health-017",
+   "module": "health",
+   "q": "How do I make an OSHC claim?",
+   "volatile": false
+  },
+  {
+   "id": "health-018",
+   "module": "health",
+   "q": "What happens if I get sick and can't study?",
+   "volatile": false
+  },
+  {
+   "id": "health-019",
+   "module": "health",
+   "q": "Where do I get free mental health support?",
+   "volatile": false
+  },
+  {
+   "id": "health-020",
+   "module": "health",
+   "q": "How much does OSHC cost per year?",
+   "volatile": true
+  },
+  {
+   "id": "money-001",
+   "module": "money",
+   "q": "Which bank account is best for students?",
+   "volatile": false
+  },
+  {
+   "id": "money-002",
+   "module": "money",
+   "q": "Can I open a bank account before I arrive?",
+   "volatile": false
+  },
+  {
+   "id": "money-003",
+   "module": "money",
+   "q": "What do I need to open a bank account?",
+   "volatile": false
+  },
+  {
+   "id": "money-004",
+   "module": "money",
+   "q": "How do I send money home cheaply?",
+   "volatile": false
+  },
+  {
+   "id": "money-005",
+   "module": "money",
+   "q": "What are BSB and account numbers?",
+   "volatile": false
+  },
+  {
+   "id": "money-006",
+   "module": "money",
+   "q": "What is PayID and Osko?",
+   "volatile": false
+  },
+  {
+   "id": "money-007",
+   "module": "money",
+   "q": "Are there bank fees for students?",
+   "volatile": true
+  },
+  {
+   "id": "money-008",
+   "module": "money",
+   "q": "How do I avoid ATM fees?",
+   "volatile": false
+  },
+  {
+   "id": "money-009",
+   "module": "money",
+   "q": "What's the difference between debit and credit cards?",
+   "volatile": false
+  },
+  {
+   "id": "money-010",
+   "module": "money",
+   "q": "Can I get a credit card on a student visa?",
+   "volatile": false
+  },
+  {
+   "id": "money-011",
+   "module": "money",
+   "q": "How much does it cost to live in Australia per week?",
+   "volatile": true
+  },
+  {
+   "id": "money-012",
+   "module": "money",
+   "q": "How do I budget as a student?",
+   "volatile": false
+  },
+  {
+   "id": "money-013",
+   "module": "money",
+   "q": "What is GST?",
+   "volatile": true
+  },
+  {
+   "id": "money-014",
+   "module": "money",
+   "q": "Do I tip in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "money-015",
+   "module": "money",
+   "q": "What is Afterpay and is it safe?",
+   "volatile": false
+  },
+  {
+   "id": "money-016",
+   "module": "money",
+   "q": "What do I do if my card is stolen?",
+   "volatile": false
+  },
+  {
+   "id": "money-017",
+   "module": "money",
+   "q": "Can I get a loan as an international student?",
+   "volatile": false
+  },
+  {
+   "id": "money-018",
+   "module": "money",
+   "q": "How do I prove my income for a rental application?",
+   "volatile": false
+  },
+  {
+   "id": "money-019",
+   "module": "money",
+   "q": "How do I spot a fake banking text or email?",
+   "volatile": false
+  },
+  {
+   "id": "money-020",
+   "module": "money",
+   "q": "What is a term deposit?",
+   "volatile": true
+  },
+  {
+   "id": "transport-001",
+   "module": "transport",
+   "q": "How do I get a student concession card in Brisbane?",
+   "volatile": false
+  },
+  {
+   "id": "transport-002",
+   "module": "transport",
+   "q": "What is a go card?",
+   "volatile": false
+  },
+  {
+   "id": "transport-003",
+   "module": "transport",
+   "q": "What is an Opal card?",
+   "volatile": false
+  },
+  {
+   "id": "transport-004",
+   "module": "transport",
+   "q": "What is a myki?",
+   "volatile": false
+  },
+  {
+   "id": "transport-005",
+   "module": "transport",
+   "q": "Are international students eligible for transport concessions?",
+   "volatile": false
+  },
+  {
+   "id": "transport-006",
+   "module": "transport",
+   "q": "How much is public transport per week?",
+   "volatile": true
+  },
+  {
+   "id": "transport-007",
+   "module": "transport",
+   "q": "Can I use my phone to tap on?",
+   "volatile": false
+  },
+  {
+   "id": "transport-008",
+   "module": "transport",
+   "q": "Can I drive on my overseas licence?",
+   "volatile": false
+  },
+  {
+   "id": "transport-009",
+   "module": "transport",
+   "q": "How do I get an Australian driver licence?",
+   "volatile": true
+  },
+  {
+   "id": "transport-010",
+   "module": "transport",
+   "q": "Do I have to convert my overseas licence?",
+   "volatile": false
+  },
+  {
+   "id": "transport-011",
+   "module": "transport",
+   "q": "How much does a used car cost?",
+   "volatile": true
+  },
+  {
+   "id": "transport-012",
+   "module": "transport",
+   "q": "What is compulsory third party insurance?",
+   "volatile": true
+  },
+  {
+   "id": "transport-013",
+   "module": "transport",
+   "q": "Is cycling safe in Australian cities?",
+   "volatile": false
+  },
+  {
+   "id": "transport-014",
+   "module": "transport",
+   "q": "Do I have to wear a helmet on a bike?",
+   "volatile": false
+  },
+  {
+   "id": "transport-015",
+   "module": "transport",
+   "q": "What is the fine for not tapping on?",
+   "volatile": true
+  },
+  {
+   "id": "transport-016",
+   "module": "transport",
+   "q": "Is Uber available in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "transport-017",
+   "module": "transport",
+   "q": "What is Melbourne's free tram zone?",
+   "volatile": false
+  },
+  {
+   "id": "transport-018",
+   "module": "transport",
+   "q": "How do I plan a public transport trip?",
+   "volatile": false
+  },
+  {
+   "id": "transport-019",
+   "module": "transport",
+   "q": "Can I take a bike on the train?",
+   "volatile": false
+  },
+  {
+   "id": "transport-020",
+   "module": "transport",
+   "q": "How do airport transfers work?",
+   "volatile": true
+  },
+  {
+   "id": "study-001",
+   "module": "study",
+   "q": "What student discounts can I get in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "study-002",
+   "module": "study",
+   "q": "How much should I budget for groceries each week?",
+   "volatile": true
+  },
+  {
+   "id": "study-003",
+   "module": "study",
+   "q": "What is UNiDAYS?",
+   "volatile": false
+  },
+  {
+   "id": "study-004",
+   "module": "study",
+   "q": "Where do I buy cheap textbooks?",
+   "volatile": false
+  },
+  {
+   "id": "study-005",
+   "module": "study",
+   "q": "What is CRICOS?",
+   "volatile": false
+  },
+  {
+   "id": "study-006",
+   "module": "study",
+   "q": "What is satisfactory course progress?",
+   "volatile": false
+  },
+  {
+   "id": "study-007",
+   "module": "study",
+   "q": "What happens if I fail a subject?",
+   "volatile": false
+  },
+  {
+   "id": "study-008",
+   "module": "study",
+   "q": "Can I defer my studies?",
+   "volatile": false
+  },
+  {
+   "id": "study-009",
+   "module": "study",
+   "q": "What counts as academic misconduct?",
+   "volatile": false
+  },
+  {
+   "id": "study-010",
+   "module": "study",
+   "q": "How does referencing work in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "study-011",
+   "module": "study",
+   "q": "Where do I get free academic help?",
+   "volatile": false
+  },
+  {
+   "id": "study-012",
+   "module": "study",
+   "q": "How does GPA work in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "study-013",
+   "module": "study",
+   "q": "Can I work on campus?",
+   "volatile": false
+  },
+  {
+   "id": "study-014",
+   "module": "study",
+   "q": "What does a student association do for me?",
+   "volatile": false
+  },
+  {
+   "id": "study-015",
+   "module": "study",
+   "q": "Where can I get free food on campus?",
+   "volatile": false
+  },
+  {
+   "id": "study-016",
+   "module": "study",
+   "q": "Is there free English language support?",
+   "volatile": false
+  },
+  {
+   "id": "study-017",
+   "module": "study",
+   "q": "How do I get my academic transcript?",
+   "volatile": false
+  },
+  {
+   "id": "study-018",
+   "module": "study",
+   "q": "Can I take a leave of absence?",
+   "volatile": false
+  },
+  {
+   "id": "study-019",
+   "module": "study",
+   "q": "What is Special Consideration and how do I apply?",
+   "volatile": false
+  },
+  {
+   "id": "study-020",
+   "module": "study",
+   "q": "How many hours a week should I study?",
+   "volatile": false
+  },
+  {
+   "id": "safety-001",
+   "module": "safety",
+   "q": "Someone called saying my visa will be cancelled unless I pay — is this a scam?",
+   "volatile": false
+  },
+  {
+   "id": "safety-002",
+   "module": "safety",
+   "q": "What number do I call in an emergency?",
+   "volatile": false
+  },
+  {
+   "id": "safety-003",
+   "module": "safety",
+   "q": "Where can I get mental health support as a student?",
+   "volatile": false
+  },
+  {
+   "id": "safety-004",
+   "module": "safety",
+   "q": "How do I report a scam?",
+   "volatile": false
+  },
+  {
+   "id": "safety-005",
+   "module": "safety",
+   "q": "What scams target international students most?",
+   "volatile": false
+  },
+  {
+   "id": "safety-006",
+   "module": "safety",
+   "q": "Is it a scam if a job asks me to pay upfront?",
+   "volatile": false
+  },
+  {
+   "id": "safety-007",
+   "module": "safety",
+   "q": "Someone asked me to receive money in my bank account — is that legal?",
+   "volatile": false
+  },
+  {
+   "id": "safety-008",
+   "module": "safety",
+   "q": "How do I know if a rental listing is fake?",
+   "volatile": false
+  },
+  {
+   "id": "safety-009",
+   "module": "safety",
+   "q": "What do I do if I'm a victim of crime?",
+   "volatile": false
+  },
+  {
+   "id": "safety-010",
+   "module": "safety",
+   "q": "What do I do if I experience racism?",
+   "volatile": false
+  },
+  {
+   "id": "safety-011",
+   "module": "safety",
+   "q": "Where do I get domestic violence support?",
+   "volatile": false
+  },
+  {
+   "id": "safety-012",
+   "module": "safety",
+   "q": "How do I report a sexual assault?",
+   "volatile": false
+  },
+  {
+   "id": "safety-013",
+   "module": "safety",
+   "q": "What is the police non-emergency number?",
+   "volatile": false
+  },
+  {
+   "id": "safety-014",
+   "module": "safety",
+   "q": "What do I do if I lose my passport?",
+   "volatile": false
+  },
+  {
+   "id": "safety-015",
+   "module": "safety",
+   "q": "How do I stay safe on public transport at night?",
+   "volatile": false
+  },
+  {
+   "id": "safety-016",
+   "module": "safety",
+   "q": "How do bushfire and flood warnings work?",
+   "volatile": false
+  },
+  {
+   "id": "safety-017",
+   "module": "safety",
+   "q": "What do I do in extreme heat?",
+   "volatile": false
+  },
+  {
+   "id": "safety-018",
+   "module": "safety",
+   "q": "Is tap water safe to drink in Australia?",
+   "volatile": false
+  },
+  {
+   "id": "safety-019",
+   "module": "safety",
+   "q": "What are the rules about alcohol in public?",
+   "volatile": false
+  },
+  {
+   "id": "safety-020",
+   "module": "safety",
+   "q": "What support does my university offer in a crisis?",
+   "volatile": false
+  }
+ ]
+}

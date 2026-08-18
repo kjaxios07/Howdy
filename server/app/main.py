@@ -93,6 +93,36 @@ async def healthcheck():
     }
 
 
+@health.get("/api/questions")
+async def list_questions(module: str | None = None, q: str | None = None, limit: int = 40):
+    """The seed bank of what students actually ask.
+
+    Powers the UI's suggestion chips and doubles as the regression set the
+    daily evolve job checks itself against.
+    """
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).parents[2] / "knowledge" / "questions.json"
+    if not path.is_file():
+        return {"questions": [], "count": 0}
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    items = data["questions"]
+
+    if module:
+        items = [i for i in items if i["module"] == module]
+    if q:
+        needle = q.lower().strip()
+        items = [i for i in items if needle in i["q"].lower()]
+
+    return {
+        "count": len(items),
+        "total": data["_meta"]["count"],
+        "questions": items[: max(1, min(limit, 200))],
+    }
+
+
 @health.get("/api/modules")
 async def list_modules():
     """Topics for the UI — served from howdy.config.json so the front end and
