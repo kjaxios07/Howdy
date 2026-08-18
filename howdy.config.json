@@ -13,7 +13,9 @@
     "domain": "CHANGE-ME.au",
     "admin_email": "you@example.com",
     "locale": "en-AU",
-    "min_age": 16
+    "min_age": 16,
+    "mission": "Be the first point of contact for every international student and new migrant in Australia — accurate, warm, cited, and always pointing to the right registered expert when the question is bigger than general information.",
+    "north_star": "Brisbane 2032 — the official digital companion for international arrivals."
   },
   "hosting": {
     "_comment": "Sizing hints for deploy.sh. Cheapest first.",
@@ -97,44 +99,57 @@
       ".edu.au"
     ],
     "trusted_domains": [
-      "gov.au",
-      "ato.gov.au",
-      "fairwork.gov.au",
-      "homeaffairs.gov.au",
-      "immi.homeaffairs.gov.au",
-      "vevo.homeaffairs.gov.au",
-      "servicesaustralia.gov.au",
-      "studyaustralia.gov.au",
-      "moneysmart.gov.au",
-      "scamwatch.gov.au",
-      "healthdirect.gov.au",
-      "mara.gov.au",
-      "my.gov.au",
-      "privatehealth.gov.au",
-      "oaic.gov.au",
-      "realestate.com.au",
-      "domain.com.au",
-      "flatmates.com.au",
-      "medibank.com.au",
-      "bupa.com.au",
-      "nib.com.au",
-      "ahmoshc.com",
-      "cbhsinternational.com.au",
-      "allianzcare.com.au",
-      "commbank.com.au",
-      "anz.com.au",
-      "westpac.com.au",
-      "nab.com.au",
-      "translink.com.au",
+      "1800respect.org.au",
+      "accc.gov.au",
+      "accesscanberra.act.gov.au",
       "adelaidemetro.com.au",
-      "transportnsw.info",
-      "transperth.wa.gov.au",
-      "ptv.vic.gov.au",
-      "unidays.com",
-      "studentbeans.com",
-      "lifeline.org.au",
+      "ahmoshc.com",
+      "allianzcare.com.au",
+      "anz.com.au",
+      "ato.gov.au",
       "beyondblue.org.au",
-      "kidshelpline.com.au"
+      "bupa.com.au",
+      "cbhsinternational.com.au",
+      "cbos.tas.gov.au",
+      "commbank.com.au",
+      "commerce.wa.gov.au",
+      "consumer.vic.gov.au",
+      "domain.com.au",
+      "fairtrading.nsw.gov.au",
+      "fairwork.gov.au",
+      "flatmates.com.au",
+      "gov.au",
+      "healthdirect.gov.au",
+      "homeaffairs.gov.au",
+      "humanrights.gov.au",
+      "immi.homeaffairs.gov.au",
+      "kidshelpline.com.au",
+      "lifeline.org.au",
+      "mara.gov.au",
+      "medibank.com.au",
+      "moneysmart.gov.au",
+      "my.gov.au",
+      "nab.com.au",
+      "nib.com.au",
+      "oaic.gov.au",
+      "privatehealth.gov.au",
+      "ptv.vic.gov.au",
+      "realestate.com.au",
+      "rta.qld.gov.au",
+      "sa.gov.au",
+      "scamwatch.gov.au",
+      "servicesaustralia.gov.au",
+      "studentbeans.com",
+      "studentsupport.edu.au",
+      "studyaustralia.gov.au",
+      "tenants.org.au",
+      "translink.com.au",
+      "transperth.wa.gov.au",
+      "transportnsw.info",
+      "triplezero.gov.au",
+      "unidays.com",
+      "vevo.homeaffairs.gov.au",
+      "westpac.com.au"
     ]
   },
   "housing_search": {
@@ -313,6 +328,52 @@
         "healthdirect.gov.au",
         "lifeline.org.au"
       ]
+    },
+    {
+      "id": "cost",
+      "name": "Cost of Living",
+      "emoji": "💸",
+      "colour": "18,161,132",
+      "tagline": "What a week actually costs, city by city",
+      "examples": [
+        "How much do I need per week to live in Sydney?",
+        "Is Aldi cheaper than Coles or Woolworths?",
+        "What is the cheapest mobile plan for students?"
+      ],
+      "sources": [
+        "moneysmart.gov.au",
+        "studyaustralia.gov.au"
+      ]
+    },
+    {
+      "id": "rights",
+      "name": "Your Rights",
+      "emoji": "⚖️",
+      "colour": "124,92,252",
+      "tagline": "Consumer law, refunds, and what you're entitled to",
+      "examples": [
+        "What are my refund rights under Australian Consumer Law?",
+        "A shop refused a refund on a faulty item — what can I do?",
+        "What is a consumer guarantee in Australia?"
+      ],
+      "sources": [
+        "accc.gov.au"
+      ]
+    },
+    {
+      "id": "culture",
+      "name": "Fitting In",
+      "emoji": "🤝",
+      "colour": "255,194,75",
+      "tagline": "Tipping, slang, and the unwritten rules nobody tells you",
+      "examples": [
+        "Do I have to tip in Australia?",
+        "What does 'shouting a round' mean?",
+        "What Australian slang do I need to know?"
+      ],
+      "sources": [
+        "studyaustralia.gov.au"
+      ]
     }
   ],
   "safety": {
@@ -365,5 +426,139 @@
     "backup_schedule": "daily",
     "backup_retention_local": 7,
     "alert_if_no_backup_hours": 26
+  },
+  "cities": {
+    "_note": "From the founder platform document. Weekly budgets are share-accommodation estimates in AUD; rent ranges are share-room. Verify against the live source before quoting to a student.",
+    "sydney": {
+      "state": "NSW",
+      "card": "Opal",
+      "concession": "50% off",
+      "rent": "$300-420",
+      "weekly_total": 552,
+      "suburbs": [
+        "Kensington",
+        "Newtown",
+        "Randwick",
+        "Ultimo",
+        "Chippendale"
+      ],
+      "unis": [
+        "UNSW",
+        "USyd",
+        "UTS",
+        "Macquarie",
+        "WSU",
+        "ACU"
+      ],
+      "tenancy": "fairtrading.nsw.gov.au"
+    },
+    "melbourne": {
+      "state": "VIC",
+      "card": "myki",
+      "concession": "50% off + free City Circle tram",
+      "rent": "$260-360",
+      "weekly_total": 498,
+      "suburbs": [
+        "Carlton",
+        "Brunswick",
+        "Fitzroy",
+        "Richmond",
+        "Northcote"
+      ],
+      "unis": [
+        "UniMelb",
+        "RMIT",
+        "Monash",
+        "Deakin",
+        "Swinburne",
+        "La Trobe"
+      ],
+      "tenancy": "consumer.vic.gov.au"
+    },
+    "brisbane": {
+      "state": "QLD",
+      "card": "go card",
+      "concession": "50% off",
+      "rent": "$220-310",
+      "weekly_total": 454,
+      "suburbs": [
+        "Kelvin Grove",
+        "West End",
+        "Toowong",
+        "South Brisbane"
+      ],
+      "unis": [
+        "UQ",
+        "QUT",
+        "Griffith",
+        "Bond"
+      ],
+      "tenancy": "rta.qld.gov.au",
+      "note": "2032 Olympic host city"
+    },
+    "perth": {
+      "state": "WA",
+      "card": "SmartRider",
+      "concession": "yes + free CAT buses",
+      "rent": "$240-340",
+      "weekly_total": 478,
+      "suburbs": [
+        "Northbridge",
+        "Subiaco",
+        "Victoria Park",
+        "Mount Lawley"
+      ],
+      "unis": [
+        "UWA",
+        "Curtin",
+        "ECU",
+        "Murdoch"
+      ],
+      "tenancy": "commerce.wa.gov.au"
+    },
+    "adelaide": {
+      "state": "SA",
+      "card": "MetroCard",
+      "concession": "yes + free city tram",
+      "rent": "$180-280",
+      "weekly_total": 406,
+      "unis": [
+        "UniSA",
+        "University of Adelaide",
+        "Flinders"
+      ],
+      "tenancy": "sa.gov.au",
+      "note": "most affordable capital"
+    },
+    "darwin": {
+      "state": "NT",
+      "card": "Darwin Bus Network",
+      "rent": "$200-300",
+      "unis": [
+        "CDU"
+      ],
+      "note": "tropical, wet and dry seasons"
+    },
+    "canberra": {
+      "state": "ACT",
+      "card": "MyWay + light rail",
+      "rent": "$220-320",
+      "unis": [
+        "ANU",
+        "University of Canberra"
+      ],
+      "tenancy": "accesscanberra.act.gov.au",
+      "note": "free national museums"
+    },
+    "hobart": {
+      "state": "TAS",
+      "card": "Metro Tasmania",
+      "rent": "$160-280",
+      "unis": [
+        "UTAS"
+      ],
+      "tenancy": "cbos.tas.gov.au",
+      "note": "cheapest capital"
+    }
   }
 }

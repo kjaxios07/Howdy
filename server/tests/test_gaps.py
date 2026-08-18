@@ -21,10 +21,57 @@ QUESTIONS = Path(__file__).parents[2] / "knowledge" / "questions.json"
 
 # ── The seed bank ────────────────────────────────────────────────────────
 
-def test_question_bank_has_200():
+def test_question_bank_is_merged_and_consistent():
     data = json.loads(QUESTIONS.read_text(encoding="utf-8"))
-    assert data["_meta"]["count"] == 200
-    assert len(data["questions"]) == 200
+    assert data["_meta"]["count"] == len(data["questions"])
+    assert len(data["questions"]) >= 400, "founder CSV + seed bank should merge to 400+"
+
+
+def test_founder_research_is_present():
+    """The 220 founder questions must survive the merge, not be silently dropped."""
+    data = json.loads(QUESTIONS.read_text(encoding="utf-8"))
+    from_csv = [q for q in data["questions"] if "founder-csv" in q["origin"]]
+    assert len(from_csv) >= 200, f"only {len(from_csv)} founder questions made it through"
+
+
+def test_every_question_carries_the_research_metadata():
+    data = json.loads(QUESTIONS.read_text(encoding="utf-8"))
+    for q in data["questions"]:
+        assert q["difficulty"] in {"Easy", "Medium", "Hard"}, q["id"]
+        assert q["intent"] in {"Informational", "Procedural", "Investigative"}, q["id"]
+        assert q["risk"] in {"standard", "refer", "crisis"}, q["id"]
+
+
+def test_pr_pathway_questions_are_flagged_for_referral():
+    """Personalised PR advice is the Migration Act line. These must never be
+    answered as personal advice, so they carry risk=refer."""
+    data = json.loads(QUESTIONS.read_text(encoding="utf-8"))
+    pr = [q for q in data["questions"] if "pr pathway" in q["q"].lower()]
+    assert pr, "the founder CSV contains PR pathway questions"
+    for q in pr:
+        assert q["risk"] == "refer", f"{q['id']} must be risk=refer: {q['q']}"
+
+
+def test_crisis_questions_are_flagged():
+    data = json.loads(QUESTIONS.read_text(encoding="utf-8"))
+    crisis = [q for q in data["questions"] if q["risk"] == "crisis"]
+    assert len(crisis) >= 5
+    joined = " ".join(q["q"].lower() for q in crisis)
+    assert "domestic violence" in joined
+    assert "mental health emergency" in joined
+
+
+def test_state_tenancy_sources_are_trusted():
+    """50 housing questions are state-specific; without these Kip has nothing
+    authoritative to cite for any of them."""
+    from app import sources
+    for domain in ("fairtrading.nsw.gov.au", "consumer.vic.gov.au", "rta.qld.gov.au"):
+        assert sources.is_trusted(domain), domain
+
+
+def test_consumer_law_source_is_trusted():
+    from app import sources
+    assert sources.is_trusted("accc.gov.au")
 
 
 def test_every_question_maps_to_a_real_module():

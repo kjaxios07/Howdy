@@ -302,6 +302,83 @@ async def _approve(gap_id: int) -> None:
         print(f"Merged into knowledge base under '{module}.{key}'. Restart the app to load it.")
 
 
+async def _seed(limit: int = 20) -> None:
+    """Research answers for seeded questions the knowledge base doesn't cover yet.
+
+    Works through knowledge/questions.json in priority order — most-volatile and
+    highest-difficulty first, since those are the ones Kip is most likely to get
+    wrong from memory. Every result is STAGED for review, never auto-published.
+
+        python -m app.evolve seed 20      # research the next 20
+    """
+    bank = json.loads(QUESTIONS_PATH.read_text(encoding="utf-8"))["questions"]
+    kb_blob = KB_PATH.read_text(encoding="utf-8").lower()
+
+    def covered(item) -> bool:
+        # Crude but honest: does the KB already mention the distinctive words?
+        words = [w for w in item["q"].lower().split() if len(w) > 6]
+        return sum(w in kb_blob for w in words) >= max(2, len(words) // 2)
+
+    todo = [q for q in bank if q["risk"] != "crisis" and not covered(q)]
+    todo.sort(key=lambda q: (not q["volatile"], q["difficulty"] != "Hard"))
+    todo = todo[:limit]
+
+    print(f"{len(todo)} question(s) to research (of {len(bank)} in the bank)\n")
+    staged = 0
+
+    async with SessionLocal() as db:
+        for item in todo:
+            note = ""
+            if item["risk"] == "refer":
+                note = ("\nIMPORTANT: this question can only be answered as GENERAL information. "
+                        "Do not assess any individual's eligibility. Name the registered "
+                        "professional they should see.")
+            try:
+                response = await client.messages.create(
+                    model=settings.model,
+                    max_tokens=700,
+                    tools=[t] if (t := websearch.tool_definition()) else [],
+                    messages=[{"role": "user",
+                               "content": PROPOSE_PROMPT.format(question=item["q"]) + note}],
+                )
+                text = "\n".join(b.text for b in response.content
+                                  if getattr(b, "type", "") == "text")
+                draft = _extract_json(text)
+                if not draft:
+                    print(f"  ✗ {item['id']}  no usable draft"); continue
+
+                from urllib.parse import urlparse
+                from .sources import is_trusted
+
+                host = (urlparse(draft.get("source_url") or "").hostname or "")
+                if draft.get("answerable") and not is_trusted(host):
+                    print(f"  ✗ {item['id']}  rejected: untrusted source {host}"); continue
+
+                draft["drafted_at"] = datetime.now(timezone.utc).isoformat()
+                draft["seeded_from"] = item["id"]
+                fp = __import__("app.gaps", fromlist=["fingerprint"]).fingerprint(item["q"])
+
+                row = await db.scalar(select(QuestionGap).where(QuestionGap.fingerprint == fp))
+                if row is None:
+                    row = QuestionGap(
+                        fingerprint=fp, question=item["q"][:300], module_id=item["module"],
+                        occurrences=0, answered_well=False, needed_search=bool(item["volatile"]),
+                        first_seen=date.today(), last_seen=date.today(),
+                    )
+                    db.add(row)
+                row.proposal = draft
+                staged += 1
+                mark = "→" if draft.get("answerable") else "⚑ referral only"
+                print(f"  ✓ {item['id']}  {mark}  {item['q'][:64]}")
+            except Exception as exc:
+                print(f"  ✗ {item['id']}  {type(exc).__name__}")
+                log.exception("seed_failed id=%s", item["id"])
+
+        await db.commit()
+
+    print(f"\n{staged} staged for review.  python -m app.evolve report")
+
+
 def main() -> None:
     logging.basicConfig(level="INFO")
     cmd = sys.argv[1] if len(sys.argv) > 1 else "run"
@@ -310,10 +387,13 @@ def main() -> None:
         print(json.dumps(asyncio.run(run_daily()), indent=2))
     elif cmd == "report":
         asyncio.run(_report())
+    elif cmd == "seed":
+        n = int(sys.argv[2]) if len(sys.argv) > 2 else 20
+        asyncio.run(_seed(n))
     elif cmd == "approve" and len(sys.argv) > 2:
         asyncio.run(_approve(int(sys.argv[2])))
     else:
-        print("usage: python -m app.evolve [run|report|approve <id>]")
+        print("usage: python -m app.evolve [run|report|seed <n>|approve <id>]")
 
 
 if __name__ == "__main__":
