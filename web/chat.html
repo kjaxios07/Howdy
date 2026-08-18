@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0E7C66">
-<title>Kip — Ask anything about life in Australia | Howdy</title>
-<meta name="description" content="Ask Kip about visas, tax, housing, work and health in Australia. Verified sources on every answer. Sessions self-destruct after 2 minutes of inactivity — nothing is ever saved.">
+<title>Kip — Ask anything about life in Australia</title>
+<meta name="description" content="Ask Kip about visas, tax, housing, work and health in Australia. Every answer verified against official Australian government sources.">
 <style>
-/* System fonts only — zero font network requests, instant first paint */
 :root{
   --ink:#17222B; --ink-2:#44545F; --ink-3:#7E8E98;
   --brand:#0E7C66; --brand-2:#12A184;
@@ -15,6 +14,7 @@
   --glass:rgba(255,255,255,.62); --glass-2:rgba(255,255,255,.45);
   --glass-line:rgba(255,255,255,.75); --shadow:0 8px 32px rgba(23,34,43,.12);
   --fb:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --blur:blur(18px) saturate(1.4);
 }
 @media (prefers-color-scheme: dark){
@@ -27,15 +27,13 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{
-  font-family:var(--fb);color:var(--ink);overflow:hidden;
+body{font-family:var(--fb);color:var(--ink);overflow:hidden;
   background:
     radial-gradient(38rem 30rem at 8% -5%, color-mix(in srgb,var(--violet) 34%,transparent), transparent 62%),
     radial-gradient(34rem 26rem at 105% 12%, color-mix(in srgb,var(--coral) 30%,transparent), transparent 60%),
     radial-gradient(40rem 32rem at 50% 118%, color-mix(in srgb,var(--brand-2) 36%,transparent), transparent 62%),
     radial-gradient(24rem 20rem at 85% 90%, color-mix(in srgb,var(--gold) 26%,transparent), transparent 60%),
-    linear-gradient(160deg,#F4F1FB, #EAF6F3 55%, #FDF3EC);
-}
+    linear-gradient(160deg,#F4F1FB,#EAF6F3 55%,#FDF3EC);}
 @media (prefers-color-scheme: dark){
   body{background:
     radial-gradient(38rem 30rem at 8% -5%, rgba(124,92,252,.28), transparent 62%),
@@ -43,204 +41,190 @@ body{
     radial-gradient(40rem 32rem at 50% 118%, rgba(18,161,132,.30), transparent 62%),
     linear-gradient(160deg,#0C1218,#10181F 55%,#141119);}
 }
-a{color:var(--brand)}
-button{font-family:var(--fb)}
+a{color:var(--brand)} button{font-family:var(--fb)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
 
-/* ── Layout: dashboard grid ─────────────────────────────── */
-.app{display:grid;grid-template-columns:300px 1fr;gap:18px;height:100%;max-width:1240px;margin:0 auto;padding:18px}
-.glass{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow)}
+.app{display:grid;grid-template-columns:290px 1fr;gap:18px;height:100%;max-width:1280px;margin:0 auto;padding:18px}
+.glass{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow)}
 
-/* ── Sidebar ────────────────────────────────────────────── */
+/* ── Sidebar ── */
 aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrollbar-width:thin}
-.side-kip{text-align:center;margin-bottom:6px}
-.side-kip .kip-svg{width:96px;height:96px;filter:drop-shadow(0 6px 14px rgba(23,34,43,.18))}
-.side-kip h1{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-top:6px}
-.side-kip h1 span{background:linear-gradient(90deg,var(--brand),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
-.side-kip p{font-size:.78rem;color:var(--ink-2);margin-top:2px}
+.side-kip{text-align:center}
+.side-kip .kip{width:88px;height:88px;margin:0 auto}
+.side-kip h1{font-size:1.22rem;font-weight:800;letter-spacing:-.02em;margin-top:10px}
+.side-kip h1 span{background:linear-gradient(90deg,var(--brand),var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.side-kip p{font-size:.77rem;color:var(--ink-2);margin-top:2px}
 
-/* privacy timer card */
-.timer-card{margin:16px 0;padding:14px;border-radius:16px;background:var(--glass-2);border:1px solid var(--glass-line);display:flex;align-items:center;gap:12px}
-.ring{position:relative;width:52px;height:52px;flex-shrink:0}
-.ring svg{transform:rotate(-90deg)}
-.ring .track{stroke:color-mix(in srgb,var(--ink-3) 30%,transparent)}
-.ring .bar{stroke:var(--brand);transition:stroke-dashoffset 1s linear,stroke .3s}
-.ring .bar.warn{stroke:var(--coral)}
-.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800}
-.timer-card .txt{font-size:.74rem;line-height:1.45;color:var(--ink-2)}
-.timer-card .txt strong{color:var(--ink);font-size:.8rem;display:block}
+.mode{margin:16px 0 6px;padding:13px 14px;border-radius:16px;background:var(--glass-2);border:1px solid var(--glass-line)}
+.mode-row{display:flex;align-items:center;gap:10px;cursor:pointer}
+.mode-row input{appearance:none;width:38px;height:22px;border-radius:99px;background:rgba(126,142,152,.35);
+  position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.mode-row input::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;
+  background:#fff;transition:transform .2s}
+.mode-row input:checked{background:var(--brand)}
+.mode-row input:checked::after{transform:translateX(16px)}
+.mode-row span{font-size:.83rem;font-weight:700}
+.mode small{display:block;margin-top:7px;font-size:.72rem;line-height:1.45;color:var(--ink-2)}
 
-.side-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:8px 4px 8px}
-.side-mods{display:flex;flex-direction:column;gap:6px}
-.smod{display:flex;align-items:center;gap:10px;border:1px solid transparent;background:transparent;border-radius:14px;padding:9px 12px;cursor:pointer;color:var(--ink-2);font-size:.86rem;font-weight:600;text-align:left;transition:background .15s,color .15s,border-color .15s}
-.smod:hover{background:var(--glass-2);color:var(--ink)}
-.smod.active{background:var(--glass-2);border-color:var(--glass-line);color:var(--ink)}
-.smod .em{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--em-bg,rgba(14,124,102,.14))}
+.side-label{font-size:.67rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-3);margin:16px 4px 8px}
+.side-mods{display:flex;flex-direction:column;gap:5px}
+.smod{display:flex;align-items:center;gap:10px;border:1px solid transparent;background:transparent;
+  border-radius:13px;padding:8px 11px;cursor:pointer;color:var(--ink-2);font-size:.84rem;
+  font-weight:600;text-align:left;transition:background .15s,color .15s}
+.smod:hover,.smod.active{background:var(--glass-2);color:var(--ink)}
+.smod .em{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:rgba(var(--c,14,124,102),.16);flex-shrink:0}
 
-/* ── Main panel ─────────────────────────────────────────── */
+/* ── Panel ── */
 .panel{display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .panel-head{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--glass-line)}
-.panel-head .kip-svg{width:40px;height:40px;display:none}
+.panel-head .kip{width:38px;height:38px;display:none}
 .ph-txt{flex:1;min-width:0}
-.ph-txt b{font-size:.98rem}
-.ph-txt p{font-size:.74rem;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.ph-txt b{font-size:.97rem}
+.ph-txt p{font-size:.73rem;color:var(--ink-2);display:flex;align-items:center;gap:6px}
 .dot{width:7px;height:7px;border-radius:50%;background:#3BA55C;box-shadow:0 0 0 3px rgba(59,165,92,.2)}
-.pill{font-size:.7rem;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--glass-2);border:1px solid var(--glass-line);color:var(--ink-2);white-space:nowrap}
-.pill.timer-pill{display:none}
-.home-link{font-size:.8rem;font-weight:700;text-decoration:none}
+.pill{font-size:.69rem;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--glass-2);
+  border:1px solid var(--glass-line);color:var(--ink-2);white-space:nowrap}
+.home-link{font-size:.79rem;font-weight:700;text-decoration:none}
 
-/* chips (mobile) */
 .chips{display:none;gap:8px;overflow-x:auto;padding:10px 16px 4px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);border-radius:99px;padding:7px 13px;font-size:.78rem;font-weight:700;cursor:pointer}
+.chip{flex-shrink:0;border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);
+  border-radius:99px;padding:7px 13px;font-size:.77rem;font-weight:700;cursor:pointer}
 .chip.active{color:var(--brand);border-color:var(--brand)}
 
-/* messages */
 main{flex:1;overflow-y:auto;padding:20px 20px 8px;scrollbar-width:thin}
-.msgs{display:flex;flex-direction:column;gap:16px;max-width:760px;margin:0 auto}
+.msgs{display:flex;flex-direction:column;gap:16px;max-width:780px;margin:0 auto}
 .msg{display:flex;gap:10px;max-width:88%;animation:pop .28s cubic-bezier(.2,.9,.3,1.2) both}
 @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
 .mav{width:34px;height:34px;flex-shrink:0;margin-top:2px}
-.bubble{border-radius:18px;padding:12px 16px;font-size:.93rem;line-height:1.65;overflow-wrap:break-word;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line)}
+.bubble{border-radius:18px;padding:12px 16px;font-size:.93rem;line-height:1.66;overflow-wrap:break-word;
+  background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--glass-line);min-width:0}
 .msg.kip .bubble{border-top-left-radius:6px}
-.msg.user .bubble{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#fff;border-top-right-radius:6px}
-.bubble ul{padding-left:20px;margin:6px 0}
-.bubble p{margin:6px 0}
-.bubble p:first-child{margin-top:0}
-.bubble p:last-child{margin-bottom:0}
+.msg.user .bubble{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#fff;
+  border-top-right-radius:6px}
+.bubble ul{padding-left:20px;margin:6px 0} .bubble p{margin:6px 0}
+.bubble p:first-child{margin-top:0} .bubble p:last-child{margin-bottom:0}
+.bubble .cursor{display:inline-block;width:2px;height:1em;background:var(--brand);
+  vertical-align:-2px;animation:caret 1s steps(2) infinite}
+@keyframes caret{0%,50%{opacity:1}51%,100%{opacity:0}}
 
-.sources{margin-top:10px;padding-top:10px;border-top:1px dashed var(--glass-line);font-size:.76rem}
-.sources .badge{display:inline-flex;align-items:center;gap:5px;font-weight:800;color:var(--brand);margin-bottom:5px}
+/* live status line while Kip works */
+.status{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--ink-2);padding:2px 0}
+.status .spin{width:13px;height:13px;border-radius:50%;border:2px solid rgba(126,142,152,.3);
+  border-top-color:var(--brand);animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.sources{margin-top:11px;padding-top:10px;border-top:1px dashed var(--glass-line);font-size:.76rem}
+.sources .badge{display:inline-flex;align-items:center;gap:5px;font-weight:800;color:var(--brand);
+  margin-bottom:6px}
+.sources .live{display:inline-flex;align-items:center;gap:4px;font-weight:800;font-size:.68rem;
+  color:var(--violet);background:rgba(124,92,252,.13);border-radius:99px;padding:2px 9px;margin-left:7px}
 .sources a{display:block;color:var(--ink-2);text-decoration:none;padding:2px 0;word-break:break-all}
 .sources a:hover{color:var(--brand)}
-
-.typing{display:inline-flex;gap:5px;padding:6px 2px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:blinkdots 1.2s infinite}
-.typing i:nth-child(2){animation-delay:.2s}
-.typing i:nth-child(3){animation-delay:.4s}
-@keyframes blinkdots{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.sources .q{display:block;margin-top:6px;font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
 
 .suggest{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.suggest button{border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);border-radius:12px;padding:8px 13px;font-size:.8rem;font-weight:600;cursor:pointer;text-align:left;transition:color .15s,border-color .15s}
+.suggest button{border:1px solid var(--glass-line);background:var(--glass-2);color:var(--ink-2);
+  border-radius:12px;padding:8px 13px;font-size:.79rem;font-weight:600;cursor:pointer;text-align:left;
+  transition:color .15s,border-color .15s}
 .suggest button:hover{border-color:var(--brand);color:var(--brand)}
 
-/* composer */
 .composer{padding:12px 20px calc(14px + env(safe-area-inset-bottom))}
-.comp-in{max-width:760px;margin:0 auto;display:flex;gap:10px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line);border-radius:99px;padding:6px 6px 6px 20px;box-shadow:var(--shadow)}
-.comp-in input{flex:1;border:none;background:transparent;color:var(--ink);font-family:var(--fb);font-size:.95rem;min-width:0}
+.comp-in{max-width:780px;margin:0 auto;display:flex;gap:10px;background:var(--glass);
+  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-line);
+  border-radius:99px;padding:6px 6px 6px 20px;box-shadow:var(--shadow)}
+.comp-in input{flex:1;border:none;background:transparent;color:var(--ink);font-family:var(--fb);
+  font-size:.95rem;min-width:0}
 .comp-in input:focus{outline:none}
 .comp-in input::placeholder{color:var(--ink-3)}
-.comp-in button{border:none;background:linear-gradient(135deg,var(--brand),var(--violet));color:#fff;border-radius:99px;padding:11px 22px;font-weight:800;font-size:.9rem;cursor:pointer;transition:transform .12s,opacity .2s}
-.comp-in button:hover{transform:scale(1.04)}
+.comp-in button{border:none;background:linear-gradient(135deg,var(--brand),var(--violet));color:#fff;
+  border-radius:99px;padding:11px 22px;font-weight:800;font-size:.89rem;cursor:pointer;
+  transition:transform .12s,opacity .2s}
+.comp-in button:hover:not(:disabled){transform:scale(1.04)}
 .comp-in button:disabled{opacity:.5;transform:none;cursor:default}
-.fine{max-width:760px;margin:8px auto 0;text-align:center;font-size:.67rem;color:var(--ink-3)}
+.fine{max-width:780px;margin:8px auto 0;text-align:center;font-size:.66rem;color:var(--ink-3)}
 
-/* ── Kip SVG animation ──────────────────────────────────── */
-/* ── Kip v4: a living aurora companion ─────────────────────
-   Fluid morphing gradient form + expressive eyes. The whole
-   being quickens (body.kip-busy) while Kip thinks. */
-.kip-svg{position:relative;display:inline-block;aspect-ratio:1;flex-shrink:0}
-.kip-svg::before{ /* ambient glow */
-  content:'';position:absolute;inset:-16%;border-radius:50%;
+/* ── Kip: living aurora companion ── */
+.kip{position:relative;display:inline-block;aspect-ratio:1;flex-shrink:0}
+.kip::before{content:'';position:absolute;inset:-16%;border-radius:50%;
   background:radial-gradient(closest-side,rgba(56,189,248,.38),rgba(124,92,252,.16) 55%,transparent 72%);
-  animation:aura 4.2s ease-in-out infinite;
-}
-.kip-svg .blob{
-  position:absolute;inset:2%;
+  animation:aura 4.2s ease-in-out infinite}
+.kip .blob{position:absolute;inset:2%;
   background:conic-gradient(from 210deg,#2FD3AE,#38BDF8 28%,#7C5CFC 58%,#F472B6 82%,#2FD3AE);
-  border-radius:46% 54% 52% 48%/48% 46% 54% 52%;
-  animation:morph 9s ease-in-out infinite;
-  box-shadow:inset -4px -6px 14px rgba(30,20,80,.28), inset 4px 6px 14px rgba(255,255,255,.25);
-}
-.kip-svg .blob2{ /* soft inner light */
-  position:absolute;inset:10%;
+  border-radius:46% 54% 52% 48%/48% 46% 54% 52%;animation:morph 9s ease-in-out infinite;
+  box-shadow:inset -4px -6px 14px rgba(30,20,80,.28),inset 4px 6px 14px rgba(255,255,255,.25)}
+.kip .blob2{position:absolute;inset:10%;
   background:radial-gradient(58% 52% at 34% 28%,rgba(255,255,255,.85),rgba(255,255,255,.12) 55%,transparent 75%);
-  border-radius:52% 48% 44% 56%/56% 44% 56% 44%;
-  animation:morph 7s ease-in-out reverse infinite;
-  pointer-events:none;
-}
-.kip-svg .e{ /* eyes */
-  position:absolute;top:37%;width:12%;height:23%;background:#fff;border-radius:99px;
-  box-shadow:0 0 8px rgba(255,255,255,.9);
-  animation:blink 4.6s infinite, gaze 9s ease-in-out infinite;
-}
-.kip-svg .e.l{left:33%}
-.kip-svg .e.r{right:33%}
-.kip-float{animation:floaty 4s ease-in-out infinite}
-/* thinking: form quickens, eyes narrow and scan */
-body.kip-busy .kip-svg .blob{animation-duration:2s}
-body.kip-busy .kip-svg .blob2{animation-duration:1.6s}
-body.kip-busy .kip-svg::before{animation-duration:1.2s}
-body.kip-busy .kip-svg .e{height:12%;top:43%;animation:blink 4.6s infinite, scan 1.4s ease-in-out infinite}
-@keyframes morph{
-  0%,100%{border-radius:46% 54% 52% 48%/48% 46% 54% 52%;rotate:0deg}
+  border-radius:52% 48% 44% 56%/56% 44% 56% 44%;animation:morph 7s ease-in-out reverse infinite;
+  pointer-events:none}
+.kip .e{position:absolute;top:37%;width:12%;height:23%;background:#fff;border-radius:99px;
+  box-shadow:0 0 8px rgba(255,255,255,.9);animation:blink 4.6s infinite,gaze 9s ease-in-out infinite}
+.kip .e.l{left:33%} .kip .e.r{right:33%}
+.float{animation:floaty 4s ease-in-out infinite}
+body.busy .kip .blob{animation-duration:2s}
+body.busy .kip .blob2{animation-duration:1.6s}
+body.busy .kip::before{animation-duration:1.2s}
+body.busy .kip .e{height:12%;top:43%;animation:blink 4.6s infinite,scan 1.4s ease-in-out infinite}
+@keyframes morph{0%,100%{border-radius:46% 54% 52% 48%/48% 46% 54% 52%;rotate:0deg}
   25%{border-radius:58% 42% 46% 54%/50% 58% 42% 50%;rotate:4deg}
   50%{border-radius:46% 54% 60% 40%/42% 48% 52% 58%;rotate:-3deg}
-  75%{border-radius:54% 46% 42% 58%/58% 42% 58% 42%;rotate:3deg}
-}
+  75%{border-radius:54% 46% 42% 58%/58% 42% 58% 42%;rotate:3deg}}
 @keyframes aura{0%,100%{opacity:.7;scale:1}50%{opacity:1;scale:1.06}}
 @keyframes blink{0%,91%,100%{scale:1 1}94%{scale:1 .08}}
 @keyframes gaze{0%,22%,100%{translate:0 0}30%,44%{translate:38% -9%}58%,74%{translate:-32% 7%}}
 @keyframes scan{0%,100%{translate:-42% 0}50%{translate:42% 0}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@media (prefers-reduced-motion: reduce){
-  .kip-svg .blob,.kip-svg .blob2,.kip-svg .e,.kip-svg::before,.kip-float{animation:none}
-  .msg{animation:none}
+@media (prefers-reduced-motion:reduce){
+  .kip .blob,.kip .blob2,.kip .e,.kip::before,.float,.msg,.status .spin,.cursor{animation:none}
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 900px){
+@media (max-width:900px){
   .app{grid-template-columns:1fr;padding:10px;gap:10px}
-  aside{display:none}
-  .chips{display:flex}
-  .panel-head .kip-svg{display:block}
-  .pill.timer-pill{display:inline-block}
-  :root{--blur:blur(12px) saturate(1.3)} /* lighter blur = faster mobile paint */
+  aside{display:none} .chips{display:flex} .panel-head .kip{display:block}
+  :root{--blur:blur(12px) saturate(1.3)}
 }
 </style>
 </head>
 <body>
 
 <div class="app">
-
-  <!-- ── Sidebar dashboard ── -->
   <aside class="glass">
     <div class="side-kip">
-      <div class="kip-svg kip-float"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
+      <div class="kip float"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
       <h1>Kip <span>· Howdy</span></h1>
       <p>Your companion for life in Australia</p>
     </div>
 
-    <div class="timer-card" title="For your privacy, this chat self-destructs after 2 minutes of inactivity. Nothing is ever saved.">
-      <div class="ring">
-        <svg width="52" height="52" viewBox="0 0 52 52">
-          <circle class="track" cx="26" cy="26" r="22" fill="none" stroke-width="5"/>
-          <circle class="bar" id="ringbar" cx="26" cy="26" r="22" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="0"/>
-        </svg>
-        <b id="ringtxt">2:00</b>
-      </div>
-      <div class="txt"><strong>Privacy auto-clear</strong>Idle chats are wiped after 2 min. Nothing is saved — ever.</div>
+    <div class="mode">
+      <label class="mode-row">
+        <input type="checkbox" id="incognito">
+        <span>Incognito</span>
+      </label>
+      <small id="mode-note">Nothing you type is saved. Sign in to keep your chat history.</small>
     </div>
 
-    <div class="side-label">Modules</div>
+    <div class="side-label">Topics</div>
     <div class="side-mods" id="side-mods"></div>
   </aside>
 
-  <!-- ── Chat panel ── -->
   <div class="panel glass">
     <div class="panel-head">
-      <div class="kip-svg"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
+      <div class="kip"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
       <div class="ph-txt">
         <b>Chat with Kip</b>
         <p><span class="dot"></span> Verified sources on every answer</p>
       </div>
-      <span class="pill timer-pill" id="timer-pill">🔒 2:00</span>
-      <span class="pill">🇦🇺 .gov.au verified</span>
+      <span class="pill">🇦🇺 official sources only</span>
       <a class="home-link" href="/">← Howdy</a>
     </div>
 
     <div class="chips" id="chips"></div>
-
     <main id="main"><div class="msgs" id="msgs"></div></main>
 
     <div class="composer">
@@ -248,7 +232,8 @@ body.kip-busy .kip-svg .e{height:12%;top:43%;animation:blink 4.6s infinite, scan
         <input id="input" type="text" placeholder="Ask about visas, tax, housing…" maxlength="800" autocomplete="off">
         <button id="send" type="submit">Ask ✦</button>
       </form>
-      <p class="fine">General guidance from official sources — not legal, migration or financial advice. Don't share personal details. Idle sessions are wiped after 2 minutes; nothing you type is ever stored.</p>
+      <p class="fine">General guidance from official sources — not legal, migration or financial advice.
+        Don't share personal details like your TFN or passport number.</p>
     </div>
   </div>
 </div>
@@ -256,75 +241,23 @@ body.kip-busy .kip-svg .e{height:12%;top:43%;animation:blink 4.6s infinite, scan
 <script>
 'use strict';
 
-// ── Modules (kept in sync with lib/modules.js) ─────────────────────────────
-const MODULES = [
-  {id:'arrive',emoji:'🛬',name:'Just Landed',color:'56,189,248',examples:['What should I do in my first week in Australia?','What documents do I need to set up my life here?']},
-  {id:'visa',emoji:'🛂',name:'Visas & Work',color:'124,92,252',examples:['How many hours can I work on a student visa?','How do I apply for the 485 visa after graduation?','How do I check my visa conditions?']},
-  {id:'tax',emoji:'🧾',name:'TFN & Tax',color:'255,194,75',examples:['How do I apply for a TFN?','What happens if I work without a TFN?','Can I claim my super when I leave Australia?']},
-  {id:'work',emoji:'💼',name:'Jobs & Pay',color:'18,161,132',examples:['What is the minimum wage in Australia?','My employer pays me cash below minimum wage — what can I do?']},
-  {id:'housing',emoji:'🏠',name:'Housing',color:'255,122,89',examples:['Two bedroom house near Acacia Ridge 4110 Brisbane','How much bond do I pay and how do I get it back?','What do I need to apply for a rental?']},
-  {id:'health',emoji:'🏥',name:'Health & OSHC',color:'244,114,182',examples:['What does my OSHC actually cover?','Am I eligible for Medicare as a student?']},
-  {id:'money',emoji:'🏦',name:'Banking',color:'56,189,248',examples:['Which bank account is best for students?','Can I open a bank account before I arrive?']},
-  {id:'transport',emoji:'🚋',name:'Transport',color:'124,92,252',examples:['How do I get a student discount on public transport in Brisbane?']},
-  {id:'study',emoji:'🎓',name:'Student Life',color:'255,194,75',examples:['What student discounts can I get in Australia?','How much should I budget for groceries each week?']},
-  {id:'safety',emoji:'🛡️',name:'Safety & Scams',color:'255,122,89',examples:['Someone called saying my visa will be cancelled unless I pay — is this a scam?','Where can I get mental health support as a student?']},
-];
-
-const msgs = document.getElementById('msgs');
-const main = document.getElementById('main');
-const form = document.getElementById('form');
+const msgs  = document.getElementById('msgs');
+const main  = document.getElementById('main');
+const form  = document.getElementById('form');
 const input = document.getElementById('input');
-const send = document.getElementById('send');
+const send  = document.getElementById('send');
+const incognitoBox = document.getElementById('incognito');
 
-// History lives ONLY in this array, in this tab, in memory.
-// No localStorage, no sessionStorage, no cookies, no server logs.
-let history = [];
+let history = [];              // in-memory only
+let conversationId = null;
 let busy = false;
 
-// ── Privacy auto-clear: nuke the session after 2 min idle ─────────────────
-const SESSION_TTL_MS = 2 * 60 * 1000;
-const RING_LEN = 138.2;
-let lastActivity = Date.now();
-let hadActivity = false; // only show the "wiped" notice if there was a conversation
+// ── Safe rendering: escape everything, then minimal markdown ─────────────
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
-function touch(){ lastActivity = Date.now(); }
-['pointerdown','keydown','input'].forEach(ev =>
-  document.addEventListener(ev, touch, { passive: true }));
-
-function nukeSession(){
-  history = [];          // wipe memory
-  msgs.replaceChildren(); // wipe DOM
-  input.value = '';
-  const notice = hadActivity
-    ? '<p>🔒 <strong>Session cleared.</strong> You were away for 2 minutes, so I wiped our whole conversation — nothing was saved, nothing ever is.</p><p>Fresh start! What would you like to know?</p>'
-    : null;
-  hadActivity = false;
-  welcome(notice);
-  touch();
-}
-
-// Timestamp-based countdown — survives background-tab throttling.
-setInterval(() => {
-  const left = Math.max(0, SESSION_TTL_MS - (Date.now() - lastActivity));
-  const secs = Math.ceil(left / 1000);
-  const mm = Math.floor(secs / 60), ss = String(secs % 60).padStart(2, '0');
-  const label = `${mm}:${ss}`;
-  const bar = document.getElementById('ringbar');
-  document.getElementById('ringtxt').textContent = label;
-  const pill = document.getElementById('timer-pill');
-  if (pill) pill.textContent = '🔒 ' + label;
-  bar.style.strokeDashoffset = (RING_LEN * (1 - left / SESSION_TTL_MS)).toFixed(1);
-  bar.classList.toggle('warn', secs <= 20);
-  if (left <= 0) nukeSession();
-}, 1000);
-
-// ── Safe rendering (escape first, then minimal markdown) ──────────────────
-function escapeHtml(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-          .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function renderMarkdown(raw){
-  let s = escapeHtml(raw);
+function md(raw){
+  let s = esc(raw);
   s = s.replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>');
   s = s.replace(/https?:\/\/[^\s<)]+/g, u =>
     `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
@@ -332,126 +265,216 @@ function renderMarkdown(raw){
   let html = '', inList = false;
   for (const line of lines){
     const m = line.match(/^\s*[-•·]\s+(.*)/);
-    if (m){
-      if (!inList){ html += '<ul>'; inList = true; }
-      html += `<li>${m[1]}</li>`;
-    } else {
-      if (inList){ html += '</ul>'; inList = false; }
-      if (line.trim()) html += `<p>${line}</p>`;
-    }
+    if (m){ if(!inList){ html += '<ul>'; inList = true; } html += `<li>${m[1]}</li>`; }
+    else { if(inList){ html += '</ul>'; inList = false; }
+           if(line.trim()) html += `<p>${line}</p>`; }
   }
   if (inList) html += '</ul>';
   return html;
 }
 
-const KIP_AVATAR = '<div class="mav kip-svg"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>';
+const AVATAR = '<div class="mav kip"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>';
 
-function addMsg(role, contentHtml){
+function addMsg(role, html){
   const div = document.createElement('div');
   div.className = 'msg ' + role;
-  div.innerHTML = (role === 'kip' ? KIP_AVATAR : '') + `<div class="bubble">${contentHtml}</div>`;
+  div.innerHTML = (role === 'kip' ? AVATAR : '') + `<div class="bubble">${html}</div>`;
   msgs.appendChild(div);
-  main.scrollTop = main.scrollHeight;
+  scroll();
   return div;
 }
+const scroll = () => { main.scrollTop = main.scrollHeight; };
 
-function sourcesHtml(sources, verified){
+function sourcesHtml(sources, verified, searched, queries){
   if (!sources || !sources.length) return '';
   const links = sources.map(s =>
-    `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">↗ ${escapeHtml(s.domain)}</a>`).join('');
-  return `<div class="sources"><span class="badge">${verified ? '✅ Verified sources' : '⚠️ Some links removed (unverified)'}</span>${links}</div>`;
+    `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(s.domain)}</a>`).join('');
+  const live = searched ? '<span class="live">⚡ checked live</span>' : '';
+  const q = (searched && queries && queries.length)
+    ? `<span class="q">searched: ${esc(queries.join(' · '))}</span>` : '';
+  const label = verified ? '✅ Verified sources' : '⚠️ Some links removed (unverified)';
+  return `<div class="sources"><span class="badge">${label}</span>${live}${links}${q}</div>`;
 }
 
-// ── Chat flow ──────────────────────────────────────────────────────────────
+// ── Streaming ask ────────────────────────────────────────────────────────
 async function ask(text){
   if (busy || !text.trim()) return;
   busy = true; send.disabled = true; input.value = '';
-  document.body.classList.add('kip-busy'); // orb spins fast while thinking
-  touch(); hadActivity = true;
+  document.body.classList.add('busy');
 
-  addMsg('user', escapeHtml(text));
-  history.push({ role: 'user', content: text });
+  addMsg('user', esc(text));
+  history.push({ role:'user', content:text });
 
-  const typing = addMsg('kip', '<span class="typing"><i></i><i></i><i></i></span>');
+  const bubbleWrap = addMsg('kip',
+    '<div class="status"><span class="spin"></span><span id="phase">Reading your question</span></div>');
+  const bubble = bubbleWrap.querySelector('.bubble');
+  let streamed = '';
+
+  const setPhase = t => {
+    const el = bubble.querySelector('#phase');
+    if (el) el.textContent = t;
+  };
 
   try {
-    const r = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text, history: history.slice(0, -1) }),
+    const res = await fetch('/api/chat/stream', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        message: text,
+        conversation_id: conversationId,
+        incognito: incognitoBox.checked,
+      }),
     });
-    const data = await r.json();
-    typing.remove();
-    if (!r.ok){
-      addMsg('kip', `<p>${escapeHtml(data.error || 'Something went wrong — please try again.')}</p>`);
-    } else {
-      addMsg('kip', renderMarkdown(data.reply) + sourcesHtml(data.sources, data.verified));
-      history.push({ role: 'assistant', content: data.reply });
-      if (history.length > 16) history.splice(0, history.length - 16);
+
+    if (!res.ok || !res.body) throw new Error('stream unavailable');
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    for(;;){
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream:true });
+
+      // SSE frames are separated by a blank line.
+      const frames = buffer.split('\n\n');
+      buffer = frames.pop() || '';
+
+      for (const frame of frames){
+        const evLine = frame.split('\n').find(l => l.startsWith('event:'));
+        const dataLine = frame.split('\n').find(l => l.startsWith('data:'));
+        if (!evLine || !dataLine) continue;
+
+        const event = evLine.slice(6).trim();
+        let data; try { data = JSON.parse(dataLine.slice(5).trim()); } catch { continue; }
+
+        if (event === 'status'){
+          setPhase(data.detail || 'Working');
+        }
+        else if (event === 'delta'){
+          streamed += data.text;
+          bubble.innerHTML = md(streamed) + '<span class="cursor"></span>';
+          scroll();
+        }
+        else if (event === 'done'){
+          // The verified copy replaces whatever streamed — streamed text is
+          // never the final record.
+          bubble.innerHTML = md(data.reply) +
+            sourcesHtml(data.sources, data.verified, data.searched, data.search_queries);
+          history.push({ role:'assistant', content:data.reply });
+          if (history.length > 16) history.splice(0, history.length - 16);
+          if (data.conversation_id) conversationId = data.conversation_id;
+          scroll();
+        }
+        else if (event === 'error'){
+          bubble.innerHTML = `<p>${esc(data.detail || 'Something went wrong.')}</p>`;
+        }
+      }
     }
+
+    if (!bubble.querySelector('.sources') && !streamed){
+      bubble.innerHTML = '<p>Kip didn\'t manage a reply that time — please try again.</p>';
+    }
+
   } catch {
-    typing.remove();
-    addMsg('kip', '<p>Network hiccup — please check your connection and try again.</p>');
+    // Fall back to the buffered endpoint if streaming is blocked by a proxy.
+    try {
+      const r = await fetch('/api/chat', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ message:text, conversation_id:conversationId,
+                               incognito: incognitoBox.checked }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.detail || 'failed');
+      bubble.innerHTML = md(d.reply) +
+        sourcesHtml(d.sources, d.verified, d.searched, d.search_queries);
+      history.push({ role:'assistant', content:d.reply });
+      if (d.conversation_id) conversationId = d.conversation_id;
+    } catch {
+      bubble.innerHTML = '<p>Network hiccup — check your connection and try again.</p>';
+    }
   } finally {
     busy = false; send.disabled = false;
-    document.body.classList.remove('kip-busy');
-    input.focus(); touch();
+    document.body.classList.remove('busy');
+    input.focus(); scroll();
   }
 }
 
-form.addEventListener('submit', (e) => { e.preventDefault(); ask(input.value); });
+form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
 
-// ── Module UI: sidebar (desktop) + chips (mobile) ──────────────────────────
-const sideMods = document.getElementById('side-mods');
-const chipsEl = document.getElementById('chips');
-
-MODULES.forEach((m) => {
-  const sb = document.createElement('button');
-  sb.className = 'smod';
-  sb.innerHTML = `<span class="em" style="--em-bg:rgba(${m.color},.16)">${m.emoji}</span>${m.name}`;
-  sb.addEventListener('click', () => showSuggestions(m, sb));
-  sideMods.appendChild(sb);
-
-  const cb = document.createElement('button');
-  cb.className = 'chip';
-  cb.textContent = `${m.emoji} ${m.name}`;
-  cb.addEventListener('click', () => showSuggestions(m, cb));
-  chipsEl.appendChild(cb);
+incognitoBox.addEventListener('change', () => {
+  document.getElementById('mode-note').textContent = incognitoBox.checked
+    ? 'Incognito on — this chat is never written to disk, even if you are signed in.'
+    : 'Nothing you type is saved. Sign in to keep your chat history.';
+  if (incognitoBox.checked) conversationId = null;  // start a fresh, unsaved thread
 });
 
-function showSuggestions(mod, btn){
+// ── Topics, loaded from the same config the server uses ──────────────────
+const FALLBACK = [
+  {id:'arrive',emoji:'🛬',name:'Just Landed',colour:'56,189,248',examples:['What should I do in my first week in Australia?']},
+  {id:'visa',emoji:'🛂',name:'Visas & Work',colour:'124,92,252',examples:['How many hours can I work on a student visa?']},
+  {id:'tax',emoji:'🧾',name:'TFN & Tax',colour:'255,194,75',examples:['How do I apply for a TFN?']},
+  {id:'work',emoji:'💼',name:'Jobs & Pay',colour:'18,161,132',examples:['What is the minimum wage in Australia right now?']},
+  {id:'housing',emoji:'🏠',name:'Housing',colour:'255,122,89',examples:['Two bedroom house near Acacia Ridge 4110 Brisbane']},
+  {id:'health',emoji:'🏥',name:'Health & OSHC',colour:'244,114,182',examples:['What does my OSHC cover?']},
+  {id:'money',emoji:'🏦',name:'Banking',colour:'56,189,248',examples:['Which bank account is best for students?']},
+  {id:'transport',emoji:'🚋',name:'Transport',colour:'124,92,252',examples:['How do I get a concession go card in Brisbane?']},
+  {id:'study',emoji:'🎓',name:'Student Life',colour:'255,194,75',examples:['What student discounts can I get?']},
+  {id:'safety',emoji:'🛡️',name:'Safety & Scams',colour:'255,122,89',examples:['Someone called saying my visa will be cancelled unless I pay — is this a scam?']},
+];
+
+let MODULES = FALLBACK;
+fetch('/api/modules').then(r => r.ok ? r.json() : null).then(d => {
+  if (d && d.modules && d.modules.length){ MODULES = d.modules; renderTopics(); }
+}).catch(() => {});
+
+const sideMods = document.getElementById('side-mods');
+const chipsEl  = document.getElementById('chips');
+
+function renderTopics(){
+  sideMods.replaceChildren(); chipsEl.replaceChildren();
+  MODULES.forEach(m => {
+    const sb = document.createElement('button');
+    sb.className = 'smod';
+    sb.innerHTML = `<span class="em" style="--c:${m.colour}">${m.emoji}</span>${esc(m.name)}`;
+    sb.addEventListener('click', () => suggest(m, sb));
+    sideMods.appendChild(sb);
+
+    const cb = document.createElement('button');
+    cb.className = 'chip';
+    cb.textContent = `${m.emoji} ${m.name}`;
+    cb.addEventListener('click', () => suggest(m, cb));
+    chipsEl.appendChild(cb);
+  });
+}
+renderTopics();
+
+function suggest(mod, btn){
   document.querySelectorAll('.smod,.chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
-  touch();
-  const old = document.getElementById('suggest-box');
-  if (old) old.remove();
+  document.getElementById('suggest-box')?.remove();
+
   const div = document.createElement('div');
   div.id = 'suggest-box';
   div.className = 'msg kip';
-  div.innerHTML = KIP_AVATAR +
-    `<div class="bubble"><p><strong>${mod.emoji} ${mod.name}</strong> — students often ask:</p><div class="suggest">` +
-    mod.examples.map(q => `<button type="button">${escapeHtml(q)}</button>`).join('') +
-    '</div></div>';
+  div.innerHTML = AVATAR +
+    `<div class="bubble"><p><strong>${mod.emoji} ${esc(mod.name)}</strong> — students often ask:</p>
+     <div class="suggest">${(mod.examples||[]).map(q => `<button type="button">${esc(q)}</button>`).join('')}</div></div>`;
   msgs.appendChild(div);
-  div.querySelectorAll('.suggest button').forEach((b) => {
-    b.addEventListener('click', () => { div.remove(); ask(b.textContent); });
-  });
-  main.scrollTop = main.scrollHeight;
+  div.querySelectorAll('.suggest button').forEach(b =>
+    b.addEventListener('click', () => { div.remove(); ask(b.textContent); }));
+  scroll();
 }
 
-// ── Welcome ────────────────────────────────────────────────────────────────
-function welcome(extraHtml){
-  addMsg('kip',
-    (extraHtml || '') +
-    "<p>G'day! I'm <strong>Kip</strong> — your companion for life in Australia. 🇦🇺</p>" +
-    '<p>Ask me about visas, work, tax, housing or health. Every answer comes with <strong>verified official sources</strong>.</p>' +
-    '<p>🔒 <strong>Private by design:</strong> nothing you type is saved, and idle chats self-destruct after 2 minutes.</p>');
-}
-welcome();
+// ── Welcome ──────────────────────────────────────────────────────────────
+addMsg('kip',
+  "<p>G'day! I'm <strong>Kip</strong> — your companion for life in Australia. 🇦🇺</p>" +
+  "<p>Ask me about visas, work, tax, housing or health. I answer from <strong>official Australian sources</strong>, " +
+  "and for anything that changes — wage rates, visa fees, deadlines — I check the live source before answering.</p>" +
+  "<p>I'm your <strong>first stop</strong>, not your last: for decisions about your own case I'll point you to the right registered expert.</p>" +
+  "<p>Pick a topic, or just type your question.</p>");
 
-// Deep link: /chat?ask=...
-const preset = new URLSearchParams(location.search).get('ask');
-if (preset) ask(preset);
 input.focus();
 </script>
 </body>

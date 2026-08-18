@@ -1,8 +1,13 @@
-"""The chat endpoint — the only route that calls the model.
+"""The chat endpoints — the only routes that call the model.
 
 Pipeline (everything except the model call is deterministic):
     validate -> rate limit -> PII guard -> injection guard
-             -> Claude (prompt-cached) -> source verification -> persist -> respond
+             -> Claude (prompt-cached, + domain-restricted web search)
+             -> source verification -> persist -> respond
+
+Two endpoints:
+    POST /api/chat          buffered — simple, used as the fallback
+    POST /api/chat/stream   Server-Sent Events — live progress + token stream
 
 Storage modes:
     guest      — not signed in.        Nothing is written. Ever.
@@ -12,17 +17,22 @@ Storage modes:
 
 from __future__ import annotations
 
+import json
+import logging
 import uuid
+from collections.abc import AsyncIterator
 from datetime import datetime, timedelta, timezone
 
 import anthropic
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from .. import websearch
 from ..config import get_settings
-from ..crypto import seal
+from ..crypto import Sealed, open_sealed, seal
 from ..db import get_db
 from ..deps import CurrentUser, optional_user
 from ..models import Conversation, Message
@@ -38,10 +48,13 @@ from ..security import (
 )
 from ..sources import verify_reply
 
+log = logging.getLogger("kip.chat")
 settings = get_settings()
 router = APIRouter(prefix="/api", tags=["chat"])
 
 client = anthropic.AsyncAnthropic(api_key=settings.anthropic_key)
+
+UNAVAILABLE = "Kip is momentarily unavailable. Try again shortly."
 
 
 class ChatRequest(BaseModel):
@@ -60,18 +73,26 @@ class ChatResponse(BaseModel):
     reply: str
     sources: list[SourceOut]
     verified: bool
+    searched: bool = False
+    search_queries: list[str] = []
     conversation_id: uuid.UUID | None = None
     stored: bool
 
 
-@router.post("/chat", response_model=ChatResponse)
-async def chat(
-    body: ChatRequest,
-    request: Request,
-    db: AsyncSession = Depends(get_db),
-    current: CurrentUser | None = Depends(optional_user),
-) -> ChatResponse:
-    # ── Rate limit: signed-in users get a higher ceiling ─────────────────
+# ── Shared request preparation ───────────────────────────────────────────
+
+
+class Refusal(Exception):
+    """A guard stopped the request before the model was called."""
+
+    def __init__(self, reply: str):
+        self.reply = reply
+
+
+async def _prepare(
+    body: ChatRequest, request: Request, db: AsyncSession, current: CurrentUser | None
+) -> tuple[str, Conversation | None, list[dict], bool]:
+    """Rate limit, sanitise, run the guards, load history. Raises Refusal/HTTPException."""
     if current:
         rl_key, rl_limit = f"user:{current.id}", settings.rate_limit_user
     else:
@@ -89,87 +110,262 @@ async def chat(
     if not message:
         raise HTTPException(status_code=400, detail="Please type a question.")
 
-    # ── PII guard: refuse BEFORE the model call, so the value never leaves us
+    # PII guard runs BEFORE the model call, so the value never leaves us.
     if detect_pii(message):
-        return ChatResponse(
-            reply=PII_RESPONSE, sources=[], verified=True,
-            conversation_id=body.conversation_id, stored=False,
-        )
-
+        raise Refusal(PII_RESPONSE)
     if detect_injection(message):
-        return ChatResponse(
-            reply=INJECTION_RESPONSE, sources=[], verified=True,
-            conversation_id=body.conversation_id, stored=False,
-        )
+        raise Refusal(INJECTION_RESPONSE)
 
     persist = current is not None and not body.incognito
 
-    # ── Resolve the conversation, enforcing ownership in the query ───────
     conversation: Conversation | None = None
     if persist and body.conversation_id:
         conversation = await db.scalar(
             select(Conversation).where(
                 Conversation.id == body.conversation_id,
-                Conversation.user_id == current.id,   # ← ownership is part of the predicate
+                Conversation.user_id == current.id,   # ← ownership in the predicate
             )
         )
         if conversation is None:
             raise HTTPException(status_code=404, detail="Conversation not found.")
 
     history = await _load_history(db, conversation, current) if conversation else []
+    return message, conversation, history, persist
 
-    # ── Model call ───────────────────────────────────────────────────────
+
+def _request_kwargs(history: list[dict], message: str) -> dict:
+    tools = []
+    if (tool := websearch.tool_definition()) is not None:
+        tools.append(tool)
+
+    kwargs = {
+        "model": settings.model,
+        "max_tokens": settings.max_tokens,
+        "system": [{
+            "type": "text",
+            "text": system_prompt(),
+            "cache_control": {"type": "ephemeral"},  # ~90% off the bulk of every request
+        }],
+        "messages": [*history, {"role": "user", "content": message}],
+    }
+    if tools:
+        kwargs["tools"] = tools
+    return kwargs
+
+
+# ── Buffered endpoint ────────────────────────────────────────────────────
+
+
+@router.post("/chat", response_model=ChatResponse)
+async def chat(
+    body: ChatRequest,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+    current: CurrentUser | None = Depends(optional_user),
+) -> ChatResponse:
     try:
-        response = await client.messages.create(
-            model=settings.model,
-            max_tokens=settings.max_tokens,
-            system=[{
-                "type": "text",
-                "text": system_prompt(),
-                "cache_control": {"type": "ephemeral"},  # ~90% off the bulk of every request
-            }],
-            messages=[*history, {"role": "user", "content": message}],
+        message, conversation, history, persist = await _prepare(body, request, db, current)
+    except Refusal as refusal:
+        return ChatResponse(
+            reply=refusal.reply, sources=[], verified=True,
+            conversation_id=body.conversation_id, stored=False,
         )
+
+    kwargs = _request_kwargs(history, message)
+    blocks: list = []
+
+    try:
+        # A server-tool turn can stop with pause_turn when the search loop hits
+        # its internal limit. Resend to resume; cap the resumes so a pathological
+        # case cannot loop forever.
+        for _ in range(3):
+            response = await client.messages.create(**kwargs)
+            blocks.extend(response.content)
+            if response.stop_reason != "pause_turn":
+                break
+            kwargs["messages"] = [
+                *kwargs["messages"],
+                {"role": "assistant", "content": response.content},
+            ]
     except anthropic.APIStatusError as exc:
-        # Log the class only — never the user's content.
-        import logging
-        logging.getLogger("kip").warning("anthropic_error status=%s", exc.status_code)
-        raise HTTPException(status_code=502, detail="Kip is momentarily unavailable. Try again shortly.")
+        log.warning("anthropic_error status=%s", exc.status_code)  # never log content
+        raise HTTPException(status_code=502, detail=UNAVAILABLE)
     except anthropic.APIConnectionError:
-        raise HTTPException(status_code=502, detail="Kip is momentarily unavailable. Try again shortly.")
+        raise HTTPException(status_code=502, detail=UNAVAILABLE)
 
-    raw = "\n".join(b.text for b in response.content if b.type == "text")
+    raw_text = "\n".join(b.text for b in blocks if getattr(b, "type", None) == "text")
+    trace = websearch.trace_from_response(blocks)
+    checked = verify_reply(raw_text)
+    merged = websearch.merge_sources(checked.sources, trace)
 
-    # ── Deterministic source verification ────────────────────────────────
-    checked = verify_reply(raw)
-
-    # ── Persist (encrypted) only when the user is signed in and not incognito
     if persist:
-        conversation = conversation or await _new_conversation(db, current, message, body.module_id)
-        await _append(db, current, conversation, "user", message, [], True)
-        await _append(db, current, conversation, "assistant", checked.reply,
-                      [s.as_dict() for s in checked.sources], checked.verified)
-        conversation.updated_at = datetime.now(timezone.utc)
-        if current.user.retention_days:
-            conversation.expires_at = conversation.updated_at + timedelta(
-                days=current.user.retention_days
-            )
-        await db.commit()
+        conversation = await _persist(
+            db, current, conversation, body.module_id, message, checked, merged
+        )
 
     return ChatResponse(
         reply=checked.reply,
-        sources=[SourceOut(**s.as_dict()) for s in checked.sources],
+        sources=[SourceOut(**s) for s in merged],
         verified=checked.verified,
+        searched=trace.used,
+        search_queries=trace.queries,
         conversation_id=conversation.id if conversation else None,
         stored=persist,
     )
 
 
+# ── Streaming endpoint ───────────────────────────────────────────────────
+
+
+def _sse(event: str, data: dict) -> str:
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+@router.post("/chat/stream")
+async def chat_stream(
+    body: ChatRequest,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+    current: CurrentUser | None = Depends(optional_user),
+):
+    """SSE stream so a search-backed answer doesn't look like a frozen page.
+
+    Events:
+        status   {phase: thinking|searching|reading|writing, detail}
+        delta    {text}                     incremental answer text
+        done     {reply, sources, verified, searched, conversation_id, stored}
+        error    {detail}
+    """
+    try:
+        message, conversation, history, persist = await _prepare(body, request, db, current)
+    except Refusal as refusal:
+        async def refused() -> AsyncIterator[str]:
+            yield _sse("done", {
+                "reply": refusal.reply, "sources": [], "verified": True,
+                "searched": False, "stored": False,
+                "conversation_id": str(body.conversation_id) if body.conversation_id else None,
+            })
+        return StreamingResponse(refused(), media_type="text/event-stream")
+
+    async def generate() -> AsyncIterator[str]:
+        nonlocal conversation
+        kwargs = _request_kwargs(history, message)
+        blocks: list = []
+        text_parts: list[str] = []
+
+        try:
+            yield _sse("status", {"phase": "thinking", "detail": "Reading your question"})
+
+            for _ in range(3):
+                async with client.messages.stream(**kwargs) as stream:
+                    async for event in stream:
+                        etype = getattr(event, "type", "")
+
+                        if etype == "content_block_start":
+                            block = getattr(event, "content_block", None)
+                            btype = getattr(block, "type", "")
+                            if btype == "server_tool_use":
+                                yield _sse("status", {
+                                    "phase": "searching",
+                                    "detail": "Checking official Australian sources",
+                                })
+                            elif btype == "web_search_tool_result":
+                                yield _sse("status", {
+                                    "phase": "reading",
+                                    "detail": "Reading what the source says",
+                                })
+                            elif btype == "text":
+                                yield _sse("status", {"phase": "writing", "detail": "Writing your answer"})
+
+                        elif etype == "text":
+                            chunk = getattr(event, "text", "")
+                            if chunk:
+                                text_parts.append(chunk)
+                                yield _sse("delta", {"text": chunk})
+
+                    final = await stream.get_final_message()
+
+                blocks.extend(final.content)
+                if final.stop_reason != "pause_turn":
+                    break
+                kwargs["messages"] = [
+                    *kwargs["messages"],
+                    {"role": "assistant", "content": final.content},
+                ]
+
+        except anthropic.APIStatusError as exc:
+            log.warning("anthropic_error status=%s", exc.status_code)
+            yield _sse("error", {"detail": UNAVAILABLE})
+            return
+        except anthropic.APIConnectionError:
+            yield _sse("error", {"detail": UNAVAILABLE})
+            return
+        except Exception:
+            log.exception("stream_failed")
+            yield _sse("error", {"detail": UNAVAILABLE})
+            return
+
+        # Verification happens on the complete text. The client swaps in this
+        # verified copy — streamed text is never the final record.
+        raw_text = "".join(text_parts) or "\n".join(
+            b.text for b in blocks if getattr(b, "type", None) == "text"
+        )
+        trace = websearch.trace_from_response(blocks)
+        checked = verify_reply(raw_text)
+        merged = websearch.merge_sources(checked.sources, trace)
+
+        if persist:
+            try:
+                conversation = await _persist(
+                    db, current, conversation, body.module_id, message, checked, merged
+                )
+            except Exception:
+                log.exception("persist_failed")  # a save failure must not lose the answer
+
+        yield _sse("done", {
+            "reply": checked.reply,
+            "sources": merged,
+            "verified": checked.verified,
+            "searched": trace.used,
+            "search_queries": trace.queries,
+            "conversation_id": str(conversation.id) if conversation else None,
+            "stored": persist,
+        })
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
+    )
+
+
 # ── helpers ──────────────────────────────────────────────────────────────
 
-async def _load_history(db: AsyncSession, conversation: Conversation, current: CurrentUser) -> list[dict]:
-    from ..crypto import Sealed, open_sealed
 
+async def _persist(
+    db: AsyncSession,
+    current: CurrentUser,
+    conversation: Conversation | None,
+    module_id: str | None,
+    message: str,
+    checked,
+    merged: list[dict],
+) -> Conversation:
+    conversation = conversation or await _new_conversation(db, current, message, module_id)
+    await _append(db, current, conversation, "user", message, [], True)
+    await _append(db, current, conversation, "assistant", checked.reply, merged, checked.verified)
+    conversation.updated_at = datetime.now(timezone.utc)
+    if current.user.retention_days:
+        conversation.expires_at = conversation.updated_at + timedelta(
+            days=current.user.retention_days
+        )
+    await db.commit()
+    return conversation
+
+
+async def _load_history(
+    db: AsyncSession, conversation: Conversation, current: CurrentUser
+) -> list[dict]:
     rows = (await db.scalars(
         select(Message)
         .where(Message.conversation_id == conversation.id)
@@ -183,7 +379,7 @@ async def _load_history(db: AsyncSession, conversation: Conversation, current: C
         try:
             content = open_sealed(current.dek, Sealed(ct=row.content_ct, nonce=row.content_nonce), aad)
         except Exception:
-            continue  # a tampered or unreadable row is skipped, never fatal
+            continue  # an unreadable row is skipped, never fatal
         history.append({"role": row.role, "content": content[: settings.max_history_chars]})
     return history
 
@@ -192,8 +388,7 @@ async def _new_conversation(
     db: AsyncSession, current: CurrentUser, first_message: str, module_id: str | None
 ) -> Conversation:
     conv_id = uuid.uuid4()
-    title = first_message[:60]
-    sealed = seal(current.dek, title, aad=f"title:{current.id}|{conv_id}")
+    sealed = seal(current.dek, first_message[:60], aad=f"title:{current.id}|{conv_id}")
     conversation = Conversation(
         id=conv_id,
         user_id=current.id,

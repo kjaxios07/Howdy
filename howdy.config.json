@@ -5,7 +5,6 @@
     "You can add a module or a trusted source domain here WITHOUT touching Python.",
     "Secrets never live here — they are generated into /etc/howdy/secrets/ by deploy.sh."
   ],
-
   "app": {
     "name": "Howdy",
     "assistant": "Kip",
@@ -16,7 +15,6 @@
     "locale": "en-AU",
     "min_age": 16
   },
-
   "hosting": {
     "_comment": "Sizing hints for deploy.sh. Cheapest first.",
     "profile": "free",
@@ -48,7 +46,6 @@
       }
     }
   },
-
   "model": {
     "id": "claude-sonnet-5",
     "max_tokens": 700,
@@ -58,7 +55,19 @@
       "claude-opus-4-8": "Higher ceiling, ~2x cost. Overkill for knowledge-base-grounded answers."
     }
   },
-
+  "web_search": {
+    "_note": "Live search for volatile facts (wage rates, fees, dates). HARD-RESTRICTED to the same trusted domains as citation verification — Claude physically cannot search anything else.",
+    "enabled": true,
+    "tool_version": "web_search_20260209",
+    "max_uses_per_answer": 3,
+    "search_when": [
+      "the answer depends on a current dollar figure, rate, fee or threshold",
+      "the answer depends on a date, deadline or 'as of' year",
+      "the user asks what the rule is 'now' or 'currently'",
+      "the knowledge base has no entry for the topic"
+    ],
+    "_cost_note": "Each search adds cost. max_uses_per_answer caps it. Set enabled=false to run knowledge-base-only."
+  },
   "limits": {
     "max_message_chars": 800,
     "max_history_turns": 8,
@@ -67,44 +76,67 @@
     "rate_limit_anon_per_min": 10,
     "rate_limit_user_per_min": 30
   },
-
   "privacy": {
     "guest_mode": true,
     "incognito_mode": true,
     "default_retention_days": 365,
-    "retention_options_days": [30, 365, 0],
+    "retention_options_days": [
+      30,
+      365,
+      0
+    ],
     "session_ttl_days": 30,
     "store_ip_addresses": false,
     "log_message_content": false,
     "_note": "0 retention days means 'keep until the user deletes it'. Guest and incognito write nothing at all."
   },
-
   "sources": {
     "_note": "Kip may ONLY cite these. Verified server-side after every reply; anything else is stripped.",
-    "trusted_suffixes": [".gov.au", ".edu.au"],
+    "trusted_suffixes": [
+      ".gov.au",
+      ".edu.au"
+    ],
     "trusted_domains": [
-      "gov.au", "ato.gov.au", "fairwork.gov.au", "homeaffairs.gov.au",
-      "immi.homeaffairs.gov.au", "vevo.homeaffairs.gov.au",
-      "servicesaustralia.gov.au", "studyaustralia.gov.au", "moneysmart.gov.au",
-      "scamwatch.gov.au", "healthdirect.gov.au", "mara.gov.au", "my.gov.au",
-      "privatehealth.gov.au", "oaic.gov.au",
-
-      "realestate.com.au", "domain.com.au", "flatmates.com.au",
-
-      "medibank.com.au", "bupa.com.au", "nib.com.au", "ahmoshc.com",
-      "cbhsinternational.com.au", "allianzcare.com.au",
-
-      "commbank.com.au", "anz.com.au", "westpac.com.au", "nab.com.au",
-
-      "translink.com.au", "adelaidemetro.com.au", "transportnsw.info",
-      "transperth.wa.gov.au", "ptv.vic.gov.au",
-
-      "unidays.com", "studentbeans.com",
-
-      "lifeline.org.au", "beyondblue.org.au", "kidshelpline.com.au"
+      "gov.au",
+      "ato.gov.au",
+      "fairwork.gov.au",
+      "homeaffairs.gov.au",
+      "immi.homeaffairs.gov.au",
+      "vevo.homeaffairs.gov.au",
+      "servicesaustralia.gov.au",
+      "studyaustralia.gov.au",
+      "moneysmart.gov.au",
+      "scamwatch.gov.au",
+      "healthdirect.gov.au",
+      "mara.gov.au",
+      "my.gov.au",
+      "privatehealth.gov.au",
+      "oaic.gov.au",
+      "realestate.com.au",
+      "domain.com.au",
+      "flatmates.com.au",
+      "medibank.com.au",
+      "bupa.com.au",
+      "nib.com.au",
+      "ahmoshc.com",
+      "cbhsinternational.com.au",
+      "allianzcare.com.au",
+      "commbank.com.au",
+      "anz.com.au",
+      "westpac.com.au",
+      "nab.com.au",
+      "translink.com.au",
+      "adelaidemetro.com.au",
+      "transportnsw.info",
+      "transperth.wa.gov.au",
+      "ptv.vic.gov.au",
+      "unidays.com",
+      "studentbeans.com",
+      "lifeline.org.au",
+      "beyondblue.org.au",
+      "kidshelpline.com.au"
     ]
   },
-
   "housing_search": {
     "_note": "Kip never invents listings. It builds live search URLs on these platforms.",
     "platforms": [
@@ -125,7 +157,6 @@
       }
     ]
   },
-
   "modules": [
     {
       "id": "arrive",
@@ -137,7 +168,10 @@
         "What should I do in my first week in Australia?",
         "What documents do I need to set up my life here?"
       ],
-      "sources": ["studyaustralia.gov.au", "homeaffairs.gov.au"]
+      "sources": [
+        "studyaustralia.gov.au",
+        "homeaffairs.gov.au"
+      ]
     },
     {
       "id": "visa",
@@ -150,7 +184,10 @@
         "How do I apply for the 485 visa after graduation?",
         "How do I check my visa conditions?"
       ],
-      "sources": ["immi.homeaffairs.gov.au", "vevo.homeaffairs.gov.au"]
+      "sources": [
+        "immi.homeaffairs.gov.au",
+        "vevo.homeaffairs.gov.au"
+      ]
     },
     {
       "id": "tax",
@@ -163,7 +200,10 @@
         "What happens if I work without a TFN?",
         "Can I claim my super when I leave Australia?"
       ],
-      "sources": ["ato.gov.au", "my.gov.au"]
+      "sources": [
+        "ato.gov.au",
+        "my.gov.au"
+      ]
     },
     {
       "id": "work",
@@ -175,7 +215,9 @@
         "What is the minimum wage in Australia?",
         "My employer pays me cash below minimum wage — what can I do?"
       ],
-      "sources": ["fairwork.gov.au"]
+      "sources": [
+        "fairwork.gov.au"
+      ]
     },
     {
       "id": "housing",
@@ -188,7 +230,11 @@
         "How much bond do I pay and how do I get it back?",
         "What do I need to apply for a rental?"
       ],
-      "sources": ["realestate.com.au", "domain.com.au", "flatmates.com.au"]
+      "sources": [
+        "realestate.com.au",
+        "domain.com.au",
+        "flatmates.com.au"
+      ]
     },
     {
       "id": "health",
@@ -200,7 +246,11 @@
         "What does my OSHC actually cover?",
         "Am I eligible for Medicare as a student?"
       ],
-      "sources": ["servicesaustralia.gov.au", "privatehealth.gov.au", "healthdirect.gov.au"]
+      "sources": [
+        "servicesaustralia.gov.au",
+        "privatehealth.gov.au",
+        "healthdirect.gov.au"
+      ]
     },
     {
       "id": "money",
@@ -212,7 +262,9 @@
         "Which bank account is best for students?",
         "Can I open a bank account before I arrive?"
       ],
-      "sources": ["moneysmart.gov.au"]
+      "sources": [
+        "moneysmart.gov.au"
+      ]
     },
     {
       "id": "transport",
@@ -223,7 +275,11 @@
       "examples": [
         "How do I get a student discount on public transport in Brisbane?"
       ],
-      "sources": ["translink.com.au", "transportnsw.info", "ptv.vic.gov.au"]
+      "sources": [
+        "translink.com.au",
+        "transportnsw.info",
+        "ptv.vic.gov.au"
+      ]
     },
     {
       "id": "study",
@@ -235,7 +291,11 @@
         "What student discounts can I get in Australia?",
         "How much should I budget for groceries each week?"
       ],
-      "sources": ["unidays.com", "studentbeans.com", "studyaustralia.gov.au"]
+      "sources": [
+        "unidays.com",
+        "studentbeans.com",
+        "studyaustralia.gov.au"
+      ]
     },
     {
       "id": "safety",
@@ -248,24 +308,46 @@
         "What number do I call in an emergency?",
         "Where can I get mental health support as a student?"
       ],
-      "sources": ["scamwatch.gov.au", "healthdirect.gov.au", "lifeline.org.au"]
+      "sources": [
+        "scamwatch.gov.au",
+        "healthdirect.gov.au",
+        "lifeline.org.au"
+      ]
     }
   ],
-
   "safety": {
     "emergency_number": "000",
     "crisis_lines": [
-      { "name": "Triple Zero", "number": "000", "for": "Police, fire, ambulance — life-threatening emergencies" },
-      { "name": "Lifeline", "number": "13 11 14", "for": "Crisis support, 24/7" },
-      { "name": "Beyond Blue", "number": "1300 22 4636", "for": "Mental health support" },
-      { "name": "Healthdirect", "number": "1800 022 222", "for": "Free 24/7 nurse advice" },
-      { "name": "Fair Work Ombudsman", "number": "13 13 94", "for": "Underpayment and workplace problems" }
+      {
+        "name": "Triple Zero",
+        "number": "000",
+        "for": "Police, fire, ambulance — life-threatening emergencies"
+      },
+      {
+        "name": "Lifeline",
+        "number": "13 11 14",
+        "for": "Crisis support, 24/7"
+      },
+      {
+        "name": "Beyond Blue",
+        "number": "1300 22 4636",
+        "for": "Mental health support"
+      },
+      {
+        "name": "Healthdirect",
+        "number": "1800 022 222",
+        "for": "Free 24/7 nurse advice"
+      },
+      {
+        "name": "Fair Work Ombudsman",
+        "number": "13 13 94",
+        "for": "Underpayment and workplace problems"
+      }
     ],
     "pii_guard": true,
     "injection_guard": true,
     "referral_disclosure_required": true
   },
-
   "legal": {
     "guidance_not_advice": true,
     "referrals": {
@@ -277,7 +359,6 @@
     "consent_version": "2026-08-01",
     "_critical": "Under the Migration Act 1958, giving immigration assistance without registration is a criminal offence. Kip must only ever give GENERAL information and refer individual matters to a MARA-registered agent. Have a registered agent review app/prompt.py and knowledge/base.json before launch."
   },
-
   "monitoring": {
     "healthcheck_path": "/api/health",
     "sentry_enabled": false,

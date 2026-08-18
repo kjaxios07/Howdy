@@ -79,13 +79,39 @@ health = APIRouter(tags=["ops"])
 
 @health.get("/api/health")
 async def healthcheck():
+    from . import websearch
+
     kb = knowledge()
     return {
         "status": "ok",
         "service": "Howdy Kip API",
         "model": settings.model,
+        "web_search": websearch.enabled(),
+        "searchable_domains": len(websearch.allowed_domains()),
         "knowledge_base_version": kb["_meta"]["version"],
         "knowledge_last_updated": kb["_meta"]["last_updated"],
+    }
+
+
+@health.get("/api/modules")
+async def list_modules():
+    """Topics for the UI — served from howdy.config.json so the front end and
+    the model can never drift out of sync."""
+    from .modules import MODULES
+
+    return {
+        "modules": [
+            {
+                "id": m.id,
+                "name": m.name,
+                "emoji": m.emoji,
+                "colour": m.colour,
+                "tagline": m.tagline,
+                "examples": list(m.examples),
+                "sources": list(m.sources),
+            }
+            for m in MODULES
+        ]
     }
 
 
