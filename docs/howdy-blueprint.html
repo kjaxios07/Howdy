@@ -1,0 +1,1430 @@
+<title>The Howdy Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   The Howdy Blueprint
+   Palette: harbour teal + wattle gold on eucalypt-tinted paper.
+   Type: Archivo (signage grotesque) / Source Serif 4 / IBM Plex Mono.
+   ───────────────────────────────────────────────────────────── */
+
+:root{
+  --sans:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono','SF Mono',Menlo,Consolas,monospace;
+
+  --ground:#F2F5F4;
+  --surface:#FFFFFF;
+  --surface-2:#E7EDEB;
+  --ink:#10201E;
+  --ink-2:#40534F;
+  --ink-3:#6B7D79;
+  --rule:#D2DBD8;
+  --rule-strong:#B4C2BE;
+  --accent:#0E6A63;
+  --accent-soft:#CFE5E2;
+  --gold:#A87C00;
+  --gold-soft:#F3E5B8;
+  --danger:#A83A2A;
+  --danger-soft:#F4D9D3;
+  --safe:#2E6B3E;
+  --safe-soft:#D2E5D6;
+  --shadow:0 1px 2px rgba(16,32,30,.05);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1513;
+    --surface:#111F1D;
+    --surface-2:#192B28;
+    --ink:#E9F0EE;
+    --ink-2:#A6B9B5;
+    --ink-3:#7B8E8A;
+    --rule:#243935;
+    --rule-strong:#325049;
+    --accent:#4FC9BC;
+    --accent-soft:#0F3A35;
+    --gold:#E5B93E;
+    --gold-soft:#3A2D0C;
+    --danger:#E8775F;
+    --danger-soft:#3B1A14;
+    --safe:#6FC585;
+    --safe-soft:#15301C;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1513;
+  --surface:#111F1D;
+  --surface-2:#192B28;
+  --ink:#E9F0EE;
+  --ink-2:#A6B9B5;
+  --ink-3:#7B8E8A;
+  --rule:#243935;
+  --rule-strong:#325049;
+  --accent:#4FC9BC;
+  --accent-soft:#0F3A35;
+  --gold:#E5B93E;
+  --gold-soft:#3A2D0C;
+  --danger:#E8775F;
+  --danger-soft:#3B1A14;
+  --safe:#6FC585;
+  --safe-soft:#15301C;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Shell ─────────────────────────────────────────────── */
+.shell{display:block;max-width:1400px;margin:0 auto;padding:0 20px 120px}
+
+@media (min-width:1120px){
+  .shell{display:grid;grid-template-columns:238px minmax(0,1fr);gap:56px;padding:0 32px 140px}
+}
+
+/* ── Contents rail ─────────────────────────────────────── */
+.rail{display:none}
+@media (min-width:1120px){
+  .rail{
+    display:block;position:sticky;top:0;align-self:start;
+    max-height:100vh;overflow-y:auto;padding:44px 0 44px;
+  }
+}
+.rail-hd{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 14px;font-weight:500;
+}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.rail a{
+  display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;
+  font-family:var(--sans);font-size:12.5px;line-height:1.35;
+  color:var(--ink-2);text-decoration:none;padding:6px 8px 6px 0;
+  border-left:2px solid transparent;padding-left:10px;
+}
+.rail a span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.rail a:hover{color:var(--ink)}
+.rail a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.rail a.on{color:var(--ink);border-left-color:var(--gold);font-weight:600}
+.rail a.on span{color:var(--gold)}
+
+/* ── Masthead ──────────────────────────────────────────── */
+.mast{padding:72px 0 0;border-bottom:1px solid var(--rule);margin-bottom:0}
+.eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 22px;font-weight:600;
+}
+.mast h1{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.028em;
+  font-size:clamp(2.6rem,6.4vw,4.6rem);line-height:1.02;margin:0 0 22px;
+  text-wrap:balance;max-width:16ch;
+}
+.mast .stand{
+  font-family:var(--serif);font-size:clamp(1.05rem,2.1vw,1.32rem);line-height:1.5;
+  color:var(--ink-2);max-width:56ch;margin:0 0 40px;
+}
+.mast .stand b{color:var(--ink);font-weight:600}
+.plate{
+  display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);
+  margin:0;padding:0 0 40px;
+}
+.plate div{
+  flex:1 1 150px;padding:18px 20px 18px 0;
+}
+.plate dt{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 6px;
+}
+.plate dd{margin:0;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink)}
+
+/* ── Sections ──────────────────────────────────────────── */
+main{padding-top:0}
+section{padding:64px 0 8px;scroll-margin-top:24px}
+section+section{border-top:1px solid var(--rule)}
+
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--gold);
+  font-weight:600;margin:0 0 12px;display:block;
+}
+h2{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(1.75rem,3.6vw,2.5rem);line-height:1.1;margin:0 0 20px;
+  text-wrap:balance;max-width:20ch;
+}
+h3{
+  font-family:var(--sans);font-weight:600;letter-spacing:-.01em;
+  font-size:1.16rem;line-height:1.3;margin:44px 0 12px;text-wrap:balance;
+}
+h4{
+  font-family:var(--mono);font-weight:600;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin:32px 0 10px;
+}
+p{margin:0 0 18px;max-width:68ch}
+.lede{font-size:1.1rem;line-height:1.6;color:var(--ink-2);max-width:64ch;margin-bottom:28px}
+ul,ol{margin:0 0 20px;padding-left:1.35em;max-width:66ch}
+li{margin:0 0 9px}
+li::marker{color:var(--ink-3)}
+strong{font-weight:600}
+b{font-weight:600}
+em{font-style:italic}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code{
+  font-family:var(--mono);font-size:.86em;background:var(--surface-2);
+  padding:1px 5px;border-radius:2px;color:var(--ink);
+}
+
+/* ── Figures ───────────────────────────────────────────── */
+figure{margin:34px 0 38px}
+.dg{
+  background:var(--surface);border:1px solid var(--rule);border-radius:2px;
+  padding:26px 22px;overflow-x:auto;box-shadow:var(--shadow);
+}
+.dg svg{display:block;width:100%;min-width:700px;height:auto}
+figcaption{
+  font-family:var(--mono);font-size:11px;line-height:1.55;color:var(--ink-3);
+  margin-top:12px;max-width:70ch;
+}
+figcaption b{color:var(--ink-2);font-weight:600}
+
+svg .bx{fill:var(--surface-2);stroke:var(--rule-strong);stroke-width:1}
+svg .bx-a{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1}
+svg .bx-g{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1}
+svg .bx-d{fill:var(--danger-soft);stroke:var(--danger);stroke-width:1}
+svg .bx-s{fill:var(--safe-soft);stroke:var(--safe);stroke-width:1}
+svg .bx-o{fill:none;stroke:var(--rule-strong);stroke-width:1;stroke-dasharray:4 3}
+svg text{font-family:var(--sans);font-size:12.5px;fill:var(--ink)}
+svg .th{font-weight:600;font-size:13px}
+svg .tm{font-family:var(--mono);font-size:10.5px;fill:var(--ink-2)}
+svg .ts{font-size:11px;fill:var(--ink-2)}
+svg .tt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--ink-3)}
+svg .tg{fill:var(--gold);font-family:var(--mono);font-size:10.5px;font-weight:600}
+svg .td{fill:var(--danger)}
+svg .tsafe{fill:var(--safe)}
+svg .ln{stroke:var(--rule-strong);fill:none;stroke-width:1.4}
+svg .ln-a{stroke:var(--accent);fill:none;stroke-width:1.6}
+svg .ln-d{stroke:var(--danger);fill:none;stroke-width:1.4;stroke-dasharray:5 4}
+svg .ah{fill:var(--rule-strong)}
+svg .ah-a{fill:var(--accent)}
+svg .ah-d{fill:var(--danger)}
+
+/* ── Callouts ──────────────────────────────────────────── */
+.note{
+  border-left:2px solid var(--accent);background:var(--surface);
+  padding:18px 22px;margin:28px 0;border-radius:0 2px 2px 0;max-width:70ch;
+}
+.note.warn{border-left-color:var(--danger)}
+.note.gold{border-left-color:var(--gold)}
+.note p:last-child{margin-bottom:0}
+.note .lbl{
+  font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:7px;
+}
+.note.warn .lbl{color:var(--danger)}
+.note.gold .lbl{color:var(--gold)}
+
+/* ── Tables ────────────────────────────────────────────── */
+.tw{overflow-x:auto;margin:28px 0;border:1px solid var(--rule);border-radius:2px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-family:var(--sans);font-size:13.5px}
+th{
+  text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;
+  padding:12px 16px;border-bottom:1px solid var(--rule-strong);vertical-align:bottom;
+}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:500}
+tbody tr:last-child td{border-bottom:0}
+td code{font-size:11.5px}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.pill{
+  display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 7px;border-radius:2px;border:1px solid;white-space:nowrap;
+}
+.pill.enc{color:var(--safe);border-color:var(--safe);background:var(--safe-soft)}
+.pill.plain{color:var(--gold);border-color:var(--gold);background:var(--gold-soft)}
+.pill.none{color:var(--ink-3);border-color:var(--rule-strong);background:var(--surface-2)}
+
+/* ── Card grids ────────────────────────────────────────── */
+.grid{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:28px 0;border-radius:2px;overflow:hidden}
+@media (min-width:640px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+.grid > div{background:var(--surface);padding:22px}
+.grid h5{
+  font-family:var(--sans);font-size:14px;font-weight:600;margin:0 0 8px;color:var(--ink);
+}
+.grid .k{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 9px;
+}
+.grid p{font-size:14.5px;line-height:1.55;margin:0;color:var(--ink-2);max-width:none}
+.grid p+p{margin-top:10px}
+
+/* ── Step list ─────────────────────────────────────────── */
+.steps{list-style:none;padding:0;margin:26px 0;max-width:70ch;counter-reset:s}
+.steps li{
+  counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:14px;
+  padding:14px 0;border-top:1px solid var(--rule);margin:0;
+}
+.steps li:last-child{border-bottom:1px solid var(--rule)}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  font-family:var(--mono);font-size:11px;color:var(--gold);font-weight:600;
+  padding-top:4px;font-variant-numeric:tabular-nums;
+}
+.steps b{display:block;font-family:var(--sans);font-size:14.5px;margin-bottom:3px;color:var(--ink)}
+.steps span{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+
+/* ── Footer ────────────────────────────────────────────── */
+.end{
+  margin-top:72px;padding-top:26px;border-top:2px solid var(--ink);
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1.7;
+}
+.end b{color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="shell">
+
+<nav class="rail" aria-label="Contents">
+  <p class="rail-hd">Contents</p>
+  <ol id="toc">
+    <li><a href="#s1"><span>01</span>Start here</a></li>
+    <li><a href="#s2"><span>02</span>What an LLM actually is</a></li>
+    <li><a href="#s3"><span>03</span>Your 434 questions</a></li>
+    <li><a href="#s4"><span>04</span>The system, drawn</a></li>
+    <li><a href="#s5"><span>05</span>One question, end to end</a></li>
+    <li><a href="#s6"><span>06</span>Where every piece of data lives</a></li>
+    <li><a href="#s7"><span>07</span>How the encryption works</a></li>
+    <li><a href="#s8"><span>08</span>Login and sessions</a></li>
+    <li><a href="#s9"><span>09</span>The three privacy modes</a></li>
+    <li><a href="#s10"><span>10</span>If the worst happens</a></li>
+    <li><a href="#s11"><span>11</span>Cloudflare and the VPS</a></li>
+    <li><a href="#s12"><span>12</span>Deletion and student rights</a></li>
+    <li><a href="#s13"><span>13</span>How we serve students</a></li>
+    <li><a href="#s14"><span>14</span>Adding vendors</a></li>
+    <li><a href="#s15"><span>15</span>University partners and ads</a></li>
+    <li><a href="#s16"><span>16</span>Monetisation</a></li>
+    <li><a href="#s17"><span>17</span>Decisions to make next</a></li>
+  </ol>
+</nav>
+
+<div>
+
+<header class="mast">
+  <p class="eyebrow">Howdy AI · System &amp; Security Dossier · v1.0</p>
+  <h1>The Howdy Blueprint</h1>
+  <p class="stand">How Kip works, where every question and every answer is stored, and why a student's details cannot leak — written to be read twice: once by <b>you</b>, with no engineering background assumed, and once by <b>your architecture engineer</b>, who needs the real names of the real components.</p>
+  <dl class="plate">
+    <div><dt>Prepared</dt><dd>18 August 2026</dd></div>
+    <div><dt>Audience</dt><dd>Founder + architecture engineer</dd></div>
+    <div><dt>Question bank</dt><dd class="num">434 questions</dd></div>
+    <div><dt>Trusted sources</dt><dd class="num">51 domains</dd></div>
+    <div><dt>Hosting</dt><dd>VPS + Cloudflare</dd></div>
+  </dl>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════ 01 ══ -->
+<section id="s1">
+  <span class="snum">§ 01</span>
+  <h2>Start here</h2>
+  <p class="lede">Howdy is a chat companion called Kip. An international student or new migrant asks a question about visas, tax, housing, work or health, and Kip answers in plain English with a link to the official Australian source it took the answer from. It is a <b>first point of contact</b> — the thing you ask before you know whether you need to pay an expert.</p>
+
+  <p>Everything in this document exists to support two promises. The first is <strong>accuracy</strong>: Kip never invents a fee, a date, a rule or a rental listing, and every answer carries a citation you can click. The second is <strong>confidentiality</strong>: a student can ask about a visa refusal, an underpaying employer or a mental health crisis, and that question does not become a liability for them.</p>
+
+  <p>Those two promises pull in opposite directions, and most of the engineering here is about holding both at once. Accuracy wants us to remember everything students ask so the product improves. Confidentiality wants us to remember nothing. Section 3 explains exactly where we drew that line, and section 10 shows what an attacker would actually walk away with if they got everything.</p>
+
+  <h3>How to read this</h3>
+  <div class="grid c2">
+    <div>
+      <p class="k">If you are the founder</p>
+      <h5>Sections 1, 2, 3, 9, 10, 12–16</h5>
+      <p>Written without jargon. Section 2 explains what an LLM is from scratch. Section 10 is the one to read if you want to be able to say, honestly and specifically, that student data cannot leak.</p>
+    </div>
+    <div>
+      <p class="k">If you are the engineer</p>
+      <h5>Sections 4–8, 11, 17</h5>
+      <p>Topology, request lifecycle, schema, key hierarchy, auth sequence and the hosting boundary. Section 17 lists the decisions that are genuinely still open and need your call.</p>
+    </div>
+  </div>
+
+  <div class="note gold">
+    <span class="lbl">The line this product lives on</span>
+    <p>Under the <em>Migration Act 1958</em>, giving <strong>immigration assistance</strong> without registration is a criminal offence. Providing <strong>general information</strong> is not. Kip explains what a visa is, what it costs, what it requires and how the process runs — and stops the moment a question turns on one person's own circumstances, at which point it refers to a MARA-registered agent. That distinction is not a disclaimer bolted on at the end; it is designed into the question bank, the system prompt and the answer format. See §13.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 02 ══ -->
+<section id="s2">
+  <span class="snum">§ 02</span>
+  <h2>What an LLM actually is</h2>
+  <p class="lede">LLM stands for <b>Large Language Model</b>. Claude, ChatGPT and Gemini are all LLMs. Kip is built on one — specifically Claude — but Kip is not <em>just</em> an LLM, and the difference is the whole product.</p>
+
+  <h3>The plain version</h3>
+  <p>An LLM is a very large statistical model of written language. It was trained by reading an enormous amount of text and learning, over and over, to predict what word comes next. That is genuinely all it does at the mechanical level: given everything so far, produce the most plausible next piece of text.</p>
+
+  <p>That simple mechanism produces something that reads like understanding. It can explain, summarise, translate, follow instructions and hold a conversation. But three consequences follow directly from how it works, and each one is a risk for a product that students will act on:</p>
+
+  <ul>
+    <li><strong>It has no memory between conversations.</strong> A fresh LLM call starts with nothing. Anything it "knows" about a user, we had to send it in that request. This is a privacy advantage and we lean on it hard.</li>
+    <li><strong>It does not look things up by default.</strong> Its knowledge is frozen at training time. Ask it the current Australian minimum wage and it will answer from memory — which may be two rate rises out of date.</li>
+    <li><strong>It will produce a confident wrong answer.</strong> Because it is predicting plausible text, an invented visa fee looks exactly as fluent as a real one. This is usually called <em>hallucination</em>. For a student about to lodge a form, it is the single most dangerous failure mode we have.</li>
+  </ul>
+
+  <h3>So Kip is an LLM on three leashes</h3>
+  <p>We do not ship a raw LLM to students. Every answer passes through three independent controls, and each one would catch a failure the others missed.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 400" role="img" aria-label="Diagram: a plain language model passes through three controls — a verified knowledge base, domain-restricted search, and citation verification — before reaching the student">
+        <defs>
+          <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+          <marker id="a1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-a" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <text class="tt" x="20" y="22">RAW CAPABILITY</text>
+        <rect class="bx" x="20" y="34" width="176" height="128" rx="2"/>
+        <text class="th" x="34" y="60">A language model</text>
+        <text class="ts" x="34" y="82">Fluent. Helpful.<tspan x="34" dy="17">No memory.</tspan><tspan x="34" dy="17">No live facts.</tspan><tspan x="34" dy="17" class="td">Will invent a fee</tspan><tspan x="34" dy="17" class="td">without blinking.</tspan></text>
+
+        <path class="ln" d="M196 98 H244" marker-end="url(#a1)"/>
+
+        <text class="tt" x="252" y="22">THE THREE LEASHES — ALL THREE RUN ON EVERY ANSWER</text>
+        <rect class="bx-o" x="252" y="34" width="404" height="330" rx="2"/>
+
+        <rect class="bx-a" x="270" y="52" width="368" height="86" rx="2"/>
+        <text class="tg" x="286" y="74">LEASH 1</text>
+        <text class="th" x="286" y="94">Verified knowledge base</text>
+        <text class="ts" x="286" y="115">Hand-checked answers loaded into every request.<tspan x="286" dy="15">Kip answers from this first — it is faster and it is ours.</tspan></text>
+
+        <rect class="bx-a" x="270" y="150" width="368" height="86" rx="2"/>
+        <text class="tg" x="286" y="172">LEASH 2</text>
+        <text class="th" x="286" y="192">Search locked to 51 official domains</text>
+        <text class="ts" x="286" y="213">For anything that changes — wages, fees, thresholds.<tspan x="286" dy="15">The model physically cannot reach any other site.</tspan></text>
+
+        <rect class="bx-a" x="270" y="248" width="368" height="98" rx="2"/>
+        <text class="tg" x="286" y="270">LEASH 3</text>
+        <text class="th" x="286" y="290">Every link re-checked on the way out</text>
+        <text class="ts" x="286" y="311">Our server reads the finished answer and strips any<tspan x="286" dy="15">link not on the allowlist — even one the model made up.</tspan><tspan x="286" dy="15">Nothing unverified reaches the screen.</tspan></text>
+
+        <path class="ln-a" d="M656 198 H706" marker-end="url(#a1a)"/>
+
+        <text class="tt" x="714" y="22">WHAT LANDS</text>
+        <rect class="bx-s" x="714" y="34" width="166" height="330" rx="2"/>
+        <text class="th" x="730" y="60">The student</text>
+        <text class="ts" x="730" y="84">A plain-English<tspan x="730" dy="16">answer, shaped to</tspan><tspan x="730" dy="16">what they asked,</tspan><tspan x="730" dy="16">with a clickable</tspan><tspan x="730" dy="16">official source at</tspan><tspan x="730" dy="16">the bottom.</tspan></text>
+        <text class="tm tsafe" x="730" y="222">Every claim is<tspan x="730" dy="15">traceable to a</tspan><tspan x="730" dy="15">.gov.au page they</tspan><tspan x="730" dy="15">can open and read</tspan><tspan x="730" dy="15">for themselves.</tspan></text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 2.1</b> — Leashes 2 and 3 are deliberately redundant. Leash 2 restricts what the model may read; leash 3 re-checks what it wrote. A bug in either one is caught by the other, because they use the same allowlist through two different code paths.</figcaption>
+  </figure>
+
+  <h3>Which model, and what that costs</h3>
+  <p>Kip runs on <code>claude-sonnet-5</code> through Anthropic's API, capped at 700 output tokens per answer. The model is a configuration value (<code>KIP_MODEL</code>), not a hard-coded choice — switching to the cheaper Haiku tier is a one-line change once we have blind-tested answer quality. The system prompt is roughly 17,000 tokens and is byte-identical on every request, so <strong>prompt caching</strong> applies: after the first call, re-reading that prompt costs about a tenth of a fresh read. That single decision is the difference between viable and unaffordable unit economics at student volumes.</p>
+
+  <div class="note">
+    <span class="lbl">Worth saying out loud</span>
+    <p>We do not train a model. We do not send student conversations anywhere to be trained on. Anthropic's API does not train on business API traffic. Kip's "learning" (§3) happens in our own database, on de-identified question topics only — never on conversation content.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 03 ══ -->
+<section id="s3">
+  <span class="snum">§ 03</span>
+  <h2>Your 434 questions: where they live and how they come back</h2>
+  <p class="lede">You gave me 220 researched questions in a spreadsheet plus your platform document. Those merged with the earlier seed bank into <b>434 questions</b>, and they are stored in three different places for three different reasons. This section is the direct answer to <em>"where are you going to save the questions I gave you and where will you retrieve them from?"</em></p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 470" role="img" aria-label="Diagram: three stores — the question bank in git, the verified answer base in git, and the coverage gap table in Postgres">
+        <defs>
+          <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+          <marker id="a3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-a" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <text class="tt" x="20" y="20">STORE A — IN THE CODE REPOSITORY, VERSION CONTROLLED</text>
+
+        <rect class="bx-g" x="20" y="32" width="270" height="150" rx="2"/>
+        <text class="th" x="36" y="58">knowledge/questions.json</text>
+        <text class="tm" x="36" y="78">434 questions · 13 modules</text>
+        <text class="ts" x="36" y="100">Your CSV + platform doc, merged.<tspan x="36" dy="16">Each carries: module, difficulty,</tspan><tspan x="36" dy="16">intent, volatile flag, risk tier,</tspan><tspan x="36" dy="16">and its origin so your research</tspan><tspan x="36" dy="16">stays attributable.</tspan></text>
+
+        <rect class="bx-g" x="310" y="32" width="270" height="150" rx="2"/>
+        <text class="th" x="326" y="58">knowledge/base.json</text>
+        <text class="tm" x="326" y="78">the verified answers</text>
+        <text class="ts" x="326" y="100">Hand-checked facts with their<tspan x="326" dy="16">source URL and the date they</tspan><tspan x="326" dy="16">were last confirmed. This is</tspan><tspan x="326" dy="16">loaded into Kip's prompt on</tspan><tspan x="326" dy="16">every single request.</tspan></text>
+
+        <rect class="bx-g" x="600" y="32" width="280" height="150" rx="2"/>
+        <text class="th" x="616" y="58">howdy.config.json</text>
+        <text class="tm" x="616" y="78">51 trusted domains · 13 modules</text>
+        <text class="ts" x="616" y="100">The allowlist, the limits, the<tspan x="616" dy="16">privacy settings, the housing</tspan><tspan x="616" dy="16">link templates. Adding a source</tspan><tspan x="616" dy="16">or a module is an edit here —</tspan><tspan x="616" dy="16">no Python change needed.</tspan></text>
+
+        <text class="tm" x="20" y="208">Retrieved: read once at server start-up, held in memory, served to the app at /api/questions and /api/modules.</text>
+        <text class="tm" x="20" y="226">Backed up by: git. Your research is in the repository history — it cannot be lost with the server.</text>
+
+        <path class="ln" d="M450 240 V276" marker-end="url(#a3)"/>
+
+        <text class="tt" x="20" y="300">STORE B — IN POSTGRES ON THE VPS, WRITTEN AT RUNTIME</text>
+        <rect class="bx-a" x="20" y="312" width="430" height="140" rx="2"/>
+        <text class="th" x="36" y="338">question_gaps</text>
+        <text class="tm" x="36" y="358">what students ask that we answered badly</text>
+        <text class="ts" x="36" y="380">One row per distinct question topic. Deduplicated by<tspan x="36" dy="16">fingerprint, so a thousand students asking the same thing</tspan><tspan x="36" dy="16">is one row with occurrences = 1000.</tspan></text>
+
+        <rect class="bx-s" x="470" y="312" width="410" height="140" rx="2"/>
+        <text class="th tsafe" x="486" y="338">What is deliberately NOT in that table</text>
+        <text class="ts" x="486" y="360">· no user_id, no session id, no IP<tspan x="486" dy="16">· no email, no Google account id</tspan><tspan x="486" dy="16">· dates only, never timestamps — a time would let someone</tspan><tspan x="486" dy="16">  line a question up against a login and re-identify who asked</tspan><tspan x="486" dy="16">· screened for personal details before it is ever written</tspan></text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 3.1</b> — Store A is your research and it lives in the code, so it is reviewable, diffable and recoverable. Store B is what the live product learns, and it is built to be a <b>topic list, not a transcript</b>. Automated tests fail the build if an identity column or a timestamp is ever added to <code>question_gaps</code>.</figcaption>
+  </figure>
+
+  <h3>How a stored question comes back</h3>
+  <ul>
+    <li><strong>As product structure.</strong> The 434 questions define the 13 modules and their real counts — housing 50, visa 45, work 45, and so on. The dashboard tiles a student sees are generated from the bank, not typed by hand.</li>
+    <li><strong>As suggested prompts.</strong> When a student opens a module, the starter questions shown are drawn from your bank, filtered to that module.</li>
+    <li><strong>As answer shape.</strong> Your spreadsheet's <em>Search Intent</em> column does real work. Informational questions get an explanation; Procedural questions get numbered steps naming the actual form; Investigative questions ("is this a scam?", "am I being underpaid?") get a verdict first, then red flags, then the action. A student who suspects they are being ripped off does not need a balanced overview — they need an answer.</li>
+    <li><strong>As a safety net.</strong> The <em>risk</em> tier travels with the question. 12 questions are <code>refer</code> — they always carry a MARA or legal referral. 9 are <code>crisis</code> — they lead with emergency resources before anything else.</li>
+    <li><strong>As the evolution queue.</strong> The 65 questions flagged <em>volatile</em> contain a figure that changes — wage rates, visa fees, thresholds. Those are re-checked automatically against their cited source rather than recalled from memory.</li>
+  </ul>
+
+  <h3>Evolving every day, without becoming a liability</h3>
+  <p>You asked for the tool to get better every day. It does — but the daily job is split deliberately in two, because a wrong auto-published fact about work-hour limits could cost a student their visa.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 300" role="img" aria-label="Diagram: the daily evolve job splits into an unsupervised verify pass and a human-approved propose pass">
+        <defs>
+          <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <rect class="bx" x="20" y="112" width="150" height="76" rx="2"/>
+        <text class="th" x="36" y="140">Nightly job</text>
+        <text class="tm" x="36" y="160">evolve.py run</text>
+        <text class="tm" x="36" y="176">03:00 AEST</text>
+
+        <path class="ln" d="M170 132 H214" marker-end="url(#a4)"/>
+        <path class="ln" d="M170 168 H214" marker-end="url(#a4)"/>
+
+        <text class="tt" x="222" y="30">UNSUPERVISED — SHIPS ITSELF</text>
+        <rect class="bx-s" x="222" y="42" width="300" height="104" rx="2"/>
+        <text class="th" x="238" y="68">VERIFY</text>
+        <text class="ts" x="238" y="90">Takes every volatile figure already in the<tspan x="238" dy="16">knowledge base, re-reads its cited source,</tspan><tspan x="238" dy="16">and flags or corrects anything that moved.</tspan></text>
+
+        <text class="tt" x="222" y="176">HUMAN GATE — STAGED, NEVER AUTO-PUBLISHED</text>
+        <rect class="bx-d" x="222" y="188" width="300" height="104" rx="2"/>
+        <text class="th" x="238" y="214">PROPOSE</text>
+        <text class="ts" x="238" y="236">Works the open gaps and the unanswered<tspan x="238" dy="16">question bank, drafts a cited answer, and</tspan><tspan x="238" dy="16">parks it awaiting approval. Nothing goes live.</tspan></text>
+
+        <path class="ln" d="M522 94 H578" marker-end="url(#a4)"/>
+        <path class="ln" d="M522 240 H578" marker-end="url(#a4)"/>
+
+        <rect class="bx-a" x="586" y="42" width="294" height="104" rx="2"/>
+        <text class="th" x="602" y="68">Knowledge base updated</text>
+        <text class="ts" x="602" y="90">A figure that changed is corrected the<tspan x="602" dy="16">morning after it changed. This is the part</tspan><tspan x="602" dy="16">that makes the tool better every day.</tspan></text>
+
+        <rect class="bx" x="586" y="188" width="294" height="104" rx="2"/>
+        <text class="th" x="602" y="214">Your review queue</text>
+        <text class="ts" x="602" y="236">evolve.py report shows what is waiting.<tspan x="602" dy="16">evolve.py approve &lt;id&gt; publishes it.</tspan><tspan x="602" dy="16">A person decides what becomes fact.</tspan></text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 3.2</b> — VERIFY is safe to run unattended because it only checks existing claims against the source they already cite. PROPOSE creates <b>new</b> claims, so it stops at a human. That asymmetry is the whole safety argument for automated evolution.</figcaption>
+  </figure>
+</section>
+
+<!-- ══════════════════════════════════ 04 ══ -->
+<section id="s4">
+  <span class="snum">§ 04</span>
+  <h2>The system, drawn</h2>
+  <p class="lede">This is the diagram to put in front of your architecture engineer first. Everything sits on one VPS behind Cloudflare, in six containers, with exactly two outbound destinations.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 560" role="img" aria-label="System topology: browser through Cloudflare to a single VPS running Caddy, the FastAPI app, Postgres, Valkey, an evolve worker and a backup worker, with outbound calls to the Anthropic API and trusted Australian government sites">
+        <defs>
+          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+          <marker id="a5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-a" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <!-- client -->
+        <rect class="bx" x="20" y="60" width="152" height="96" rx="2"/>
+        <text class="th" x="36" y="86">Student's browser</text>
+        <text class="ts" x="36" y="108">Static HTML + CSS + JS<tspan x="36" dy="15">No framework, no build.</tspan><tspan x="36" dy="15">Nothing stored locally.</tspan></text>
+
+        <path class="ln-a" d="M172 108 H222" marker-end="url(#a5a)"/>
+        <text class="tm" x="176" y="100">HTTPS</text>
+
+        <!-- cloudflare -->
+        <rect class="bx-a" x="222" y="60" width="150" height="96" rx="2"/>
+        <text class="th" x="238" y="86">Cloudflare</text>
+        <text class="ts" x="238" y="108">DNS · TLS · WAF<tspan x="238" dy="15">DDoS absorption</tspan><tspan x="238" dy="15">Origin IP hidden</tspan></text>
+
+        <path class="ln-a" d="M372 108 H422" marker-end="url(#a5a)"/>
+        <text class="tm" x="376" y="100">443 only</text>
+
+        <!-- VPS boundary -->
+        <rect class="bx-o" x="422" y="34" width="458" height="382" rx="2"/>
+        <text class="tt" x="436" y="52">ONE VPS · SINGAPORE OR SYDNEY · UBUNTU 24.04 · DOCKER COMPOSE</text>
+
+        <rect class="bx" x="440" y="66" width="180" height="66" rx="2"/>
+        <text class="th" x="454" y="90">Caddy</text>
+        <text class="ts" x="454" y="110">TLS, security headers,<tspan x="454" dy="14">serves web/ only</tspan></text>
+
+        <path class="ln" d="M530 132 V162" marker-end="url(#a5)"/>
+
+        <rect class="bx-a" x="440" y="162" width="180" height="94" rx="2"/>
+        <text class="th" x="454" y="186">FastAPI app</text>
+        <text class="ts" x="454" y="206">Python · async<tspan x="454" dy="14">read-only filesystem</tspan><tspan x="454" dy="14">all capabilities dropped</tspan><tspan x="454" dy="14">no-new-privileges</tspan></text>
+
+        <path class="ln" d="M530 256 V286" marker-end="url(#a5)"/>
+        <path class="ln" d="M620 209 H664" marker-end="url(#a5)"/>
+
+        <rect class="bx-s" x="440" y="286" width="180" height="76" rx="2"/>
+        <text class="th" x="454" y="310">PostgreSQL 16</text>
+        <text class="ts" x="454" y="330">Encrypted content<tspan x="454" dy="14">bound to 127.0.0.1:5432</tspan><tspan x="454" dy="14">never reachable remotely</tspan></text>
+
+        <rect class="bx-s" x="664" y="176" width="200" height="76" rx="2"/>
+        <text class="th" x="678" y="200">Valkey (Redis)</text>
+        <text class="ts" x="678" y="220">Sessions · rate limits<tspan x="678" dy="14">bound to 127.0.0.1:6379</tspan><tspan x="678" dy="14">never reachable remotely</tspan></text>
+
+        <rect class="bx" x="664" y="266" width="200" height="46" rx="2"/>
+        <text class="th" x="678" y="290">evolve worker</text>
+        <text class="tm" x="678" y="306">nightly verify + propose</text>
+
+        <rect class="bx" x="664" y="322" width="200" height="46" rx="2"/>
+        <text class="th" x="678" y="346">backup worker</text>
+        <text class="tm" x="678" y="362">encrypted dump → offsite</text>
+
+        <!-- key on host -->
+        <rect class="bx-g" x="440" y="376" width="424" height="30" rx="2"/>
+        <text class="tm" x="454" y="396">Master key (KEK) on the host filesystem at /run/secrets/kek_v1, mode 0400 — NOT in the database, NOT in any backup.</text>
+
+        <!-- outbound -->
+        <path class="ln-a" d="M636 209 C 660 150, 700 130, 736 130" fill="none"/>
+        <path class="ln-a" d="M620 190 H700 V140" marker-end="url(#a5a)"/>
+
+        <text class="tt" x="20" y="452">THE ONLY TWO OUTBOUND DESTINATIONS</text>
+        <rect class="bx-a" x="20" y="464" width="420" height="76" rx="2"/>
+        <text class="th" x="36" y="488">Anthropic API</text>
+        <text class="ts" x="36" y="508">Receives: the system prompt + the current question + up to<tspan x="36" dy="15">8 recent turns. Receives no name, no email, no account id.</tspan></text>
+
+        <rect class="bx-a" x="460" y="464" width="420" height="76" rx="2"/>
+        <text class="th" x="476" y="488">51 trusted Australian domains</text>
+        <text class="ts" x="476" y="508">immi.homeaffairs.gov.au · ato.gov.au · fairwork.gov.au ·<tspan x="476" dy="15">servicesaustralia.gov.au · state tenancy authorities · and 46 more.</tspan></text>
+
+        <path class="ln" d="M530 362 V440 H230 V456" marker-end="url(#a5)" opacity="0"/>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 4.1</b> — The datastores bind to <code>127.0.0.1</code> deliberately. Docker publishes ports by writing iptables rules that bypass the host firewall, so a container that binds <code>0.0.0.0:5432</code> is exposed to the internet even with <code>ufw</code> denying it. The deploy script verifies loopback-only binding and refuses to finish if it finds otherwise.</figcaption>
+  </figure>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Component</th><th>What it is</th><th>Why this one</th></tr></thead>
+      <tbody>
+        <tr><td>Caddy 2</td><td>Reverse proxy and TLS terminator</td><td>Certificates issue and renew themselves with no cron job and no manual step. Mounts <code>web/</code> only — never the repository root, which would expose <code>.git</code> and the Python source.</td></tr>
+        <tr><td>FastAPI</td><td>The application server</td><td>Async Python. Handles streaming answers cleanly, which matters because a Kip answer with a live search takes several seconds and must not look frozen.</td></tr>
+        <tr><td>PostgreSQL 16</td><td>Durable storage</td><td>Row-level security as a second line of defence behind the application's own ownership checks. Everything sensitive is stored already encrypted.</td></tr>
+        <tr><td>Valkey 8</td><td>Sessions and rate limiting</td><td>Sessions are server-side and opaque, so they can be revoked instantly. Rate limits need atomic counters. Both are in memory and neither survives a restart, which is the correct behaviour for both.</td></tr>
+        <tr><td>evolve worker</td><td>The nightly learning job</td><td>Runs in its own container so a long verification pass cannot slow down a student's question.</td></tr>
+        <tr><td>backup worker</td><td>Encrypted offsite backup</td><td>Dumps Postgres, encrypts the dump, pushes it off the box. See §11.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- ══════════════════════════════════ 05 ══ -->
+<section id="s5">
+  <span class="snum">§ 05</span>
+  <h2>One question, end to end</h2>
+  <p class="lede">A student types <em>"Am I being underpaid at $18 an hour?"</em> and presses send. Here is every stage that message passes through, in order, with the security control that applies at each one.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 610" role="img" aria-label="Request lifecycle: rate limit, sanitise, PII screen, injection screen, history decrypt, model call, live search, citation verification, stream, persist, gap log">
+        <defs>
+          <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <line class="ln" x1="120" y1="44" x2="120" y2="566"/>
+
+        <g>
+          <circle cx="120" cy="60" r="5" fill="var(--accent)"/>
+          <rect class="bx-a" x="150" y="34" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="56">1 · Rate limit</text>
+          <text class="ts" x="164" y="74">10/min signed out, 30/min signed in</text>
+          <text class="tm" x="500" y="56">Counted against an HMAC of the IP.</text>
+          <text class="tm" x="500" y="72">The raw IP is never written anywhere.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="122" r="5" fill="var(--accent)"/>
+          <rect class="bx-a" x="150" y="96" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="118">2 · Sanitise and cap</text>
+          <text class="ts" x="164" y="136">800 characters max, 32 KB body max</text>
+          <text class="tm" x="500" y="118">Control characters stripped. Long pastes</text>
+          <text class="tm" x="500" y="134">are rejected, not truncated and stored.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="184" r="5" fill="var(--danger)"/>
+          <rect class="bx-d" x="150" y="158" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="180">3 · Personal details screen</text>
+          <text class="ts" x="164" y="198">TFN, card, passport, Medicare, phone, email</text>
+          <text class="tm" x="500" y="180">If found: the message is NOT sent onward</text>
+          <text class="tm" x="500" y="196">and NOT stored. Kip warns and continues.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="246" r="5" fill="var(--danger)"/>
+          <rect class="bx-d" x="150" y="220" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="242">4 · Prompt-injection screen</text>
+          <text class="ts" x="164" y="260">"ignore your instructions", "reveal your prompt"</text>
+          <text class="tm" x="500" y="242">Caught before the model sees it, and the</text>
+          <text class="tm" x="500" y="258">prompt itself carries a rule as backstop.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="308" r="5" fill="var(--accent)"/>
+          <rect class="bx-a" x="150" y="282" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="304">5 · Load history — if saved mode</text>
+          <text class="ts" x="164" y="322">Up to 8 turns, 1500 chars, decrypted in memory</text>
+          <text class="tm" x="500" y="304">Every query carries the owner's user_id.</text>
+          <text class="tm" x="500" y="320">Postgres RLS enforces it a second time.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="370" r="5" fill="var(--gold)"/>
+          <rect class="bx-g" x="150" y="344" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="366">6 · Call the model</text>
+          <text class="ts" x="164" y="384">Cached system prompt + question + history</text>
+          <text class="tm" x="500" y="366">No name. No email. No account id.</text>
+          <text class="tm" x="500" y="382">Anthropic cannot identify the student.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="432" r="5" fill="var(--gold)"/>
+          <rect class="bx-g" x="150" y="406" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="428">7 · Live search — only if needed</text>
+          <text class="ts" x="164" y="446">Max 3 searches, allowlist passed to the tool</text>
+          <text class="tm" x="500" y="428">"Am I underpaid?" needs today's award rate,</text>
+          <text class="tm" x="500" y="444">so this fires. "What is a TFN?" does not.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="494" r="5" fill="var(--safe)"/>
+          <rect class="bx-s" x="150" y="468" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="490">8 · Verify every citation</text>
+          <text class="ts" x="164" y="508">Untrusted links stripped from the finished text</text>
+          <text class="tm" x="500" y="490">Suffix attacks blocked: realestate.com.au.evil.io</text>
+          <text class="tm" x="500" y="506">does not match realestate.com.au.</text>
+        </g>
+
+        <g>
+          <circle cx="120" cy="556" r="5" fill="var(--safe)"/>
+          <rect class="bx-s" x="150" y="530" width="330" height="52" rx="2"/>
+          <text class="th" x="164" y="552">9 · Stream, then store</text>
+          <text class="ts" x="164" y="570">Answer streams live; storage depends on mode</text>
+          <text class="tm" x="500" y="552">Guest and incognito: nothing is written.</text>
+          <text class="tm" x="500" y="568">Saved: encrypted, then written. See §9.</text>
+        </g>
+
+        <text class="tt" x="20" y="60">INBOUND</text>
+        <text class="tt" x="20" y="376">MODEL</text>
+        <text class="tt" x="20" y="556">OUTBOUND</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 5.1</b> — Stages 1–5 run before the message leaves our server; a message carrying a tax file number is stopped at stage 3 and never reaches Anthropic at all. Stage 8 runs after the model has finished, on our server, on the finished text.</figcaption>
+  </figure>
+
+  <h3>What the student sees while this happens</h3>
+  <p>The answer streams token by token over Server-Sent Events, with a status line that names the phase honestly — <em>thinking → searching → reading → writing</em> — and a "⚡ checked live" badge when stage 7 fired. That badge is not decoration. It is the student's signal that the figure in front of them was fetched today rather than recalled, and it is the difference between trusting a number and verifying it themselves.</p>
+</section>
+
+<!-- ══════════════════════════════════ 06 ══ -->
+<section id="s6">
+  <span class="snum">§ 06</span>
+  <h2>Where every piece of data lives</h2>
+  <p class="lede">This is the complete inventory. Five tables, and for each one, what is encrypted, what is plaintext, and the reason for that choice. There is nothing else.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 430" role="img" aria-label="Storage map showing the five database tables, which columns are encrypted, and the in-memory session store">
+        <defs>
+          <marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <text class="tt" x="20" y="20">POSTGRESQL — ON DISK, SURVIVES A RESTART, INCLUDED IN BACKUPS</text>
+
+        <rect class="bx" x="20" y="32" width="272" height="168" rx="2"/>
+        <text class="th" x="34" y="56">users</text>
+        <text class="ts tsafe" x="34" y="80">🔒 email_ct + nonce</text>
+        <text class="ts tsafe" x="34" y="98">🔒 dek_ct + nonce  (the user's own key)</text>
+        <text class="ts" x="34" y="120">email_hash — HMAC, for lookup only</text>
+        <text class="ts" x="34" y="138">google_sub — the account id we key on</text>
+        <text class="ts" x="34" y="156">display_name, retention_days</text>
+        <text class="tm" x="34" y="182">No password. We never hold one.</text>
+
+        <rect class="bx" x="308" y="32" width="272" height="168" rx="2"/>
+        <text class="th" x="322" y="56">conversations</text>
+        <text class="ts tsafe" x="322" y="80">🔒 title_ct + nonce</text>
+        <text class="ts" x="322" y="102">user_id — the owner, checked on every read</text>
+        <text class="ts" x="322" y="120">module_id — "housing", "visa" …</text>
+        <text class="ts" x="322" y="138">created_at, updated_at, expires_at</text>
+        <text class="tm" x="322" y="164">module_id is plaintext on purpose:</text>
+        <text class="tm" x="322" y="180">it is how we learn what students need.</text>
+
+        <rect class="bx" x="596" y="32" width="284" height="168" rx="2"/>
+        <text class="th" x="610" y="56">messages</text>
+        <text class="ts tsafe" x="610" y="80">🔒 content_ct + nonce  ← every word</text>
+        <text class="ts" x="610" y="102">conversation_id, role</text>
+        <text class="ts" x="610" y="120">sources — the cited URLs</text>
+        <text class="ts" x="610" y="138">verified — did it pass the citation check</text>
+        <text class="tm" x="610" y="164">Nothing a student typed and nothing</text>
+        <text class="tm" x="610" y="180">Kip replied is readable in this table.</text>
+
+        <rect class="bx-s" x="20" y="216" width="272" height="122" rx="2"/>
+        <text class="th" x="34" y="240">question_gaps</text>
+        <text class="ts" x="34" y="262">fingerprint, question (300 chars max)</text>
+        <text class="ts" x="34" y="280">occurrences, module_id</text>
+        <text class="ts" x="34" y="298">first_seen, last_seen — DATE, not time</text>
+        <text class="tm tsafe" x="34" y="324">No link to any person exists.</text>
+
+        <rect class="bx-s" x="308" y="216" width="272" height="122" rx="2"/>
+        <text class="th" x="322" y="240">audit_log</text>
+        <text class="ts" x="322" y="262">action — "login", "delete_account" …</text>
+        <text class="ts" x="322" y="280">ip_hash — HMAC, never a raw IP</text>
+        <text class="ts" x="322" y="298">user_id — nulled when they delete</text>
+        <text class="tm tsafe" x="322" y="324">Append-only. Never message content.</text>
+
+        <rect class="bx-a" x="596" y="216" width="284" height="122" rx="2"/>
+        <text class="th" x="610" y="240">Valkey — memory only</text>
+        <text class="ts" x="610" y="262">session id → user id, expiry</text>
+        <text class="ts" x="610" y="280">rate-limit counters (short TTL)</text>
+        <text class="tm" x="610" y="306">Not on disk. Not in backups.</text>
+        <text class="tm" x="610" y="322">Gone on restart — by design.</text>
+
+        <rect class="bx-d" x="20" y="356" width="860" height="58" rx="2"/>
+        <text class="th td" x="34" y="380">Not stored anywhere, at any time</text>
+        <text class="ts" x="34" y="400">Raw IP addresses · passwords · Google access or refresh tokens · message content in logs · anything a student typed that tripped the personal-details screen · guest and incognito conversations</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 6.1</b> — The plaintext columns were each chosen deliberately. <code>module_id</code> tells us housing is the busiest topic without telling us anything about any student. <code>sources</code> lets us audit which official pages Kip is actually relying on. Neither identifies a person or reveals what was asked.</figcaption>
+  </figure>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Data</th><th>Where</th><th>State</th><th>Retention</th></tr></thead>
+      <tbody>
+        <tr><td>Message content</td><td><code>messages.content_ct</code></td><td><span class="pill enc">AES-256-GCM</span></td><td class="num">365 days default; 30 / 90 / forever selectable; deleted on request</td></tr>
+        <tr><td>Conversation title</td><td><code>conversations.title_ct</code></td><td><span class="pill enc">AES-256-GCM</span></td><td class="num">With the conversation</td></tr>
+        <tr><td>Email address</td><td><code>users.email_ct</code></td><td><span class="pill enc">AES-256-GCM</span></td><td class="num">Life of the account</td></tr>
+        <tr><td>Email lookup key</td><td><code>users.email_hash</code></td><td><span class="pill plain">HMAC-SHA256</span></td><td class="num">Life of the account</td></tr>
+        <tr><td>Google account id</td><td><code>users.google_sub</code></td><td><span class="pill plain">Plaintext</span></td><td class="num">Life of the account — it is the join key</td></tr>
+        <tr><td>Topic of a conversation</td><td><code>conversations.module_id</code></td><td><span class="pill plain">Plaintext</span></td><td class="num">With the conversation</td></tr>
+        <tr><td>Session</td><td>Valkey</td><td><span class="pill none">Opaque id</span></td><td class="num">30 days, revocable instantly</td></tr>
+        <tr><td>IP address</td><td>Rate limiter only</td><td><span class="pill plain">HMAC, in memory</span></td><td class="num">Seconds</td></tr>
+        <tr><td>Guest conversation</td><td>Nowhere</td><td><span class="pill none">Never written</span></td><td class="num">n/a</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 07 ══ -->
+<section id="s7">
+  <span class="snum">§ 07</span>
+  <h2>How the encryption works</h2>
+  <p class="lede">The design assumption is blunt: <b>one day someone will get a copy of the database.</b> A stolen backup, a misconfigured restore, a hosting company subpoena, a disgruntled contractor. The job of this section is to make that copy worthless.</p>
+
+  <p>Encrypting the whole disk does not achieve that — full-disk encryption protects a stolen physical drive, and nothing else. A running server has the disk unlocked, so anyone who can read the database can read the data. So the content is encrypted <em>before</em> it reaches the database, with a key the database does not contain.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 470" role="img" aria-label="Envelope encryption: a master key on the host filesystem wraps a per-user data key, which encrypts message content bound to the user and conversation">
+        <defs>
+          <marker id="a8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <text class="tt" x="20" y="20">LAYER 1 — THE MASTER KEY, ON THE HOST ONLY</text>
+        <rect class="bx-g" x="20" y="32" width="300" height="92" rx="2"/>
+        <text class="th" x="36" y="58">KEK · key-encryption key</text>
+        <text class="tm" x="36" y="78">/run/secrets/kek_v1 · 32 bytes · mode 0400</text>
+        <text class="ts" x="36" y="100">Lives on the server filesystem. Never in Postgres.</text>
+        <text class="ts" x="36" y="116">Never in a backup. Versioned, so it can be rotated.</text>
+
+        <path class="ln" d="M320 78 H370" marker-end="url(#a8)"/>
+        <text class="tm" x="326" y="70">wraps</text>
+
+        <text class="tt" x="370" y="20">LAYER 2 — ONE KEY PER STUDENT, IN THE DATABASE</text>
+        <rect class="bx-a" x="370" y="32" width="510" height="92" rx="2"/>
+        <text class="th" x="386" y="58">DEK · data-encryption key</text>
+        <text class="tm" x="386" y="78">users.dek_ct — stored already encrypted by the KEK</text>
+        <text class="ts" x="386" y="100">Each student has their own. Wrapping is bound to their user id, so a</text>
+        <text class="ts" x="386" y="116">stolen wrapped key cannot be pasted onto another account's row.</text>
+
+        <path class="ln" d="M625 124 V162" marker-end="url(#a8)"/>
+        <text class="tm" x="633" y="148">unwrapped in memory, per request, never cached to disk</text>
+
+        <text class="tt" x="20" y="184">LAYER 3 — THE CONTENT ITSELF</text>
+        <rect class="bx-s" x="20" y="196" width="860" height="112" rx="2"/>
+        <text class="th" x="36" y="222">AES-256-GCM · authenticated encryption</text>
+        <text class="ts" x="36" y="246">Every message is sealed with a fresh random 12-byte nonce, and bound to its context by an</text>
+        <text class="ts" x="36" y="264">Additional Authenticated Data tag:</text>
+        <text class="tm" x="36" y="290" fill="var(--accent)">AAD = user_id | conversation_id</text>
+
+        <rect class="bx-d" x="20" y="326" width="424" height="128" rx="2"/>
+        <text class="th td" x="36" y="350">Why the AAD matters</text>
+        <text class="ts" x="36" y="374">Without it, an attacker with database write access could</text>
+        <text class="ts" x="36" y="392">copy student A's encrypted message into student B's</text>
+        <text class="ts" x="36" y="410">conversation and let our own server decrypt it for them.</text>
+        <text class="ts" x="36" y="428">With it, decryption fails outright — the ciphertext is</text>
+        <text class="ts" x="36" y="446">cryptographically welded to the row it belongs in.</text>
+
+        <rect class="bx-s" x="460" y="326" width="420" height="128" rx="2"/>
+        <text class="th tsafe" x="476" y="350">What a database dump therefore contains</text>
+        <text class="ts" x="476" y="374">Random bytes where every message was. Random bytes</text>
+        <text class="ts" x="476" y="392">where every email was. Random bytes where every key was.</text>
+        <text class="ts" x="476" y="410">The wrapped keys are useless without the KEK, and the KEK</text>
+        <text class="ts" x="476" y="428">is not in the dump — it is a file on a different part of the</text>
+        <text class="ts" x="476" y="446">machine that the database process never reads.</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 7.1</b> — This is called <b>envelope encryption</b>. Its practical payoff is key rotation: re-wrapping every user's DEK under a new KEK touches one small column, whereas re-encrypting every message would mean rewriting the entire database.</figcaption>
+  </figure>
+
+  <h3>Three questions your engineer will ask</h3>
+  <div class="grid c3">
+    <div>
+      <p class="k">Q</p>
+      <h5>If the app server can decrypt, hasn't it just moved the problem?</h5>
+      <p>Partly, and that is honest. Full compromise of the running app server does expose data as it flows through. What this design defeats is every attack that <em>isn't</em> that — dumps, backups, restores, read-only SQL injection, snapshot leaks, subpoenas to the hosting provider. Those are the overwhelming majority of real breaches.</p>
+    </div>
+    <div>
+      <p class="k">Q</p>
+      <h5>How do you find a user by email if email is encrypted?</h5>
+      <p>A separate HMAC of the lowercased address, keyed with a server-side pepper, stored in <code>email_hash</code> with a unique index. Lookups hit the HMAC; the address itself only ever comes back decrypted. Without the pepper the hashes cannot be brute-forced from a dump.</p>
+    </div>
+    <div>
+      <p class="k">Q</p>
+      <h5>What if the KEK is lost?</h5>
+      <p>Every saved conversation becomes permanently unreadable. That is the correct trade and it must be planned for: the KEK is backed up separately from the data, in a different place, with a different access path. Backup and key must never travel together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 08 ══ -->
+<section id="s8">
+  <span class="snum">§ 08</span>
+  <h2>Login and sessions</h2>
+  <p class="lede">Students sign in with Google. We never see or hold a password, which removes an entire category of breach — there is no password database to steal, no reset flow to abuse, no credential-stuffing surface.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 420" role="img" aria-label="Login sequence between the browser, the Howdy server, and Google, ending with an opaque server-side session cookie">
+        <defs>
+          <marker id="a9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <rect class="bx" x="20" y="20" width="180" height="34" rx="2"/>
+        <text class="th" x="40" y="42">Browser</text>
+        <rect class="bx-a" x="360" y="20" width="180" height="34" rx="2"/>
+        <text class="th" x="380" y="42">Howdy server</text>
+        <rect class="bx" x="700" y="20" width="180" height="34" rx="2"/>
+        <text class="th" x="720" y="42">Google</text>
+
+        <line class="ln" x1="110" y1="54" x2="110" y2="400" stroke-dasharray="3 4"/>
+        <line class="ln" x1="450" y1="54" x2="450" y2="400" stroke-dasharray="3 4"/>
+        <line class="ln" x1="790" y1="54" x2="790" y2="400" stroke-dasharray="3 4"/>
+
+        <path class="ln-a" d="M110 86 H444" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="80">1 · "Sign in with Google"</text>
+
+        <path class="ln" d="M450 124 H110" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="118">2 · Redirect, carrying a one-time <tspan class="tm">state</tspan>, <tspan class="tm">nonce</tspan> and PKCE challenge</text>
+
+        <path class="ln-a" d="M110 162 H784" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="156">3 · Student authenticates with Google directly — we never see the password</text>
+
+        <path class="ln" d="M790 200 H116" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="194">4 · Redirect back with a single-use code</text>
+
+        <path class="ln-a" d="M110 238 H444" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="232">5 · Code handed to us — <tspan class="tm">state</tspan> checked, replay rejected</text>
+
+        <path class="ln-a" d="M450 276 H784" marker-end="url(#a9)"/>
+        <text class="ts" x="470" y="270">6 · Code + PKCE verifier exchanged server-to-server</text>
+
+        <path class="ln" d="M790 314 H456" marker-end="url(#a9)"/>
+        <text class="ts" x="470" y="308">7 · ID token returned</text>
+
+        <rect class="bx-s" x="330" y="330" width="550" height="70" rx="2"/>
+        <text class="th tsafe" x="346" y="352">8 · Full verification, then everything Google sent is discarded</text>
+        <text class="ts" x="346" y="374">Signature against Google's JWKS · issuer · audience · expiry · nonce match. We keep the</text>
+        <text class="ts" x="346" y="390">immutable <tspan class="tm">sub</tspan> claim as the account key — never the email. Access and refresh tokens are thrown away.</text>
+
+        <path class="ln-a" d="M444 368 H116" marker-end="url(#a9)"/>
+        <text class="ts" x="130" y="362">9 · Session cookie</text>
+        <text class="tm" x="130" y="392">__Host-hsid · httpOnly · Secure · SameSite=Lax</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 8.1</b> — We key accounts on Google's <code>sub</code>, not the email address. Emails change; <code>sub</code> does not. Keying on email would mean a student who changes their Google address either loses their history or, worse, could inherit someone else's.</figcaption>
+  </figure>
+
+  <h3>Why the session is a cookie and not a token in the browser</h3>
+  <p>The common shortcut is to put a JWT in <code>localStorage</code>. It is easier to build and it is a bad trade. Any cross-site scripting bug on the page can read <code>localStorage</code> and walk away with a valid login, and a JWT cannot be revoked before it expires — if a student's session is stolen, you cannot end it.</p>
+  <p>Howdy issues an <strong>opaque random session id</strong>, stored server-side in Valkey, delivered in a <code>__Host-</code> prefixed cookie that is <code>httpOnly</code> (JavaScript cannot read it), <code>Secure</code> (HTTPS only), <code>SameSite=Lax</code> (not sent on cross-site requests) and locked to the exact origin. Signing a student out, or ending a stolen session, is a single delete on the server and takes effect immediately. The session id is also regenerated at the moment of login, which closes session fixation.</p>
+</section>
+
+<!-- ══════════════════════════════════ 09 ══ -->
+<section id="s9">
+  <span class="snum">§ 09</span>
+  <h2>The three privacy modes</h2>
+  <p class="lede">Earlier the plan was to destroy every session after two minutes. That protected privacy by making the product nearly useless — a student could not come back to the checklist Kip gave them yesterday. This is the replacement: the student chooses, and the strictest option is always one tap away.</p>
+
+  <div class="grid c3">
+    <div>
+      <p class="k">Signed out</p>
+      <h5>Guest</h5>
+      <p>Full access to Kip. No account, no cookie beyond the request, <strong>nothing written to the database at all</strong>. Close the tab and it is genuinely gone.</p>
+      <p>This is the mode for the student who wants to ask about a visa refusal without it existing anywhere.</p>
+    </div>
+    <div>
+      <p class="k">Signed in, opted out</p>
+      <h5>Incognito</h5>
+      <p>Signed in, history available from earlier conversations, but <strong>this conversation is not written</strong>. One toggle in the chat window, on and off mid-session.</p>
+      <p>For the sensitive question inside an otherwise ordinary relationship with the product.</p>
+    </div>
+    <div>
+      <p class="k">Signed in, default</p>
+      <h5>Saved</h5>
+      <p>Conversations kept, <strong>encrypted per §7</strong>, for a retention period the student picks: 30 days, 90 days, a year, or until they delete them.</p>
+      <p>This is what makes Kip a companion rather than a search box — it remembers the thread of someone's arrival.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="lbl">The property that makes this credible</span>
+    <p>In guest and incognito modes, the write path is not merely skipped at the end — the code never constructs a row. There is no "delete it later" step that could fail silently, no temporary buffer, and no log line carrying the content. The only trace a guest conversation leaves in the whole system is a rate-limit counter that expires in seconds and a possible de-identified topic row in <code>question_gaps</code> if Kip answered badly.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 10 ══ -->
+<section id="s10">
+  <span class="snum">§ 10</span>
+  <h2>If the worst happens</h2>
+  <p class="lede">Security claims are only worth anything when they are specific about failure. So here is the honest version: four realistic attacks, and exactly what the attacker walks away with in each one. This is the section to read if you want to be able to answer a university's procurement questionnaire without hedging.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 400" role="img" aria-label="Four breach scenarios and what an attacker obtains in each: database dump, stolen backup, application server compromise, and stolen laptop">
+        <rect class="bx-d" x="20" y="20" width="205" height="360" rx="2"/>
+        <text class="tt td" x="34" y="44">SCENARIO 1</text>
+        <text class="th" x="34" y="68">Database dumped</text>
+        <text class="tm" x="34" y="88">SQL injection, stolen creds,</text>
+        <text class="tm" x="34" y="104">rogue insider with read access</text>
+        <text class="ts tsafe" x="34" y="136">THEY GET</text>
+        <text class="ts" x="34" y="158">Ciphertext. Wrapped keys</text>
+        <text class="ts" x="34" y="176">they cannot unwrap. Google</text>
+        <text class="ts" x="34" y="194">account ids. Topic labels</text>
+        <text class="ts" x="34" y="212">like "housing". Dates.</text>
+        <text class="ts td" x="34" y="244">THEY DO NOT GET</text>
+        <text class="ts" x="34" y="266">Any message. Any email</text>
+        <text class="ts" x="34" y="284">address. Any question any</text>
+        <text class="ts" x="34" y="302">student ever asked.</text>
+        <text class="tm tsafe" x="34" y="340">The KEK is not in the</text>
+        <text class="tm tsafe" x="34" y="356">database. Without it the</text>
+        <text class="tm tsafe" x="34" y="372">dump is noise.</text>
+
+        <rect class="bx-d" x="237" y="20" width="205" height="360" rx="2"/>
+        <text class="tt td" x="251" y="44">SCENARIO 2</text>
+        <text class="th" x="251" y="68">Backup stolen</text>
+        <text class="tm" x="251" y="88">Misconfigured bucket,</text>
+        <text class="tm" x="251" y="104">compromised backup account</text>
+        <text class="ts tsafe" x="251" y="136">THEY GET</text>
+        <text class="ts" x="251" y="158">Less than scenario 1. The</text>
+        <text class="ts" x="251" y="176">dump is already encrypted</text>
+        <text class="ts" x="251" y="194">at rest, and its contents</text>
+        <text class="ts" x="251" y="212">were encrypted before that.</text>
+        <text class="ts td" x="251" y="244">THEY DO NOT GET</text>
+        <text class="ts" x="251" y="266">Anything readable, at two</text>
+        <text class="ts" x="251" y="284">independent layers.</text>
+        <text class="tm tsafe" x="251" y="340">Rule: the backup key and</text>
+        <text class="tm tsafe" x="251" y="356">the KEK never live in the</text>
+        <text class="tm tsafe" x="251" y="372">same place. Ever.</text>
+
+        <rect class="bx-d" x="454" y="20" width="205" height="360" rx="2"/>
+        <text class="tt td" x="468" y="44">SCENARIO 3</text>
+        <text class="th" x="468" y="68">App server owned</text>
+        <text class="tm" x="468" y="88">Remote code execution in</text>
+        <text class="tm" x="468" y="104">the application itself</text>
+        <text class="ts td" x="468" y="136">THEY GET</text>
+        <text class="ts" x="468" y="158">This is the real one. With</text>
+        <text class="ts" x="468" y="176">the app process they reach</text>
+        <text class="ts" x="468" y="194">the KEK and can decrypt.</text>
+        <text class="ts" x="468" y="212">We do not pretend otherwise.</text>
+        <text class="ts tsafe" x="468" y="244">WHAT SLOWS THEM</text>
+        <text class="ts" x="468" y="266">Read-only filesystem. All</text>
+        <text class="ts" x="468" y="284">Linux capabilities dropped.</text>
+        <text class="ts" x="468" y="302">no-new-privileges. Datastores</text>
+        <text class="ts" x="468" y="320">on loopback only.</text>
+        <text class="tm tsafe" x="468" y="352">Defence here is keeping</text>
+        <text class="tm tsafe" x="468" y="368">dependencies patched.</text>
+
+        <rect class="bx-s" x="671" y="20" width="209" height="360" rx="2"/>
+        <text class="tt tsafe" x="685" y="44">SCENARIO 4</text>
+        <text class="th" x="685" y="68">Your laptop stolen</text>
+        <text class="tm" x="685" y="88">Or a contractor's, or a</text>
+        <text class="tm" x="685" y="104">phone with the repo on it</text>
+        <text class="ts tsafe" x="685" y="136">THEY GET</text>
+        <text class="ts" x="685" y="158">The source code and the</text>
+        <text class="ts" x="685" y="176">question bank — which is</text>
+        <text class="ts" x="685" y="194">not secret and could be</text>
+        <text class="ts" x="685" y="212">published tomorrow without</text>
+        <text class="ts" x="685" y="230">harming a single student.</text>
+        <text class="ts td" x="685" y="262">THEY DO NOT GET</text>
+        <text class="ts" x="685" y="284">Any student data. None of</text>
+        <text class="ts" x="685" y="302">it is ever on a laptop.</text>
+        <text class="tm tsafe" x="685" y="340">Secrets live in .env on</text>
+        <text class="tm tsafe" x="685" y="356">the server, generated</text>
+        <text class="tm tsafe" x="685" y="372">there, never committed.</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 10.1</b> — Scenario 3 is stated plainly because a security document that claims immunity to everything is not credible. The defensible claim is narrower and true: <b>every breach that does not involve executing our code on our server yields nothing readable.</b></figcaption>
+  </figure>
+
+  <h3>The controls behind those claims</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Threat</th><th>Control</th><th>Where it is enforced</th></tr></thead>
+      <tbody>
+        <tr><td>One student reading another's conversation</td><td>Three independent layers: every repository function requires a <code>user_id</code>; Postgres row-level security backstops it; a CI test has user B probe user A's ids and fails the build if anything returns</td><td>App, database, and the test suite</td></tr>
+        <tr><td>Kip being talked out of its rules</td><td>Injection patterns screened before the model sees them, plus a standing rule in the system prompt</td><td><code>security.py</code>, <code>prompt.py</code></td></tr>
+        <tr><td>A student pasting their tax file number</td><td>Detected and refused — the message is neither stored nor forwarded, and Kip explains why</td><td><code>security.py</code>, stage 3 of §5</td></tr>
+        <tr><td>A fake source in an answer</td><td>Every URL re-checked against the allowlist after generation; leading-dot matching blocks <code>fairwork.gov.au.attacker.io</code></td><td><code>sources.py</code></td></tr>
+        <tr><td>Abuse and cost blowout</td><td>Sliding-window rate limits per hashed IP; 3 searches and 700 output tokens capped per answer</td><td><code>ratelimit.py</code>, config</td></tr>
+        <tr><td>Datastores exposed by Docker</td><td>Loopback-only binding, verified by the deploy script, which knows Docker writes iptables rules that bypass <code>ufw</code></td><td><code>docker-compose.yml</code>, <code>deploy.sh</code></td></tr>
+        <tr><td>Server compromise via SSH</td><td>Keys only, password auth disabled, <code>fail2ban</code>, firewall default-deny</td><td><code>deploy.sh</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Not yet done — be honest about this in any pitch</span>
+    <p>Before a university or government pilot, three things need to exist that do not yet: an independent penetration test, a written incident-response plan with a named 72-hour notification path under the <em>Privacy Act 1988</em> Notifiable Data Breaches scheme, and a published privacy policy and terms of service reviewed by an Australian lawyer. The architecture supports all three. None of them is a code change, and none should be skipped.</p>
+  </div>
+</section>
+<!-- ══════════════════════════════════ 11 ══ -->
+<section id="s11">
+  <span class="snum">§ 11</span>
+  <h2>Cloudflare and the VPS</h2>
+  <p class="lede">You said you can do a VPS and "storage for Cloudflare or something you reckon". Here is what I reckon, and why: <b>Cloudflare in front, not underneath.</b> The database stays on your VPS. Cloudflare handles the edge and holds encrypted backups.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Job</th><th>Where it goes</th><th>Cost</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>DNS</td><td>Cloudflare</td><td class="num">Free</td><td>Fast, free, and the control plane for everything below.</td></tr>
+        <tr><td>TLS + CDN</td><td>Cloudflare</td><td class="num">Free</td><td>Static files served from an edge close to the student. Caddy still holds a real certificate at the origin so the hop from Cloudflare to your server is encrypted too — set the mode to <em>Full (strict)</em>, never <em>Flexible</em>.</td></tr>
+        <tr><td>DDoS + firewall</td><td>Cloudflare</td><td class="num">Free</td><td>Absorbs volumetric attacks before they touch a 12 GB box, and hides your origin IP so the VPS cannot be attacked directly.</td></tr>
+        <tr><td>Bot and abuse control</td><td>Cloudflare Turnstile</td><td class="num">Free</td><td>Blocks scripted abuse of an expensive endpoint at the edge. Your per-answer model cost makes this worth having on day one.</td></tr>
+        <tr><td>Encrypted backups</td><td>Cloudflare R2</td><td class="num">~$0.02/GB/mo</td><td>No egress fees, which is the reason to pick it over S3 — restoring a backup should never come with a surprise bill.</td></tr>
+        <tr><td>Application + database</td><td><strong>Your VPS</strong></td><td class="num">$0–24/mo</td><td>Stays put. See below.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Why the database does not move to Cloudflare</h3>
+  <p>Cloudflare has a database product (D1) and a key-value store, and they are good. They are the wrong choice here for three reasons. The encryption model in §7 depends on holding a master key on a filesystem the database cannot read — a managed serverless database removes that separation. Second, Australian universities and government buyers ask where data is <em>physically stored</em>, and "on a server in Sydney that we control" is a much easier answer than explaining a distributed edge platform. Third, Postgres row-level security is doing real work as the IDOR backstop, and it has no equivalent there.</p>
+
+  <p>So: Cloudflare is the front door and the offsite vault. The VPS is the house.</p>
+
+  <h3>The hosting ladder</h3>
+  <div class="grid c3">
+    <div>
+      <p class="k">Now · testing</p>
+      <h5>Oracle Always Free · Singapore</h5>
+      <p><strong>$0/month.</strong> 2 OCPU, 12 GB ARM. Enough for real testing with real students.</p>
+      <p><em>Time-critical:</em> the free tier was halved in June 2026 and over-limit instances are being terminated from 18 August 2026. Provision at or under 2 OCPU / 12 GB.</p>
+    </div>
+    <div>
+      <p class="k">Next · public beta</p>
+      <h5>Vultr or Contabo · Singapore</h5>
+      <p><strong>~$6/month.</strong> 1 vCPU, 2 GB. Paid, boring, reliable — worth it the moment real people depend on it being up.</p>
+    </div>
+    <div>
+      <p class="k">Then · institutional</p>
+      <h5>Sydney region</h5>
+      <p><strong>~$24/month.</strong> 2 vCPU, 4 GB, <strong>Australian data residency</strong>. Most university procurement will require this, so budget the move before the first pilot conversation, not after.</p>
+    </div>
+  </div>
+
+  <div class="note gold">
+    <span class="lbl">Running cost, honestly</span>
+    <p>Infrastructure is the small number. At beta scale you are looking at roughly $6–30/month for hosting, ~$15/year for a <code>.au</code> domain, and $0 for Cloudflare. The variable cost that matters is the model: every answer costs tokens, every live search costs more. Prompt caching, the 700-token output cap and the 3-search ceiling exist to hold that line. Measure cost per answer from week one of the beta — it is the number that decides whether any of the models in §16 work.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 12 ══ -->
+<section id="s12">
+  <span class="snum">§ 12</span>
+  <h2>Deletion, retention and the student's rights</h2>
+  <p class="lede">Australian privacy law is not the constraint people assume. The Privacy Act's Australian Privacy Principles are mostly common sense written down, and the architecture already satisfies most of them. What matters is that the promises are enforced by code, not by policy.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Principle</th><th>How Howdy meets it</th></tr></thead>
+      <tbody>
+        <tr><td>Collect only what you need</td><td>No date of birth, no address, no phone, no visa number, no passport. Name and email arrive from Google; the email is encrypted immediately. Personal details typed into chat are actively refused.</td></tr>
+        <tr><td>Be open about it</td><td>Guest mode is offered before sign-in, the incognito toggle sits in the chat window itself, and retention is a setting the student chooses rather than a clause they scroll past.</td></tr>
+        <tr><td>Keep it secure</td><td>§7 and §10.</td></tr>
+        <tr><td>Let people see and correct it</td><td>Export returns every conversation as readable JSON, decrypted on the way out.</td></tr>
+        <tr><td>Destroy it when it is no longer needed</td><td>Retention runs as a scheduled job, not a promise. Expired conversations are deleted by <code>expires_at</code>, and account deletion cascades from the user row through every conversation and message.</td></tr>
+        <tr><td>Notify a serious breach</td><td>The 72-hour notification path needs to be written down before launch — see the warning in §10.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What "delete my account" actually does</h3>
+  <ul>
+    <li>The <code>users</code> row is deleted, which cascades to every conversation and every message. The ciphertext is gone, not merely orphaned.</li>
+    <li>The wrapped DEK goes with it — so even a backup taken yesterday cannot be decrypted for that student, because their key no longer exists in any live system.</li>
+    <li>Their sessions are dropped from Valkey immediately.</li>
+    <li>The <code>audit_log</code> rows survive with <code>user_id</code> set to null. We keep the fact that a deletion happened, detached from who it happened to — that is the record which proves the deletion ran.</li>
+    <li><code>question_gaps</code> is untouched, because it was never connected to them in the first place.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════ 13 ══ -->
+<section id="s13">
+  <span class="snum">§ 13</span>
+  <h2>How we actually serve students and migrants</h2>
+  <p class="lede">The architecture exists to support a service model, not the other way round. This is what Howdy does for a person, in the order they need it.</p>
+
+  <h3>The arrival journey</h3>
+  <ol class="steps">
+    <li><b>Before landing</b><span>What to pack, what OSHC is and why it must start before arrival, what a Confirmation of Enrolment does, what the visa conditions actually say. The <em>arrive</em> and <em>cost</em> modules — 40 questions between them.</span></li>
+    <li><b>First fortnight</b><span>The bureaucratic sprint: apply for a Tax File Number, open a bank account, get a transport card, find somewhere to live. Almost all Procedural questions, so the answers are numbered steps naming the real form and the real website.</span></li>
+    <li><b>First job</b><span>Award rates, the 48-hours-per-fortnight work limit, payslips, superannuation, and the big Investigative one — <em>am I being underpaid?</em> The <em>work</em> and <em>money</em> modules, 85 questions.</span></li>
+    <li><b>Settling in</b><span>Tax returns, Medicare and OSHC claims, tenancy disputes, consumer rights, public transport concessions. This is where a companion beats a search engine: the student does not know the name of the thing they need.</span></li>
+    <li><b>When something goes wrong</b><span>Scams, exploitation, discrimination, mental health crises, family violence. The <em>safety</em> and <em>rights</em> modules. These carry the <code>crisis</code> tier — emergency resources lead, everything else follows.</span></li>
+  </ol>
+
+  <h3>Three tiers of answer</h3>
+  <div class="grid c3">
+    <div>
+      <p class="k">standard · 413 questions</p>
+      <h5>Answer it</h5>
+      <p>General information from official sources, cited, shaped to the intent. The bulk of the product.</p>
+    </div>
+    <div>
+      <p class="k">refer · 12 questions</p>
+      <h5>Answer, then hand over</h5>
+      <p>The question turns on someone's own circumstances — PR pathways, visa strategy, a legal dispute. Kip explains what exists, then names a MARA-registered agent or the university's free student legal service. This is the Migration Act line, enforced in data.</p>
+    </div>
+    <div>
+      <p class="k">crisis · 9 questions</p>
+      <h5>Safety before information</h5>
+      <p>Family violence, mental health emergency, assault. The answer opens with 000 and Lifeline 13 11 14, then the university's support service. Information second.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Why referral is a feature, not a limitation</span>
+    <p>Every referral is a moment where Howdy proves it is not trying to be the last word. That is what earns institutional trust — and it is also the commercial engine (§14, §16). A tool that knows the edge of its own competence is a tool a university can put its name next to.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 14 ══ -->
+<section id="s14">
+  <span class="snum">§ 14</span>
+  <h2>Adding vendors</h2>
+  <p class="lede">A vendor is a real service a student needs after the general information runs out: a MARA-registered migration agent, an accountant, a tenancy advocate, a student health service, a phone or bank provider. Howdy's advantage is that it knows the precise moment someone needs one.</p>
+
+  <p>The risk is equally precise. The instant a referral is influenced by who paid, the product stops being trustworthy — and for migration agents specifically, referring a student to an unregistered "agent" is a serious problem regardless of what money changed hands.</p>
+
+  <h3>The vetting gate</h3>
+  <ol class="steps">
+    <li><b>Register or licence check</b><span>Migration agents verified against the MARA register by registration number. Lawyers against their state legal board. Accountants against CPA, CA ANZ or IPA. Real estate agents against the state licensing body. No number, no listing.</span></li>
+    <li><b>Insurance and ABN</b><span>Current professional indemnity insurance and a valid ABN, both recorded with their expiry so a lapse triggers a review rather than being discovered by a student.</span></li>
+    <li><b>Written service standards</b><span>A committed response time, published fees or fee ranges, and a complaints path. Vendors who will not publish a fee range do not get listed.</span></li>
+    <li><b>Student-facing disclosure</b><span>Every listing states plainly that Howdy may be paid for the introduction. Not in a footer — on the card.</span></li>
+    <li><b>Continuous review</b><span>Registration re-verified on a schedule. Student-reported problems suspend a listing pending review. Two upheld complaints and the vendor is removed.</span></li>
+  </ol>
+
+  <h3>The one rule that protects everything</h3>
+  <div class="note warn">
+    <span class="lbl">Non-negotiable</span>
+    <p><strong>Payment never changes what Kip says.</strong> A vendor can appear in the directory, and can be surfaced when a student's question reaches the <code>refer</code> tier for their category — but ranking within a category is by registration status, response time and student feedback, never by fee. The answer text itself never contains a paid recommendation. The moment a student can reasonably suspect the advice was bought, the product is finished, and no referral fee is worth that.</p>
+  </div>
+
+  <p>Practically, this means vendor data lives entirely outside the answer pipeline. Kip's system prompt has no knowledge of vendors at all — it produces the referral <em>category</em> ("you need a MARA-registered agent"), and the application renders matching vendors alongside the answer, in a visually distinct panel. That separation is architectural, so it cannot be quietly eroded later by a product decision.</p>
+</section>
+
+<!-- ══════════════════════════════════ 15 ══ -->
+<section id="s15">
+  <span class="snum">§ 15</span>
+  <h2>University partners, and where their ads can go</h2>
+  <p class="lede">Universities are the highest-value partner and the hardest to win. They are also the reason to be strict about advertising: an institution will not put its name on a tool that blurs advice and promotion, and neither should you.</p>
+
+  <h3>What a university actually buys</h3>
+  <ul>
+    <li><strong>Reduced support load.</strong> International student support teams answer the same 40 questions thousands of times a semester. Kip absorbs those and escalates the rest.</li>
+    <li><strong>A co-branded companion.</strong> "Kip for UQ" — university branding, university-specific content injected into the knowledge base (their orientation dates, their student legal service, their accommodation office, their emergency contacts).</li>
+    <li><strong>Aggregate insight, never individual.</strong> A dashboard showing what their cohort is struggling with this month — <em>housing questions up 40% in February</em> — built entirely from <code>question_gaps</code> and <code>module_id</code>, which contain no identities by construction (§3, §6). This is a genuinely valuable product that is also privacy-safe, which is a rare combination and worth leading with in a pitch.</li>
+    <li><strong>A defensible duty-of-care story.</strong> The <code>crisis</code> tier means a distressed student meets 000, Lifeline and the university's own counselling service before anything else.</li>
+  </ul>
+
+  <h3>Where promotion is allowed to appear</h3>
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 380" role="img" aria-label="Diagram of the Kip interface showing which zones may carry partner promotion and which must never">
+        <rect class="bx-o" x="20" y="20" width="500" height="340" rx="2"/>
+        <text class="tt" x="34" y="42">THE KIP INTERFACE</text>
+
+        <rect class="bx-s" x="38" y="56" width="464" height="40" rx="2"/>
+        <text class="th tsafe" x="52" y="74">ZONE A · Header</text>
+        <text class="tm" x="52" y="90">Co-brand lockup: "Kip · in partnership with your university"</text>
+
+        <rect class="bx-s" x="38" y="106" width="464" height="52" rx="2"/>
+        <text class="th tsafe" x="52" y="126">ZONE B · Dashboard tiles</text>
+        <text class="tm" x="52" y="142">A partner tile beside the 13 topic modules — orientation,</text>
+        <text class="tm" x="52" y="156">the accommodation office, the student legal service.</text>
+
+        <rect class="bx-d" x="38" y="170" width="464" height="96" rx="2"/>
+        <text class="th td" x="52" y="190">ZONE C · The answer itself</text>
+        <text class="tm td" x="52" y="210">NOTHING. No sponsored text, no promoted link, no partner</text>
+        <text class="tm td" x="52" y="226">name inside the reply, no reordering of sources for money.</text>
+        <text class="tm td" x="52" y="242">The citation block cites official sources and nothing else.</text>
+        <text class="tm" x="52" y="258">This zone is where trust is made or lost.</text>
+
+        <rect class="bx-s" x="38" y="276" width="464" height="66" rx="2"/>
+        <text class="th tsafe" x="52" y="296">ZONE D · Below the answer, visually separated</text>
+        <text class="tm" x="52" y="314">A clearly labelled panel: "Need to speak to someone?" —</text>
+        <text class="tm" x="52" y="330">vetted vendors and university services, disclosure on the card.</text>
+
+        <rect class="bx-a" x="546" y="56" width="334" height="128" rx="2"/>
+        <text class="th" x="562" y="80">The test for any placement</text>
+        <text class="ts" x="562" y="104">Could a student mistake this for part of the</text>
+        <text class="ts" x="562" y="122">answer Kip gave them?</text>
+        <text class="ts" x="562" y="148">If yes, it does not ship — regardless of what</text>
+        <text class="ts" x="562" y="166">the partner is paying.</text>
+
+        <rect class="bx-g" x="546" y="200" width="334" height="142" rx="2"/>
+        <text class="th" x="562" y="224">Why this is the commercially right call</text>
+        <text class="ts" x="562" y="248">Zone C purity is the thing a university is</text>
+        <text class="ts" x="562" y="266">actually buying. The moment answers carry</text>
+        <text class="ts" x="562" y="284">paid content, no institution can endorse the</text>
+        <text class="ts" x="562" y="302">tool, and the largest revenue line closes.</text>
+        <text class="ts" x="562" y="326">Protecting zone C is not idealism. It is the</text>
+        <text class="tm" x="562" y="342">business model.</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 15.1</b> — Zones A, B and D carry partner presence. Zone C never does. The boundary is enforced in the architecture: the model that writes zone C has no access to partner data at all (§14), so a promoted mention cannot appear there even by accident.</figcaption>
+  </figure>
+
+  <h3>How a partnership gets signed, realistically</h3>
+  <ol class="steps">
+    <li><b>Start with one</b><span>A single university, ideally where you have a personal introduction. Nobody signs the first deal on a cold email.</span></li>
+    <li><b>Enter through the international student support office</b><span>Not IT, not marketing. Support staff feel the repeated-question pain daily and will advocate internally on your behalf.</span></li>
+    <li><b>Run a free semester pilot</b><span>One cohort, co-branded, with the aggregate dashboard turned on. The pilot's job is to produce a number: questions handled, support tickets avoided.</span></li>
+    <li><b>Clear procurement with the document you are reading</b><span>They will ask about data residency, breach notification, encryption at rest, and where student data goes. §6, §7, §10 and §11 are those answers. Move to Sydney hosting before this conversation.</span></li>
+    <li><b>Price per enrolled international student, per year</b><span>Institutions buy per-seat annual licences; they do not buy usage-metered AI tools. Match the shape of budget they already have.</span></li>
+    <li><b>Use the first deal to open the sector</b><span>Australian universities benchmark against each other constantly. The second contract is dramatically easier than the first.</span></li>
+  </ol>
+</section>
+
+<!-- ══════════════════════════════════ 16 ══ -->
+<section id="s16">
+  <span class="snum">§ 16</span>
+  <h2>Monetisation</h2>
+  <p class="lede">Last on purpose, as you asked. Nothing here should be built now. It is here so the architecture does not foreclose it — and the design decisions above were made so that every one of these lines stays open.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Line</th><th>Who pays</th><th>When</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>University licence</td><td>Institution, per international student per year</td><td>After one successful pilot</td><td>The largest and most defensible line. Requires Sydney hosting, a completed penetration test and insurance. Depends entirely on zone C staying clean.</td></tr>
+        <tr><td>Vendor directory</td><td>Vetted professionals, flat listing fee</td><td>Once there is real traffic</td><td>A flat fee, not per-referral — the moment payment scales with referrals, the incentive to nudge appears. Flat fees keep §14's rule honest.</td></tr>
+        <tr><td>Education agent tools</td><td>Agencies placing students</td><td>Mid-term</td><td>They already answer these questions manually for every student they place. A branded version is an operating cost they will happily move.</td></tr>
+        <tr><td>Student premium</td><td>Students, small monthly fee</td><td>Cautiously, if ever</td><td>Document storage, deadline reminders, unlimited live search. <strong>The core safety content must stay free forever</strong> — charging a frightened student for the crisis tier would be indefensible.</td></tr>
+        <tr><td>Government / council</td><td>State or local government programs</td><td>Long term</td><td>Settlement services, and eventually the Brisbane 2032 arrivals story. Long procurement cycles; needs the university track record first.</td></tr>
+        <tr><td>Aggregate insight reports</td><td>Institutions, sector bodies</td><td>Opportunistic</td><td>Already privacy-safe by construction. Never individual-level, never resold to advertisers, never linked to a person.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Three things not to do</h3>
+  <ul>
+    <li><strong>Do not sell advertising inside answers.</strong> It is the fastest money and it ends the institutional business permanently.</li>
+    <li><strong>Do not sell or share student data</strong> in any form that could identify a person. The architecture makes this mostly impossible; keep it that way, and say so publicly — it is a competitive advantage, not a constraint.</li>
+    <li><strong>Do not take per-referral commissions from migration agents.</strong> Beyond the trust problem, it invites scrutiny of whether Howdy is arranging immigration assistance rather than providing information — precisely the line §13 exists to hold.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════ 17 ══ -->
+<section id="s17">
+  <span class="snum">§ 17</span>
+  <h2>Decisions to make next</h2>
+  <p class="lede">These are genuinely open. Each one needs your call or your engineer's, and each blocks something downstream.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Decision</th><th>The situation</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td>Stack divergence</td><td>Your platform document specifies Next.js, Supabase and Netlify. What is built is FastAPI, PostgreSQL and a VPS.</td><td>Keep the built stack. The encryption model in §7 needs a master key on a filesystem the database cannot read, which a managed backend does not give you. Retire the older Node code in <code>api/</code> and <code>lib/</code> so there is one system, not two.</td></tr>
+        <tr><td>Name and domain</td><td><code>howdy.com.au</code> is taken. The assistant is already called Kip throughout the product.</td><td>Lead with Kip. It is short, warm, already the voice of the product, and <code>.au</code> availability is far better. Decide before the pilot conversation — co-branding needs a settled name.</td></tr>
+        <tr><td>Hosting region</td><td>Singapore is free or nearly free. Sydney costs about $24/month and gives Australian data residency.</td><td>Singapore for testing, Sydney before the first institutional conversation. Do not let a procurement discussion be the thing that forces the migration.</td></tr>
+        <tr><td>Model tier</td><td>Running <code>claude-sonnet-5</code>. Haiku is materially cheaper.</td><td>Run a blind quality comparison on 30 questions from the bank across all three intents before the beta. Cost per answer decides §16's viability.</td></tr>
+        <tr><td>Legal review</td><td>No lawyer has reviewed the Migration Act positioning, the privacy policy or the terms.</td><td>Do this before public launch, not before the closed beta. Bring §13 to the meeting — the tiering is the substance of the compliance argument.</td></tr>
+        <tr><td>Penetration test</td><td>Not done.</td><td>Required before a university pilot. Budget for it in the same quarter as the Sydney migration.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note gold">
+    <span class="lbl">The short version, if you only remember one thing</span>
+    <p>Your 434 questions live in the code repository, version-controlled and recoverable, and are read into memory when the server starts. What students ask that Kip handles badly is recorded as a de-identified topic list with dates only and no link to any person. Everything a student actually says is encrypted before it reaches the database, with a key the database does not contain. A stolen database, a stolen backup or a stolen laptop yields nothing readable. That is the claim, and §6, §7 and §10 are the evidence for it.</p>
+  </div>
+
+  <div class="end">
+    <b>The Howdy Blueprint</b> · v1.0 · 18 August 2026<br>
+    Prepared for the founder and the architecture engineer. Reflects the system as built: 434 questions, 13 modules, 51 trusted sources, 80 automated tests.<br>
+    Sections 4–8 and 11 describe implemented behaviour. Sections 14–16 describe intent, not code.
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+  if(!('IntersectionObserver' in window)) return;
+  var visible = {};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+    var current = null;
+    for(var i=0;i<sections.length;i++){ if(visible[sections[i].id]){ current = sections[i].id; break; } }
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if(current && map[current]) map[current].classList.add('on');
+  }, { rootMargin:'0px 0px -70% 0px', threshold:0 });
+  sections.forEach(function(s){ io.observe(s); });
+})();
+</script>
