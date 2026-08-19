@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-AU" data-theme="midnight">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070B12">
-<title>Kip — your friendly companion for life in Australia</title>
-<meta name="description" content="Kip is a friendly companion for international students and new migrants in Australia. Ask about visas, work, tax, housing, health and travel. Answers come from verified sources.">
-<meta property="og:title" content="Kip — your friendly companion for life in Australia">
-<meta property="og:description" content="Ask anything about living in Australia. Answers from verified sources.">
-<meta property="og:type" content="website">
+<title>Kip Theme Picker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap">
@@ -267,8 +257,22 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 .rev.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none}}
 </style>
-</head>
-<body>
+<style>
+/* Preview-only chrome. Not part of the shipped page. */
+.tp{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9999;
+  display:flex;gap:4px;padding:5px;border-radius:99px;background:var(--surface);
+  border:1px solid var(--rule-2);box-shadow:0 8px 32px rgba(0,0,0,.28)}
+.tp button{border:none;background:transparent;color:var(--ink-2);cursor:pointer;
+  font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:-.01em;
+  padding:8px 15px;border-radius:99px;display:flex;align-items:center;gap:7px;
+  transition:background .18s,color .18s}
+.tp button:hover{color:var(--ink);background:var(--chip)}
+.tp button[aria-pressed="true"]{background:var(--verify);color:var(--on-verify)}
+.tp i{width:11px;height:11px;border-radius:50%;display:block;
+  box-shadow:inset 0 0 0 1px rgba(128,128,128,.35)}
+@media (max-width:620px){.tp button span{display:none}.tp button{padding:9px 11px}}
+</style>
+
 
 <nav class="nav" id="nav"><div class="inner">
   <a class="brand" href="#top">
@@ -551,5 +555,22 @@ document.addEventListener('visibilitychange', function(){
   }
 })();
 </script>
-</body>
-</html>
+
+<div class="tp" role="group" aria-label="Theme">
+  <button data-t="midnight" aria-pressed="true"><i style="background:linear-gradient(135deg,#070B12 45%,#2FD3AE)"></i><span>Midnight</span></button>
+  <button data-t="sunburnt" aria-pressed="false"><i style="background:linear-gradient(135deg,#140D0A 45%,#E8B93A)"></i><span>Sunburnt</span></button>
+  <button data-t="daylight" aria-pressed="false"><i style="background:linear-gradient(135deg,#FBF9F5 45%,#0B6E5C)"></i><span>Daylight</span></button>
+  <button data-t="harbour"  aria-pressed="false"><i style="background:linear-gradient(135deg,#F4F7FA 45%,#12639B)"></i><span>Harbour</span></button>
+</div>
+<script>
+document.querySelectorAll('.tp button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.documentElement.dataset.theme = b.dataset.t;
+    document.querySelectorAll('.tp button').forEach(function(o){
+      o.setAttribute('aria-pressed', String(o === b));
+    });
+    var cv = document.getElementById('sky');
+    if (cv) cv.style.opacity = (b.dataset.t === 'daylight' || b.dataset.t === 'harbour') ? '0' : '';
+  });
+});
+</script>
