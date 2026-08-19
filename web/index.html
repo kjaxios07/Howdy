@@ -5,27 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070B12">
 <title>Howdy — Kip, your companion for life in Australia</title>
-<meta name="description" content="Kip answers what international students and new migrants actually ask about Australia — visas, work, tax, housing, health, discounts. Every answer cited to an official Australian source. Guidance, not legal advice.">
+<meta name="description" content="Ask Kip about visas, work, tax, housing and health in Australia. Plain English, with the official source. Free.">
 <meta property="og:title" content="Howdy — Kip, your companion for life in Australia">
-<meta property="og:description" content="463 real questions. 52 official sources. Every answer cited. Guidance, not legal advice.">
+<meta property="og:description" content="Ask about visas, work, tax, housing and health. Plain English, with the official source. Free.">
 <meta property="og:type" content="website">
 <style>
 /* ══════════════════════════════════════════════════════════════
    Howdy — landing page
-   Committed dark theme: an Australian night sky. Every colour is
-   painted explicitly so the page holds on any host background.
 
-   System fonts only, on purpose. The site's Content-Security-Policy
-   is default-src 'self' — a webfont from a third-party host is both
-   blocked and, for a product used by migrants, a privacy leak before
-   consent. Type carries through scale, weight and tracking instead.
+   One job: get someone who is stressed and possibly reading in their
+   second language to press one button. Everything that is not needed
+   to do that lives in the docs instead.
+
+   Committed dark theme; every colour painted explicitly. System fonts
+   only — the site's CSP is default-src 'self', and a third-party font
+   host would also be a tracker firing before anyone consents to it.
    ══════════════════════════════════════════════════════════════ */
 
 :root{
   --ground:#070B12;
   --surface:#0D131D;
   --surface-2:#141D29;
-  --surface-3:#1B2632;
 
   --ink:#EAF1F7;
   --ink-2:#93A5B5;
@@ -33,21 +33,17 @@
   --rule:rgba(255,255,255,.075);
   --rule-2:rgba(255,255,255,.14);
 
-  /* teal is the product's own colour and means "verified" throughout */
-  --verify:#2FD3AE;
+  --verify:#2FD3AE;                       /* the product's colour: "checked" */
   --verify-dim:rgba(47,211,174,.13);
-  /* warm accent carries energy: labels, the ticker, primary action */
-  --warm:#E8763F;
-  --warm-dim:rgba(232,118,63,.14);
+  --warm:#E8763F;                         /* energy: labels, ticker */
   --gold:#E8B93A;
-  --gold-dim:rgba(232,185,58,.13);
   --alert:#F0705A;
   --alert-dim:rgba(240,112,90,.13);
   --violet:#8B7BFF;
 
   --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
-  --inner:1180px;
+  --inner:1120px;
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -58,412 +54,209 @@ html{scroll-behavior:smooth;color-scheme:dark}
 }
 body{
   background:var(--ground);color:var(--ink);
-  font-family:var(--sans);font-size:16px;line-height:1.65;
+  font-family:var(--sans);font-size:16px;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-img,svg,canvas{max-width:100%;display:block}
+img,svg,canvas,video{max-width:100%;display:block}
 a{color:var(--verify);text-decoration:none}
-button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--verify);outline-offset:3px;border-radius:4px}
 ::selection{background:var(--warm);color:#0B0F16}
 
-section[id],header[id]{scroll-margin-top:84px}
+section[id],header[id]{scroll-margin-top:80px}
 .inner{max-width:var(--inner);margin:0 auto;padding:0 32px}
 @media (max-width:640px){.inner{padding:0 20px}}
 
-/* ── Type system ───────────────────────────────────────────── */
-.eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--mono);font-size:10.5px;font-weight:600;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--warm);
-}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--warm)}
-h1,h2,h3{text-wrap:balance}
-.h2{
-  font-size:clamp(1.95rem,4.4vw,3.1rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.05;margin:14px 0 16px;
-}
-.lede{font-size:clamp(1rem,1.6vw,1.12rem);color:var(--ink-2);max-width:56ch;line-height:1.7}
+h1,h2{text-wrap:balance}
+.h2{font-size:clamp(1.8rem,4vw,2.7rem);font-weight:800;letter-spacing:-.032em;line-height:1.05}
 .num{font-variant-numeric:tabular-nums}
+.sub{font-size:1rem;color:var(--ink-2);max-width:46ch;margin-top:12px}
 
 /* ── Nav ───────────────────────────────────────────────────── */
 .nav{
-  position:fixed;inset:0 0 auto 0;z-index:900;height:64px;
-  display:flex;align-items:center;
-  transition:background .3s,border-color .3s,backdrop-filter .3s;
-  border-bottom:1px solid transparent;
+  position:fixed;inset:0 0 auto 0;z-index:900;height:62px;display:flex;align-items:center;
+  border-bottom:1px solid transparent;transition:background .3s,border-color .3s;
 }
-.nav.stuck{
-  background:rgba(7,11,18,.9);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);border-bottom-color:var(--rule);
-}
-.nav .inner{display:flex;align-items:center;gap:28px;width:100%}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.06rem;letter-spacing:-.03em;color:var(--ink)}
-.brand .kip{width:30px;height:30px}
+.nav.stuck{background:rgba(7,11,18,.9);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom-color:var(--rule)}
+.nav .inner{display:flex;align-items:center;gap:26px;width:100%}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.05rem;letter-spacing:-.03em;color:var(--ink)}
+.brand .kip{width:29px;height:29px}
 .brand i{font-style:normal;color:var(--warm)}
-.nav-links{display:flex;gap:26px;margin-left:auto}
-.nav-links a{
-  font-size:12.5px;font-weight:600;color:var(--ink-2);letter-spacing:.01em;
-  transition:color .2s;
-}
+.nav-links{display:flex;gap:24px;margin-left:auto}
+.nav-links a{font-size:13px;font-weight:600;color:var(--ink-2);transition:color .2s}
 .nav-links a:hover{color:var(--ink)}
 .nav .cta{margin-left:auto}
 .nav-links+.cta{margin-left:0}
-@media (max-width:860px){.nav-links{display:none}}
+@media (max-width:760px){.nav-links{display:none}}
 
 .cta{
-  display:inline-flex;align-items:center;gap:9px;
-  background:var(--verify);color:#04150F;border:none;border-radius:99px;
-  padding:11px 22px;font-size:13.5px;font-weight:800;letter-spacing:-.01em;
-  cursor:pointer;transition:transform .18s,box-shadow .18s;
+  display:inline-flex;align-items:center;gap:9px;background:var(--verify);color:#04150F;
+  border:none;border-radius:99px;padding:12px 24px;font-size:14px;font-weight:800;
+  letter-spacing:-.01em;cursor:pointer;transition:transform .18s,box-shadow .18s;
   box-shadow:0 2px 20px rgba(47,211,174,.22);
 }
 .cta:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(47,211,174,.34)}
-.cta.ghost{
-  background:rgba(255,255,255,.055);color:var(--ink);
-  border:1px solid var(--rule-2);box-shadow:none;
-}
+.cta.ghost{background:rgba(255,255,255,.055);color:var(--ink);border:1px solid var(--rule-2);box-shadow:none}
 .cta.ghost:hover{background:rgba(255,255,255,.1);box-shadow:none}
-.cta.warm{background:var(--warm);color:#170703;box-shadow:0 2px 20px rgba(232,118,63,.26)}
-.cta.warm:hover{box-shadow:0 6px 28px rgba(232,118,63,.38)}
-.cta.sm{padding:9px 18px;font-size:12.5px}
+.cta.sm{padding:9px 18px;font-size:13px}
 
 /* ── Hero ──────────────────────────────────────────────────── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:110px 0 60px;overflow:hidden}
+.hero{position:relative;min-height:94svh;display:flex;align-items:center;padding:100px 0 56px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--ground)}
-#sky{position:absolute;inset:0;width:100%;height:100%}
-/* The clip is progressive enhancement. It fades in only once it can actually
-   play, so a missing or slow file leaves the starfield in place rather than a
-   black rectangle. */
-.hero-video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transition:opacity 1.1s ease;
-}
-.hero-video.on{opacity:1}
-#sky{transition:opacity 1.1s ease}
+#sky{position:absolute;inset:0;width:100%;height:100%;transition:opacity 1.1s ease}
 #sky.dim{opacity:.3}
+/* The clip is progressive enhancement — it fades in only once it can play,
+   so a missing or slow file leaves the starfield instead of a black hole. */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 1.1s ease}
+.hero-video.on{opacity:1}
 .hero::after{
   content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     radial-gradient(62% 52% at 6% 45%, rgba(7,11,18,.97), rgba(7,11,18,.5) 54%, transparent 76%),
-    linear-gradient(to top, var(--ground) 2%, transparent 40%);
+    linear-gradient(to top, var(--ground) 2%, transparent 38%);
 }
 .hero .inner{position:relative;z-index:2;width:100%}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:center}
-@media (max-width:960px){
-  .hero-grid{grid-template-columns:1fr;gap:28px}
-  .hero-side{order:-1;justify-content:flex-start}
-  .hero-side .kip{width:120px;height:120px}
-  .hero{min-height:auto;padding:104px 0 72px}
-}
-
-.hero-tag{
-  display:inline-flex;align-items:center;gap:9px;
-  background:var(--verify-dim);border:1px solid rgba(47,211,174,.3);
-  border-radius:99px;padding:6px 15px 6px 8px;margin-bottom:26px;
-  font-size:12px;font-weight:700;color:var(--verify);
-}
-.hero-tag .kip{width:22px;height:22px}
-.hero h1{
-  font-size:clamp(2.5rem,6.6vw,4.6rem);font-weight:900;
-  letter-spacing:-.042em;line-height:.98;margin-bottom:24px;max-width:15ch;
-}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.3rem);font-weight:900;letter-spacing:-.042em;
+  line-height:.98;margin-bottom:20px;max-width:14ch}
 .hero h1 em{font-style:normal;color:var(--verify)}
-.hero p.lede{margin-bottom:34px;max-width:52ch}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:38px}
-.hero-facts{display:flex;gap:26px;flex-wrap:wrap}
-.hero-facts div{display:flex;flex-direction:column;gap:2px}
-.hero-facts b{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.hero-facts span{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
+.hero p{font-size:clamp(1.02rem,1.7vw,1.18rem);color:var(--ink-2);max-width:40ch;margin-bottom:30px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.hero-facts{display:flex;gap:28px;flex-wrap:wrap}
+.hero-facts div{display:flex;flex-direction:column}
+.hero-facts b{font-size:1.45rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero-facts span{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
 .hero-side{display:flex;justify-content:center}
-.hero-side .kip{width:230px;height:230px}
-
-.scroll-cue{
-  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);
+.hero-side .kip{width:210px;height:210px}
+@media (max-width:940px){
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-side{order:-1;justify-content:flex-start}
+  .hero-side .kip{width:104px;height:104px}
+  .hero{min-height:auto;padding:100px 0 60px}
 }
-.scroll-cue svg{animation:bob 2.2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-@media (max-height:700px){.scroll-cue{display:none}}
 
 /* ── Ticker ────────────────────────────────────────────────── */
-.ticker{background:var(--warm);overflow:hidden;white-space:nowrap;padding:10px 0;position:relative;z-index:3}
-.ticker-track{display:inline-flex;animation:roll 40s linear infinite;will-change:transform}
+.ticker{background:var(--warm);overflow:hidden;white-space:nowrap;padding:9px 0;position:relative;z-index:3}
+.ticker-track{display:inline-flex;animation:roll 44s linear infinite;will-change:transform}
 .ticker:hover .ticker-track{animation-play-state:paused}
 @keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker b{
-  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:#1B0904;padding:0 22px;
-}
-.ticker b span{opacity:.42;font-variant-numeric:tabular-nums}
+.ticker b{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:#1B0904;padding:0 20px}
+.ticker b span{opacity:.4}
 
-/* ── Sections ──────────────────────────────────────────────── */
-.band{padding:100px 0;position:relative}
+/* ── Promise strip ─────────────────────────────────────────── */
+.promise{border-bottom:1px solid var(--rule);background:var(--surface)}
+.promise .inner{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:0}
+@media (max-width:760px){.promise .inner{grid-template-columns:1fr}}
+.promise div{padding:26px 28px;border-right:1px solid var(--rule);display:flex;gap:12px;align-items:flex-start}
+.promise div:last-child{border-right:none}
+@media (max-width:760px){.promise div{border-right:none;border-bottom:1px solid var(--rule)}
+  .promise div:last-child{border-bottom:none}}
+.promise .ic{font-size:1.1rem;line-height:1.3;flex-shrink:0}
+.promise b{display:block;font-size:.95rem;font-weight:700;letter-spacing:-.015em}
+.promise span{display:block;font-size:.83rem;color:var(--ink-3);margin-top:2px}
+
+/* ── Bands ─────────────────────────────────────────────────── */
+.band{padding:78px 0}
 .band.alt{background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.band-head{max-width:660px;margin-bottom:56px}
+.band-head{margin-bottom:36px;max-width:44ch}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;
+  font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--warm)}
 
-/* ── Grid cards (hairline instrument-panel grid) ───────────── */
-.grid{display:grid;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+/* ── Topics ────────────────────────────────────────────────── */
+.grid{display:grid;border:1px solid var(--rule);border-right:0;border-bottom:0}
+.grid{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .grid>*{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .g4{grid-template-columns:repeat(4,1fr)}
-.g3{grid-template-columns:repeat(3,1fr)}
 .g2{grid-template-columns:repeat(2,1fr)}
-@media (max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.g4,.g3,.g2{grid-template-columns:1fr}}
+@media (max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.g4,.g2{grid-template-columns:1fr}}
 
-/* modules */
-.mod{padding:24px 22px 26px;display:flex;flex-direction:column;gap:9px;background:transparent;
-  transition:background .22s;text-align:left;cursor:pointer;border-width:0 1px 1px 0;border-style:solid;
-  border-color:var(--rule);width:100%}
-.mod:hover{background:rgba(255,255,255,.028)}
-.mod .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.mod .em{
-  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;
-  background:rgba(var(--c),.15);border:1px solid rgba(var(--c),.28);
-}
-.mod .ct{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.06em}
-.mod h3{font-size:.99rem;font-weight:700;letter-spacing:-.015em;margin-top:4px}
-.mod p{font-size:.83rem;color:var(--ink-2);line-height:1.55}
-.mod .try{margin-top:auto;padding-top:8px;font-size:.78rem;font-weight:600;color:rgb(var(--c))}
-
-/* ── Leashes ───────────────────────────────────────────────── */
-.leash{padding:30px 26px;display:flex;flex-direction:column;gap:12px}
-.leash .n{
-  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--verify);font-weight:600;
-}
-.leash h3{font-size:1.12rem;font-weight:700;letter-spacing:-.02em}
-.leash p{font-size:.9rem;color:var(--ink-2);line-height:1.62}
-.leash .tail{
-  font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
-  padding-top:12px;margin-top:auto;border-top:1px solid var(--rule);
-}
-
-/* ── Answer shapes ─────────────────────────────────────────── */
-.shape{padding:28px 26px;display:flex;flex-direction:column;gap:13px}
-.shape .badge{
-  align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
-  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  padding:4px 11px;border-radius:99px;
-}
-.shape.i .badge{background:rgba(139,123,255,.16);color:#A99CFF}
-.shape.p .badge{background:var(--verify-dim);color:var(--verify)}
-.shape.v .badge{background:var(--alert-dim);color:var(--alert)}
-.shape .q{font-size:.94rem;font-weight:700;letter-spacing:-.01em;line-height:1.45}
-.shape .a{font-size:.86rem;color:var(--ink-2);line-height:1.65}
-.shape .a b{color:var(--ink);font-weight:700}
-.shape .why{
-  font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--ink-3);
-  border-top:1px solid var(--rule);padding-top:12px;margin-top:auto;
-}
+.mod{display:flex;flex-direction:column;gap:7px;padding:20px 20px 22px;transition:background .2s}
+.mod:hover{background:rgba(255,255,255,.03)}
+.mod .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mod .em{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:1.1rem;
+  background:rgba(var(--c),.15);border:1px solid rgba(var(--c),.28)}
+.mod .ct{font-family:var(--mono);font-size:10px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.mod h3{font-size:.94rem;font-weight:700;letter-spacing:-.015em;margin-top:3px}
+.mod .try{font-size:.79rem;color:var(--ink-3);line-height:1.45}
+.mod:hover .try{color:rgb(var(--c))}
 
 /* ── Discount finder ───────────────────────────────────────── */
-.finder{
-  background:var(--surface-2);border:1px solid var(--rule-2);border-radius:20px;
-  padding:30px;display:grid;grid-template-columns:280px minmax(0,1fr);gap:32px;
-}
-@media (max-width:860px){.finder{grid-template-columns:1fr;padding:22px;gap:22px}}
-.finder .pc-label{
-  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-3);display:block;margin-bottom:10px;
-}
-.finder input{
-  width:100%;background:var(--ground);border:1px solid var(--rule-2);border-radius:12px;
-  padding:15px 18px;font-family:var(--mono);font-size:1.35rem;font-weight:600;
-  letter-spacing:.16em;text-align:center;
-}
-.finder input::placeholder{color:var(--ink-3);letter-spacing:.16em}
-.finder .hint{font-size:.78rem;color:var(--ink-3);margin-top:11px;line-height:1.55}
-.finder .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.finder .chips button{
-  background:rgba(255,255,255,.05);border:1px solid var(--rule);border-radius:8px;
-  padding:5px 10px;font-family:var(--mono);font-size:11px;color:var(--ink-2);cursor:pointer;
-  transition:border-color .18s,color .18s;
-}
+.finder{background:var(--surface-2);border:1px solid var(--rule-2);border-radius:18px;
+  padding:26px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px}
+@media (max-width:800px){.finder{grid-template-columns:1fr;padding:20px;gap:20px}}
+.finder label{font-family:var(--mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:9px}
+.finder input{width:100%;background:var(--ground);border:1px solid var(--rule-2);border-radius:11px;
+  padding:14px 16px;font-family:var(--mono);font-size:1.3rem;font-weight:600;letter-spacing:.16em;text-align:center}
+.finder input::placeholder{color:var(--ink-3)}
+.finder .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.finder .chips button{background:rgba(255,255,255,.05);border:1px solid var(--rule);border-radius:8px;
+  padding:5px 10px;font-family:var(--mono);font-size:11px;color:var(--ink-2);cursor:pointer;transition:.18s}
 .finder .chips button:hover{border-color:var(--verify);color:var(--verify)}
-.res-state{font-size:.9rem;color:var(--ink-2);margin-bottom:16px}
+.res-state{font-size:.89rem;color:var(--ink-2);margin-bottom:14px}
 .res-state b{color:var(--ink)}
-.res-h{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.17em;text-transform:uppercase;
-  color:var(--ink-3);margin:20px 0 8px;
-}
+.res-h{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin:18px 0 7px}
 .res-links{display:flex;flex-direction:column;gap:1px}
-.res-links a{
-  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
-  padding:9px 12px;border-radius:9px;font-size:.87rem;font-weight:700;
-  background:rgba(255,255,255,.028);transition:background .18s;
-}
+.res-links a{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:9px 12px;border-radius:9px;
+  font-size:.86rem;font-weight:700;background:rgba(255,255,255,.028);transition:background .18s}
 .res-links a:hover{background:rgba(47,211,174,.1)}
-.res-links a em{font-style:normal;font-weight:400;font-size:.76rem;color:var(--ink-3)}
-.warn{
-  display:flex;gap:11px;background:var(--alert-dim);border:1px solid rgba(240,112,90,.32);
-  border-radius:12px;padding:13px 15px;font-size:.82rem;line-height:1.6;color:var(--ink-2);
-}
-.warn b{color:var(--alert);display:block;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px}
-.fineprint{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:16px;line-height:1.6}
-
-/* ── Cities ────────────────────────────────────────────────── */
-.city{padding:22px 20px;transition:background .2s}
-.city:hover{background:rgba(255,255,255,.028)}
-.city .top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px}
-.city h3{font-size:1.02rem;font-weight:800;letter-spacing:-.02em}
-.city .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--ink-3)}
-.city .rent{font-size:.85rem;color:var(--ink-2);margin-bottom:3px}
-.city .rent b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
-.city .wk{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
-.city .card{margin-top:11px;font-size:.76rem;color:var(--ink-3)}
-.city .card b{color:var(--ink-2);font-weight:600}
-.city .flag{
-  display:inline-block;margin-top:10px;font-family:var(--mono);font-size:9px;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
-  border:1px solid rgba(232,185,58,.34);border-radius:5px;padding:2px 8px;
-}
-
-/* ── Stats strip ───────────────────────────────────────────── */
-.stats{background:var(--surface-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.stats .inner{display:grid;grid-template-columns:repeat(4,1fr);padding:0}
-@media (max-width:800px){.stats .inner{grid-template-columns:repeat(2,1fr)}}
-.stats div{padding:38px 28px;border-right:1px solid var(--rule)}
-.stats div:last-child{border-right:none}
-@media (max-width:800px){.stats div:nth-child(2){border-right:none}.stats div:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
-.stats b{display:block;font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.stats span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
-
-/* ── Guardrails ────────────────────────────────────────────── */
-.rail{padding:28px 26px;display:flex;flex-direction:column;gap:11px}
-.rail .tier{
-  align-self:flex-start;font-family:var(--mono);font-size:10px;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:6px;
-}
-.rail.s .tier{background:var(--verify-dim);color:var(--verify)}
-.rail.r .tier{background:rgba(139,123,255,.16);color:#A99CFF}
-.rail.c .tier{background:var(--alert-dim);color:var(--alert)}
-.rail h3{font-size:1.05rem;font-weight:700;letter-spacing:-.02em}
-.rail p{font-size:.86rem;color:var(--ink-2);line-height:1.62}
-.rail .cnt{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:auto;padding-top:12px;border-top:1px solid var(--rule)}
-
-/* ── Points explainer ──────────────────────────────────────── */
-.points{background:var(--surface-2);border:1px solid var(--rule-2);border-radius:20px;padding:30px}
-@media (max-width:640px){.points{padding:22px}}
-.points-rows{display:grid;gap:12px;margin-bottom:22px}
-.pr{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;align-items:center}
-@media (max-width:640px){.pr{grid-template-columns:1fr;gap:6px}}
-.pr label{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
-.pr select{
-  width:100%;background:var(--ground);border:1px solid var(--rule-2);border-radius:10px;
-  padding:12px 14px;font-size:.88rem;cursor:pointer;
-}
-.pr select option{background:var(--surface-2)}
-.ptotal{
-  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
-  background:var(--ground);border:1px solid var(--rule);border-radius:14px;padding:20px 22px;margin-bottom:18px;
-}
-.ptotal b{font-size:2.6rem;font-weight:800;letter-spacing:-.05em;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
-.ptotal span{font-size:.85rem;color:var(--ink-2);max-width:44ch;line-height:1.55}
-
-/* ── Privacy ───────────────────────────────────────────────── */
-.mode{padding:28px 26px;display:flex;flex-direction:column;gap:11px}
-.mode .k{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
-.mode h3{font-size:1.18rem;font-weight:800;letter-spacing:-.025em}
-.mode p{font-size:.87rem;color:var(--ink-2);line-height:1.62}
-.mode .flag{
-  align-self:flex-start;margin-top:auto;font-family:var(--mono);font-size:10px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;
-  background:var(--verify-dim);color:var(--verify);
-}
-
-/* ── Sources ───────────────────────────────────────────────── */
-.srcs{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.srcs span{
-  font-family:var(--mono);font-size:11.5px;color:var(--ink-2);
-  background:rgba(255,255,255,.04);border:1px solid var(--rule);
-  border-radius:7px;padding:5px 11px;
-}
-.srcs span.more{color:var(--verify);border-color:rgba(47,211,174,.3);background:var(--verify-dim)}
-
-/* ── Partner / form ────────────────────────────────────────── */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:72px}
-@media (max-width:900px){.split{grid-template-columns:1fr;gap:44px}}
-.field{margin-bottom:20px}
-.field label{
-  display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;
-}
-.field input,.field select,.field textarea{
-  width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule-2);
-  padding:11px 0;font-size:.95rem;outline:none;transition:border-color .2s;
-}
-.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--verify)}
-.field input::placeholder,.field textarea::placeholder{color:var(--ink-3)}
-.field select option{background:var(--surface-2)}
-.field textarea{resize:vertical;min-height:76px}
-.formmsg{font-size:.85rem;font-weight:600;min-height:1.5em;margin-top:12px}
+.res-links a em{font-style:normal;font-weight:400;font-size:.75rem;color:var(--ink-3)}
+.warn{display:flex;gap:10px;background:var(--alert-dim);border:1px solid rgba(240,112,90,.32);
+  border-radius:11px;padding:12px 14px;font-size:.81rem;line-height:1.55;color:var(--ink-2);margin-top:16px}
+.warn b{color:var(--alert);display:block;font-size:.77rem;letter-spacing:.03em;text-transform:uppercase;margin-bottom:3px}
 
 /* ── FAQ ───────────────────────────────────────────────────── */
-.faq details{background:transparent}
-.faq summary{
-  list-style:none;cursor:pointer;padding:22px 26px;display:flex;gap:14px;
-  align-items:flex-start;font-size:.97rem;font-weight:700;letter-spacing:-.015em;
-  transition:background .2s;
-}
+.faq summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;gap:13px;align-items:flex-start;
+  font-size:.93rem;font-weight:700;letter-spacing:-.015em;transition:background .2s}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::marker{content:''}
-.faq summary::before{
-  content:'+';font-family:var(--mono);font-size:1.15rem;font-weight:400;
-  color:var(--warm);line-height:1.25;flex-shrink:0;
-}
+.faq summary::before{content:'+';font-family:var(--mono);font-size:1.1rem;font-weight:400;
+  color:var(--warm);line-height:1.2;flex-shrink:0}
 .faq details[open] summary::before{content:'\2212'}
 .faq summary:hover{background:rgba(255,255,255,.03)}
-.faq .ans{padding:0 26px 24px 54px;font-size:.89rem;color:var(--ink-2);line-height:1.7}
+.faq .ans{padding:0 22px 20px 48px;font-size:.86rem;color:var(--ink-2);line-height:1.65}
 .faq .ans b{color:var(--ink);font-weight:600}
-.faq .ans a{font-weight:600}
-.faq .ans p+p{margin-top:11px}
+
+/* ── Closer ────────────────────────────────────────────────── */
+.closer{text-align:center;padding:88px 0}
+.closer .kip{width:96px;height:96px;margin:0 auto 22px}
+.closer h2{margin-bottom:14px}
+.closer p{color:var(--ink-2);max-width:38ch;margin:0 auto 26px;font-size:1.02rem}
 
 /* ── Footer ────────────────────────────────────────────────── */
-footer{background:var(--ground);border-top:1px solid var(--rule);padding:64px 0 34px}
-.foot-top{display:flex;justify-content:space-between;gap:52px;flex-wrap:wrap;margin-bottom:44px}
-.foot-brand{max-width:270px}
-.foot-brand p{font-size:.85rem;color:var(--ink-3);line-height:1.7;margin-top:13px}
-.foot-cols{display:flex;gap:56px;flex-wrap:wrap}
-.foot-cols h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
-.foot-cols a{display:block;font-size:.85rem;color:var(--ink-2);margin-bottom:9px;transition:color .2s}
-.foot-cols a:hover{color:var(--ink)}
-.crisis{
-  background:var(--surface);border:1px solid var(--rule);border-radius:14px;
-  padding:20px 22px;margin-bottom:32px;
-}
-.crisis h4{font-size:.86rem;font-weight:800;margin-bottom:11px;color:var(--ink)}
-.crisis ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px}
-.crisis li{font-size:.82rem;color:var(--ink-2)}
+footer{background:var(--ground);border-top:1px solid var(--rule);padding:44px 0 30px}
+.crisis{display:flex;flex-wrap:wrap;gap:8px 26px;padding-bottom:24px;border-bottom:1px solid var(--rule)}
+.crisis strong{font-size:.84rem;font-weight:800;width:100%;margin-bottom:2px}
+.crisis span{font-size:.82rem;color:var(--ink-2)}
 .crisis b{color:var(--alert);font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
-.legal{font-size:.79rem;color:var(--ink-3);line-height:1.75;border-top:1px solid var(--rule);padding-top:26px}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:24px 0}
+.foot-row .uni{font-size:.85rem;color:var(--ink-2);max-width:44ch}
+.foot-row .uni b{color:var(--ink);display:block;font-size:.9rem;margin-bottom:3px}
+.legal{font-size:.76rem;color:var(--ink-3);line-height:1.7;border-top:1px solid var(--rule);padding-top:20px}
 .legal strong{color:var(--ink-2)}
-.foot-end{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:22px;
+.foot-end{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;
   font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
 
 /* ── Kip avatar (transform-only motion) ────────────────────── */
 .kip{position:relative;display:inline-block;aspect-ratio:1;flex-shrink:0}
-.kip::before{
-  content:'';position:absolute;inset:-16%;border-radius:50%;
+.kip::before{content:'';position:absolute;inset:-16%;border-radius:50%;
   background:radial-gradient(closest-side,rgba(47,211,174,.34),rgba(139,123,255,.15) 56%,transparent 74%);
-  animation:aura 4.4s ease-in-out infinite;
-}
-.kip i.b1{
-  position:absolute;inset:2%;border-radius:46% 54% 52% 48%/48% 46% 54% 52%;
+  animation:aura 4.4s ease-in-out infinite}
+.kip i.b1{position:absolute;inset:2%;border-radius:46% 54% 52% 48%/48% 46% 54% 52%;
   background:conic-gradient(from 210deg,#2FD3AE,#38BDF8 28%,#8B7BFF 58%,#F0705A 82%,#2FD3AE);
   box-shadow:inset -4px -6px 14px rgba(10,6,30,.34),inset 4px 6px 14px rgba(255,255,255,.22);
-  animation:swirl 9s ease-in-out infinite;will-change:transform;
-}
-.kip i.b2{
-  position:absolute;inset:10%;border-radius:52% 48% 44% 56%/56% 44% 56% 44%;
+  animation:swirl 9s ease-in-out infinite;will-change:transform}
+.kip i.b2{position:absolute;inset:10%;border-radius:52% 48% 44% 56%/56% 44% 56% 44%;
   background:radial-gradient(58% 52% at 34% 28%,rgba(255,255,255,.82),rgba(255,255,255,.1) 56%,transparent 76%);
-  animation:swirl 7s ease-in-out reverse infinite;will-change:transform;pointer-events:none;
-}
-.kip s{
-  position:absolute;top:37%;width:12%;height:23%;background:#fff;border-radius:99px;text-decoration:none;
-  box-shadow:0 0 8px rgba(255,255,255,.85);animation:blink 4.8s infinite,gaze 9s ease-in-out infinite;
-}
+  animation:swirl 7s ease-in-out reverse infinite;will-change:transform;pointer-events:none}
+.kip s{position:absolute;top:37%;width:12%;height:23%;background:#fff;border-radius:99px;text-decoration:none;
+  box-shadow:0 0 8px rgba(255,255,255,.85);animation:blink 4.8s infinite,gaze 9s ease-in-out infinite}
 .kip s.l{left:33%} .kip s.r{right:33%}
 .float{animation:floaty 4.4s ease-in-out infinite}
 @keyframes swirl{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(6deg) scale(1.035)}
@@ -475,7 +268,8 @@ footer{background:var(--ground);border-top:1px solid var(--rule);padding:64px 0 
 body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused}
 
 /* ── Reveal ────────────────────────────────────────────────── */
-.rev{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.rev{opacity:0;transform:translateY(16px);
+  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
 .rev.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none}}
 </style>
@@ -488,14 +282,11 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     Howdy<i>.</i>
   </a>
   <div class="nav-links">
-    <a href="#topics">Topics</a>
+    <a href="#topics">What you can ask</a>
     <a href="#discounts">Discounts</a>
-    <a href="#trust">How it stays true</a>
-    <a href="#privacy">Privacy</a>
-    <a href="#universities">Universities</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a class="cta sm" id="nav-cta" href="/chat">Ask Kip — free</a>
+  <a class="cta sm" id="nav-cta" href="/chat">Ask Kip</a>
 </div></nav>
 
 <!-- ══ HERO ══ -->
@@ -506,130 +297,56 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   </div>
   <div class="inner"><div class="hero-grid">
     <div>
-      <span class="hero-tag">
-        <span class="kip"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
-        Meet Kip
-      </span>
       <h1>The first thing you ask about <em>Australia</em>.</h1>
-      <p class="lede">Visas, work, tax, housing, health, discounts — answered in plain English and cited to an official Australian source, every single time. Kip is a companion, not a lawyer, and it tells you the difference.</p>
+      <p>Visas, work, tax, housing, health. Answered in plain English, with the official source.</p>
       <div class="hero-actions">
         <a class="cta" id="hero-cta" href="/chat">Ask Kip — it's free <span aria-hidden="true">→</span></a>
-        <a class="cta ghost" href="#topics">See what it covers</a>
+        <a class="cta ghost" href="#topics">What can I ask?</a>
       </div>
       <div class="hero-facts">
-        <div><b class="num">463</b><span>real questions</span></div>
+        <div><b class="num">463</b><span>questions ready</span></div>
         <div><b class="num">52</b><span>official sources</span></div>
-        <div><b class="num">14</b><span>topics</span></div>
-        <div><b>$0</b><span>to ask</span></div>
+        <div><b>$0</b><span>no account</span></div>
       </div>
     </div>
     <div class="hero-side">
       <span class="kip float"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
     </div>
   </div></div>
-  <div class="scroll-cue">
-    <span>Scroll</span>
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-  </div>
 </header>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
 
-<!-- ══ THE THREE LEASHES ══ -->
-<section class="band" id="trust">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">Why you can act on it</span>
-      <h2 class="h2">An AI that can't make things up about your visa.</h2>
-      <p class="lede">A language model will state an invented visa fee as fluently as a real one. That is the single most dangerous thing about using AI for this. So Kip runs on three independent controls, and each one catches what the others miss.</p>
-    </div>
-    <div class="grid g3 rev">
-      <div class="leash">
-        <span class="n">Control 01</span>
-        <h3>A verified knowledge base</h3>
-        <p>Hand-checked answers, each stored with the source it came from and the date it was last confirmed. Kip answers from this first — it's faster, and it's ours.</p>
-        <p class="tail">Nothing enters it without a citation.</p>
-      </div>
-      <div class="leash">
-        <span class="n">Control 02</span>
-        <h3>Search locked to 52 official domains</h3>
-        <p>For anything that changes — wage rates, visa fees, thresholds, deadlines — Kip searches live. It physically cannot reach any site outside the allowlist.</p>
-        <p class="tail">immi · ato · fairwork · servicesaustralia · +48</p>
-      </div>
-      <div class="leash">
-        <span class="n">Control 03</span>
-        <h3>Every link re-checked on the way out</h3>
-        <p>Our server reads the finished answer and strips any link that isn't on the allowlist — including one the model invented. Nothing unverified reaches your screen.</p>
-        <p class="tail">Deterministic. The model can't talk past it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ STATS ══ -->
-<div class="stats"><div class="inner">
-  <div class="rev"><b class="num" style="color:var(--verify)">463</b><span>questions seeded</span></div>
-  <div class="rev"><b class="num" style="color:var(--gold)">52</b><span>trusted .gov.au &amp; official sources</span></div>
-  <div class="rev"><b class="num" style="color:var(--warm)">86</b><span>facts re-checked nightly</span></div>
-  <div class="rev"><b style="color:var(--verify)">100%</b><span>answers carry a citation</span></div>
+<!-- ══ THE THREE PROMISES ══ -->
+<div class="promise"><div class="inner">
+  <div><span class="ic">✅</span><div><b>Always cited</b><span>Every answer links its official source.</span></div></div>
+  <div><span class="ic">🔒</span><div><b>Nothing saved</b><span>Unless you sign in and choose to.</span></div></div>
+  <div><span class="ic">⚖️</span><div><b>Guidance, not advice</b><span>Kip says when to see a registered expert.</span></div></div>
 </div></div>
 
-<!-- ══ MODULES ══ -->
+<!-- ══ TOPICS ══ -->
 <section class="band" id="topics">
   <div class="inner">
     <div class="band-head rev">
-      <span class="eyebrow">14 topics · 463 questions</span>
-      <h2 class="h2">Built from what students actually ask.</h2>
-      <p class="lede">Not a feature list someone invented in a meeting. Every topic below is sized by real researched questions — which is why housing is the biggest and nobody pretended tipping needed fifty.</p>
+      <span class="eyebrow">What you can ask</span>
+      <h2 class="h2">Tap a topic. Ask anything.</h2>
     </div>
     <div class="grid g4 rev" id="mods"></div>
   </div>
 </section>
 
-<!-- ══ ANSWER SHAPES ══ -->
-<section class="band alt">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">Answer design</span>
-      <h2 class="h2">Three kinds of question need three different answers.</h2>
-      <p class="lede">A student who suspects they're being ripped off doesn't need a balanced overview. They need a verdict. Kip reads which kind of question you asked and shapes the answer to match.</p>
-    </div>
-    <div class="grid g3 rev">
-      <div class="shape i">
-        <span class="badge">📖 Explaining</span>
-        <p class="q">"What is a TFN?"</p>
-        <p class="a">Explains it plainly, then says why it matters to <b>you</b> — without a TFN your employer must withhold <b>47%</b> of your wages.</p>
-        <p class="why">INFORMATIONAL — you want to understand something.</p>
-      </div>
-      <div class="shape p">
-        <span class="badge">📋 Step by step</span>
-        <p class="q">"How do I lodge a tax return?"</p>
-        <p class="a">Numbered steps in the real order, naming the actual site and form at each one — <b>myGov</b>, link the ATO, wait for "Tax ready", open <b>myTax</b>.</p>
-        <p class="why">PROCEDURAL — you're going to do this today.</p>
-      </div>
-      <div class="shape v">
-        <span class="badge">🔍 Verdict first</span>
-        <p class="q">"Is this rental listing a scam?"</p>
-        <p class="a"><b>Leads with the verdict</b>, then the specific red flags to check, then exactly who to report it to. No hedging — hedging leaves you where you started.</p>
-        <p class="why">INVESTIGATIVE — you suspect something and must decide.</p>
-      </div>
-    </div>
-  </div>
-</section>
 <!-- ══ DISCOUNT FINDER ══ -->
-<section class="band" id="discounts">
+<section class="band alt" id="discounts">
   <div class="inner">
     <div class="band-head rev">
-      <span class="eyebrow">Discounts &amp; concessions · 33 questions</span>
-      <h2 class="h2">Concessions are set state by state. So we ask where you are.</h2>
-      <p class="lede">Here's the thing nobody tells you: international students are <strong>not automatically entitled</strong> to a transport concession in every Australian state. Tapping one you don't qualify for is fare evasion, with a fine. So Kip never quotes you a discount — it sends you to the authority that actually decides.</p>
+      <span class="eyebrow">Student discounts</span>
+      <h2 class="h2">Concessions change by state.</h2>
+      <p class="sub">Enter your postcode and we'll point you at the people who decide.</p>
     </div>
-
     <div class="finder rev">
       <div>
-        <label class="pc-label" for="pc">Your postcode</label>
-        <input id="pc" type="text" inputmode="numeric" maxlength="4" placeholder="4110" autocomplete="postal-code" aria-describedby="pc-hint">
-        <p class="hint" id="pc-hint">Resolved in your browser. Nothing is sent anywhere and nothing is stored.</p>
+        <label for="pc">Your postcode</label>
+        <input id="pc" type="text" inputmode="numeric" maxlength="4" placeholder="4110" autocomplete="postal-code">
         <div class="chips">
           <button type="button" data-pc="2000">Sydney</button>
           <button type="button" data-pc="3000">Melbourne</button>
@@ -644,250 +361,40 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   </div>
 </section>
 
-<!-- ══ CITIES ══ -->
-<section class="band alt" id="cities">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">City intelligence</span>
-      <h2 class="h2">What a week actually costs.</h2>
-      <p class="lede">Indicative share-accommodation budgets, so you can plan before you commit. Ranges move — ask Kip for the current figure and it checks the live source before answering.</p>
-    </div>
-    <div class="grid g4 rev" id="cities-grid"></div>
-    <p class="fineprint rev">Indicative ranges compiled from studyaustralia.gov.au and state tenancy authorities, last reviewed August 2026. Kip treats every one of these as volatile and re-checks it against the source rather than quoting from memory.</p>
-  </div>
-</section>
-
-<!-- ══ GUARDRAILS ══ -->
-<section class="band" id="guardrails">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">The line we don't cross</span>
-      <h2 class="h2">Kip knows the edge of its own competence.</h2>
-      <p class="lede">Under the <em>Migration Act 1958</em>, giving immigration assistance without registration is a criminal offence. Giving general information is not. That distinction isn't a disclaimer at the bottom of a page — it's built into every question in the bank.</p>
-    </div>
-    <div class="grid g3 rev">
-      <div class="rail s">
-        <span class="tier">Standard</span>
-        <h3>Answer it, cite it</h3>
-        <p>General information from official sources, shaped to what you asked, with a link you can open and read yourself. The bulk of the product.</p>
-        <p class="cnt">421 questions</p>
-      </div>
-      <div class="rail r">
-        <span class="tier">Refer</span>
-        <h3>Explain, then hand over</h3>
-        <p>When a question turns on <em>your own</em> circumstances — PR pathways, visa strategy, a legal dispute — Kip describes what exists, then names a MARA-registered agent or your university's free legal service. It will not tell you what to apply for.</p>
-        <p class="cnt">12 questions · mara.gov.au</p>
-      </div>
-      <div class="rail c">
-        <span class="tier">Crisis</span>
-        <h3>Safety before information</h3>
-        <p>Family violence, mental health emergency, assault. The answer opens with <b>000</b> and <b>Lifeline 13 11 14</b>, then your university's support service. Information comes second.</p>
-        <p class="cnt">9 questions · free, confidential, visa-safe</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ POINTS EXPLAINER ══ -->
-<section class="band alt">
-  <div class="inner">
-    <div class="split">
-      <div class="rev">
-        <span class="eyebrow">Points test explainer</span>
-        <h2 class="h2">How the points table works.</h2>
-        <p class="lede">This shows you what the <strong>published</strong> points table awards for each factor, so the system stops being a black box.</p>
-        <p class="lede" style="margin-top:16px">What it deliberately will not do is tell you whether you qualify, or which visa to apply for. That's an assessment of your individual circumstances — legally it's migration assistance, and only a registered agent can give it. Any free tool that hands you a green tick and "✅ You qualify for 189" is doing something it isn't allowed to do, and you shouldn't act on it.</p>
-        <p class="fineprint">Factors and values shown are from the published skilled migration points table. Invitation cut-offs are not a fixed number — they move with every round and by occupation.</p>
-      </div>
-      <div class="points rev">
-        <div class="points-rows">
-          <div class="pr"><label for="p-age">Age</label><select id="p-age" class="pt">
-            <option value="0">Select…</option><option value="25">18–24</option><option value="30">25–32</option><option value="25">33–39</option><option value="15">40–44</option><option value="0">45+</option></select></div>
-          <div class="pr"><label for="p-eng">English</label><select id="p-eng" class="pt">
-            <option value="0">Select…</option><option value="20">Superior</option><option value="10">Proficient</option><option value="0">Competent</option></select></div>
-          <div class="pr"><label for="p-qual">Qualification</label><select id="p-qual" class="pt">
-            <option value="0">Select…</option><option value="20">Doctorate</option><option value="15">Bachelor or Masters</option><option value="10">Diploma or trade</option></select></div>
-          <div class="pr"><label for="p-exp">Skilled work</label><select id="p-exp" class="pt">
-            <option value="0">Select…</option><option value="20">8+ years overseas</option><option value="15">5–7 years</option><option value="10">3–4 years</option><option value="5">1–2 years</option></select></div>
-          <div class="pr"><label for="p-au">Australian study</label><select id="p-au" class="pt">
-            <option value="0">Select…</option><option value="5">Completed here</option><option value="0">Not applicable</option></select></div>
-        </div>
-        <div class="ptotal">
-          <b class="num" id="p-total">0</b>
-          <span id="p-caption">The published table awards this much for the factors you selected. It is arithmetic, not an assessment.</span>
-        </div>
-        <div class="warn">
-          <div><b>This is not an eligibility check</b>
-          Whether you can apply, and for what, depends on your occupation, your skills assessment, the current invitation round and things not on this table. That is a question for a <a href="https://www.mara.gov.au" target="_blank" rel="noopener noreferrer">MARA-registered migration agent</a>.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ PRIVACY ══ -->
-<section class="band" id="privacy">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">Privacy</span>
-      <h2 class="h2">You can ask about a visa refusal without it existing anywhere.</h2>
-      <p class="lede">People ask us things they haven't told their family. So the system was designed on one assumption: <strong>one day someone will get a copy of the database.</strong> The job is to make that copy worthless.</p>
-    </div>
-    <div class="grid g3 rev">
-      <div class="mode">
-        <span class="k">Signed out</span>
-        <h3>Guest</h3>
-        <p>Full access to Kip. No account, and <strong>nothing written to the database at all</strong>. Close the tab and it is genuinely gone — there's no delete step that could quietly fail, because no row is ever created.</p>
-        <span class="flag">Nothing stored</span>
-      </div>
-      <div class="mode">
-        <span class="k">Signed in, opted out</span>
-        <h3>Incognito</h3>
-        <p>Your history from earlier is there, but <strong>this conversation isn't written</strong>. One toggle in the chat window, on and off mid-conversation.</p>
-        <span class="flag">Per-conversation</span>
-      </div>
-      <div class="mode">
-        <span class="k">Signed in, default</span>
-        <h3>Saved</h3>
-        <p>Conversations kept so Kip remembers the thread of your arrival — <strong>encrypted before they reach the database</strong>, with a key the database doesn't contain. You pick 30 days, 90 days, a year, or until you delete them.</p>
-        <span class="flag">AES-256-GCM</span>
-      </div>
-    </div>
-    <div class="grid g2 rev" style="margin-top:32px">
-      <div class="leash">
-        <span class="n">What a stolen database contains</span>
-        <h3>Random bytes</h3>
-        <p>Every message, every conversation title and every email address is encrypted before it's written. The per-user keys in the database are themselves encrypted by a master key that lives on a different part of the server — one the database process can't read, and that is never in a backup.</p>
-        <p class="tail">No password database exists to steal. Sign-in is Google, and we never see one.</p>
-      </div>
-      <div class="leash">
-        <span class="n">What we never collect</span>
-        <h3>The list is short on purpose</h3>
-        <p>No date of birth. No address. No phone. No visa or passport number. If you paste a tax file number, Medicare number or card number into the chat, it's detected and the message is <strong>neither stored nor sent to the model</strong> — Kip tells you not to share it and carries on.</p>
-        <p class="tail">Raw IP addresses are never written down, anywhere.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SOURCES ══ -->
-<section class="band alt">
-  <div class="inner">
-    <div class="band-head rev">
-      <span class="eyebrow">The allowlist</span>
-      <h2 class="h2">Kip may cite these, and nothing else.</h2>
-      <p class="lede">Both the live search and the citation check run off this same list, through two independent code paths. A lookalike domain doesn't get through: <span style="font-family:var(--mono);font-size:.85em;color:var(--alert)">fairwork.gov.au.attacker.io</span> is not fairwork.gov.au.</p>
-    </div>
-    <div class="srcs rev" id="srcs"></div>
-  </div>
-</section>
-
-<!-- ══ UNIVERSITIES ══ -->
-<section class="band" id="universities">
-  <div class="inner">
-    <div class="split">
-      <div class="rev">
-        <span class="eyebrow">For universities &amp; institutions</span>
-        <h2 class="h2">Your support team answers the same 40 questions every semester.</h2>
-        <p class="lede">Kip absorbs those and escalates the rest. Co-branded for your institution, with your orientation dates, your accommodation office, your student legal service and your emergency contacts loaded into the knowledge base.</p>
-        <div class="grid g2 rev" style="margin-top:34px">
-          <div class="leash">
-            <span class="n">Cohort insight</span>
-            <h3>What your students are struggling with, this month</h3>
-            <p>"Housing questions up 40% in February." Built entirely from de-identified topic counts — no identities exist in that data to begin with, so it's privacy-safe by construction rather than by policy.</p>
-          </div>
-          <div class="leash">
-            <span class="n">Duty of care</span>
-            <h3>A distressed student meets help first</h3>
-            <p>The crisis tier puts 000, Lifeline and <em>your own</em> counselling service ahead of any information — automatically, every time.</p>
-          </div>
-        </div>
-        <div class="warn rev" style="margin-top:26px">
-          <div><b>What we will never do</b>
-          Advertising never appears inside an answer. Partner presence sits in the header, the topic tiles and a clearly labelled panel below the answer — never in Kip's reply, and never as a reordered source. The model that writes answers has no access to partner data at all, so it can't happen by accident.</div>
-        </div>
-      </div>
-      <div class="rev">
-        <h3 style="font-size:1.3rem;font-weight:800;letter-spacing:-.025em;margin-bottom:8px">Talk to us</h3>
-        <p style="font-size:.88rem;color:var(--ink-2);margin-bottom:30px">Universities, student associations, government programs, or anyone who wants to see it working.</p>
-        <form id="partner-form" novalidate>
-          <div class="field"><label for="pf-name">Name</label><input id="pf-name" type="text" placeholder="Your name" maxlength="100" required></div>
-          <div class="field"><label for="pf-email">Email</label><input id="pf-email" type="email" placeholder="you@university.edu.au" maxlength="254" required></div>
-          <div class="field"><label for="pf-org">Organisation</label><input id="pf-org" type="text" placeholder="Institution or company" maxlength="140"></div>
-          <div class="field"><label for="pf-kind">You are</label><select id="pf-kind">
-            <option>A university or college</option>
-            <option>A student association</option>
-            <option>A government or council program</option>
-            <option>A student wanting early access</option>
-            <option>Media or something else</option>
-          </select></div>
-          <div class="field"><label for="pf-msg">Message</label><textarea id="pf-msg" placeholder="What would you like to know?" maxlength="1200" rows="3"></textarea></div>
-          <button class="cta warm" type="submit" style="width:100%;justify-content:center">Send</button>
-          <p class="formmsg" id="pf-msg-out" role="status"></p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══ FAQ ══ -->
 <section class="band" id="faq">
   <div class="inner">
     <div class="band-head rev">
-      <span class="eyebrow">Straight answers</span>
-      <h2 class="h2">The questions people ask before they trust it.</h2>
+      <span class="eyebrow">Before you start</span>
+      <h2 class="h2">Four straight answers.</h2>
     </div>
     <div class="grid g2 faq rev">
       <details>
-        <summary>Is it actually free?</summary>
-        <div class="ans"><p>Yes, and the safety content stays free permanently — emergencies, scams, exploitation, mental health. Charging a frightened student to find out who to call would be indefensible.</p>
-        <p>Universities pay to run a co-branded version for their cohort. That's the business, not you.</p></div>
+        <summary>Is it really free?</summary>
+        <div class="ans">Yes. Emergency and safety help stays free forever.</div>
       </details>
       <details>
         <summary>Is this legal or migration advice?</summary>
-        <div class="ans"><p><b>No, and it legally cannot be.</b> Under the <em>Migration Act 1958</em> only a MARA-registered agent or an Australian legal practitioner may advise on your own immigration circumstances.</p>
-        <p>Kip gives general information: what a visa is, what it costs, what it requires, how the process runs. The moment a question turns on <em>your</em> situation, it says so and names who to go to.</p></div>
+        <div class="ans">No. Kip gives general information and tells you when you need a <b>MARA-registered agent</b>.</div>
       </details>
       <details>
-        <summary>Do you save my conversations?</summary>
-        <div class="ans"><p>Only if you're signed in and haven't turned it off. Signed out, <b>nothing is written to the database at all</b> — the code never builds a row, so there's no cleanup step that could quietly fail.</p>
-        <p>Signed in, everything you type is encrypted before it reaches the database, and you choose how long it's kept. See <a href="#privacy">Privacy</a>.</p></div>
+        <summary>Do you save my chats?</summary>
+        <div class="ans">Not unless you sign in and choose to. Signed out, nothing is written down at all.</div>
       </details>
       <details>
-        <summary>If I ask about my employer, could it affect my visa?</summary>
-        <div class="ans"><p>Not through us — we don't know who you are and don't report to anyone.</p>
-        <p>More importantly: the Fair Work Ombudsman has an arrangement with Home Affairs so that <b>visa holders who report exploitation are protected</b>. That protection exists precisely so you can speak up. Kip will explain it and give you the number: <b>13 13 94</b>, free, with interpreters.</p></div>
-      </details>
-      <details>
-        <summary>What happens when Kip doesn't know?</summary>
-        <div class="ans"><p>It says so and names the official site to check, rather than producing a confident guess. That's a rule in the system prompt, not a hope.</p>
-        <p>The question also gets logged as a coverage gap — <b>the topic only, with no link to you and no timestamp</b> — and worked on. That's how the answer bank grows.</p></div>
-      </details>
-      <details>
-        <summary>Which languages does it speak?</summary>
-        <div class="ans"><p>Ask in your own language and Kip answers in it. The cited sources stay in English because that's what the official pages are, and you should be able to open and check them.</p>
-        <p>For anything urgent, the crisis lines in the footer all provide free interpreters — you never have to explain yourself in English.</p></div>
-      </details>
-      <details>
-        <summary>Where is my data physically stored?</summary>
-        <div class="ans"><p>On a server we control, not a third-party AI platform. For institutional deployments that server is in <b>Sydney</b>, because Australian data residency is what university procurement asks about first.</p>
-        <p>Anthropic's API sees your question and the recent conversation — never your name, email or account. It cannot identify you.</p></div>
-      </details>
-      <details>
-        <summary>Can my university have this?</summary>
-        <div class="ans"><p>Yes — co-branded, with your orientation dates, accommodation office, student legal service and emergency contacts loaded in, plus a dashboard showing what your cohort is struggling with this month.</p>
-        <p><a href="#universities">Details and contact</a>.</p></div>
+        <summary>Could asking about my boss hurt my visa?</summary>
+        <div class="ans">No. Fair Work protects visa holders who report being underpaid. <b>13 13 94</b>, free, interpreters available.</div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ══ CLOSER ══ -->
-<section class="band alt" style="text-align:center">
+<section class="band alt closer">
   <div class="inner">
-    <span class="kip float rev" style="width:110px;height:110px;margin:0 auto 26px"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
-    <h2 class="h2 rev" style="max-width:20ch;margin-left:auto;margin-right:auto">Ask the thing you've been putting off.</h2>
-    <p class="lede rev" style="margin:0 auto 30px">No account. Nothing stored. Every answer cited. If it's bigger than general information, Kip will tell you that too — and point you to the right registered expert.</p>
+    <span class="kip float rev"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
+    <h2 class="h2 rev">Ask the thing you've been putting off.</h2>
+    <p class="rev">No account. Nothing saved. Every answer cited.</p>
     <a class="cta rev" id="closer-cta" href="/chat" style="font-size:15px;padding:14px 30px">Ask Kip — it's free <span aria-hidden="true">→</span></a>
   </div>
 </section>
@@ -896,55 +403,29 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 <footer>
   <div class="inner">
     <div class="crisis">
-      <h4>If you need help right now</h4>
-      <ul>
-        <li>Emergency — police, fire, ambulance <b>000</b></li>
-        <li>Lifeline, 24/7 <b>13 11 14</b></li>
-        <li>Beyond Blue <b>1300 22 4636</b></li>
-        <li>1800RESPECT <b>1800 737 732</b></li>
-        <li>Healthdirect nurse, 24/7 <b>1800 022 222</b></li>
-        <li>Fair Work Ombudsman <b>13 13 94</b></li>
-      </ul>
+      <strong>Need help right now?</strong>
+      <span>Emergency <b>000</b></span>
+      <span>Lifeline <b>13 11 14</b></span>
+      <span>Beyond Blue <b>1300 22 4636</b></span>
+      <span>1800RESPECT <b>1800 737 732</b></span>
+      <span>Health advice <b>1800 022 222</b></span>
+      <span>Fair Work <b>13 13 94</b></span>
     </div>
 
-    <div class="foot-top">
-      <div class="foot-brand">
-        <a class="brand" href="#top">
-          <span class="kip"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
-          Howdy<i>.</i>
-        </a>
-        <p>A first point of contact for international students and new migrants in Australia. Guidance from official sources — never legal, migration, tax or financial advice.</p>
-      </div>
-      <div class="foot-cols">
-        <div>
-          <h4>Product</h4>
-          <a href="#topics">Topics</a>
-          <a href="#discounts">Discounts finder</a>
-          <a href="#trust">How it stays true</a>
-          <a href="/chat" data-chat>Ask Kip</a>
-        </div>
-        <div>
-          <h4>Trust</h4>
-          <a href="#privacy">Privacy</a>
-          <a href="#guardrails">Our guardrails</a>
-          <a href="#universities">For universities</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div>
-          <h4>Official sources</h4>
-          <a href="https://immi.homeaffairs.gov.au" target="_blank" rel="noopener noreferrer">immi.homeaffairs.gov.au</a>
-          <a href="https://www.ato.gov.au" target="_blank" rel="noopener noreferrer">ato.gov.au</a>
-          <a href="https://www.fairwork.gov.au" target="_blank" rel="noopener noreferrer">fairwork.gov.au</a>
-          <a href="https://www.mara.gov.au" target="_blank" rel="noopener noreferrer">mara.gov.au</a>
-        </div>
-      </div>
+    <div class="foot-row">
+      <a class="brand" href="#top">
+        <span class="kip"><i class="b1"></i><i class="b2"></i><s class="l"></s><s class="r"></s></span>
+        Howdy<i>.</i>
+      </a>
+      <p class="uni"><b>Universities &amp; student associations</b>
+        Co-branded Kip for your cohort — <a href="#" id="uni-link">get in touch</a>.</p>
     </div>
 
-    <p class="legal"><strong>Important.</strong> Kip provides general information sourced from official Australian government websites. It is not legal, migration, tax or financial advice, and it is not a substitute for a registered professional. Under the <em>Migration Act 1958</em>, only a MARA-registered migration agent or an Australian legal practitioner may give immigration assistance about your own circumstances — Kip does not, and will refer you. Always confirm time-sensitive details on the official source linked in each answer.</p>
+    <p class="legal"><strong>Kip gives general information from official Australian sources.</strong> It is not legal, migration, tax or financial advice. Only a MARA-registered migration agent or an Australian legal practitioner can advise on your own immigration situation — Kip will tell you when that's what you need. Always check time-sensitive details on the source linked in each answer.</p>
 
     <div class="foot-end">
       <span>© 2026 Howdy</span>
-      <span>Made for everyone starting fresh in Australia</span>
+      <span>For everyone starting fresh in Australia</span>
     </div>
   </div>
 </footer>
@@ -952,76 +433,55 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 <script>
 'use strict';
 
-/* Where the chat lives. On the real deployment it's /chat; when this page is
-   opened as a standalone preview, point at the hosted prototype instead so the
-   buttons still go somewhere. */
+/* On the real deployment the chat is /chat. Opened standalone, point the
+   buttons at the hosted prototype so they still go somewhere. */
 var OFF_HOST = location.protocol === 'file:' || /claude\.ai|claudeusercontent/.test(location.hostname);
-/* CHANGE ME before launch — set to your real address (howdy.config.json → app.admin_email). */
-var CONTACT = 'hello@example.com';
 var CHAT = OFF_HOST ? 'https://claude.ai/code/artifact/b7b39843-ad38-40d0-a4d4-508bf3bcbabc' : '/chat';
+var CONTACT = 'hello@example.com';   /* CHANGE ME before launch */
+
 ['nav-cta','hero-cta','closer-cta'].forEach(function(id){
   var el = document.getElementById(id);
   if (el){ el.href = CHAT; if (OFF_HOST){ el.target = '_blank'; el.rel = 'noopener noreferrer'; } }
 });
-document.querySelectorAll('[data-chat]').forEach(function(a){ a.href = CHAT; });
+document.getElementById('uni-link').href = 'mailto:' + CONTACT + '?subject=' +
+  encodeURIComponent('Howdy for our students');
 
 var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
 
 /* ── Topics — the real 14, sized by real question counts ───────────────── */
 var MODULES = [
-  {id:'housing',   e:'🏠', n:'Housing & Rentals',          c:'255,122,89',  q:50, t:'Find listings on trusted sites, bond, your rights', a:'Two bedroom near Acacia Ridge 4110'},
-  {id:'visa',      e:'🛂', n:'Visas & Work Rights',        c:'124,92,252',  q:45, t:'Student 500, Graduate 485, and your work-hour limits', a:'How many hours can I work?'},
-  {id:'work',      e:'💼', n:'Jobs & Pay Rights',          c:'18,161,132',  q:45, t:'Minimum wage, payslips, what to do if underpaid', a:'Am I being underpaid?'},
-  {id:'tax',       e:'🧾', n:'TFN, Tax & Super',           c:'255,194,75',  q:40, t:'Get your Tax File Number, understand tax and super', a:'How do I apply for a TFN?'},
-  {id:'health',    e:'🏥', n:'OSHC & Healthcare',          c:'244,114,182', q:40, t:'Health cover, seeing a doctor, emergency numbers', a:'What does my OSHC cover?'},
-  {id:'money',     e:'🏦', n:'Banking & Money',            c:'56,189,248',  q:40, t:'Open an account, send money home, avoid bad rates', a:'Which bank suits students?'},
-  {id:'safety',    e:'🛡️', n:'Safety, Scams & Emergencies',c:'255,122,89',  q:40, t:'Emergency numbers, scams targeting students, support', a:'Is this visa call a scam?'},
-  {id:'study',     e:'🎓', n:'Student Life',               c:'255,194,75',  q:39, t:'Campus support, libraries, English help, academic advice', a:'Where do I get free academic help?'},
-  {id:'transport', e:'🚋', n:'Getting Around',             c:'124,92,252',  q:38, t:'Transport cards and getting around, city by city', a:'How do I get around Brisbane?'},
-  {id:'discounts', e:'🎟️', n:'Discounts & Concessions',    c:'255,194,75',  q:33, t:'Student concessions and discounts where you actually live', a:'Am I eligible for a concession?'},
-  {id:'arrive',    e:'🛬', n:'Just Landed',                c:'56,189,248',  q:20, t:'Your first 30 days in Australia, step by step', a:'What do I do in my first week?'},
-  {id:'cost',      e:'💸', n:'Cost of Living',             c:'18,161,132',  q:19, t:'What a week actually costs, city by city', a:'How much do I need per week?'},
-  {id:'culture',   e:'🤝', n:'Fitting In',                 c:'255,194,75',  q:8,  t:'Tipping, slang and the unwritten rules nobody tells you', a:'Do I have to tip in Australia?'},
-  {id:'rights',    e:'⚖️', n:'Your Rights',                c:'124,92,252',  q:6,  t:'Consumer law, refunds, and what you are entitled to', a:'What are my refund rights?'}
+  {e:'🏠', n:'Housing',      c:'255,122,89',  q:50, a:'“Is this listing a scam?”'},
+  {e:'🛂', n:'Visas',        c:'124,92,252',  q:45, a:'“How many hours can I work?”'},
+  {e:'💼', n:'Jobs & pay',   c:'18,161,132',  q:45, a:'“Am I being underpaid?”'},
+  {e:'🧾', n:'Tax & TFN',    c:'255,194,75',  q:40, a:'“How do I get a TFN?”'},
+  {e:'🏥', n:'Health',       c:'244,114,182', q:40, a:'“What does OSHC cover?”'},
+  {e:'🏦', n:'Money',        c:'56,189,248',  q:40, a:'“Which bank for students?”'},
+  {e:'🛡️', n:'Safety',       c:'255,122,89',  q:40, a:'“Is this call a scam?”'},
+  {e:'🎓', n:'Student life', c:'255,194,75',  q:39, a:'“Where’s free tutoring?”'},
+  {e:'🚋', n:'Transport',    c:'124,92,252',  q:38, a:'“How do I get around?”'},
+  {e:'🎟️', n:'Discounts',    c:'255,194,75',  q:33, a:'“Do I get a concession?”'},
+  {e:'🛬', n:'Just landed',  c:'56,189,248',  q:20, a:'“What do I do first?”'},
+  {e:'💸', n:'Cost of living',c:'18,161,132', q:19, a:'“What does a week cost?”'},
+  {e:'🤝', n:'Fitting in',   c:'255,194,75',  q:8,  a:'“Do I tip in Australia?”'},
+  {e:'⚖️', n:'Your rights',  c:'124,92,252',  q:6,  a:'“Can I get a refund?”'}
 ];
 
 document.getElementById('mods').innerHTML = MODULES.map(function(m){
   return '<a class="mod" style="--c:' + m.c + '" href="' + esc(CHAT) + '">' +
-    '<span class="top"><span class="em">' + m.e + '</span><span class="ct">' + m.q + ' questions</span></span>' +
-    '<h3>' + esc(m.n) + '</h3><p>' + esc(m.t) + '</p>' +
-    '<span class="try">Try: &ldquo;' + esc(m.a) + '&rdquo; &rarr;</span></a>';
+    '<span class="top"><span class="em">' + m.e + '</span><span class="ct">' + m.q + '</span></span>' +
+    '<h3>' + esc(m.n) + '</h3><span class="try">' + esc(m.a) + '</span></a>';
 }).join('');
 
-/* ── Ticker ────────────────────────────────────────────────────────────── */
 var tick = MODULES.map(function(m){ return m.n; });
 document.getElementById('ticker').innerHTML =
   tick.concat(tick).map(function(t){ return '<b>' + esc(t) + ' <span>·</span></b>'; }).join('');
 
-/* ── Cities ────────────────────────────────────────────────────────────── */
-var CITIES = [
-  {n:'Sydney',    s:'NSW', e:'🌉', r:'$300–420', w:552, card:'Opal',       note:'UNSW · USyd · UTS · Macquarie'},
-  {n:'Melbourne', s:'VIC', e:'☕', r:'$260–360', w:498, card:'myki',       note:'UniMelb · RMIT · Monash · Deakin'},
-  {n:'Brisbane',  s:'QLD', e:'🌞', r:'$220–310', w:454, card:'go card',    note:'UQ · QUT · Griffith', flag:'2032 Olympic host'},
-  {n:'Perth',     s:'WA',  e:'🌊', r:'$240–340', w:478, card:'SmartRider', note:'UWA · Curtin · ECU · Murdoch'},
-  {n:'Adelaide',  s:'SA',  e:'🏛️', r:'$180–280', w:406, card:'metroCARD',  note:'Adelaide · UniSA · Flinders', flag:'Most affordable capital'},
-  {n:'Canberra',  s:'ACT', e:'🏔️', r:'$220–320', w:445, card:'MyWay',      note:'ANU · University of Canberra'},
-  {n:'Darwin',    s:'NT',  e:'🌿', r:'$200–300', w:430, card:'Tap and Ride',note:'Charles Darwin University'},
-  {n:'Hobart',    s:'TAS', e:'🧊', r:'$160–280', w:398, card:'Greencard',  note:'University of Tasmania'}
-];
-document.getElementById('cities-grid').innerHTML = CITIES.map(function(c){
-  return '<div class="city"><div class="top"><h3>' + esc(c.n) + '</h3><span class="st">' + esc(c.s) + '</span></div>' +
-    '<p class="rent">Share room <b>' + esc(c.r) + '</b>/wk</p>' +
-    '<p class="wk">≈ $' + c.w + ' all-in per week</p>' +
-    '<p class="card">Transport card: <b>' + esc(c.card) + '</b><br>' + esc(c.note) + '</p>' +
-    (c.flag ? '<span class="flag">' + esc(c.flag) + '</span>' : '') + '</div>';
-}).join('');
-
 /* ── Discount finder ───────────────────────────────────────────────────────
-   Mirrors howdy.config.json → discounts, and the server's /api/discounts.
+   Mirrors howdy.config.json → discounts and the server's /api/discounts.
    Resolves the state, links the authority that decides eligibility, and never
-   states an amount — percentages and fares change, and asserting a concession
-   entitlement that doesn't apply is how a student ends up fined.            */
+   states an amount — asserting a concession that doesn't apply is how a
+   student ends up with a fare-evasion fine.                                */
 var RANGES = [['NSW',1000,2599],['NSW',2619,2899],['NSW',2921,2999],['ACT',200,299],['ACT',2600,2618],
               ['ACT',2900,2920],['VIC',3000,3999],['VIC',8000,8999],['QLD',4000,4999],['QLD',9000,9999],
               ['SA',5000,5999],['WA',6000,6999],['TAS',7000,7999],['NT',800,999]];
@@ -1036,12 +496,9 @@ var STATES = {
   NT: ['Northern Territory','NT Public Transport','https://nt.gov.au','NT Government','https://nt.gov.au']
 };
 var NATIONAL = [
-  ['UNiDAYS','https://www.myunidays.com','Free — verified with your student email'],
-  ['Student Beans','https://www.studentbeans.com','Free — verified with your student email'],
-  ['Study Australia','https://www.studyaustralia.gov.au','Official cost-of-living guidance'],
-  ['Moneysmart','https://moneysmart.gov.au','Government budgeting tools, nothing sold']
+  ['UNiDAYS','https://www.myunidays.com','free, use your student email'],
+  ['Student Beans','https://www.studentbeans.com','free, use your student email']
 ];
-var CAUTION = 'International students are not automatically entitled to a public transport concession in every state, and the rules differ by state and by visa. Travelling on a concession fare you are not entitled to is fare evasion and carries a fine — confirm with your own state before you buy or tap.';
 
 function stateFor(pc){
   var d = String(pc || '').replace(/\D/g,'');
@@ -1057,17 +514,14 @@ function link(name, url, note){
          (note ? ' <em>' + esc(note) + '</em>' : '') + '</a>';
 }
 function renderFinder(pc){
-  var st = stateFor(pc), e = STATES[st], out = document.getElementById('finder-out');
-  var html = e
-    ? '<p class="res-state">Showing <b>' + esc(e[0]) + '</b>. Concessions are set by each state — this is the authority that decides whether you qualify.</p>' +
-      '<div class="res-links">' + link(e[1], e[2], 'transport concessions') + link(e[3], e[4], 'state concessions &amp; rebates') + '</div>'
-    : '<p class="res-state">Type an Australian postcode and I’ll show the right authority for your state. <b>I won’t guess</b> — the wrong state gives you the wrong rules.</p>';
-
-  html += '<div class="warn" style="margin-top:18px"><div><b>Check before you tap</b>' + esc(CAUTION) + '</div></div>';
-  html += '<p class="res-h">Works anywhere in Australia</p><div class="res-links">' +
-          NATIONAL.map(function(n){ return link(n[0], n[1], n[2]); }).join('') + '</div>';
-  html += '<p class="fineprint">These are the places to check. Kip does not quote a discount it has not verified today.</p>';
-  out.innerHTML = html;
+  var st = stateFor(pc), e = STATES[st];
+  document.getElementById('finder-out').innerHTML = (e
+    ? '<p class="res-state">You’re in <b>' + esc(e[0]) + '</b>. These decide whether you qualify:</p>' +
+      '<div class="res-links">' + link(e[1], e[2], 'transport concessions') + link(e[3], e[4], 'other concessions') + '</div>'
+    : '<p class="res-state">Enter your postcode above. <b>We won’t guess</b> — the wrong state means the wrong rules.</p>')
+    + '<div class="warn"><div><b>Check before you tap</b>International students aren’t automatically entitled to a concession. Using one you don’t qualify for is a fine.</div></div>'
+    + '<p class="res-h">Anywhere in Australia</p><div class="res-links">'
+    + NATIONAL.map(function(n){ return link(n[0], n[1], n[2]); }).join('') + '</div>';
 }
 var pcInput = document.getElementById('pc');
 pcInput.addEventListener('input', function(){
@@ -1083,130 +537,49 @@ document.querySelectorAll('.finder .chips button').forEach(function(b){
 });
 renderFinder('');
 
-/* ── Sources ───────────────────────────────────────────────────────────── */
-var SRC = ['immi.homeaffairs.gov.au','ato.gov.au','fairwork.gov.au','servicesaustralia.gov.au','studyaustralia.gov.au',
-  'health.gov.au','mara.gov.au','moneysmart.gov.au','scamwatch.gov.au','accc.gov.au','healthdirect.gov.au',
-  'privatehealth.gov.au','vevo.homeaffairs.gov.au','my.gov.au','asic.gov.au','humanrights.gov.au','legalaid.nsw.gov.au',
-  'fairtrading.nsw.gov.au','consumer.vic.gov.au','rta.qld.gov.au','commerce.wa.gov.au','sa.gov.au','cbos.tas.gov.au',
-  'transportnsw.info','ptv.vic.gov.au','translink.com.au','adelaidemetro.com.au','transperth.wa.gov.au',
-  'realestate.com.au','domain.com.au','flatmates.com.au','myunidays.com','studentbeans.com'];
-document.getElementById('srcs').innerHTML =
-  SRC.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') +
-  '<span class="more">+ ' + (52 - SRC.length) + ' more</span>';
-
-/* ── Points explainer — arithmetic only, never a verdict ───────────────── */
-var pts = Array.prototype.slice.call(document.querySelectorAll('.pt'));
-function totalPoints(){
-  var t = pts.reduce(function(a, s){ return a + (parseInt(s.value, 10) || 0); }, 0);
-  document.getElementById('p-total').textContent = t;
-  document.getElementById('p-caption').textContent = t === 0
-    ? 'Choose your factors above to see what the published table awards for each one.'
-    : 'The published table awards this much for the factors you selected. It is arithmetic, not an assessment — what it means for you is a question for a registered agent.';
-}
-pts.forEach(function(s){ s.addEventListener('change', totalPoints); });
-
-/* ── Partner form ──────────────────────────────────────────────────────── */
-document.getElementById('partner-form').addEventListener('submit', async function(e){
-  e.preventDefault();
-  var out   = document.getElementById('pf-msg-out');
-  var name  = document.getElementById('pf-name').value.trim();
-  var email = document.getElementById('pf-email').value.trim();
-  var org   = document.getElementById('pf-org').value.trim();
-  var kind  = document.getElementById('pf-kind').value;
-  var note  = document.getElementById('pf-msg').value.trim();
-
-  if (name.length < 2 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
-    out.style.color = 'var(--alert)';
-    out.textContent = 'Please add your name and a valid email address.';
-    return;
-  }
-
-  out.style.color = 'var(--ink-2)';
-  out.textContent = 'Sending…';
-
-  /* Try the API if this build has one. There is deliberately no enquiry
-     database yet — storing contact details would be the only personal data
-     the system holds, and it is not worth building before there is demand.
-     Until then this opens the visitor's own mail client: it works on day one,
-     and we store nothing. Swap CONTACT for a real endpoint when you want one. */
-  try {
-    var r = await fetch('/api/subscribe', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({name:name, email:email, org:org, kind:kind, message:note})
-    });
-    if (r.ok){
-      var d = await r.json();
-      out.style.color = 'var(--verify)';
-      out.textContent = d.message || 'Thanks — we’ll be in touch.';
-      e.target.reset();
-      return;
-    }
-    throw new Error('no endpoint');
-  } catch (err){
-    var body = 'Name: ' + name + '\nEmail: ' + email +
-               (org ? '\nOrganisation: ' + org : '') +
-               '\nThey are: ' + kind +
-               (note ? '\n\n' + note : '');
-    var href = 'mailto:' + CONTACT +
-               '?subject=' + encodeURIComponent('Howdy enquiry — ' + kind) +
-               '&body=' + encodeURIComponent(body);
-    out.style.color = 'var(--verify)';
-    out.innerHTML = 'Opening your email app — <a href="' + esc(href) + '">or send it here</a>.';
-    location.href = href;
-  }
-});
-
 /* ── Nav state + reveal ────────────────────────────────────────────────── */
 var nav = document.getElementById('nav');
 addEventListener('scroll', function(){ nav.classList.toggle('stuck', scrollY > 40); }, {passive:true});
 
 if ('IntersectionObserver' in window){
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('on'); io.unobserve(en.target); } });
+  var io = new IntersectionObserver(function(en){
+    en.forEach(function(x){ if (x.isIntersecting){ x.target.classList.add('on'); io.unobserve(x.target); } });
   }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rev').forEach(function(el){ io.observe(el); });
 } else {
   document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('on'); });
 }
 
-/* Nothing animates in a tab nobody is looking at. */
 document.addEventListener('visibilitychange', function(){
   document.body.classList.toggle('paused', document.hidden);
 });
 
 /* ── Hero clip ─────────────────────────────────────────────────────────────
-   Loaded only when it is worth the bytes. A student in their first week is
-   often on prepaid mobile data, so: not on narrow screens, not on save-data
-   or slow connections, not under prefers-reduced-motion. When it is skipped
-   or the file is absent, the canvas Southern Cross stays — that is the
-   designed floor, so the hero is never broken, just quieter.             */
+   Loaded only when it's worth the bytes — a student in their first week is
+   often on prepaid mobile data. Skipped on narrow screens, save-data or slow
+   connections, and under prefers-reduced-motion. When skipped or absent, the
+   canvas Southern Cross stays, so the hero is never broken, just quieter. */
 (function(){
   var vid = document.getElementById('hero-video');
   var sky = document.getElementById('sky');
   if (!vid) return;
 
   var conn = navigator.connection || {};
-  var tooSmall  = innerWidth < 860;
-  var thrifty   = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
-  var stillness = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (innerWidth < 860 ||
+      conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '') ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  if (tooSmall || thrifty || stillness) return;   // nothing is fetched at all
-
-  ['canplay','loadeddata'].forEach(function(ev){ vid.addEventListener(ev, reveal, {once:true}); });
   function reveal(){
     vid.classList.add('on');
-    if (sky) sky.classList.add('dim');   // starfield drops back, stays as texture
+    if (sky) sky.classList.add('dim');
     vid.play().catch(function(){ /* autoplay refused — the starfield carries it */ });
   }
-
+  ['canplay','loadeddata'].forEach(function(ev){ vid.addEventListener(ev, reveal, {once:true}); });
   vid.addEventListener('error', function(){
     vid.classList.remove('on');
     if (sky) sky.classList.remove('dim');
   });
 
-  /* No poster frame: the starfield is already sitting behind the video and is
-     a better placeholder than a still, so a poster would just be a second
-     request to cover something already covered. */
   /* WebM first so Chrome and Firefox take the smaller file; Safari falls
      through to the mp4. Either alone is fine — whichever exists gets used. */
   [['media/hero.webm','video/webm'], ['media/hero.mp4','video/mp4']].forEach(function(f){
@@ -1214,14 +587,11 @@ document.addEventListener('visibilitychange', function(){
     src.src = f[0]; src.type = f[1];
     vid.appendChild(src);
   });
-  /* The element ships as preload="none" so the checks above can bail out
-     before a single byte moves. Once we've decided to use it, that has to be
-     lifted or load() fetches nothing and canplay never fires. */
+  /* Ships preload="none" so the checks above run before a byte moves. That
+     has to be lifted here or load() fetches nothing and canplay never fires. */
   vid.preload = 'auto';
   vid.load();
 
-  /* A decorative loop should not run in a tab nobody is watching, or once it
-     has scrolled past — it costs real battery on a phone. */
   function show(on){ if (!vid.classList.contains('on')) return; on ? vid.play().catch(function(){}) : vid.pause(); }
   document.addEventListener('visibilitychange', function(){ show(!document.hidden); });
   if ('IntersectionObserver' in window){
@@ -1240,10 +610,8 @@ document.addEventListener('visibilitychange', function(){
   var ctx = cv.getContext('2d'), w = 0, h = 0, dpr = Math.min(devicePixelRatio || 1, 2);
   var stars = [], raf = 0, running = true;
 
-  /* Crux, plus the two Pointers. Positions are relative to the panel so the
-     constellation stays recognisable at any viewport size. */
   var CRUX = [[.80,.22,2.6],[.885,.46,2.2],[.735,.44,1.9],[.815,.62,1.6],[.795,.40,1.1]];
-  var CRUX_LINES = [[0,3],[2,1]];
+  var LINES = [[0,3],[2,1]];
   var POINTERS = [[.955,.60,2.3],[.985,.70,2.0]];
 
   function size(){
@@ -1251,20 +619,19 @@ document.addEventListener('visibilitychange', function(){
     cv.width = Math.floor(w * dpr); cv.height = Math.floor(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     stars = [];
-    var n = Math.min(150, Math.round(w * h / 11000));
+    var n = Math.min(140, Math.round(w * h / 12000));
     for (var i = 0; i < n; i++){
-      stars.push({x: Math.random() * w, y: Math.random() * h * .92,
-                  r: Math.random() * 1.15 + .25, p: Math.random() * Math.PI * 2,
-                  s: Math.random() * .9 + .35});
+      stars.push({x: Math.random()*w, y: Math.random()*h*.92, r: Math.random()*1.15+.25,
+                  p: Math.random()*Math.PI*2, s: Math.random()*.9+.35});
     }
   }
   function star(x, y, r, alpha){
     ctx.globalAlpha = alpha;
-    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2);
     ctx.fillStyle = '#EAF1F7'; ctx.fill();
     if (r > 1.5){
       ctx.globalAlpha = alpha * .3;
-      ctx.beginPath(); ctx.arc(x, y, r * 3.4, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(x, y, r*3.4, 0, Math.PI*2);
       ctx.fillStyle = 'rgba(120,200,255,.6)'; ctx.fill();
     }
   }
@@ -1273,27 +640,22 @@ document.addEventListener('visibilitychange', function(){
     ctx.clearRect(0, 0, w, h);
     for (var i = 0; i < stars.length; i++){
       var s = stars[i];
-      star(s.x, s.y, s.r, .18 + .32 * (0.5 + 0.5 * Math.sin(t / 1400 * s.s + s.p)));
+      star(s.x, s.y, s.r, .18 + .32 * (0.5 + 0.5*Math.sin(t/1400*s.s + s.p)));
     }
-    /* the constellation sits in the right-hand third, out of the type's way */
-    var ox = w * .62, oy = h * .02, cw = w * .33, ch = h * .60;
+    var ox = w*.62, oy = h*.02, cw = w*.33, ch = h*.60;
     ctx.strokeStyle = 'rgba(47,211,174,.3)'; ctx.lineWidth = 1;
-    for (var l = 0; l < CRUX_LINES.length; l++){
-      var a = CRUX[CRUX_LINES[l][0]], b = CRUX[CRUX_LINES[l][1]];
+    for (var l = 0; l < LINES.length; l++){
+      var a = CRUX[LINES[l][0]], b = CRUX[LINES[l][1]];
       ctx.globalAlpha = 1; ctx.beginPath();
-      ctx.moveTo(ox + a[0] * cw, oy + a[1] * ch);
-      ctx.lineTo(ox + b[0] * cw, oy + b[1] * ch);
+      ctx.moveTo(ox + a[0]*cw, oy + a[1]*ch);
+      ctx.lineTo(ox + b[0]*cw, oy + b[1]*ch);
       ctx.stroke();
     }
     var all = CRUX.concat(POINTERS);
     for (var c = 0; c < all.length; c++){
       var p = all[c];
-      star(ox + p[0] * cw, oy + p[1] * ch, p[2], .55 + .35 * (0.5 + 0.5 * Math.sin(t / 1900 + c)));
+      star(ox + p[0]*cw, oy + p[1]*ch, p[2], .55 + .35*(0.5 + 0.5*Math.sin(t/1900 + c)));
     }
-    ctx.globalAlpha = .34;
-    ctx.font = '600 10px ui-monospace,SFMono-Regular,Menlo,monospace';
-    ctx.fillStyle = '#2FD3AE'; ctx.letterSpacing = '2px';
-    ctx.fillText('THE SOUTHERN CROSS', ox + .02 * cw, oy + 1.02 * ch);
     ctx.globalAlpha = 1;
     raf = requestAnimationFrame(frame);
   }
@@ -1302,7 +664,6 @@ document.addEventListener('visibilitychange', function(){
   var rt;
   addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(size, 180); });
 
-  /* Stop drawing when the hero scrolls away or the tab is hidden. */
   function setRunning(on){
     if (on === running) return;
     running = on;
