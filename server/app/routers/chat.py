@@ -46,6 +46,8 @@ from ..security import (
     detect_pii,
     sanitize_message,
 )
+from ..costreport import combine, record
+from ..costs import Usage
 from ..sources import verify_reply
 
 log = logging.getLogger("kip.chat")
@@ -173,6 +175,7 @@ async def chat(
 
     kwargs = _request_kwargs(history, message)
     blocks: list = []
+    usages: list[Usage] = []
 
     try:
         # A server-tool turn can stop with pause_turn when the search loop hits
@@ -181,6 +184,9 @@ async def chat(
         for _ in range(3):
             response = await client.messages.create(**kwargs)
             blocks.extend(response.content)
+            # Every leg is billed, so every leg is metered. Charging only the
+            # last one would under-report exactly the answers that cost most.
+            usages.append(Usage.from_api(response.usage))
             if response.stop_reason != "pause_turn":
                 break
             kwargs["messages"] = [
@@ -204,6 +210,7 @@ async def chat(
         )
 
     await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
+    await record(db, settings.model, combine(usages), body.module_id)
 
     return ChatResponse(
         reply=checked.reply,
@@ -253,6 +260,7 @@ async def chat_stream(
         nonlocal conversation
         kwargs = _request_kwargs(history, message)
         blocks: list = []
+        usages: list[Usage] = []
         text_parts: list[str] = []
 
         try:
@@ -288,6 +296,7 @@ async def chat_stream(
                     final = await stream.get_final_message()
 
                 blocks.extend(final.content)
+                usages.append(Usage.from_api(final.usage))
                 if final.stop_reason != "pause_turn":
                     break
                 kwargs["messages"] = [
@@ -325,6 +334,7 @@ async def chat_stream(
                 log.exception("persist_failed")  # a save failure must not lose the answer
 
         await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
+        await record(db, settings.model, combine(usages), body.module_id)
 
         yield _sse("done", {
             "reply": checked.reply,

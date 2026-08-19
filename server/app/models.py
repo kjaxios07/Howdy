@@ -160,6 +160,37 @@ class QuestionGap(Base):
     )
 
 
+class AnswerCost(Base):
+    """What one answer cost to produce.
+
+    Deliberately carries no identity — not even a session. This is an
+    engineering meter, not analytics about people, and the same reasoning
+    as QuestionGap applies: `day` is a Date, never a timestamp, so a row
+    here can never be lined up against a login.
+
+    Kept per-answer rather than pre-aggregated so we can see the spread.
+    An average hides the searched answers, and those are the expensive ones.
+    """
+
+    __tablename__ = "answer_costs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    day: Mapped[Date] = mapped_column(Date, nullable=False)          # date only
+    model: Mapped[str] = mapped_column(String(64), nullable=False)
+    module_id: Mapped[str | None] = mapped_column(String(32))
+
+    input_tokens: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    cache_write_tokens: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    cache_read_tokens: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    output_tokens: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    searches: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    # Integer micro-dollars. Floats do not belong in a money column.
+    micro_usd: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    __table_args__ = (Index("ix_cost_day", "day"),)
+
+
 class AuditLog(Base):
     """Append-only. NEVER contains message content."""
 
