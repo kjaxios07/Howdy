@@ -381,8 +381,25 @@ tbody tr:last-child td{border-bottom:0}
   </div>
 
   <div class="note">
-    <b>Decide before you build billing</b>
-    <p>Measure what one answer actually costs to produce for a month first. That number decides whether $5 works, and it is much cheaper to learn now than after a thousand people are subscribed.</p>
+    <b>Measured — 19 Aug 2026</b>
+    <p>A cached answer costs <b>0.43c</b>. One with a live search costs <b>2.04c</b>, and half of that is the flat search fee, not tokens. Three searches — our cap — is 5.06c. Prices verified against the pricing page, not recalled; <code>python -m app.costs estimate</code> reproduces it, and once there is traffic <code>report</code> replaces the estimate with real usage.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>What it costs</th><th>Per answer</th><th>What that means</th></tr></thead>
+      <tbody>
+        <tr><td>Answer from the library</td><td class="n">0.43c</td><td>The common case. 1,000 free users asking 30 questions a month costs about <b>$130</b>.</td></tr>
+        <tr><td>Answer with one live search</td><td class="n">2.04c</td><td>Half of it is the search fee. This is what deals and volatile figures cost.</td></tr>
+        <tr><td>Three searches (our cap)</td><td class="n">5.06c</td><td>Rare. The cap is what stops one question costing a dollar.</td></tr>
+        <tr><td><b>$5 Student Deals covers</b></td><td class="n">~245–400</td><td>answers a month before the tier loses money. A heavy user asks maybe 60.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>What this actually decides</b>
+    <p>$5 is comfortable — a subscriber would have to ask four times more than a heavy user before it stops paying. The number to watch is not the paid tier at all, it is <b>the free one</b>: free users have no ceiling, and at scale they are the whole bill. Two levers exist and both are already built — prompt caching (worth about 4x) and the three-search cap.</p>
   </div>
 </section>
 
@@ -446,7 +463,7 @@ tbody tr:last-child td{border-bottom:0}
     <table>
       <thead><tr><th>Where it comes from</th><th>Who pays</th><th>When</th></tr></thead>
       <tbody>
-        <tr><td>Student Deals</td><td>Students, <span class="n">$5</span>/month</td><td>Now. Discounts and travel deals only.</td></tr>
+        <tr><td>Student Deals</td><td>Students, <span class="n">$5</span>/month</td><td>Now. Discounts and travel deals only — margin measured, see above.</td></tr>
         <tr><td>University licence</td><td>Institution, per student per year</td><td>After one successful pilot. The largest line by far.</td></tr>
         <tr><td>Expert directory</td><td>Vetted professionals, flat fee</td><td>Once there is real traffic.</td></tr>
         <tr><td>Education agents</td><td>Agencies placing students</td><td>Mid term. They answer these questions by hand today.</td></tr>
