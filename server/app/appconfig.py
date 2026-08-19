@@ -107,6 +107,77 @@ def housing_platforms() -> tuple[dict, ...]:
     return tuple(raw().get("housing_search", {}).get("platforms", ()))
 
 
+# ── Discounts ────────────────────────────────────────────────────────────
+# Same shape as housing: the config supplies where to look, never what the
+# discount is. Amounts and eligibility are searched live, never recalled.
+
+@lru_cache
+def discounts() -> dict:
+    return raw().get("discounts", {})
+
+
+@lru_cache
+def discount_categories() -> tuple[dict, ...]:
+    return tuple(discounts().get("categories", ()))
+
+
+@lru_cache
+def discount_national() -> tuple[dict, ...]:
+    return tuple(discounts().get("national", ()))
+
+
+@lru_cache
+def discount_states() -> dict:
+    return discounts().get("by_state", {})
+
+
+@lru_cache
+def eligibility_caution() -> str:
+    return discounts().get("eligibility_caution", "")
+
+
+@lru_cache
+def _postcode_ranges() -> tuple[tuple[str, int, int], ...]:
+    ranges: list[tuple[str, int, int]] = []
+    for state, spans in discounts().get("postcode_ranges", {}).items():
+        if state.startswith("_"):
+            continue
+        for span in spans:
+            ranges.append((state, int(span[0]), int(span[1])))
+    return tuple(ranges)
+
+
+def state_for_postcode(postcode: str) -> str:
+    """'4110' → 'QLD'. Returns '' when the postcode is not a real Australian one.
+
+    Deliberately strict: a wrong state sends a student to the wrong transport
+    authority, and concession eligibility differs by state. Guessing is worse
+    than returning nothing and asking them which state they are in.
+    """
+    digits = "".join(c for c in (postcode or "") if c.isdigit())
+    if len(digits) != 4:
+        return ""
+    value = int(digits)
+    for state, low, high in _postcode_ranges():
+        if low <= value <= high:
+            return state
+    return ""
+
+
+def normalise_state(value: str) -> str:
+    """Accept 'qld', 'Queensland', 'QLD ' → 'QLD'. Returns '' if unrecognised."""
+    text = (value or "").strip().upper()
+    if not text:
+        return ""
+    states = discount_states()
+    if text in states:
+        return text
+    for code, data in states.items():
+        if text == data.get("state_name", "").upper():
+            return code
+    return ""
+
+
 def limits() -> dict:
     return raw()["limits"]
 

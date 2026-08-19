@@ -23,7 +23,7 @@
     },
     {
       "src": "/",
-      "dest": "/web/Index.html"
+      "dest": "/web/index.html"
     }
   ],
   "headers": [

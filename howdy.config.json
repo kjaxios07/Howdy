@@ -129,6 +129,7 @@
       "medibank.com.au",
       "moneysmart.gov.au",
       "my.gov.au",
+      "myunidays.com",
       "nab.com.au",
       "nib.com.au",
       "oaic.gov.au",
@@ -298,18 +299,18 @@
     },
     {
       "id": "study",
-      "name": "Student Life & Discounts",
+      "name": "Student Life",
       "emoji": "🎓",
       "colour": "255,194,75",
-      "tagline": "UNiDAYS, cheap groceries, and making the most of student life",
+      "tagline": "Campus support, libraries, English help and academic advice",
       "examples": [
-        "What student discounts can I get in Australia?",
-        "How much should I budget for groceries each week?"
+        "How do I access free counselling at my Australian university?",
+        "Where do I get free academic help?",
+        "Where do I buy cheap textbooks?"
       ],
       "sources": [
-        "unidays.com",
-        "studentbeans.com",
-        "studyaustralia.gov.au"
+        "studyaustralia.gov.au",
+        "studentsupport.edu.au"
       ]
     },
     {
@@ -343,6 +344,25 @@
       "sources": [
         "moneysmart.gov.au",
         "studyaustralia.gov.au"
+      ]
+    },
+    {
+      "id": "discounts",
+      "name": "Discounts & Concessions",
+      "emoji": "🎟️",
+      "colour": "255,194,75",
+      "tagline": "Student concessions and discounts where you actually live",
+      "examples": [
+        "What student discounts can I get in Brisbane 4110?",
+        "Am I eligible for a transport concession as an international student?",
+        "How do I prove I'm a student to get a discount?"
+      ],
+      "sources": [
+        "translink.com.au",
+        "transportnsw.info",
+        "ptv.vic.gov.au",
+        "unidays.com",
+        "studentbeans.com"
       ]
     },
     {
@@ -559,6 +579,262 @@
       ],
       "tenancy": "cbos.tas.gov.au",
       "note": "cheapest capital"
+    }
+  },
+  "discounts": {
+    "_note": "LINK, NEVER LIST — the same rule as housing. Kip must not invent a discount, a percentage or an offer. This section supplies the authoritative starting point for the student's own state; the live figure and the current eligibility rule are searched, never recalled.",
+    "_url_policy": "URLs here are site roots on purpose. Deep concession pages get restructured every year and a dead link is worse for a student than one extra click. `find` is the phrase Kip searches on that domain to reach the exact current page.",
+    "eligibility_caution": "International students are NOT automatically entitled to a public transport concession in every Australian state, and the rules differ by state and by visa. Travelling on a concession fare you are not entitled to is fare evasion and carries a fine. Always check the state authority's own page before buying or tapping a concession fare.",
+    "categories": [
+      {
+        "id": "transport",
+        "name": "Public transport concessions",
+        "emoji": "🚋",
+        "state_specific": true,
+        "eligibility_varies": true
+      },
+      {
+        "id": "campus",
+        "name": "On campus",
+        "emoji": "🎓",
+        "state_specific": false,
+        "eligibility_varies": false
+      },
+      {
+        "id": "retail",
+        "name": "Retail, tech and food",
+        "emoji": "🛍️",
+        "state_specific": false,
+        "eligibility_varies": false
+      },
+      {
+        "id": "entertainment",
+        "name": "Cinemas, museums and events",
+        "emoji": "🎬",
+        "state_specific": true,
+        "eligibility_varies": false
+      },
+      {
+        "id": "health",
+        "name": "Health and pharmacy",
+        "emoji": "💊",
+        "state_specific": true,
+        "eligibility_varies": true
+      },
+      {
+        "id": "bills",
+        "name": "Bills, mobile and internet",
+        "emoji": "📶",
+        "state_specific": false,
+        "eligibility_varies": false
+      }
+    ],
+    "national": [
+      {
+        "name": "UNiDAYS",
+        "url": "https://www.myunidays.com",
+        "find": "Australia student discounts",
+        "note": "Free. Verified with your student email address."
+      },
+      {
+        "name": "Student Beans",
+        "url": "https://www.studentbeans.com",
+        "find": "Australia student discount codes",
+        "note": "Free. Verified with your student email address."
+      },
+      {
+        "name": "Study Australia",
+        "url": "https://www.studyaustralia.gov.au",
+        "find": "cost of living student support",
+        "note": "Official. Cost-of-living guidance for international students."
+      },
+      {
+        "name": "Moneysmart",
+        "url": "https://moneysmart.gov.au",
+        "find": "student budgeting",
+        "note": "Official. Government budgeting tools, no product sales."
+      }
+    ],
+    "by_state": {
+      "NSW": {
+        "state_name": "New South Wales",
+        "transport": {
+          "name": "Transport for NSW",
+          "url": "https://transportnsw.info",
+          "find": "Opal concession eligibility students"
+        },
+        "government": {
+          "name": "Service NSW",
+          "url": "https://www.service.nsw.gov.au",
+          "find": "concessions and rebates"
+        }
+      },
+      "VIC": {
+        "state_name": "Victoria",
+        "transport": {
+          "name": "Public Transport Victoria",
+          "url": "https://www.ptv.vic.gov.au",
+          "find": "myki concession international students iUSEpass"
+        },
+        "government": {
+          "name": "Victorian Government",
+          "url": "https://www.vic.gov.au",
+          "find": "concessions and discounts"
+        }
+      },
+      "QLD": {
+        "state_name": "Queensland",
+        "transport": {
+          "name": "Translink",
+          "url": "https://translink.com.au",
+          "find": "concession fares tertiary students eligibility"
+        },
+        "government": {
+          "name": "Queensland Government",
+          "url": "https://www.qld.gov.au",
+          "find": "concessions and rebates"
+        }
+      },
+      "SA": {
+        "state_name": "South Australia",
+        "transport": {
+          "name": "Adelaide Metro",
+          "url": "https://www.adelaidemetro.com.au",
+          "find": "student concession eligibility"
+        },
+        "government": {
+          "name": "SA Government",
+          "url": "https://www.sa.gov.au",
+          "find": "concessions"
+        }
+      },
+      "WA": {
+        "state_name": "Western Australia",
+        "transport": {
+          "name": "Transperth",
+          "url": "https://www.transperth.wa.gov.au",
+          "find": "tertiary student SmartRider concession"
+        },
+        "government": {
+          "name": "WA Government",
+          "url": "https://www.wa.gov.au",
+          "find": "concessions"
+        }
+      },
+      "TAS": {
+        "state_name": "Tasmania",
+        "transport": {
+          "name": "Transport Tasmania",
+          "url": "https://www.transport.tas.gov.au",
+          "find": "student concession fares"
+        },
+        "government": {
+          "name": "Tasmanian Government",
+          "url": "https://www.cbos.tas.gov.au",
+          "find": "concessions"
+        }
+      },
+      "ACT": {
+        "state_name": "Australian Capital Territory",
+        "transport": {
+          "name": "Transport Canberra",
+          "url": "https://www.transport.act.gov.au",
+          "find": "MyWay concession students"
+        },
+        "government": {
+          "name": "Access Canberra",
+          "url": "https://www.accesscanberra.act.gov.au",
+          "find": "concessions"
+        }
+      },
+      "NT": {
+        "state_name": "Northern Territory",
+        "transport": {
+          "name": "NT Public Transport",
+          "url": "https://nt.gov.au",
+          "find": "public transport concession students"
+        },
+        "government": {
+          "name": "NT Government",
+          "url": "https://nt.gov.au",
+          "find": "concessions and rebates"
+        }
+      }
+    },
+    "postcode_ranges": {
+      "_note": "First match wins. Source: Australia Post state postcode allocations.",
+      "NSW": [
+        [
+          1000,
+          2599
+        ],
+        [
+          2619,
+          2899
+        ],
+        [
+          2921,
+          2999
+        ]
+      ],
+      "ACT": [
+        [
+          200,
+          299
+        ],
+        [
+          2600,
+          2618
+        ],
+        [
+          2900,
+          2920
+        ]
+      ],
+      "VIC": [
+        [
+          3000,
+          3999
+        ],
+        [
+          8000,
+          8999
+        ]
+      ],
+      "QLD": [
+        [
+          4000,
+          4999
+        ],
+        [
+          9000,
+          9999
+        ]
+      ],
+      "SA": [
+        [
+          5000,
+          5999
+        ]
+      ],
+      "WA": [
+        [
+          6000,
+          6999
+        ]
+      ],
+      "TAS": [
+        [
+          7000,
+          7999
+        ]
+      ],
+      "NT": [
+        [
+          800,
+          999
+        ]
+      ]
     }
   }
 }

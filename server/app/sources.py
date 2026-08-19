@@ -13,7 +13,17 @@ import re
 from dataclasses import dataclass
 from urllib.parse import urlparse
 
-from .appconfig import housing_platforms, trusted_domains, trusted_suffixes
+from .appconfig import (
+    discount_categories,
+    discount_national,
+    discount_states,
+    eligibility_caution,
+    housing_platforms,
+    normalise_state,
+    state_for_postcode,
+    trusted_domains,
+    trusted_suffixes,
+)
 
 # Loaded from howdy.config.json → sources.*  (edit the JSON, not this file)
 TRUSTED_SUFFIXES: tuple[str, ...] = trusted_suffixes()
@@ -117,3 +127,72 @@ def build_listing_links(
         url = re.sub(r"-(?=[-/?])|-$", "", url)
         links.append({"name": platform["name"], "url": url})
     return links
+
+
+# ── Discounts ────────────────────────────────────────────────────────────
+
+
+def _trusted_link(entry: dict) -> dict | None:
+    """Drop any configured link whose host is not on the allowlist.
+
+    These links are built by us, so they never pass through `verify_reply`.
+    Without this check a typo in howdy.config.json would be the one way an
+    unverified URL could reach a student. Everything Kip emits is allowlisted,
+    including the parts Kip did not write.
+    """
+    url = (entry or {}).get("url", "")
+    if not is_trusted(_host_of(url)):
+        return None
+    out = {"name": entry.get("name", ""), "url": url}
+    if entry.get("note"):
+        out["note"] = entry["note"]
+    return out
+
+
+def build_discount_guide(postcode: str = "", state: str = "", category: str = "") -> dict:
+    """Where to look for a student discount, for this student's actual location.
+
+    Kip never states a discount amount from memory — percentages, fares and
+    concession eligibility all change, and international students are not
+    entitled to the same concessions in every state. So this returns *where to
+    look*, the live-search phrases that reach the current page, and the
+    eligibility warning when the category is one where being wrong costs money.
+    """
+    resolved = normalise_state(state) or state_for_postcode(postcode)
+    states = discount_states()
+    entry = states.get(resolved, {})
+
+    local: list[dict] = []
+    hints: list[str] = []
+    for key in ("transport", "government"):
+        source = entry.get(key)
+        if not source:
+            continue
+        link = _trusted_link(source)
+        if link:
+            local.append(link)
+            host = normalize(_host_of(source["url"]))
+            if source.get("find"):
+                hints.append(f"site:{host} {source['find']}")
+
+    national: list[dict] = []
+    for item in discount_national():
+        link = _trusted_link(item)
+        if link:
+            national.append(link)
+
+    categories = {c["id"]: c for c in discount_categories()}
+    chosen = categories.get(category)
+    needs_caution = chosen["eligibility_varies"] if chosen else True
+
+    return {
+        "state": resolved,
+        "state_name": entry.get("state_name", ""),
+        "known_state": bool(resolved),
+        "category": chosen["id"] if chosen else "",
+        "local": local,
+        "national": national,
+        "search_hints": hints,
+        "caution": eligibility_caution() if needs_caution else "",
+        "categories": [dict(c) for c in discount_categories()],
+    }

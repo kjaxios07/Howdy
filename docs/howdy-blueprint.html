@@ -304,7 +304,7 @@ html{scroll-behavior:smooth}
   <ol id="toc">
     <li><a href="#s1"><span>01</span>Start here</a></li>
     <li><a href="#s2"><span>02</span>What an LLM actually is</a></li>
-    <li><a href="#s3"><span>03</span>Your 434 questions</a></li>
+    <li><a href="#s3"><span>03</span>Your 463 questions</a></li>
     <li><a href="#s4"><span>04</span>The system, drawn</a></li>
     <li><a href="#s5"><span>05</span>One question, end to end</a></li>
     <li><a href="#s6"><span>06</span>Where every piece of data lives</a></li>
@@ -325,14 +325,14 @@ html{scroll-behavior:smooth}
 <div>
 
 <header class="mast">
-  <p class="eyebrow">Howdy AI · System &amp; Security Dossier · v1.0</p>
+  <p class="eyebrow">Howdy AI · System &amp; Security Dossier · v1.1</p>
   <h1>The Howdy Blueprint</h1>
   <p class="stand">How Kip works, where every question and every answer is stored, and why a student's details cannot leak — written to be read twice: once by <b>you</b>, with no engineering background assumed, and once by <b>your architecture engineer</b>, who needs the real names of the real components.</p>
   <dl class="plate">
-    <div><dt>Prepared</dt><dd>18 August 2026</dd></div>
+    <div><dt>Prepared</dt><dd>19 August 2026</dd></div>
     <div><dt>Audience</dt><dd>Founder + architecture engineer</dd></div>
-    <div><dt>Question bank</dt><dd class="num">434 questions</dd></div>
-    <div><dt>Trusted sources</dt><dd class="num">51 domains</dd></div>
+    <div><dt>Question bank</dt><dd class="num">463 questions</dd></div>
+    <div><dt>Trusted sources</dt><dd class="num">52 domains</dd></div>
     <div><dt>Hosting</dt><dd>VPS + Cloudflare</dd></div>
   </dl>
 </header>
@@ -414,7 +414,7 @@ html{scroll-behavior:smooth}
 
         <rect class="bx-a" x="270" y="150" width="368" height="86" rx="2"/>
         <text class="tg" x="286" y="172">LEASH 2</text>
-        <text class="th" x="286" y="192">Search locked to 51 official domains</text>
+        <text class="th" x="286" y="192">Search locked to 52 official domains</text>
         <text class="ts" x="286" y="213">For anything that changes — wages, fees, thresholds.<tspan x="286" dy="15">The model physically cannot reach any other site.</tspan></text>
 
         <rect class="bx-a" x="270" y="248" width="368" height="98" rx="2"/>
@@ -446,8 +446,8 @@ html{scroll-behavior:smooth}
 <!-- ══════════════════════════════════ 03 ══ -->
 <section id="s3">
   <span class="snum">§ 03</span>
-  <h2>Your 434 questions: where they live and how they come back</h2>
-  <p class="lede">You gave me 220 researched questions in a spreadsheet plus your platform document. Those merged with the earlier seed bank into <b>434 questions</b>, and they are stored in three different places for three different reasons. This section is the direct answer to <em>"where are you going to save the questions I gave you and where will you retrieve them from?"</em></p>
+  <h2>Your 463 questions: where they live and how they come back</h2>
+  <p class="lede">You gave me 220 researched questions in a spreadsheet plus your platform document. Those merged with the earlier seed bank into <b>463 questions</b>, and they are stored in three different places for three different reasons. This section is the direct answer to <em>"where are you going to save the questions I gave you and where will you retrieve them from?"</em></p>
 
   <figure>
     <div class="dg">
@@ -461,7 +461,7 @@ html{scroll-behavior:smooth}
 
         <rect class="bx-g" x="20" y="32" width="270" height="150" rx="2"/>
         <text class="th" x="36" y="58">knowledge/questions.json</text>
-        <text class="tm" x="36" y="78">434 questions · 13 modules</text>
+        <text class="tm" x="36" y="78">463 questions · 14 modules</text>
         <text class="ts" x="36" y="100">Your CSV + platform doc, merged.<tspan x="36" dy="16">Each carries: module, difficulty,</tspan><tspan x="36" dy="16">intent, volatile flag, risk tier,</tspan><tspan x="36" dy="16">and its origin so your research</tspan><tspan x="36" dy="16">stays attributable.</tspan></text>
 
         <rect class="bx-g" x="310" y="32" width="270" height="150" rx="2"/>
@@ -471,7 +471,7 @@ html{scroll-behavior:smooth}
 
         <rect class="bx-g" x="600" y="32" width="280" height="150" rx="2"/>
         <text class="th" x="616" y="58">howdy.config.json</text>
-        <text class="tm" x="616" y="78">51 trusted domains · 13 modules</text>
+        <text class="tm" x="616" y="78">52 trusted domains · 14 modules</text>
         <text class="ts" x="616" y="100">The allowlist, the limits, the<tspan x="616" dy="16">privacy settings, the housing</tspan><tspan x="616" dy="16">link templates. Adding a source</tspan><tspan x="616" dy="16">or a module is an edit here —</tspan><tspan x="616" dy="16">no Python change needed.</tspan></text>
 
         <text class="tm" x="20" y="208">Retrieved: read once at server start-up, held in memory, served to the app at /api/questions and /api/modules.</text>
@@ -495,11 +495,11 @@ html{scroll-behavior:smooth}
 
   <h3>How a stored question comes back</h3>
   <ul>
-    <li><strong>As product structure.</strong> The 434 questions define the 13 modules and their real counts — housing 50, visa 45, work 45, and so on. The dashboard tiles a student sees are generated from the bank, not typed by hand.</li>
+    <li><strong>As product structure.</strong> The 463 questions define the 14 modules and their real counts — housing 50, visa 45, work 45, discounts 33, and so on. The dashboard tiles a student sees are generated from the bank, not typed by hand.</li>
     <li><strong>As suggested prompts.</strong> When a student opens a module, the starter questions shown are drawn from your bank, filtered to that module.</li>
     <li><strong>As answer shape.</strong> Your spreadsheet's <em>Search Intent</em> column does real work. Informational questions get an explanation; Procedural questions get numbered steps naming the actual form; Investigative questions ("is this a scam?", "am I being underpaid?") get a verdict first, then red flags, then the action. A student who suspects they are being ripped off does not need a balanced overview — they need an answer.</li>
     <li><strong>As a safety net.</strong> The <em>risk</em> tier travels with the question. 12 questions are <code>refer</code> — they always carry a MARA or legal referral. 9 are <code>crisis</code> — they lead with emergency resources before anything else.</li>
-    <li><strong>As the evolution queue.</strong> The 65 questions flagged <em>volatile</em> contain a figure that changes — wage rates, visa fees, thresholds. Those are re-checked automatically against their cited source rather than recalled from memory.</li>
+    <li><strong>As the evolution queue.</strong> The 86 questions flagged <em>volatile</em> contain a figure that changes — wage rates, visa fees, thresholds. Those are re-checked automatically against their cited source rather than recalled from memory.</li>
   </ul>
 
   <h3>Evolving every day, without becoming a liability</h3>
@@ -1225,7 +1225,7 @@ html{scroll-behavior:smooth}
   <h3>Three tiers of answer</h3>
   <div class="grid c3">
     <div>
-      <p class="k">standard · 413 questions</p>
+      <p class="k">standard · 442 questions</p>
       <h5>Answer it</h5>
       <p>General information from official sources, cited, shaped to the intent. The bulk of the product.</p>
     </div>
@@ -1240,6 +1240,53 @@ html{scroll-behavior:smooth}
       <p>Family violence, mental health emergency, assault. The answer opens with 000 and Lifeline 13 11 14, then the university's support service. Information second.</p>
     </div>
   </div>
+
+  <h3>Discounts: the module students actually ask for</h3>
+  <p>Discounts are one of the most-asked topics and the single easiest one to get wrong, so they now have their own module — 33 questions, separated out of <em>Student Life</em>, <em>Cost of Living</em> and <em>Transport</em> where they had been scattered.</p>
+
+  <p>Two things make this category different from every other one. First, <strong>a fabricated discount is indistinguishable from a real one</strong>: "20% off with your student ID" reads exactly as plausible whether or not it exists. Second, and more seriously, <strong>concessions are set by each state separately and international students are not automatically entitled to them</strong>. Travelling on a concession fare you do not qualify for is fare evasion, and the fine is issued on the spot. That turns a money-saving question into a safety question.</p>
+
+  <p>So discounts follow the same rule as housing — <strong>link, never list</strong> — plus a location step:</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 260" role="img" aria-label="Diagram: a postcode resolves to a state, which selects that state's transport authority and government concession page, with the eligibility warning attached">
+        <defs>
+          <marker id="a11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker>
+        </defs>
+
+        <rect class="bx" x="20" y="60" width="150" height="72" rx="2"/>
+        <text class="th" x="36" y="86">"4110"</text>
+        <text class="ts" x="36" y="108">The student's own</text>
+        <text class="ts" x="36" y="124">postcode. Not stored.</text>
+
+        <path class="ln" d="M170 96 H216" marker-end="url(#a11)"/>
+
+        <rect class="bx-a" x="216" y="60" width="176" height="72" rx="2"/>
+        <text class="th" x="232" y="86">→ QLD</text>
+        <text class="ts" x="232" y="108">Resolved server-side</text>
+        <text class="ts" x="232" y="124">from the config table.</text>
+
+        <path class="ln" d="M392 96 H438" marker-end="url(#a11)"/>
+
+        <rect class="bx-s" x="438" y="34" width="442" height="60" rx="2"/>
+        <text class="th" x="454" y="56">Translink — the authority that decides eligibility</text>
+        <text class="ts" x="454" y="78">Plus the Queensland Government concessions page. Site roots, not deep links.</text>
+
+        <rect class="bx-s" x="438" y="100" width="442" height="60" rx="2"/>
+        <text class="th" x="454" y="122">UNiDAYS · Student Beans · Study Australia · Moneysmart</text>
+        <text class="ts" x="454" y="144">The national options, which do not depend on knowing where they live.</text>
+
+        <rect class="bx-d" x="20" y="176" width="860" height="66" rx="2"/>
+        <text class="th td" x="36" y="200">Attached whenever eligibility is involved</text>
+        <text class="ts" x="36" y="222">"International students are not automatically entitled to a concession in every state. Travelling on one you are not entitled</text>
+        <text class="ts" x="36" y="238">to is fare evasion and carries a fine." — and an unknown postcode returns nothing rather than defaulting to the biggest state.</text>
+      </svg>
+    </div>
+    <figcaption><b>Fig. 13.1</b> — The panel never states an amount. Percentages, fares and eligibility rules are searched live against the state authority or not given at all. A test asserts the config contains no <code>%</code> and no <code>$</code>, because the moment a figure lives in config it becomes a fact somebody has to keep true.</figcaption>
+  </figure>
+
+  <p>Three details your engineer should know. The postcode resolution is deliberately <strong>strict</strong> — an unrecognised postcode returns nothing and asks, rather than guessing, because sending a Canberra student to Transport for NSW gives them confidently wrong rules. Every URL the panel emits is <strong>re-checked against the same allowlist</strong> as model output, even though we built those links ourselves: they are the one path that bypasses the citation verifier, and a typo in the config would otherwise be the only way an unverified link could reach a student. And all 33 questions with a rule or figure in them are flagged <strong>volatile</strong>, so the nightly job re-checks them instead of Kip answering from memory.</p>
 
   <div class="note">
     <span class="lbl">Why referral is a feature, not a limitation</span>
@@ -1300,7 +1347,7 @@ html{scroll-behavior:smooth}
 
         <rect class="bx-s" x="38" y="106" width="464" height="52" rx="2"/>
         <text class="th tsafe" x="52" y="126">ZONE B · Dashboard tiles</text>
-        <text class="tm" x="52" y="142">A partner tile beside the 13 topic modules — orientation,</text>
+        <text class="tm" x="52" y="142">A partner tile beside the 14 topic modules — orientation,</text>
         <text class="tm" x="52" y="156">the accommodation office, the student legal service.</text>
 
         <rect class="bx-d" x="38" y="170" width="464" height="96" rx="2"/>
@@ -1396,12 +1443,12 @@ html{scroll-behavior:smooth}
 
   <div class="note gold">
     <span class="lbl">The short version, if you only remember one thing</span>
-    <p>Your 434 questions live in the code repository, version-controlled and recoverable, and are read into memory when the server starts. What students ask that Kip handles badly is recorded as a de-identified topic list with dates only and no link to any person. Everything a student actually says is encrypted before it reaches the database, with a key the database does not contain. A stolen database, a stolen backup or a stolen laptop yields nothing readable. That is the claim, and §6, §7 and §10 are the evidence for it.</p>
+    <p>Your 463 questions live in the code repository, version-controlled and recoverable, and are read into memory when the server starts. What students ask that Kip handles badly is recorded as a de-identified topic list with dates only and no link to any person. Everything a student actually says is encrypted before it reaches the database, with a key the database does not contain. A stolen database, a stolen backup or a stolen laptop yields nothing readable. That is the claim, and §6, §7 and §10 are the evidence for it.</p>
   </div>
 
   <div class="end">
     <b>The Howdy Blueprint</b> · v1.0 · 18 August 2026<br>
-    Prepared for the founder and the architecture engineer. Reflects the system as built: 434 questions, 13 modules, 51 trusted sources, 80 automated tests.<br>
+    Prepared for the founder and the architecture engineer. Reflects the system as built: 463 questions, 14 modules, 52 trusted sources, 99 automated tests.<br>
     Sections 4–8 and 11 describe implemented behaviour. Sections 14–16 describe intent, not code.
   </div>
 </section>

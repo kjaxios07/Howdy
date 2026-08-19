@@ -1,12 +1,13 @@
 {
  "_meta": {
-  "version": "2.0.0",
-  "count": 434,
-  "generated": "2026-08-18",
+  "version": "2.1.0",
+  "count": 463,
+  "generated": "2026-08-19",
   "sources": [
    "founder CSV (howdy_ai_student_questions.csv, 220 questions)",
    "founder platform document v2.0",
-   "Kip v1 seed bank"
+   "Kip v1 seed bank",
+   "Kip v2 discounts module (students ask for discounts constantly)"
   ],
   "fields": {
    "difficulty": "Easy | Medium | Hard — from the founder research",
@@ -18,6 +19,7 @@
    "arrive",
    "cost",
    "culture",
+   "discounts",
    "health",
    "housing",
    "money",
@@ -272,8 +274,104 @@
    "id": "arrive-020"
   },
   {
-   "q": "Are there food banks or free meals available for international students in Australia?",
-   "module": "cost",
+   "q": "Can I bring my partner on my student visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-001"
+  },
+  {
+   "q": "Can I change my course on a student visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-002"
+  },
+  {
+   "q": "Can I change my course while on a student visa?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-003"
+  },
+  {
+   "q": "Can I change my education provider?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-004"
+  },
+  {
+   "q": "Can I change universities while on a student visa in Australia?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-005"
+  },
+  {
+   "q": "Can I travel overseas and return on my student visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-006"
+  },
+  {
+   "q": "Can I work unlimited hours during semester break?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-007"
+  },
+  {
+   "q": "Can my dependants work in Australia?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-008"
+  },
+  {
+   "q": "Can my spouse or partner work full-time on a dependent visa in Australia?",
+   "module": "visa",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
@@ -281,11 +379,143 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "cost-001"
+   "id": "visa-009"
   },
   {
-   "q": "Do I qualify for any government financial support as an international student?",
-   "module": "cost",
+   "q": "Does the 48 hour limit include unpaid work?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-010"
+  },
+  {
+   "q": "How do I apply for the 485 visa after graduation?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-011"
+  },
+  {
+   "q": "How do I avoid migration agent scams in Australia?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-012"
+  },
+  {
+   "q": "How do I check my visa conditions?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-013"
+  },
+  {
+   "q": "How do I extend my student visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-014"
+  },
+  {
+   "q": "How long before my visa expires should I apply for a new visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-015"
+  },
+  {
+   "q": "How long does a subclass 485 visa last?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-016"
+  },
+  {
+   "q": "How long does the 485 visa last?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-017"
+  },
+  {
+   "q": "How many hours can I work on a student visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-018"
+  },
+  {
+   "q": "How many hours per week can I work on a subclass 500 visa?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-019"
+  },
+  {
+   "q": "How much does a student visa cost?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-020"
+  },
+  {
+   "q": "What GPA do I need to be eligible for the subclass 485 visa?",
+   "module": "visa",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
@@ -293,131 +523,35 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "cost-002"
+   "id": "visa-021"
   },
   {
-   "q": "How do I set up a weekly budget as an international student in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
+   "q": "What are the PR pathways for a nursing graduate from the Philippines or Nepal?",
+   "module": "visa",
+   "difficulty": "Hard",
    "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
+   "volatile": false,
+   "risk": "refer",
    "origin": [
     "founder-csv"
    ],
-   "id": "cost-003"
+   "id": "visa-022"
   },
   {
-   "q": "How much does a SIM card and mobile plan cost per month in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
+   "q": "What are the PR pathways for an IT graduate from India?",
+   "module": "visa",
+   "difficulty": "Hard",
    "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
+   "volatile": false,
+   "risk": "refer",
    "origin": [
     "founder-csv"
    ],
-   "id": "cost-004"
+   "id": "visa-023"
   },
   {
-   "q": "How much does a bus or train pass cost per month in Melbourne?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-005"
-  },
-  {
-   "q": "How much does a bus or train pass cost per month in Sydney?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-006"
-  },
-  {
-   "q": "How much does internet cost per month in a share house?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-007"
-  },
-  {
-   "q": "How much does it cost to do laundry in a shared laundromat in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-008"
-  },
-  {
-   "q": "How much does it cost to go to a GP in Australia without Medicare?",
-   "module": "cost",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-009"
-  },
-  {
-   "q": "How much money do I need per week to live comfortably as a student in Brisbane?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-010"
-  },
-  {
-   "q": "How much money do I need per week to live comfortably as a student in Melbourne?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-011"
-  },
-  {
-   "q": "How much money do I need per week to live comfortably as a student in Sydney?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-012"
-  },
-  {
-   "q": "Is Aldi cheaper than Coles or Woolworths in Australia?",
-   "module": "cost",
+   "q": "What are the conditions of a subclass 500 student visa?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -425,215 +559,11 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "cost-013"
+   "id": "visa-024"
   },
   {
-   "q": "What are the best apps for finding cheap food near universities in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-014"
-  },
-  {
-   "q": "What is the average cost of eating out in Australia for a student?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-015"
-  },
-  {
-   "q": "What is the average cost of textbooks and study materials per semester?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-016"
-  },
-  {
-   "q": "What is the cheapest mobile plan for international students in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-017"
-  },
-  {
-   "q": "What is the cheapest way to buy groceries in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-018"
-  },
-  {
-   "q": "What is the cost of living comparison between Sydney and Melbourne for students?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-019"
-  },
-  {
-   "q": "What student discounts are available in Australia?",
-   "module": "cost",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "cost-020"
-  },
-  {
-   "q": "Do I have to tip in Australia?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-001"
-  },
-  {
-   "q": "How do Australians usually greet each other?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-002"
-  },
-  {
-   "q": "Is it rude to split the bill in Australia?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-003"
-  },
-  {
-   "q": "What Australian slang do I need to know?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-004"
-  },
-  {
-   "q": "What are the social norms around punctuality in Australia?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-005"
-  },
-  {
-   "q": "What does 'shouting a round' mean in Australia?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-006"
-  },
-  {
-   "q": "What public holidays does Australia have?",
-   "module": "culture",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-007"
-  },
-  {
-   "q": "What should I know about workplace culture in Australia?",
-   "module": "culture",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "culture-008"
-  },
-  {
-   "q": "Am I eligible for Medicare as a student?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-001"
-  },
-  {
-   "q": "Can I change my OSHC provider?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-002"
-  },
-  {
-   "q": "Can international students access Medicare in Australia?",
-   "module": "health",
+   "q": "What does satisfactory course progress mean for my student visa?",
+   "module": "visa",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
@@ -641,11 +571,11 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "health-003"
+   "id": "visa-025"
   },
   {
-   "q": "Does OSHC cover dental?",
-   "module": "health",
+   "q": "What happens if I breach a visa condition?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -653,11 +583,23 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-004"
+   "id": "visa-026"
   },
   {
-   "q": "Does OSHC cover mental health support?",
-   "module": "health",
+   "q": "What happens if I fail too many subjects and my university enrolment is cancelled?",
+   "module": "visa",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-027"
+  },
+  {
+   "q": "What happens if my student visa expires?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -665,11 +607,11 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-005"
+   "id": "visa-028"
   },
   {
-   "q": "Does OSHC cover pregnancy?",
-   "module": "health",
+   "q": "What happens to my visa if I fail a subject?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -677,11 +619,11 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-006"
+   "id": "visa-029"
   },
   {
-   "q": "How do I find a GP who speaks Hindi or Bengali in Australia?",
-   "module": "health",
+   "q": "What is Confirmation of Enrolment and why do I need it?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -689,11 +631,11 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "health-007"
+   "id": "visa-030"
   },
   {
-   "q": "How do I find a doctor who bulk bills OSHC?",
-   "module": "health",
+   "q": "What is VEVO and how do I use it?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -701,11 +643,35 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-008"
+   "id": "visa-031"
   },
   {
-   "q": "How do I get a prescription filled?",
-   "module": "health",
+   "q": "What is a MARA-registered migration agent and how do I verify one?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-032"
+  },
+  {
+   "q": "What is a Temporary Graduate visa subclass 485?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-033"
+  },
+  {
+   "q": "What is a bridging visa?",
+   "module": "visa",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -713,11 +679,251 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-009"
+   "id": "visa-034"
   },
   {
-   "q": "How do I get prescription medication in Australia?",
-   "module": "health",
+   "q": "What is a regional visa subclass 491 and what are its benefits?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-035"
+  },
+  {
+   "q": "What is a skills assessment and which body assesses IT graduates?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-036"
+  },
+  {
+   "q": "What is a student visa subclass 500 in Australia?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-037"
+  },
+  {
+   "q": "What is an Expression of Interest for PR and how does it work?",
+   "module": "visa",
+   "difficulty": "Hard",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-038"
+  },
+  {
+   "q": "What is employer-sponsored migration in Australia?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-039"
+  },
+  {
+   "q": "What is the Genuine Student requirement for a student visa?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-040"
+  },
+  {
+   "q": "What is the Genuine Student requirement?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-041"
+  },
+  {
+   "q": "What is the difference between state nomination and federal skilled migration?",
+   "module": "visa",
+   "difficulty": "Hard",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-042"
+  },
+  {
+   "q": "What is the difference between the Graduate Work stream and Post-Study Work stream for subclass 485?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-043"
+  },
+  {
+   "q": "What is the points test for Australian permanent residency?",
+   "module": "visa",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "visa-044"
+  },
+  {
+   "q": "What is visa condition 8202?",
+   "module": "visa",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "visa-045"
+  },
+  {
+   "q": "Am I a resident for tax purposes?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-001"
+  },
+  {
+   "q": "Can I claim my super when I leave Australia?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-002"
+  },
+  {
+   "q": "Can I get a Medicare levy exemption?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-003"
+  },
+  {
+   "q": "Can I get a tax refund as an international student?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-004"
+  },
+  {
+   "q": "Can I lodge my own tax return or do I need an accountant?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-005"
+  },
+  {
+   "q": "Can I start working while I wait for my TFN?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-006"
+  },
+  {
+   "q": "Do I get the tax-free threshold?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-007"
+  },
+  {
+   "q": "Do I pay tax on scholarship money?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-008"
+  },
+  {
+   "q": "Do international students pay tax in Australia?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-009"
+  },
+  {
+   "q": "How do I access my income statement on MyGov?",
+   "module": "tax",
    "difficulty": "Easy",
    "intent": "Procedural",
    "volatile": false,
@@ -725,11 +931,11 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "health-010"
+   "id": "tax-010"
   },
   {
-   "q": "How do I make an OSHC claim?",
-   "module": "health",
+   "q": "How do I apply for a TFN?",
+   "module": "tax",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -737,287 +943,11 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-011"
+   "id": "tax-011"
   },
   {
-   "q": "How do I register with a GP in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-012"
-  },
-  {
-   "q": "How do I see a doctor in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-013"
-  },
-  {
-   "q": "How do I use my OSHC to see a doctor in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-014"
-  },
-  {
-   "q": "How much does OSHC cost per year?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-015"
-  },
-  {
-   "q": "How much does a GP visit cost?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-016"
-  },
-  {
-   "q": "Is OSHC compulsory for student visa holders?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-017"
-  },
-  {
-   "q": "Is an ambulance free in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-018"
-  },
-  {
-   "q": "Is there a waiting period on OSHC?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-019"
-  },
-  {
-   "q": "Students from India: am I eligible for Medicare under the Reciprocal Health Agreement?",
-   "module": "health",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-020"
-  },
-  {
-   "q": "What dental treatment is covered under OSHC?",
-   "module": "health",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-021"
-  },
-  {
-   "q": "What do I do in a medical emergency?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-022"
-  },
-  {
-   "q": "What does OSHC cover and what does it not cover?",
-   "module": "health",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-023"
-  },
-  {
-   "q": "What does my OSHC actually cover?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-024"
-  },
-  {
-   "q": "What free mental health services are available for international students?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-025"
-  },
-  {
-   "q": "What happens if I get sick and can't study?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-026"
-  },
-  {
-   "q": "What is Beyond Blue and how can it help me?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-027"
-  },
-  {
-   "q": "What is Lifeline Australia and when should I call them?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-028"
-  },
-  {
-   "q": "What is OSHC and is it mandatory for international students?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-029"
-  },
-  {
-   "q": "What is a GP referral and why do I need one to see a specialist?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-030"
-  },
-  {
-   "q": "What is a PBS medication and why is it cheaper?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-031"
-  },
-  {
-   "q": "What is a Reciprocal Health Care Agreement?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-032"
-  },
-  {
-   "q": "What is a bulk-billing GP and how do I find one near me?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-033"
-  },
-  {
-   "q": "What is bulk billing?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "health-034"
-  },
-  {
-   "q": "What is the cost of seeing a dentist in Australia without extras cover?",
-   "module": "health",
+   "q": "How do I check how much tax was withheld from my pay?",
+   "module": "tax",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": true,
@@ -1025,47 +955,35 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "health-035"
+   "id": "tax-012"
   },
   {
-   "q": "What should I do if I get seriously ill and have to miss university?",
-   "module": "health",
+   "q": "How do I claim my Superannuation back when I leave Australia?",
+   "module": "tax",
    "difficulty": "Medium",
    "intent": "Procedural",
-   "volatile": false,
-   "risk": "crisis",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-036"
-  },
-  {
-   "q": "What should I do if I have a mental health emergency in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "crisis",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "health-037"
-  },
-  {
-   "q": "What vaccinations do I need to prove I have before studying in Australia?",
-   "module": "health",
-   "difficulty": "Easy",
-   "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "health-038"
+   "id": "tax-013"
   },
   {
-   "q": "Where do I get free mental health support?",
-   "module": "health",
+   "q": "How do I lodge a tax return in Australia as an international student?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-014"
+  },
+  {
+   "q": "How do I lodge a tax return?",
+   "module": "tax",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -1073,11 +991,131 @@
    "origin": [
     "kip-v1"
    ],
-   "id": "health-039"
+   "id": "tax-015"
   },
   {
-   "q": "Which OSHC provider should I choose as an international student?",
-   "module": "health",
+   "q": "How long does a TFN take to arrive?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-016"
+  },
+  {
+   "q": "How long does it take to receive my TFN after applying?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-017"
+  },
+  {
+   "q": "How much super should my employer pay me?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-018"
+  },
+  {
+   "q": "How much tax is taken from my DASP?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-019"
+  },
+  {
+   "q": "Is my overseas income taxed in Australia?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-020"
+  },
+  {
+   "q": "What deductions can I claim as an international student in Australia?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-021"
+  },
+  {
+   "q": "What happens if I do not lodge a tax return in Australia?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-022"
+  },
+  {
+   "q": "What happens if I work without a TFN?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-023"
+  },
+  {
+   "q": "What is DASP and how do I claim it?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-024"
+  },
+  {
+   "q": "What is Medicare Levy and do international students pay it?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-025"
+  },
+  {
+   "q": "What is MyGov and do I need it to file taxes?",
+   "module": "tax",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -1085,7 +1123,715 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "health-040"
+   "id": "tax-026"
+  },
+  {
+   "q": "What is OSHC and is it the same as Medicare?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-027"
+  },
+  {
+   "q": "What is PAYG and why is it deducted from my pay?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-028"
+  },
+  {
+   "q": "What is Superannuation and can I withdraw it when I leave Australia?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-029"
+  },
+  {
+   "q": "What is a Tax File Number and how do I apply for one?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-030"
+  },
+  {
+   "q": "What is an ABN and do I need one?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-031"
+  },
+  {
+   "q": "What is an income statement?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-032"
+  },
+  {
+   "q": "What is myTax?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-033"
+  },
+  {
+   "q": "What is superannuation?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-034"
+  },
+  {
+   "q": "What is the Australian financial year and when does tax time start?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-035"
+  },
+  {
+   "q": "What is the Medicare levy and do I pay it?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-036"
+  },
+  {
+   "q": "What is the deadline for lodging a tax return in Australia?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-037"
+  },
+  {
+   "q": "What is the tax-free threshold and can international students claim it?",
+   "module": "tax",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "tax-038"
+  },
+  {
+   "q": "What work expenses can I claim as a deduction?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-039"
+  },
+  {
+   "q": "When do I have to lodge my tax return?",
+   "module": "tax",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "tax-040"
+  },
+  {
+   "q": "Can I do an unpaid internship in Australia on a student visa?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-001"
+  },
+  {
+   "q": "Can I legally be paid cash in hand?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-002"
+  },
+  {
+   "q": "Can I work as a delivery driver on a student visa in Australia?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-003"
+  },
+  {
+   "q": "Can I work during exam periods as an international student?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-004"
+  },
+  {
+   "q": "Can I work on weekends as an international student?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-005"
+  },
+  {
+   "q": "Can my employer fire me without notice?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-006"
+  },
+  {
+   "q": "Can my employer keep my passport?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-007"
+  },
+  {
+   "q": "Can my employer pay me cash in hand and is that legal?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-008"
+  },
+  {
+   "q": "Do I get paid extra on public holidays?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-009"
+  },
+  {
+   "q": "Do I need a police check to work?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-010"
+  },
+  {
+   "q": "Do casual workers get sick leave?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-011"
+  },
+  {
+   "q": "How do I check if I am being paid the correct award rate?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-012"
+  },
+  {
+   "q": "How do I find a part-time job as a student?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-013"
+  },
+  {
+   "q": "How do I find a part-time job near my university in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-014"
+  },
+  {
+   "q": "How do I negotiate my pay rate in Australia?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-015"
+  },
+  {
+   "q": "How do I report an employer anonymously?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-016"
+  },
+  {
+   "q": "How do I write an Australian-style resume?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-017"
+  },
+  {
+   "q": "How many hours per week can I work on a student visa in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-018"
+  },
+  {
+   "q": "Is it true that hospitality jobs are easy to get for international students?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-019"
+  },
+  {
+   "q": "Is unpaid trial work legal?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-020"
+  },
+  {
+   "q": "What are my rights as a casual worker?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-021"
+  },
+  {
+   "q": "What are penalty rates and do I qualify for them?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-022"
+  },
+  {
+   "q": "What are penalty rates?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-023"
+  },
+  {
+   "q": "What counts as workplace bullying and what do I do?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-024"
+  },
+  {
+   "q": "What do I do if I'm being underpaid?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-025"
+  },
+  {
+   "q": "What happens if I work more than the allowed hours on my student visa?",
+   "module": "work",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-026"
+  },
+  {
+   "q": "What has to be on my payslip?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-027"
+  },
+  {
+   "q": "What if my employer asks me to work over 48 hours a fortnight?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-028"
+  },
+  {
+   "q": "What industries hire international students the most in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-029"
+  },
+  {
+   "q": "What is a Fair Work award?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-030"
+  },
+  {
+   "q": "What is a Superannuation account and does my employer have to pay it for me?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-031"
+  },
+  {
+   "q": "What is a Tax File Number and do I need one before I start working?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-032"
+  },
+  {
+   "q": "What is a USI number and do I need one to work?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-033"
+  },
+  {
+   "q": "What is casual loading?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-034"
+  },
+  {
+   "q": "What is the Fair Work Ombudsman and what can they do if I am underpaid?",
+   "module": "work",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-035"
+  },
+  {
+   "q": "What is the best job search website in Australia for students?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-036"
+  },
+  {
+   "q": "What is the difference between casual and part-time employment in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-037"
+  },
+  {
+   "q": "What is the minimum wage in Australia for casual workers?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-038"
+  },
+  {
+   "q": "What is the minimum wage in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-039"
+  },
+  {
+   "q": "What is the process for applying for jobs on LinkedIn in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-040"
+  },
+  {
+   "q": "What is unfair dismissal?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-041"
+  },
+  {
+   "q": "What jobs can I legally do as an international student in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-042"
+  },
+  {
+   "q": "What should I put in a cover letter for a casual job in Australia?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-043"
+  },
+  {
+   "q": "What work experience can I include on my resume if I worked back home?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "work-044"
+  },
+  {
+   "q": "Will reporting my employer affect my visa?",
+   "module": "work",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "work-045"
   },
   {
    "q": "Can I be evicted without a reason?",
@@ -1688,6 +2434,486 @@
    "id": "housing-050"
   },
   {
+   "q": "Am I eligible for Medicare as a student?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-001"
+  },
+  {
+   "q": "Can I change my OSHC provider?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-002"
+  },
+  {
+   "q": "Can international students access Medicare in Australia?",
+   "module": "health",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-003"
+  },
+  {
+   "q": "Does OSHC cover dental?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-004"
+  },
+  {
+   "q": "Does OSHC cover mental health support?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-005"
+  },
+  {
+   "q": "Does OSHC cover pregnancy?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-006"
+  },
+  {
+   "q": "How do I find a GP who speaks Hindi or Bengali in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-007"
+  },
+  {
+   "q": "How do I find a doctor who bulk bills OSHC?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-008"
+  },
+  {
+   "q": "How do I get a prescription filled?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-009"
+  },
+  {
+   "q": "How do I get prescription medication in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-010"
+  },
+  {
+   "q": "How do I make an OSHC claim?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-011"
+  },
+  {
+   "q": "How do I register with a GP in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-012"
+  },
+  {
+   "q": "How do I see a doctor in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-013"
+  },
+  {
+   "q": "How do I use my OSHC to see a doctor in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-014"
+  },
+  {
+   "q": "How much does OSHC cost per year?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-015"
+  },
+  {
+   "q": "How much does a GP visit cost?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-016"
+  },
+  {
+   "q": "Is OSHC compulsory for student visa holders?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-017"
+  },
+  {
+   "q": "Is an ambulance free in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-018"
+  },
+  {
+   "q": "Is there a waiting period on OSHC?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-019"
+  },
+  {
+   "q": "Students from India: am I eligible for Medicare under the Reciprocal Health Agreement?",
+   "module": "health",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-020"
+  },
+  {
+   "q": "What dental treatment is covered under OSHC?",
+   "module": "health",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-021"
+  },
+  {
+   "q": "What do I do in a medical emergency?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-022"
+  },
+  {
+   "q": "What does OSHC cover and what does it not cover?",
+   "module": "health",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-023"
+  },
+  {
+   "q": "What does my OSHC actually cover?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-024"
+  },
+  {
+   "q": "What free mental health services are available for international students?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-025"
+  },
+  {
+   "q": "What happens if I get sick and can't study?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-026"
+  },
+  {
+   "q": "What is Beyond Blue and how can it help me?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-027"
+  },
+  {
+   "q": "What is Lifeline Australia and when should I call them?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-028"
+  },
+  {
+   "q": "What is OSHC and is it mandatory for international students?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-029"
+  },
+  {
+   "q": "What is a GP referral and why do I need one to see a specialist?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-030"
+  },
+  {
+   "q": "What is a PBS medication and why is it cheaper?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-031"
+  },
+  {
+   "q": "What is a Reciprocal Health Care Agreement?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-032"
+  },
+  {
+   "q": "What is a bulk-billing GP and how do I find one near me?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-033"
+  },
+  {
+   "q": "What is bulk billing?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-034"
+  },
+  {
+   "q": "What is the cost of seeing a dentist in Australia without extras cover?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-035"
+  },
+  {
+   "q": "What should I do if I get seriously ill and have to miss university?",
+   "module": "health",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "crisis",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-036"
+  },
+  {
+   "q": "What should I do if I have a mental health emergency in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "crisis",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-037"
+  },
+  {
+   "q": "What vaccinations do I need to prove I have before studying in Australia?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-038"
+  },
+  {
+   "q": "Where do I get free mental health support?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "health-039"
+  },
+  {
+   "q": "Which OSHC provider should I choose as an international student?",
+   "module": "health",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "health-040"
+  },
+  {
    "q": "Are there ATM fees in Australia and how do I avoid them?",
    "module": "money",
    "difficulty": "Easy",
@@ -2168,76 +3394,928 @@
    "id": "money-040"
   },
   {
-   "q": "A shop refused a refund on a faulty item — what can I do?",
-   "module": "rights",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "rights-001"
-  },
-  {
-   "q": "How do I dispute a bill or a charge in Australia?",
-   "module": "rights",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "rights-002"
-  },
-  {
-   "q": "My phone plan is charging me for something I didn't agree to — what are my rights?",
-   "module": "rights",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "rights-003"
-  },
-  {
-   "q": "What are my refund rights under Australian Consumer Law?",
-   "module": "rights",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "rights-004"
-  },
-  {
-   "q": "What can I do if a business won't honour a warranty?",
-   "module": "rights",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-doc"
-   ],
-   "id": "rights-005"
-  },
-  {
-   "q": "What is a consumer guarantee in Australia?",
-   "module": "rights",
+   "q": "Can I drive on my overseas licence?",
+   "module": "transport",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-doc"
+    "kip-v1"
    ],
-   "id": "rights-006"
+   "id": "transport-002"
+  },
+  {
+   "q": "Can I take a bike on the train?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-003"
+  },
+  {
+   "q": "Can I use my overseas driver's licence to drive in Australia?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-004"
+  },
+  {
+   "q": "Can I use my phone to tap on?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-005"
+  },
+  {
+   "q": "Do I have to convert my overseas licence?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-006"
+  },
+  {
+   "q": "Do I have to wear a helmet on a bike?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-007"
+  },
+  {
+   "q": "How do I convert my Bangladeshi driver's licence to an Australian one?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-008"
+  },
+  {
+   "q": "How do I convert my Indian driver's licence to an Australian one?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-009"
+  },
+  {
+   "q": "How do I convert my Nepali driver's licence to an Australian one?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-010"
+  },
+  {
+   "q": "How do I convert my Sri Lankan driver's licence to an Australian one?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-011"
+  },
+  {
+   "q": "How do I find cheap rideshare or carpooling options near my university?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-012"
+  },
+  {
+   "q": "How do I get an Australian driver licence?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-014"
+  },
+  {
+   "q": "How do I get from Melbourne Airport to the CBD cheaply as a new arrival?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-015"
+  },
+  {
+   "q": "How do I get from Sydney Airport to the CBD cheaply as a new arrival?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-016"
+  },
+  {
+   "q": "How do I plan a public transport trip?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-017"
+  },
+  {
+   "q": "How do I transfer car registration when I buy a used car?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-018"
+  },
+  {
+   "q": "How do airport transfers work?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-019"
+  },
+  {
+   "q": "How long can I drive on my overseas licence before I need an Australian licence?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-020"
+  },
+  {
+   "q": "How much does a second-hand car cost in Australia for a student?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-021"
+  },
+  {
+   "q": "How much does a used car cost?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-022"
+  },
+  {
+   "q": "How much is public transport per week?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-023"
+  },
+  {
+   "q": "Is Uber available in Australia?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-024"
+  },
+  {
+   "q": "Is cycling safe in Australian cities and do I need a helmet by law?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-025"
+  },
+  {
+   "q": "Is cycling safe in Australian cities?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-026"
+  },
+  {
+   "q": "Is it worth buying a car as an international student in Australia?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-027"
+  },
+  {
+   "q": "What are the road rules I must know as a new driver in Australia?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-028"
+  },
+  {
+   "q": "What is CTP insurance and is it included in registration?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-029"
+  },
+  {
+   "q": "What is Melbourne's free tram zone?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-030"
+  },
+  {
+   "q": "What is a Go Card and how do I get one in Brisbane?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-031"
+  },
+  {
+   "q": "What is a Myki card and how do I get one in Melbourne?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-032"
+  },
+  {
+   "q": "What is a Roadworthy Certificate and when do I need one?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-033"
+  },
+  {
+   "q": "What is a go card?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-034"
+  },
+  {
+   "q": "What is a myki?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-035"
+  },
+  {
+   "q": "What is an Opal card and how do I get one in Sydney?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-036"
+  },
+  {
+   "q": "What is an Opal card?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-037"
+  },
+  {
+   "q": "What is compulsory third party insurance?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-038"
+  },
+  {
+   "q": "What is the fine for not tapping on?",
+   "module": "transport",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "transport-039"
+  },
+  {
+   "q": "What is the process for getting an Australian driver's licence from scratch?",
+   "module": "transport",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "transport-040"
+  },
+  {
+   "q": "Are Australian university libraries free to use and do they offer printing?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-001"
+  },
+  {
+   "q": "Can I defer my studies?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-002"
+  },
+  {
+   "q": "Can I take a leave of absence?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-003"
+  },
+  {
+   "q": "Can I work on campus?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-004"
+  },
+  {
+   "q": "How do I access free English language support at my university?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-005"
+  },
+  {
+   "q": "How do I access free counselling at my Australian university?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-006"
+  },
+  {
+   "q": "How do I ask for an extension on an assignment in Australia?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-007"
+  },
+  {
+   "q": "How do I enrol in subjects at my university in Australia?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-008"
+  },
+  {
+   "q": "How do I find a study group near me?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-009"
+  },
+  {
+   "q": "How do I get my academic transcript?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-010"
+  },
+  {
+   "q": "How do I get my overseas qualifications recognised in Australia?",
+   "module": "study",
+   "difficulty": "Hard",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "refer",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-011"
+  },
+  {
+   "q": "How do I make Australian friends as an international student?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-012"
+  },
+  {
+   "q": "How does GPA work in Australia?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-013"
+  },
+  {
+   "q": "How does referencing work in Australia?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-014"
+  },
+  {
+   "q": "How many hours a week should I study?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-015"
+  },
+  {
+   "q": "How much should I budget for groceries each week?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-016"
+  },
+  {
+   "q": "Is there free English language support?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-017"
+  },
+  {
+   "q": "What counts as academic misconduct?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-018"
+  },
+  {
+   "q": "What does a student association do for me?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-019"
+  },
+  {
+   "q": "What happens if I fail a subject?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-020"
+  },
+  {
+   "q": "What is CRICOS?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-021"
+  },
+  {
+   "q": "What is Special Consideration and how do I apply?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-022"
+  },
+  {
+   "q": "What is Turnitin and how do I use it?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-023"
+  },
+  {
+   "q": "What is UNiDAYS?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-024"
+  },
+  {
+   "q": "What is a WAM or GPA in Australian universities?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-025"
+  },
+  {
+   "q": "What is a student union and what benefits does it offer?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-026"
+  },
+  {
+   "q": "What is academic integrity and how do I avoid unintentional plagiarism?",
+   "module": "study",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-027"
+  },
+  {
+   "q": "What is orientation week and should I attend it as an international student?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-028"
+  },
+  {
+   "q": "What is satisfactory course progress?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-029"
+  },
+  {
+   "q": "What is special consideration and when should I apply for it?",
+   "module": "study",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-030"
+  },
+  {
+   "q": "What is the best way to manage my time between studying and working?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-031"
+  },
+  {
+   "q": "What is the culture around group assignments in Australian universities?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-032"
+  },
+  {
+   "q": "What is the process for applying for graduation in Australia?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-033"
+  },
+  {
+   "q": "What is the process to defer a semester if I need to return home?",
+   "module": "study",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-034"
+  },
+  {
+   "q": "What student clubs and societies should I join as a South Asian student?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-035"
+  },
+  {
+   "q": "What support services are available for international students at Australian universities?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "study-037"
+  },
+  {
+   "q": "Where can I get free food on campus?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-038"
+  },
+  {
+   "q": "Where do I buy cheap textbooks?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-039"
+  },
+  {
+   "q": "Where do I get free academic help?",
+   "module": "study",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v1"
+   ],
+   "id": "study-040"
   },
   {
    "q": "How do I identify a migration scam?",
@@ -2720,332 +4798,152 @@
    "id": "safety-040"
   },
   {
-   "q": "Are Australian university libraries free to use and do they offer printing?",
-   "module": "study",
-   "difficulty": "Easy",
+   "q": "Are there food banks or free meals available for international students in Australia?",
+   "module": "cost",
+   "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-001"
+   "id": "cost-001"
   },
   {
-   "q": "Can I defer my studies?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-002"
-  },
-  {
-   "q": "Can I take a leave of absence?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-003"
-  },
-  {
-   "q": "Can I work on campus?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-004"
-  },
-  {
-   "q": "How do I access free English language support at my university?",
-   "module": "study",
-   "difficulty": "Easy",
+   "q": "Do I qualify for any government financial support as an international student?",
+   "module": "cost",
+   "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-005"
+   "id": "cost-002"
   },
   {
-   "q": "How do I access free counselling at my Australian university?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-006"
-  },
-  {
-   "q": "How do I ask for an extension on an assignment in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-007"
-  },
-  {
-   "q": "How do I enrol in subjects at my university in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-008"
-  },
-  {
-   "q": "How do I find a study group near me?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-009"
-  },
-  {
-   "q": "How do I get my academic transcript?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-010"
-  },
-  {
-   "q": "How do I get my overseas qualifications recognised in Australia?",
-   "module": "study",
-   "difficulty": "Hard",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-011"
-  },
-  {
-   "q": "How do I make Australian friends as an international student?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-012"
-  },
-  {
-   "q": "How does GPA work in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-013"
-  },
-  {
-   "q": "How does referencing work in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-014"
-  },
-  {
-   "q": "How many hours a week should I study?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-015"
-  },
-  {
-   "q": "How much should I budget for groceries each week?",
-   "module": "study",
+   "q": "How do I set up a weekly budget as an international student in Australia?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": true,
    "risk": "standard",
    "origin": [
-    "kip-v1"
+    "founder-csv"
    ],
-   "id": "study-016"
+   "id": "cost-003"
   },
   {
-   "q": "Is there free English language support?",
-   "module": "study",
+   "q": "How much does a SIM card and mobile plan cost per month in Australia?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-017"
-  },
-  {
-   "q": "What counts as academic misconduct?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-018"
-  },
-  {
-   "q": "What does a student association do for me?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-019"
-  },
-  {
-   "q": "What happens if I fail a subject?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-020"
-  },
-  {
-   "q": "What is CRICOS?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-021"
-  },
-  {
-   "q": "What is Special Consideration and how do I apply?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-022"
-  },
-  {
-   "q": "What is Turnitin and how do I use it?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-023"
+   "id": "cost-004"
   },
   {
-   "q": "What is UNiDAYS?",
-   "module": "study",
+   "q": "How much does a bus or train pass cost per month in Melbourne?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-024"
-  },
-  {
-   "q": "What is a WAM or GPA in Australian universities?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-025"
+   "id": "cost-005"
   },
   {
-   "q": "What is a student union and what benefits does it offer?",
-   "module": "study",
+   "q": "How much does a bus or train pass cost per month in Sydney?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-026"
+   "id": "cost-006"
   },
   {
-   "q": "What is academic integrity and how do I avoid unintentional plagiarism?",
-   "module": "study",
+   "q": "How much does internet cost per month in a share house?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-007"
+  },
+  {
+   "q": "How much does it cost to do laundry in a shared laundromat in Australia?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-008"
+  },
+  {
+   "q": "How much does it cost to go to a GP in Australia without Medicare?",
+   "module": "cost",
    "difficulty": "Medium",
    "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-027"
+   "id": "cost-009"
   },
   {
-   "q": "What is orientation week and should I attend it as an international student?",
-   "module": "study",
+   "q": "How much money do I need per week to live comfortably as a student in Brisbane?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-010"
+  },
+  {
+   "q": "How much money do I need per week to live comfortably as a student in Melbourne?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-011"
+  },
+  {
+   "q": "How much money do I need per week to live comfortably as a student in Sydney?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-012"
+  },
+  {
+   "q": "Is Aldi cheaper than Coles or Woolworths in Australia?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -3053,83 +4951,47 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "study-028"
+   "id": "cost-013"
   },
   {
-   "q": "What is satisfactory course progress?",
-   "module": "study",
+   "q": "What are the best apps for finding cheap food near universities in Australia?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-029"
-  },
-  {
-   "q": "What is special consideration and when should I apply for it?",
-   "module": "study",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-030"
+   "id": "cost-014"
   },
   {
-   "q": "What is the best way to manage my time between studying and working?",
-   "module": "study",
+   "q": "What is the average cost of eating out in Australia for a student?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-031"
+   "id": "cost-015"
   },
   {
-   "q": "What is the culture around group assignments in Australian universities?",
-   "module": "study",
+   "q": "What is the average cost of textbooks and study materials per semester?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
     "founder-csv"
    ],
-   "id": "study-032"
+   "id": "cost-016"
   },
   {
-   "q": "What is the process for applying for graduation in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-033"
-  },
-  {
-   "q": "What is the process to defer a semester if I need to return home?",
-   "module": "study",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-034"
-  },
-  {
-   "q": "What student clubs and societies should I join as a South Asian student?",
-   "module": "study",
+   "q": "What is the cheapest mobile plan for international students in Australia?",
+   "module": "cost",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
@@ -3137,2107 +4999,599 @@
    "origin": [
     "founder-csv"
    ],
-   "id": "study-035"
+   "id": "cost-017"
+  },
+  {
+   "q": "What is the cheapest way to buy groceries in Australia?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-018"
+  },
+  {
+   "q": "What is the cost of living comparison between Sydney and Melbourne for students?",
+   "module": "cost",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv"
+   ],
+   "id": "cost-019"
+  },
+  {
+   "q": "What student discounts are available in Australia?",
+   "module": "discounts",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "founder-csv",
+    "moved-to-discounts"
+   ],
+   "id": "discounts-001"
   },
   {
    "q": "What student discounts can I get in Australia?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-036"
-  },
-  {
-   "q": "What support services are available for international students at Australian universities?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "study-037"
-  },
-  {
-   "q": "Where can I get free food on campus?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-038"
-  },
-  {
-   "q": "Where do I buy cheap textbooks?",
-   "module": "study",
+   "module": "discounts",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": true,
    "risk": "standard",
    "origin": [
-    "kip-v1"
+    "kip-v1",
+    "moved-to-discounts"
    ],
-   "id": "study-039"
-  },
-  {
-   "q": "Where do I get free academic help?",
-   "module": "study",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "study-040"
-  },
-  {
-   "q": "Am I a resident for tax purposes?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-001"
-  },
-  {
-   "q": "Can I claim my super when I leave Australia?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-002"
-  },
-  {
-   "q": "Can I get a Medicare levy exemption?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-003"
-  },
-  {
-   "q": "Can I get a tax refund as an international student?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-004"
-  },
-  {
-   "q": "Can I lodge my own tax return or do I need an accountant?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-005"
-  },
-  {
-   "q": "Can I start working while I wait for my TFN?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-006"
-  },
-  {
-   "q": "Do I get the tax-free threshold?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-007"
-  },
-  {
-   "q": "Do I pay tax on scholarship money?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-008"
-  },
-  {
-   "q": "Do international students pay tax in Australia?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-009"
-  },
-  {
-   "q": "How do I access my income statement on MyGov?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-010"
-  },
-  {
-   "q": "How do I apply for a TFN?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-011"
-  },
-  {
-   "q": "How do I check how much tax was withheld from my pay?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-012"
-  },
-  {
-   "q": "How do I claim my Superannuation back when I leave Australia?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-013"
-  },
-  {
-   "q": "How do I lodge a tax return in Australia as an international student?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-014"
-  },
-  {
-   "q": "How do I lodge a tax return?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-015"
-  },
-  {
-   "q": "How long does a TFN take to arrive?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-016"
-  },
-  {
-   "q": "How long does it take to receive my TFN after applying?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-017"
-  },
-  {
-   "q": "How much super should my employer pay me?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-018"
-  },
-  {
-   "q": "How much tax is taken from my DASP?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-019"
-  },
-  {
-   "q": "Is my overseas income taxed in Australia?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-020"
-  },
-  {
-   "q": "What deductions can I claim as an international student in Australia?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-021"
-  },
-  {
-   "q": "What happens if I do not lodge a tax return in Australia?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-022"
-  },
-  {
-   "q": "What happens if I work without a TFN?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-023"
-  },
-  {
-   "q": "What is DASP and how do I claim it?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-024"
-  },
-  {
-   "q": "What is Medicare Levy and do international students pay it?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-025"
-  },
-  {
-   "q": "What is MyGov and do I need it to file taxes?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-026"
-  },
-  {
-   "q": "What is OSHC and is it the same as Medicare?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-027"
-  },
-  {
-   "q": "What is PAYG and why is it deducted from my pay?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-028"
-  },
-  {
-   "q": "What is Superannuation and can I withdraw it when I leave Australia?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-029"
-  },
-  {
-   "q": "What is a Tax File Number and how do I apply for one?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-030"
-  },
-  {
-   "q": "What is an ABN and do I need one?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-031"
-  },
-  {
-   "q": "What is an income statement?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-032"
-  },
-  {
-   "q": "What is myTax?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-033"
-  },
-  {
-   "q": "What is superannuation?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-034"
-  },
-  {
-   "q": "What is the Australian financial year and when does tax time start?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-035"
-  },
-  {
-   "q": "What is the Medicare levy and do I pay it?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-036"
-  },
-  {
-   "q": "What is the deadline for lodging a tax return in Australia?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-037"
-  },
-  {
-   "q": "What is the tax-free threshold and can international students claim it?",
-   "module": "tax",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "tax-038"
-  },
-  {
-   "q": "What work expenses can I claim as a deduction?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-039"
-  },
-  {
-   "q": "When do I have to lodge my tax return?",
-   "module": "tax",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "tax-040"
+   "id": "discounts-002"
   },
   {
    "q": "Are international students eligible for transport concessions?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-001"
-  },
-  {
-   "q": "Can I drive on my overseas licence?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-002"
-  },
-  {
-   "q": "Can I take a bike on the train?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-003"
-  },
-  {
-   "q": "Can I use my overseas driver's licence to drive in Australia?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-004"
-  },
-  {
-   "q": "Can I use my phone to tap on?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-005"
-  },
-  {
-   "q": "Do I have to convert my overseas licence?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-006"
-  },
-  {
-   "q": "Do I have to wear a helmet on a bike?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-007"
-  },
-  {
-   "q": "How do I convert my Bangladeshi driver's licence to an Australian one?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-008"
-  },
-  {
-   "q": "How do I convert my Indian driver's licence to an Australian one?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-009"
-  },
-  {
-   "q": "How do I convert my Nepali driver's licence to an Australian one?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-010"
-  },
-  {
-   "q": "How do I convert my Sri Lankan driver's licence to an Australian one?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-011"
-  },
-  {
-   "q": "How do I find cheap rideshare or carpooling options near my university?",
-   "module": "transport",
+   "module": "discounts",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "kip-v1",
+    "moved-to-discounts"
    ],
-   "id": "transport-012"
+   "id": "discounts-003"
   },
   {
    "q": "How do I get a student concession card in Brisbane?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-013"
-  },
-  {
-   "q": "How do I get an Australian driver licence?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-014"
-  },
-  {
-   "q": "How do I get from Melbourne Airport to the CBD cheaply as a new arrival?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-015"
-  },
-  {
-   "q": "How do I get from Sydney Airport to the CBD cheaply as a new arrival?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-016"
-  },
-  {
-   "q": "How do I plan a public transport trip?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-017"
-  },
-  {
-   "q": "How do I transfer car registration when I buy a used car?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-018"
-  },
-  {
-   "q": "How do airport transfers work?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-019"
-  },
-  {
-   "q": "How long can I drive on my overseas licence before I need an Australian licence?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-020"
-  },
-  {
-   "q": "How much does a second-hand car cost in Australia for a student?",
-   "module": "transport",
+   "module": "discounts",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "kip-v1",
+    "moved-to-discounts"
    ],
-   "id": "transport-021"
+   "id": "discounts-004"
   },
   {
-   "q": "How much does a used car cost?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-022"
-  },
-  {
-   "q": "How much is public transport per week?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-023"
-  },
-  {
-   "q": "Is Uber available in Australia?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-024"
-  },
-  {
-   "q": "Is cycling safe in Australian cities and do I need a helmet by law?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-025"
-  },
-  {
-   "q": "Is cycling safe in Australian cities?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-026"
-  },
-  {
-   "q": "Is it worth buying a car as an international student in Australia?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-027"
-  },
-  {
-   "q": "What are the road rules I must know as a new driver in Australia?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-028"
-  },
-  {
-   "q": "What is CTP insurance and is it included in registration?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-029"
-  },
-  {
-   "q": "What is Melbourne's free tram zone?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-030"
-  },
-  {
-   "q": "What is a Go Card and how do I get one in Brisbane?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-031"
-  },
-  {
-   "q": "What is a Myki card and how do I get one in Melbourne?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-032"
-  },
-  {
-   "q": "What is a Roadworthy Certificate and when do I need one?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-033"
-  },
-  {
-   "q": "What is a go card?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-034"
-  },
-  {
-   "q": "What is a myki?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-035"
-  },
-  {
-   "q": "What is an Opal card and how do I get one in Sydney?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-036"
-  },
-  {
-   "q": "What is an Opal card?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-037"
-  },
-  {
-   "q": "What is compulsory third party insurance?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-038"
-  },
-  {
-   "q": "What is the fine for not tapping on?",
-   "module": "transport",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "transport-039"
-  },
-  {
-   "q": "What is the process for getting an Australian driver's licence from scratch?",
-   "module": "transport",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "transport-040"
-  },
-  {
-   "q": "Can I bring my partner on my student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-001"
-  },
-  {
-   "q": "Can I change my course on a student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-002"
-  },
-  {
-   "q": "Can I change my course while on a student visa?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-003"
-  },
-  {
-   "q": "Can I change my education provider?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-004"
-  },
-  {
-   "q": "Can I change universities while on a student visa in Australia?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Procedural",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-005"
-  },
-  {
-   "q": "Can I travel overseas and return on my student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-006"
-  },
-  {
-   "q": "Can I work unlimited hours during semester break?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-007"
-  },
-  {
-   "q": "Can my dependants work in Australia?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-008"
-  },
-  {
-   "q": "Can my spouse or partner work full-time on a dependent visa in Australia?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-009"
-  },
-  {
-   "q": "Does the 48 hour limit include unpaid work?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-010"
-  },
-  {
-   "q": "How do I apply for the 485 visa after graduation?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-011"
-  },
-  {
-   "q": "How do I avoid migration agent scams in Australia?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Investigative",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-012"
-  },
-  {
-   "q": "How do I check my visa conditions?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-013"
-  },
-  {
-   "q": "How do I extend my student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-014"
-  },
-  {
-   "q": "How long before my visa expires should I apply for a new visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-015"
-  },
-  {
-   "q": "How long does a subclass 485 visa last?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-016"
-  },
-  {
-   "q": "How long does the 485 visa last?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-017"
-  },
-  {
-   "q": "How many hours can I work on a student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-018"
-  },
-  {
-   "q": "How many hours per week can I work on a subclass 500 visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-019"
-  },
-  {
-   "q": "How much does a student visa cost?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-020"
-  },
-  {
-   "q": "What GPA do I need to be eligible for the subclass 485 visa?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-021"
-  },
-  {
-   "q": "What are the PR pathways for a nursing graduate from the Philippines or Nepal?",
-   "module": "visa",
-   "difficulty": "Hard",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-022"
-  },
-  {
-   "q": "What are the PR pathways for an IT graduate from India?",
-   "module": "visa",
-   "difficulty": "Hard",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-023"
-  },
-  {
-   "q": "What are the conditions of a subclass 500 student visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-024"
-  },
-  {
-   "q": "What does satisfactory course progress mean for my student visa?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-025"
-  },
-  {
-   "q": "What happens if I breach a visa condition?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-026"
-  },
-  {
-   "q": "What happens if I fail too many subjects and my university enrolment is cancelled?",
-   "module": "visa",
+   "id": "discounts-005",
+   "module": "discounts",
+   "q": "Am I eligible for a public transport concession as an international student?",
    "difficulty": "Hard",
    "intent": "Investigative",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-027"
-  },
-  {
-   "q": "What happens if my student visa expires?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-028"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What happens to my visa if I fail a subject?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
+   "id": "discounts-006",
+   "module": "discounts",
+   "q": "What happens if I travel on a concession fare I am not entitled to?",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-029"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What is Confirmation of Enrolment and why do I need it?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-030"
-  },
-  {
-   "q": "What is VEVO and how do I use it?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-031"
-  },
-  {
-   "q": "What is a MARA-registered migration agent and how do I verify one?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-032"
-  },
-  {
-   "q": "What is a Temporary Graduate visa subclass 485?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-033"
-  },
-  {
-   "q": "What is a bridging visa?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-034"
-  },
-  {
-   "q": "What is a regional visa subclass 491 and what are its benefits?",
-   "module": "visa",
+   "id": "discounts-007",
+   "module": "discounts",
+   "q": "Are student discounts different in each Australian state?",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-035"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What is a skills assessment and which body assesses IT graduates?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-036"
-  },
-  {
-   "q": "What is a student visa subclass 500 in Australia?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
+   "id": "discounts-008",
+   "module": "discounts",
+   "q": "Do international students get a myki concession in Melbourne?",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-037"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What is an Expression of Interest for PR and how does it work?",
-   "module": "visa",
+   "id": "discounts-009",
+   "module": "discounts",
+   "q": "How do I get a transport concession in Sydney as an international student?",
    "difficulty": "Hard",
    "intent": "Procedural",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-038"
-  },
-  {
-   "q": "What is employer-sponsored migration in Australia?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-039"
-  },
-  {
-   "q": "What is the Genuine Student requirement for a student visa?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-040"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What is the Genuine Student requirement?",
-   "module": "visa",
-   "difficulty": "Easy",
+   "id": "discounts-010",
+   "module": "discounts",
+   "q": "What is iUSEpass and am I eligible for it?",
+   "difficulty": "Medium",
    "intent": "Informational",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-041"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What is the difference between state nomination and federal skilled migration?",
-   "module": "visa",
+   "id": "discounts-011",
+   "module": "discounts",
+   "q": "How do I get a student SmartRider concession in Perth?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-012",
+   "module": "discounts",
+   "q": "How do I get a student concession on Adelaide Metro?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-013",
+   "module": "discounts",
+   "q": "Can I still get student discounts after I graduate on a 485 visa?",
    "difficulty": "Hard",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-042"
-  },
-  {
-   "q": "What is the difference between the Graduate Work stream and Post-Study Work stream for subclass 485?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-043"
-  },
-  {
-   "q": "What is the points test for Australian permanent residency?",
-   "module": "visa",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "refer",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "visa-044"
-  },
-  {
-   "q": "What is visa condition 8202?",
-   "module": "visa",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "visa-045"
-  },
-  {
-   "q": "Can I do an unpaid internship in Australia on a student visa?",
-   "module": "work",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-001"
-  },
-  {
-   "q": "Can I legally be paid cash in hand?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-002"
-  },
-  {
-   "q": "Can I work as a delivery driver on a student visa in Australia?",
-   "module": "work",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-003"
-  },
-  {
-   "q": "Can I work during exam periods as an international student?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-004"
-  },
-  {
-   "q": "Can I work on weekends as an international student?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-005"
-  },
-  {
-   "q": "Can my employer fire me without notice?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-006"
-  },
-  {
-   "q": "Can my employer keep my passport?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-007"
-  },
-  {
-   "q": "Can my employer pay me cash in hand and is that legal?",
-   "module": "work",
-   "difficulty": "Medium",
    "intent": "Investigative",
-   "volatile": false,
+   "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "work-008"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "Do I get paid extra on public holidays?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-009"
-  },
-  {
-   "q": "Do I need a police check to work?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-010"
-  },
-  {
-   "q": "Do casual workers get sick leave?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-011"
-  },
-  {
-   "q": "How do I check if I am being paid the correct award rate?",
-   "module": "work",
+   "id": "discounts-014",
+   "module": "discounts",
+   "q": "Is there a student discount on the airport train in Brisbane or Sydney?",
    "difficulty": "Medium",
    "intent": "Investigative",
    "volatile": true,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "work-012"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "How do I find a part-time job as a student?",
-   "module": "work",
+   "id": "discounts-015",
+   "module": "discounts",
+   "q": "How do I prove I am a student to get a discount in Australia?",
    "difficulty": "Easy",
-   "intent": "Informational",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "work-013"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "How do I find a part-time job near my university in Australia?",
-   "module": "work",
+   "id": "discounts-016",
+   "module": "discounts",
+   "q": "How do I sign up for UNiDAYS in Australia?",
    "difficulty": "Easy",
-   "intent": "Informational",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "work-014"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "How do I negotiate my pay rate in Australia?",
-   "module": "work",
-   "difficulty": "Medium",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-015"
-  },
-  {
-   "q": "How do I report an employer anonymously?",
-   "module": "work",
+   "id": "discounts-017",
+   "module": "discounts",
+   "q": "How do I sign up for Student Beans in Australia?",
    "difficulty": "Easy",
-   "intent": "Informational",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "work-016"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "How do I write an Australian-style resume?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-017"
-  },
-  {
-   "q": "How many hours per week can I work on a student visa in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-018"
-  },
-  {
-   "q": "Is it true that hospitality jobs are easy to get for international students?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-019"
-  },
-  {
-   "q": "Is unpaid trial work legal?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-020"
-  },
-  {
-   "q": "What are my rights as a casual worker?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-021"
-  },
-  {
-   "q": "What are penalty rates and do I qualify for them?",
-   "module": "work",
+   "id": "discounts-018",
+   "module": "discounts",
+   "q": "Do I need an ISIC card as an international student in Australia?",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
-   ],
-   "id": "work-022"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What are penalty rates?",
-   "module": "work",
+   "id": "discounts-019",
+   "module": "discounts",
+   "q": "What discounts do I get with my university student ID on campus?",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "work-023"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What counts as workplace bullying and what do I do?",
-   "module": "work",
+   "id": "discounts-020",
+   "module": "discounts",
+   "q": "Are there student discounts on mobile phone plans in Australia?",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-021",
+   "module": "discounts",
+   "q": "Are there student discounts on internet or NBN plans in Australia?",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-022",
+   "module": "discounts",
+   "q": "Are there student discounts at the cinema in Australia?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-023",
+   "module": "discounts",
+   "q": "Do museums and galleries offer student discounts in Australia?",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "work-024"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What do I do if I'm being underpaid?",
-   "module": "work",
+   "id": "discounts-024",
+   "module": "discounts",
+   "q": "Do I get a student discount on gym or fitness memberships?",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
-   ],
-   "id": "work-025"
+    "kip-v2-discounts"
+   ]
   },
   {
-   "q": "What happens if I work more than the allowed hours on my student visa?",
-   "module": "work",
+   "id": "discounts-025",
+   "module": "discounts",
+   "q": "How do I get student pricing on software like Microsoft Office or Adobe?",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-026",
+   "module": "discounts",
+   "q": "How do I get discounted or second-hand textbooks in Australia?",
+   "difficulty": "Easy",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-027",
+   "module": "discounts",
+   "q": "Are there student discounts on flights or coach travel within Australia?",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-028",
+   "module": "discounts",
+   "q": "What free things can I do in my city as a student?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-029",
+   "module": "discounts",
+   "q": "Can I use my local council library and what does it cost?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-030",
+   "module": "discounts",
+   "q": "Can I get a concession on my electricity, gas or water bill as a student?",
    "difficulty": "Hard",
    "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-031",
+   "module": "discounts",
+   "q": "Are my medications cheaper on the PBS as an international student?",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-032",
+   "module": "discounts",
+   "q": "Do international students get a discount on car registration or a driver licence?",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "discounts-033",
+   "module": "discounts",
+   "q": "Is there a student discount on OSHC health cover?",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v2-discounts"
+   ]
+  },
+  {
+   "q": "A shop refused a refund on a faulty item — what can I do?",
+   "module": "rights",
+   "difficulty": "Medium",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "founder-doc"
    ],
-   "id": "work-026"
+   "id": "rights-001"
   },
   {
-   "q": "What has to be on my payslip?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
+   "q": "How do I dispute a bill or a charge in Australia?",
+   "module": "rights",
+   "difficulty": "Medium",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
+    "founder-doc"
    ],
-   "id": "work-027"
+   "id": "rights-002"
   },
   {
-   "q": "What if my employer asks me to work over 48 hours a fortnight?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
+   "q": "My phone plan is charging me for something I didn't agree to — what are my rights?",
+   "module": "rights",
+   "difficulty": "Medium",
+   "intent": "Procedural",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
+    "founder-doc"
    ],
-   "id": "work-028"
+   "id": "rights-003"
   },
   {
-   "q": "What industries hire international students the most in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-029"
-  },
-  {
-   "q": "What is a Fair Work award?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-030"
-  },
-  {
-   "q": "What is a Superannuation account and does my employer have to pay it for me?",
-   "module": "work",
+   "q": "What are my refund rights under Australian Consumer Law?",
+   "module": "rights",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "founder-doc"
    ],
-   "id": "work-031"
+   "id": "rights-004"
   },
   {
-   "q": "What is a Tax File Number and do I need one before I start working?",
-   "module": "work",
+   "q": "What can I do if a business won't honour a warranty?",
+   "module": "rights",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "rights-005"
+  },
+  {
+   "q": "What is a consumer guarantee in Australia?",
+   "module": "rights",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "founder-doc"
    ],
-   "id": "work-032"
+   "id": "rights-006"
   },
   {
-   "q": "What is a USI number and do I need one to work?",
-   "module": "work",
+   "q": "Do I have to tip in Australia?",
+   "module": "culture",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "founder-doc"
    ],
-   "id": "work-033"
+   "id": "culture-001"
   },
   {
-   "q": "What is casual loading?",
-   "module": "work",
+   "q": "How do Australians usually greet each other?",
+   "module": "culture",
    "difficulty": "Easy",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "kip-v1"
+    "founder-doc"
    ],
-   "id": "work-034"
+   "id": "culture-002"
   },
   {
-   "q": "What is the Fair Work Ombudsman and what can they do if I am underpaid?",
-   "module": "work",
+   "q": "Is it rude to split the bill in Australia?",
+   "module": "culture",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "culture-003"
+  },
+  {
+   "q": "What Australian slang do I need to know?",
+   "module": "culture",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "culture-004"
+  },
+  {
+   "q": "What are the social norms around punctuality in Australia?",
+   "module": "culture",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "culture-005"
+  },
+  {
+   "q": "What does 'shouting a round' mean in Australia?",
+   "module": "culture",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "culture-006"
+  },
+  {
+   "q": "What public holidays does Australia have?",
+   "module": "culture",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "founder-doc"
+   ],
+   "id": "culture-007"
+  },
+  {
+   "q": "What should I know about workplace culture in Australia?",
+   "module": "culture",
    "difficulty": "Medium",
    "intent": "Informational",
    "volatile": false,
    "risk": "standard",
    "origin": [
-    "founder-csv"
+    "founder-doc"
    ],
-   "id": "work-035"
-  },
-  {
-   "q": "What is the best job search website in Australia for students?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-036"
-  },
-  {
-   "q": "What is the difference between casual and part-time employment in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-037"
-  },
-  {
-   "q": "What is the minimum wage in Australia for casual workers?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-038"
-  },
-  {
-   "q": "What is the minimum wage in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": true,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-039"
-  },
-  {
-   "q": "What is the process for applying for jobs on LinkedIn in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-040"
-  },
-  {
-   "q": "What is unfair dismissal?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-041"
-  },
-  {
-   "q": "What jobs can I legally do as an international student in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-042"
-  },
-  {
-   "q": "What should I put in a cover letter for a casual job in Australia?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-043"
-  },
-  {
-   "q": "What work experience can I include on my resume if I worked back home?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "founder-csv"
-   ],
-   "id": "work-044"
-  },
-  {
-   "q": "Will reporting my employer affect my visa?",
-   "module": "work",
-   "difficulty": "Easy",
-   "intent": "Informational",
-   "volatile": false,
-   "risk": "standard",
-   "origin": [
-    "kip-v1"
-   ],
-   "id": "work-045"
+   "id": "culture-008"
   }
  ]
 }

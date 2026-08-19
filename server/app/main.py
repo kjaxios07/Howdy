@@ -145,6 +145,21 @@ async def list_modules():
     }
 
 
+@health.get("/api/discounts")
+async def discounts(postcode: str = "", state: str = "", category: str = ""):
+    """Where to look for a student discount, for this student's own location.
+
+    Deterministic and built server-side from howdy.config.json — no model is
+    involved, so there is nothing here to hallucinate. It returns *where to
+    look*, never what the discount is: percentages, fares and concession
+    eligibility all change, and every URL is re-checked against the allowlist
+    before it is returned.
+    """
+    from . import sources
+
+    return sources.build_discount_guide(postcode=postcode, state=state, category=category)
+
+
 app.include_router(health)
 
 
