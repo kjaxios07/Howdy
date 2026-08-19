@@ -1,0 +1,469 @@
+<title>The Kip Build Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#070B12; --surface:#0D131D; --surface-2:#141D29;
+  --ink:#EAF1F7; --ink-2:#93A5B5; --ink-3:#5B6E7E;
+  --rule:rgba(255,255,255,.075); --rule-2:rgba(255,255,255,.15);
+  --done:#2FD3AE; --now:#E8B93A; --next:#8B7BFF; --later:#5B6E7E; --warm:#E8763F;
+  --sans:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:dark}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--done);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--done);outline-offset:3px;border-radius:4px}
+code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:1px 6px;border-radius:4px;color:var(--ink-2)}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px 100px}
+@media (max-width:640px){.wrap{padding:0 18px 70px}}
+
+header.top{padding:72px 0 40px;border-bottom:1px solid var(--rule);margin-bottom:0}
+.kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--warm);font-weight:600;margin-bottom:20px;display:block}
+h1{font-size:clamp(2.4rem,6vw,4.1rem);font-weight:900;letter-spacing:-.045em;line-height:1;
+  margin-bottom:18px;text-wrap:balance;max-width:14ch}
+header.top p{font-size:1.1rem;color:var(--ink-2);max-width:56ch}
+
+.legend{display:flex;gap:8px;flex-wrap:wrap;padding:26px 0}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:99px;
+  border:1px solid}
+.pill::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-done{color:var(--done);border-color:rgba(47,211,174,.4);background:rgba(47,211,174,.1)}
+.p-now{color:var(--now);border-color:rgba(232,185,58,.4);background:rgba(232,185,58,.1)}
+.p-next{color:var(--next);border-color:rgba(139,123,255,.4);background:rgba(139,123,255,.1)}
+.p-later{color:var(--later);border-color:var(--rule-2);background:rgba(255,255,255,.03)}
+
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;
+  margin:0 0 8px;text-wrap:balance}
+.phase{padding:56px 0 8px;border-top:1px solid var(--rule)}
+.phase:first-of-type{border-top:0}
+.ptag{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:10px}
+.phase>p.intro{color:var(--ink-2);max-width:62ch;margin-bottom:28px}
+
+/* module cards */
+.mods{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+@media (min-width:800px){.mods{grid-template-columns:repeat(2,1fr)}}
+.m{background:var(--surface);padding:22px 22px 24px;display:flex;flex-direction:column;gap:9px}
+.m-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.m h3{font-size:1.02rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.m .file{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);word-break:break-all}
+.m p{font-size:.88rem;color:var(--ink-2);line-height:1.6}
+.m ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.85rem;color:var(--ink-2)}
+.m li{display:flex;gap:9px}
+.m li::before{content:'→';color:var(--ink-3);flex-shrink:0}
+.m .why{font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--ink-3);
+  border-top:1px solid var(--rule);padding-top:11px;margin-top:auto}
+
+/* flow diagram */
+figure{margin:30px 0 34px}
+.dg{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:24px 20px;overflow-x:auto}
+.dg svg{display:block;width:100%;min-width:680px;height:auto}
+svg text{font-family:var(--sans);font-size:12.5px;fill:var(--ink)}
+svg .th{font-weight:700;font-size:13px}
+svg .ts{font-size:11px;fill:var(--ink-2)}
+svg .tm{font-family:var(--mono);font-size:10px;fill:var(--ink-3)}
+svg .bx{fill:var(--surface-2);stroke:var(--rule-2)}
+svg .bx-d{fill:rgba(47,211,174,.1);stroke:var(--done)}
+svg .bx-n{fill:rgba(232,185,58,.1);stroke:var(--now)}
+svg .bx-x{fill:rgba(139,123,255,.1);stroke:var(--next)}
+svg .ln{stroke:var(--ink-3);fill:none;stroke-width:1.3}
+svg .ah{fill:var(--ink-3)}
+figcaption{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:11px;line-height:1.6}
+
+/* tables */
+.tw{overflow-x:auto;margin:24px 0;border:1px solid var(--rule);border-radius:2px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;padding:12px 16px;border-bottom:1px solid var(--rule-2);background:var(--surface)}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);color:var(--ink-2);vertical-align:top;background:var(--surface)}
+td:first-child{color:var(--ink);font-weight:600}
+tbody tr:last-child td{border-bottom:0}
+.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.note{border-left:2px solid var(--warm);background:var(--surface);padding:16px 20px;margin:24px 0;
+  border-radius:0 2px 2px 0;max-width:70ch}
+.note b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--warm);margin-bottom:6px}
+.note p{font-size:.9rem;color:var(--ink-2)}
+
+.end{margin-top:64px;padding-top:22px;border-top:2px solid var(--rule-2);
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1.8}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <span class="kick">Howdy · Kip · Build board v1</span>
+  <h1>The Kip Build Board</h1>
+  <p>Every piece of this product, what it is for, which file it lives in, and what order to build it. Each row is a separate module with its own file, so any one of them can be changed later without touching the rest.</p>
+  <div class="legend">
+    <span class="pill p-done">Done</span>
+    <span class="pill p-now">Building now</span>
+    <span class="pill p-next">Next</span>
+    <span class="pill p-later">Later</span>
+  </div>
+</header>
+
+<!-- ═══ HOW IT FITS ═══ -->
+<section class="phase">
+  <span class="ptag">The shape of it</span>
+  <h2>Five layers, one box.</h2>
+  <p class="intro">Everything runs on a single server behind Cloudflare. That is deliberate: one machine is cheap, easy to reason about, and enough for the first several thousand students. Splitting it up is a problem to have later.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 400" role="img" aria-label="Five layers: browser, edge, app, data, and the daily jobs that keep answers current">
+        <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker></defs>
+
+        <text class="tm" x="20" y="20">1 · WHAT THE STUDENT SEES</text>
+        <rect class="bx-d" x="20" y="30" width="250" height="76" rx="3"/>
+        <text class="th" x="36" y="54">Website + chat</text>
+        <text class="ts" x="36" y="74">Landing page, ask box,</text>
+        <text class="ts" x="36" y="90">answers, saved history</text>
+
+        <path class="ln" d="M270 68 H316" marker-end="url(#a)"/>
+
+        <text class="tm" x="316" y="20">2 · THE FRONT DOOR</text>
+        <rect class="bx-d" x="316" y="30" width="220" height="76" rx="3"/>
+        <text class="th" x="332" y="54">Cloudflare</text>
+        <text class="ts" x="332" y="74">DNS, HTTPS, blocks</text>
+        <text class="ts" x="332" y="90">floods and bots</text>
+
+        <path class="ln" d="M536 68 H582" marker-end="url(#a)"/>
+
+        <text class="tm" x="582" y="20">3 · THE BRAIN</text>
+        <rect class="bx-d" x="582" y="30" width="298" height="76" rx="3"/>
+        <text class="th" x="598" y="54">App server</text>
+        <text class="ts" x="598" y="74">Checks the question, asks the model,</text>
+        <text class="ts" x="598" y="90">verifies every answer before it leaves</text>
+
+        <path class="ln" d="M731 106 V148" marker-end="url(#a)"/>
+
+        <text class="tm" x="20" y="150">4 · WHAT IS KEPT</text>
+        <rect class="bx-d" x="20" y="160" width="250" height="94" rx="3"/>
+        <text class="th" x="36" y="184">Accounts + chats</text>
+        <text class="ts" x="36" y="204">Encrypted before it is</text>
+        <text class="ts" x="36" y="220">written. Guest mode writes</text>
+        <text class="ts" x="36" y="236">nothing at all.</text>
+
+        <rect class="bx-d" x="316" y="160" width="220" height="94" rx="3"/>
+        <text class="th" x="332" y="184">Sessions</text>
+        <text class="ts" x="332" y="204">In memory only. Sign-out</text>
+        <text class="ts" x="332" y="220">is instant everywhere.</text>
+
+        <rect class="bx-n" x="582" y="160" width="298" height="94" rx="3"/>
+        <text class="th" x="598" y="184">Answer library</text>
+        <text class="ts" x="598" y="204">The checked facts Kip answers</text>
+        <text class="ts" x="598" y="220">from, plus what students asked</text>
+        <text class="ts" x="598" y="236">that it could not answer well</text>
+
+        <path class="ln" d="M731 254 V292" marker-end="url(#a)"/>
+
+        <text class="tm" x="20" y="296">5 · WHAT KEEPS IT TRUE — RUNS EVERY NIGHT, NOBODY PRESSES ANYTHING</text>
+        <rect class="bx-n" x="20" y="306" width="424" height="76" rx="3"/>
+        <text class="th" x="36" y="330">Re-check</text>
+        <text class="ts" x="36" y="350">Takes every figure that can change — rents, fees,</text>
+        <text class="ts" x="36" y="366">rates, deals — and re-reads its source. Ships itself.</text>
+
+        <rect class="bx-x" x="456" y="306" width="424" height="76" rx="3"/>
+        <text class="th" x="472" y="330">Draft</text>
+        <text class="ts" x="472" y="350">Writes answers for the gaps and parks them for a</text>
+        <text class="ts" x="472" y="366">person to approve. Never publishes on its own.</text>
+      </svg>
+    </div>
+    <figcaption><b>The one rule that matters:</b> the nightly job may correct a fact it can verify, but a brand-new claim always waits for a human. An auto-published wrong answer about work-hour limits could cost a student their visa.</figcaption>
+  </figure>
+</section>
+
+<!-- ═══ PHASE 1 ═══ -->
+<section class="phase">
+  <span class="ptag">Phase 1 · mostly done</span>
+  <h2>The thing that answers questions.</h2>
+  <p class="intro">This is the product. If nothing else ever gets built, a student can still ask a question and get a good answer.</p>
+
+  <div class="mods">
+    <div class="m">
+      <div class="m-head"><h3>Landing page</h3><span class="pill p-done">Done</span></div>
+      <p class="file">web/index.html</p>
+      <p>Shows the fifteen things Kip helps with and asks for one click. Deliberately short.</p>
+      <p class="why">Self-contained. No build step, no framework. Edit and refresh.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Chat screen</h3><span class="pill p-done">Done</span></div>
+      <p class="file">web/chat.html</p>
+      <ul>
+        <li>Answers stream in as they are written</li>
+        <li>Sources shown under every answer</li>
+        <li>Incognito toggle, on and off mid-chat</li>
+      </ul>
+      <p class="why">Talks to the server over one endpoint. Swapping the UI later touches nothing else.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>The answer pipeline</h3><span class="pill p-done">Done</span></div>
+      <p class="file">server/app/routers/chat.py</p>
+      <ul>
+        <li>Rate limit, then clean the message</li>
+        <li>Block personal details before they go anywhere</li>
+        <li>Ask the model, search live if the answer can change</li>
+        <li>Strip any source that is not on the trusted list</li>
+      </ul>
+      <p class="why">Each check is its own function. Adding one is a line, not a rewrite.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Topics &amp; question bank</h3><span class="pill p-done">Done</span></div>
+      <p class="file">howdy.config.json · knowledge/questions.json</p>
+      <p>Fifteen topics and the researched questions behind them. Adding a topic is an edit to one JSON file — no code change.</p>
+      <p class="why">Version-controlled, so your research is recoverable even if the server is not.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Travel module</h3><span class="pill p-done">Done</span></div>
+      <p class="file">knowledge/questions.json → travel</p>
+      <p>Day trips, weekend getaways, licences, park permits, beach safety. Grounded in Tourism Australia and Tourism &amp; Events Queensland.</p>
+      <p class="why">Anything with a price or a date on it is flagged, so the nightly job re-checks it.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Deploy</h3><span class="pill p-done">Done</span></div>
+      <p class="file">deploy.sh · server/docker-compose.yml</p>
+      <p>One command sets up the server, locks it down, generates its own secrets and starts everything.</p>
+      <p class="why">Repeatable. Rebuilding on a new box is the same command, not a memory test.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PHASE 2 ═══ -->
+<section class="phase">
+  <span class="ptag">Phase 2 · building now</span>
+  <h2>Accounts, and answers that stay true.</h2>
+  <p class="intro">Two jobs: let a student come back to what Kip told them last week, and make sure what Kip says this week is still correct.</p>
+
+  <figure>
+    <div class="dg">
+      <svg viewBox="0 0 900 330" role="img" aria-label="Sign-up and sign-in flow from first visit through to the home screen">
+        <defs><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10 z"/></marker></defs>
+
+        <rect class="bx-d" x="20" y="24" width="180" height="66" rx="3"/>
+        <text class="th" x="34" y="48">Lands on the site</text>
+        <text class="ts" x="34" y="68">No account needed</text>
+        <text class="tm" x="34" y="84">can ask straight away</text>
+
+        <path class="ln" d="M200 57 H244" marker-end="url(#b)"/>
+
+        <rect class="bx-d" x="244" y="24" width="180" height="66" rx="3"/>
+        <text class="th" x="258" y="48">Asks a question</text>
+        <text class="ts" x="258" y="68">Gets a real answer</text>
+        <text class="tm" x="258" y="84">nothing written down</text>
+
+        <path class="ln" d="M424 57 H468" marker-end="url(#b)"/>
+
+        <rect class="bx-n" x="468" y="24" width="190" height="66" rx="3"/>
+        <text class="th" x="482" y="48">“Keep this?”</text>
+        <text class="ts" x="482" y="68">Prompted only after</text>
+        <text class="ts" x="482" y="84">the answer proves useful</text>
+
+        <path class="ln" d="M658 57 H702" marker-end="url(#b)"/>
+
+        <rect class="bx-n" x="702" y="24" width="178" height="66" rx="3"/>
+        <text class="th" x="716" y="48">Sign in</text>
+        <text class="ts" x="716" y="68">One tap, Google</text>
+        <text class="tm" x="716" y="84">no password to forget</text>
+
+        <path class="ln" d="M791 90 V126" marker-end="url(#b)"/>
+
+        <text class="tm" x="20" y="122">WHAT SIGNING IN ACTUALLY GIVES THEM</text>
+        <rect class="bx-n" x="20" y="134" width="278" height="86" rx="3"/>
+        <text class="th" x="34" y="158">Home screen</text>
+        <text class="ts" x="34" y="178">Recent chats, saved answers,</text>
+        <text class="ts" x="34" y="194">the topics, and one big ask box</text>
+        <text class="tm" x="34" y="212">web/home.html</text>
+
+        <rect class="bx-n" x="312" y="134" width="278" height="86" rx="3"/>
+        <text class="th" x="326" y="158">History that is theirs</text>
+        <text class="ts" x="326" y="178">Every chat encrypted before it</text>
+        <text class="ts" x="326" y="194">is written. They pick how long</text>
+        <text class="ts" x="326" y="210">it is kept, and can wipe it.</text>
+
+        <rect class="bx-x" x="604" y="134" width="276" height="86" rx="3"/>
+        <text class="th" x="618" y="158">Student Deals</text>
+        <text class="ts" x="618" y="178">$5/month unlocks the live</text>
+        <text class="ts" x="618" y="194">discounts and travel deals</text>
+        <text class="ts" x="618" y="210">for where they live</text>
+
+        <rect class="bx" x="20" y="248" width="860" height="62" rx="3"/>
+        <text class="th" x="34" y="272">Signing out, and leaving</text>
+        <text class="ts" x="34" y="292">One tap ends the session everywhere. Delete account removes every chat and the key that decodes them — a backup taken yesterday cannot be read back.</text>
+      </svg>
+    </div>
+    <figcaption><b>Why sign-in comes second, not first:</b> a sign-up wall in front of a frightened student's first question is the fastest way to lose them. Ask after Kip has been useful.</figcaption>
+  </figure>
+
+  <div class="mods">
+    <div class="m">
+      <div class="m-head"><h3>Sign up &amp; sign in</h3><span class="pill p-now">Building</span></div>
+      <p class="file">server/app/routers/auth.py · web/auth.html</p>
+      <ul>
+        <li>Google only — no password to steal or reset</li>
+        <li>Account keyed to Google's permanent id, not the email</li>
+        <li>Session lives on the server, revocable instantly</li>
+      </ul>
+      <p class="why">One file. Adding Apple or email sign-in later is a second function beside it.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Home screen</h3><span class="pill p-now">Building</span></div>
+      <p class="file">web/home.html</p>
+      <ul>
+        <li>Big ask box at the top — the main thing</li>
+        <li>Recent chats down the side</li>
+        <li>Saved answers they starred</li>
+        <li>Their city, so answers are local by default</li>
+      </ul>
+      <p class="why">Reads the same topic list as the landing page, so they never drift apart.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>How answers get saved</h3><span class="pill p-done">Done</span></div>
+      <p class="file">server/app/crypto.py · models.py</p>
+      <ul>
+        <li>Encrypted before it reaches storage, with a key stored separately</li>
+        <li>Each student's data locked with their own key</li>
+        <li>Guest and incognito never create a record at all</li>
+      </ul>
+      <p class="why">Storage assumes it will be stolen one day. A stolen copy reads as noise.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Nightly re-check</h3><span class="pill p-now">Building</span></div>
+      <p class="file">server/app/evolve.py</p>
+      <ul>
+        <li>03:00 every day, no one presses anything</li>
+        <li>Re-reads the source behind every changeable figure</li>
+        <li>Corrects what moved; flags what it cannot confirm</li>
+      </ul>
+      <p class="why">Runs in its own container so a slow pass never slows a student's question.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Gap → draft → approve</h3><span class="pill p-now">Building</span></div>
+      <p class="file">server/app/gaps.py · evolve.py</p>
+      <ul>
+        <li>Records what Kip answered badly — the topic only, never who asked</li>
+        <li>Drafts an answer overnight, with sources</li>
+        <li>You approve it with one command before it goes live</li>
+      </ul>
+      <p class="why">This is how the product gets better every day without anyone writing content.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Payments</h3><span class="pill p-next">Next</span></div>
+      <p class="file">server/app/routers/billing.py</p>
+      <ul>
+        <li>Stripe, $5/month, cancel any time</li>
+        <li>Unlocks the two deals modules only</li>
+        <li>Everything else stays free, always</li>
+      </ul>
+      <p class="why">Isolated behind one flag on the account. Nothing else in the app knows about money.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Decide before you build billing</b>
+    <p>Measure what one answer actually costs to produce for a month first. That number decides whether $5 works, and it is much cheaper to learn now than after a thousand people are subscribed.</p>
+  </div>
+</section>
+
+<!-- ═══ PHASE 3 ═══ -->
+<section class="phase">
+  <span class="ptag">Phase 3 · next</span>
+  <h2>Ready for a university to say yes.</h2>
+  <p class="intro">The first institutional deal is the whole business. These are the things they will ask for before they sign, in the order they will ask.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>What</th><th>Why it is needed</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Move to a Sydney server</td><td>Procurement asks where student data physically sits before anything else. Answer it with "Sydney", not an explanation.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Security test by an outsider</td><td>They will not take our word for it, and they should not have to.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Privacy policy &amp; terms</td><td>Reviewed by an Australian lawyer. Also needed before any public launch.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Breach response plan</td><td>Written down, with who calls whom inside 72 hours. Required by law if it ever happens.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Co-branded version</td><td>Their logo, their orientation dates, their support services loaded in.</td><td><span class="pill p-later">Later</span></td></tr>
+        <tr><td>Cohort dashboard</td><td>"Housing questions up 40% in February." Built from topic counts that were never linked to anyone.</td><td><span class="pill p-later">Later</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ PHASE 4 ═══ -->
+<section class="phase">
+  <span class="ptag">Phase 4 · later</span>
+  <h2>Only after the first deal.</h2>
+  <p class="intro">Everything here is real, and none of it should be started while Phase 2 is unfinished. Listing them is how they stay out of this quarter.</p>
+
+  <div class="mods">
+    <div class="m">
+      <div class="m-head"><h3>Phone app</h3><span class="pill p-later">Later</span></div>
+      <p>The site already works on a phone. A real app is worth it when notifications matter — deadline reminders, visa expiry.</p>
+      <p class="why">Same backend. The app is a new front end, not a new product.</p>
+    </div>
+    <div class="m">
+      <div class="m-head"><h3>WhatsApp</h3><span class="pill p-later">Later</span></div>
+      <p>Genuinely where a lot of this audience already lives. Also a Meta review process and a per-message cost.</p>
+      <p class="why">One adapter file. The pipeline that answers is untouched.</p>
+    </div>
+    <div class="m">
+      <div class="m-head"><h3>Vetted expert directory</h3><span class="pill p-later">Later</span></div>
+      <p>Registered agents, accountants, tenancy advocates — checked against their registers, flat listing fee.</p>
+      <p class="why">Flat fee, never per referral. Kip must never be paid more for sending you somewhere.</p>
+    </div>
+    <div class="m">
+      <div class="m-head"><h3>React front end</h3><span class="pill p-later">Later</span></div>
+      <p>Only if a designer joins, or the UI outgrows hand-written HTML. Setup steps and staged components are in <code>components/README.md</code>.</p>
+      <p class="why">Not on the critical path. The current front end is fast and has no build step to break.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MONEY ═══ -->
+<section class="phase">
+  <span class="ptag">The business</span>
+  <h2>Helping students, and staying alive.</h2>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Where it comes from</th><th>Who pays</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td>Student Deals</td><td>Students, <span class="n">$5</span>/month</td><td>Now. Discounts and travel deals only.</td></tr>
+        <tr><td>University licence</td><td>Institution, per student per year</td><td>After one successful pilot. The largest line by far.</td></tr>
+        <tr><td>Expert directory</td><td>Vetted professionals, flat fee</td><td>Once there is real traffic.</td></tr>
+        <tr><td>Education agents</td><td>Agencies placing students</td><td>Mid term. They answer these questions by hand today.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Three things not to do</b>
+    <p>Never put advertising inside an answer — it is the fastest money and it ends the university business permanently. Never charge for emergency or safety help. Never take a commission per referral, only flat fees, so nobody can ever ask whether Kip sent them somewhere for the money.</p>
+  </div>
+</section>
+
+<div class="end">
+  <b>The Kip Build Board</b> · v1 · 19 August 2026<br>
+  Phase 1 is essentially done. Phase 2 is the work. Phase 3 is what turns it into a business.<br>
+  Every module above is its own file, so any of it can be replaced without touching the rest.
+</div>
+
+</div>
