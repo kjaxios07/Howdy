@@ -448,11 +448,10 @@
     "alert_if_no_backup_hours": 26
   },
   "cities": {
-    "_note": "From the founder platform document. Weekly budgets are share-accommodation estimates in AUD; rent ranges are share-room. Verify against the live source before quoting to a student.",
+    "_note": "From the founder platform document. Weekly budgets are share-accommodation estimates in AUD; rent ranges are share-room. Verify against the live source before quoting to a student. Concession ENTITLEMENT is deliberately not stated here — it differs by state and visa, and asserting it is how a student ends up with a fare-evasion fine. See the discounts section.",
     "sydney": {
       "state": "NSW",
       "card": "Opal",
-      "concession": "50% off",
       "rent": "$300-420",
       "weekly_total": 552,
       "suburbs": [
@@ -470,12 +469,13 @@
         "WSU",
         "ACU"
       ],
-      "tenancy": "fairtrading.nsw.gov.au"
+      "tenancy": "fairtrading.nsw.gov.au",
+      "concession_authority": "transportnsw.info",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "melbourne": {
       "state": "VIC",
       "card": "myki",
-      "concession": "50% off + free City Circle tram",
       "rent": "$260-360",
       "weekly_total": 498,
       "suburbs": [
@@ -493,12 +493,13 @@
         "Swinburne",
         "La Trobe"
       ],
-      "tenancy": "consumer.vic.gov.au"
+      "tenancy": "consumer.vic.gov.au",
+      "concession_authority": "ptv.vic.gov.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "brisbane": {
       "state": "QLD",
       "card": "go card",
-      "concession": "50% off",
       "rent": "$220-310",
       "weekly_total": 454,
       "suburbs": [
@@ -514,12 +515,13 @@
         "Bond"
       ],
       "tenancy": "rta.qld.gov.au",
-      "note": "2032 Olympic host city"
+      "note": "2032 Olympic host city",
+      "concession_authority": "translink.com.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "perth": {
       "state": "WA",
       "card": "SmartRider",
-      "concession": "yes + free CAT buses",
       "rent": "$240-340",
       "weekly_total": 478,
       "suburbs": [
@@ -534,12 +536,13 @@
         "ECU",
         "Murdoch"
       ],
-      "tenancy": "commerce.wa.gov.au"
+      "tenancy": "commerce.wa.gov.au",
+      "concession_authority": "transperth.wa.gov.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "adelaide": {
       "state": "SA",
       "card": "MetroCard",
-      "concession": "yes + free city tram",
       "rent": "$180-280",
       "weekly_total": 406,
       "unis": [
@@ -548,7 +551,9 @@
         "Flinders"
       ],
       "tenancy": "sa.gov.au",
-      "note": "most affordable capital"
+      "note": "most affordable capital",
+      "concession_authority": "adelaidemetro.com.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "darwin": {
       "state": "NT",
@@ -557,7 +562,9 @@
       "unis": [
         "CDU"
       ],
-      "note": "tropical, wet and dry seasons"
+      "note": "tropical, wet and dry seasons",
+      "concession_authority": "nt.gov.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "canberra": {
       "state": "ACT",
@@ -568,7 +575,9 @@
         "University of Canberra"
       ],
       "tenancy": "accesscanberra.act.gov.au",
-      "note": "free national museums"
+      "note": "free national museums",
+      "concession_authority": "transport.act.gov.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     },
     "hobart": {
       "state": "TAS",
@@ -578,7 +587,9 @@
         "UTAS"
       ],
       "tenancy": "cbos.tas.gov.au",
-      "note": "cheapest capital"
+      "note": "cheapest capital",
+      "concession_authority": "transport.tas.gov.au",
+      "concession_note": "Eligibility for international students is set by this authority and is not automatic. Check before buying or tapping a concession fare."
     }
   },
   "discounts": {
