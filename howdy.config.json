@@ -107,6 +107,7 @@
       "allianzcare.com.au",
       "anz.com.au",
       "ato.gov.au",
+      "australia.com",
       "beyondblue.org.au",
       "bupa.com.au",
       "cbhsinternational.com.au",
@@ -133,8 +134,10 @@
       "nab.com.au",
       "nib.com.au",
       "oaic.gov.au",
+      "parks.des.qld.gov.au",
       "privatehealth.gov.au",
       "ptv.vic.gov.au",
+      "queensland.com",
       "realestate.com.au",
       "rta.qld.gov.au",
       "sa.gov.au",
@@ -363,6 +366,24 @@
         "ptv.vic.gov.au",
         "unidays.com",
         "studentbeans.com"
+      ]
+    },
+    {
+      "id": "travel",
+      "name": "Travel & Weekends",
+      "emoji": "🗺️",
+      "colour": "56,189,248",
+      "tagline": "Day trips and weekend getaways near you, with what they actually cost",
+      "examples": [
+        "Best one-day trips near Brisbane?",
+        "Cheap weekend getaway from Sydney without a car?",
+        "How do I get to Moreton Island as a student?"
+      ],
+      "sources": [
+        "queensland.com",
+        "australia.com",
+        "translink.com.au",
+        "parks.des.qld.gov.au"
       ]
     },
     {
@@ -845,6 +866,26 @@
           800,
           999
         ]
+      ]
+    }
+  },
+  "pricing": {
+    "_note": "No trial. Nothing anywhere in the product may offer or mention a free trial.",
+    "currency": "AUD",
+    "free": {
+      "name": "Free",
+      "price": 0,
+      "includes": "Every question about living in Australia — visas, work, tax, housing, health, safety, rights, culture, and the RULES around concessions.",
+      "_why_rules_are_free": "Concession eligibility is a safety answer, not a deal. Getting it wrong is a fare-evasion fine, so it can never sit behind a paywall."
+    },
+    "deals": {
+      "name": "Student Deals",
+      "price": 5,
+      "period": "month",
+      "includes": "The live deals layer: current student discounts and travel deals near you, kept up to date.",
+      "modules": [
+        "discounts",
+        "travel"
       ]
     }
   }

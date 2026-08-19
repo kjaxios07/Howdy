@@ -1,13 +1,14 @@
 {
  "_meta": {
-  "version": "2.1.0",
-  "count": 463,
+  "version": "2.2.0",
+  "count": 483,
   "generated": "2026-08-19",
   "sources": [
    "founder CSV (howdy_ai_student_questions.csv, 220 questions)",
    "founder platform document v2.0",
    "Kip v1 seed bank",
-   "Kip v2 discounts module (students ask for discounts constantly)"
+   "Kip v2 discounts module (students ask for discounts constantly)",
+   "Kip v3 travel module (Tourism Australia / Tourism & Events Queensland)"
   ],
   "fields": {
    "difficulty": "Easy | Medium | Hard — from the founder research",
@@ -28,6 +29,7 @@
    "study",
    "tax",
    "transport",
+   "travel",
    "visa",
    "work"
   ]
@@ -5423,6 +5425,246 @@
    "risk": "standard",
    "origin": [
     "kip-v2-discounts"
+   ]
+  },
+  {
+   "id": "travel-001",
+   "module": "travel",
+   "q": "What are the best one-day trips near Brisbane?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-002",
+   "module": "travel",
+   "q": "How do I get to Moreton Island from Brisbane?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-003",
+   "module": "travel",
+   "q": "How do I get to North Stradbroke Island from Brisbane?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-004",
+   "module": "travel",
+   "q": "Is Lone Pine Koala Sanctuary worth it and how do I get there?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-005",
+   "module": "travel",
+   "q": "What can I do on the Gold Coast in one day from Brisbane?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-006",
+   "module": "travel",
+   "q": "How do I get to the Sunshine Coast from Brisbane without a car?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-007",
+   "module": "travel",
+   "q": "What is there to do in the Scenic Rim and Gold Coast hinterland?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-008",
+   "module": "travel",
+   "q": "Is Bribie Island a good day trip from Brisbane?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-009",
+   "module": "travel",
+   "q": "When is the Toowoomba Carnival of Flowers?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-010",
+   "module": "travel",
+   "q": "What are good weekend getaways from Brisbane?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-011",
+   "module": "travel",
+   "q": "What are good weekend getaways from Sydney on a student budget?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-012",
+   "module": "travel",
+   "q": "What are good weekend getaways from Melbourne on a student budget?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-013",
+   "module": "travel",
+   "q": "Where can I go for a weekend without a car?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-014",
+   "module": "travel",
+   "q": "What are the cheapest ways to travel between Australian cities?",
+   "difficulty": "Medium",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-015",
+   "module": "travel",
+   "q": "Do I need a car to travel around Australia as a student?",
+   "difficulty": "Medium",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-016",
+   "module": "travel",
+   "q": "Can I use my overseas driver licence in Australia?",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-017",
+   "module": "travel",
+   "q": "Do I need a permit to camp in a Queensland national park?",
+   "difficulty": "Medium",
+   "intent": "Procedural",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-018",
+   "module": "travel",
+   "q": "Is it safe to swim at Australian beaches and what do the flags mean?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-019",
+   "module": "travel",
+   "q": "How do I stay safe on a road trip in Australia?",
+   "difficulty": "Easy",
+   "intent": "Informational",
+   "volatile": false,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
+   ]
+  },
+  {
+   "id": "travel-020",
+   "module": "travel",
+   "q": "Can I travel overseas and re-enter Australia on a student visa?",
+   "difficulty": "Hard",
+   "intent": "Investigative",
+   "volatile": true,
+   "risk": "standard",
+   "origin": [
+    "kip-v3-travel"
    ]
   },
   {
