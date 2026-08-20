@@ -160,6 +160,23 @@ async def discounts(postcode: str = "", state: str = "", category: str = ""):
     return sources.build_discount_guide(postcode=postcode, state=state, category=category)
 
 
+@health.get("/api/quota")
+async def quota_status(request: Request):
+    """What's left today. Read-only — checking never spends a question."""
+    from . import quota
+    from .ratelimit import client_ip, hash_ip
+
+    # Signed-in identity comes from the session; unauthenticated callers are
+    # counted by hashed IP, same as the enforcement path.
+    current = getattr(request.state, "user", None)
+    subject = str(current.id) if current else hash_ip(client_ip(request)).hex()[:32]
+    tier = quota.tier_for(
+        signed_in=current is not None,
+        subscribed=bool(getattr(current, "subscribed", False)),
+    )
+    return await quota.status(subject, tier)
+
+
 app.include_router(health)
 
 

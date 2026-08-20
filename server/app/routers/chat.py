@@ -48,6 +48,8 @@ from ..security import (
 )
 from ..costreport import combine, record
 from ..costs import Usage
+from ..ratelimit import hash_ip
+from .. import quota
 from ..sources import verify_reply
 
 log = logging.getLogger("kip.chat")
@@ -111,6 +113,27 @@ async def _prepare(
     message = sanitize_message(body.message, settings.max_message_chars)
     if not message:
         raise HTTPException(status_code=400, detail="Please type a question.")
+
+    # Daily allowance. Deliberately AFTER sanitising (an empty message should
+    # not spend a slot) and BEFORE the guards, so a refused question does not
+    # burn one either — being told off for pasting your TFN should not also
+    # cost you a question.
+    #
+    # Guests are counted by hashed IP, so signing out still writes nothing
+    # durable. Safety topics are exempt inside check() and never reach a
+    # counter at all.
+    subject = str(current.id) if current else hash_ip(client_ip(request)).hex()[:32]
+    tier = quota.tier_for(
+        signed_in=current is not None,
+        subscribed=bool(getattr(current, "subscribed", False)),
+    )
+    verdict = await quota.check(subject, body.module_id, tier)
+    if not verdict.allowed:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=quota.message(verdict, tier),
+            headers={"Retry-After": str(verdict.retry_after)},
+        )
 
     # PII guard runs BEFORE the model call, so the value never leaves us.
     if detect_pii(message):

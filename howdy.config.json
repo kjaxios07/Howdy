@@ -888,5 +888,39 @@
         "travel"
       ]
     }
+  },
+  "quotas": {
+    "_note": "Free-tier allowances. Sliding windows, not calendar days — a calendar reset invites asking the daily cap at 23:59 and again at 00:01, and dumps everyone on the server at midnight. Rolling means the answer is always 'you can ask again in N hours', which is also easier to say kindly.",
+    "_exempt_note": "SAFETY IS NEVER RATIONED. A student asking about family violence, an underpaying employer or a mental health crisis must never meet a paywall or a counter. These modules are not counted and cannot be blocked, at any tier, including signed out.",
+    "window_hours": 24,
+    "exempt_modules": [
+      "safety",
+      "rights"
+    ],
+    "tiers": {
+      "guest": {
+        "label": "Signed out",
+        "per_topic": 3,
+        "per_day": 8,
+        "searches": 3,
+        "_why": "Enough to prove Kip is useful before asking for anything. The nudge to sign in comes after it has helped, not before.",
+        "_shared_ip_note": "Guests are counted by hashed IP, so a campus behind one NAT shares this allowance. That is a known limit of not writing anything down for signed-out users, and it is the right trade: the fix is signing in, which is free."
+      },
+      "free": {
+        "label": "Free account",
+        "per_topic": 8,
+        "per_day": 15,
+        "searches": 5,
+        "_why": "A real free user asks about 30 questions a MONTH — roughly one a day. 15/day is fifteen times that, so it never touches normal use, and it holds a single free account to about $4.35/month even if someone sits at the ceiling every day. The earlier 25/day worked out at $7/month per abuser, which is more than the paid tier costs."
+      },
+      "deals": {
+        "label": "Student Deals",
+        "per_topic": 20,
+        "per_day": 40,
+        "searches": 12,
+        "_why": "Sized as an abuse ceiling, not a margin guarantee. Realistic use — 5 questions a day, 2 of them searched — is about $1.62/month against the $5 price. Someone hitting this cap every single day for a month would cost ~$10.70, which is a deliberate ~2x exposure on the rare heavy user rather than caps mean enough to spoil normal use."
+      }
+    },
+    "_cost_basis": "Measured 2026-08-19: 0.43c a library answer, 2.04c when it searches. See app/costs.py."
   }
 }
