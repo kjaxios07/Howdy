@@ -871,6 +871,7 @@
   },
   "pricing": {
     "_note": "No trial. Nothing anywhere in the product may offer or mention a free trial.",
+    "_positioning": "The paid tier is NOT a discount list. UNiDAYS and Student Beans are free and better resourced at aggregating offers than we will ever be — charging for that is a losing position at any price. What a student cannot get elsewhere, and what is genuinely worth money, is not missing a deadline. Visa expiry, OSHC lapse, lease end, tax deadline. Missing one of those is the highest-stakes thing in their year here.",
     "currency": "AUD",
     "free": {
       "name": "Free",
@@ -878,11 +879,61 @@
       "includes": "Every question about living in Australia — visas, work, tax, housing, health, safety, rights, culture, and the RULES around concessions.",
       "_why_rules_are_free": "Concession eligibility is a safety answer, not a deal. Getting it wrong is a fare-evasion fine, so it can never sit behind a paywall."
     },
-    "deals": {
-      "name": "Student Deals",
-      "price": 5,
+    "plus": {
+      "name": "Kip Plus",
+      "_name_note": "Was 'Student Deals'. Renamed because deals are a feature of this tier, not the reason to buy it. One-line change if you prefer the old name.",
+      "price": 10,
       "period": "month",
-      "includes": "The live deals layer: current student discounts and travel deals near you, kept up to date.",
+      "annual_price": 79,
+      "_annual_note": "$79/year is $6.58/month effective. Students think in semesters and years, not months, and annual halves churn.",
+      "live": false,
+      "_live_note": "DO NOT charge $10 until the deadline keeper ships. Doubling the price with the same features drops conversion further than the price rises — $5 at 2% and $10 at 1% are identical revenue. Flip this to true the day the keeper is live.",
+      "features": [
+        {
+          "id": "deadlines",
+          "name": "Deadline keeper",
+          "status": "planned",
+          "what": "Visa expiry, OSHC renewal, lease end, tax deadline, enrolment dates — tracked, with reminders before they matter.",
+          "why": "The single strongest reason to pay. Missing a visa expiry is catastrophic, and it costs us a scheduled job and a notification — no model call at all."
+        },
+        {
+          "id": "documents",
+          "name": "Document shelf",
+          "status": "planned",
+          "what": "Your CoE, lease, payslips and insurance, encrypted, findable when an agent or employer asks for them."
+        },
+        {
+          "id": "export",
+          "name": "Answer export",
+          "status": "planned",
+          "what": "Turn any answer into a PDF with its sources, to show a landlord, employer or agent."
+        },
+        {
+          "id": "unlimited_checks",
+          "name": "Unlimited live checks",
+          "status": "shipped",
+          "what": "The daily cap on live source checking lifted.",
+          "why": "The one feature that maps directly to what it costs us to serve."
+        },
+        {
+          "id": "discounts",
+          "name": "Student discounts near you",
+          "status": "shipped",
+          "what": "Live concessions and offers for your state."
+        },
+        {
+          "id": "travel",
+          "name": "Travel planning",
+          "status": "shipped",
+          "what": "Day trips and weekend getaways with real costs, transport and permits."
+        },
+        {
+          "id": "compare",
+          "name": "City comparison",
+          "status": "planned",
+          "what": "Brisbane against Adelaide against Perth for your course and budget, side by side."
+        }
+      ],
       "modules": [
         "discounts",
         "travel"

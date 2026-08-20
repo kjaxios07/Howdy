@@ -509,12 +509,36 @@ tbody tr:last-child td{border-bottom:0}
     <table>
       <thead><tr><th>Where it comes from</th><th>Who pays</th><th>When</th></tr></thead>
       <tbody>
-        <tr><td>Student Deals</td><td>Students, <span class="n">$5</span>/month</td><td>Now. Discounts and travel deals only — margin measured, see above.</td></tr>
+        <tr><td>Kip Plus</td><td>Students, <span class="n">$10</span>/month or <span class="n">$79</span>/year</td><td>When the deadline keeper ships — not before. See below.</td></tr>
         <tr><td>University licence</td><td>Institution, per student per year</td><td>After one successful pilot. The largest line by far.</td></tr>
         <tr><td>Expert directory</td><td>Vetted professionals, flat fee</td><td>Once there is real traffic.</td></tr>
         <tr><td>Education agents</td><td>Agencies placing students</td><td>Mid term. They answer these questions by hand today.</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="note">
+    <b>Why the paid tier is not a discount list</b>
+    <p>UNiDAYS and Student Beans are free, and better resourced at aggregating offers than we will ever be. Charging for that is a losing position at $5 or $10. What a student cannot get anywhere else — and would genuinely pay for — is <b>not missing a deadline</b>: visa expiry, OSHC lapse, lease end, tax. Missing one is the highest-stakes thing in their year here, and tracking it costs us a scheduled job and a notification, with no model call at all.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Kip Plus — $10/mo or $79/yr</th><th>Why it is worth paying for</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Deadline keeper</td><td>Visa, OSHC, lease, tax, enrolment — tracked, with reminders. <b>The reason to buy.</b></td><td><span class="pill p-next">Build first</span></td></tr>
+        <tr><td>Document shelf</td><td>CoE, lease, payslips, insurance — encrypted, findable when an agent asks.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Answer export</td><td>Any answer as a PDF with sources, to show a landlord or employer.</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>City comparison</td><td>Brisbane vs Adelaide vs Perth for your course and budget.</td><td><span class="pill p-later">Later</span></td></tr>
+        <tr><td>Unlimited live checks</td><td>The daily cap lifted. The one feature that maps to what we pay.</td><td><span class="pill p-done">Shipped</span></td></tr>
+        <tr><td>Discounts + travel</td><td>Still here — a feature of the tier, not the headline.</td><td><span class="pill p-done">Shipped</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Do not raise the price first</b>
+    <p>$5 at 2% conversion and $10 at 1% are <b>identical revenue</b>. Doubling the price with the same features drops conversion further than the price rises — the config carries a <code>live: false</code> flag so $10 cannot go out before the keeper does. Margin is not the constraint either way: at realistic use a subscriber costs $1.61/month, so $5 is 68% gross and $10 is 84%. The constraint is willingness to pay, and that is a feature problem.</p>
   </div>
 
   <div class="note">
