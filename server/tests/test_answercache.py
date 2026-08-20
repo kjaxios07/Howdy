@@ -102,6 +102,14 @@ def test_searched_answers_expire_far_sooner_than_library_ones():
     assert stable >= 3600, "a stable explanation should outlive a single session"
 
 
+def test_a_degraded_answer_does_not_outlive_the_lean_period():
+    """An answer written with live checking switched off by the budget guard is
+    still a good answer, but it must not become the canonical one for two days
+    — it would outlast the reason it was written that way."""
+    assert ac.ttl_for(searched=False, degraded=True) == ac.ttl_for(searched=True)
+    assert ac.ttl_for(searched=False, degraded=True) < ac.ttl_for(searched=False)
+
+
 def test_ttl_actually_applied(fake):
     run(ac.put("what is a tfn", "tax", reply=GOOD, sources=[], verified=True, searched=False))
     run(ac.put("minimum wage now", "work", reply=GOOD, sources=[], verified=True, searched=True))

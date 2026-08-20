@@ -43,6 +43,15 @@ async def record(db, model: str, usage: Usage, module_id: str | None = None) -> 
         return
     try:
         cost = price(model, usage)
+        micro = round(cost.total * 1_000_000)
+
+        # Same number, two places: Redis for the fast ceiling check on the next
+        # request, Postgres for the durable record. The counter is the one the
+        # budget guard reads, so it is updated before the row is committed.
+        from . import budget
+
+        await budget.add(micro)
+
         db.add(
             AnswerCost(
                 day=date.today(),
@@ -53,7 +62,7 @@ async def record(db, model: str, usage: Usage, module_id: str | None = None) -> 
                 cache_read_tokens=usage.cache_read_input_tokens,
                 output_tokens=usage.output_tokens,
                 searches=usage.web_searches,
-                micro_usd=round(cost.total * 1_000_000),
+                micro_usd=micro,
             )
         )
         await db.commit()

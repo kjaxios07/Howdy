@@ -49,7 +49,7 @@ from ..security import (
 from ..costreport import combine, record
 from ..costs import Usage
 from ..ratelimit import hash_ip
-from .. import answercache, quota
+from .. import answercache, budget, quota
 from ..sources import verify_reply
 
 log = logging.getLogger("kip.chat")
@@ -95,7 +95,7 @@ class Refusal(Exception):
 
 async def _prepare(
     body: ChatRequest, request: Request, db: AsyncSession, current: CurrentUser | None
-) -> tuple[str, Conversation | None, list[dict], bool]:
+) -> tuple[str, Conversation | None, list[dict], bool, str]:
     """Rate limit, sanitise, run the guards, load history. Raises Refusal/HTTPException."""
     if current:
         rl_key, rl_limit = f"user:{current.id}", settings.rate_limit_user
@@ -135,6 +135,14 @@ async def _prepare(
             headers={"Retry-After": str(verdict.retry_after)},
         )
 
+    # The spend ceiling. Degrades in stages rather than switching off, and a
+    # safety question is never degraded — see app/budget.py.
+    spend_mode = budget.effective_mode(
+        await budget.state(), tier=tier, exempt=verdict.exempt
+    )
+    if spend_mode == budget.PAUSED:
+        raise Refusal(budget.message(budget.PAUSED))
+
     # PII guard runs BEFORE the model call, so the value never leaves us.
     if detect_pii(message):
         raise Refusal(PII_RESPONSE)
@@ -155,12 +163,18 @@ async def _prepare(
             raise HTTPException(status_code=404, detail="Conversation not found.")
 
     history = await _load_history(db, conversation, current) if conversation else []
-    return message, conversation, history, persist
+    return message, conversation, history, persist, spend_mode
 
 
-def _request_kwargs(history: list[dict], message: str) -> dict:
+def _request_kwargs(
+    history: list[dict], message: str, spend_mode: str = budget.NORMAL
+) -> dict:
     tools = []
-    if (tool := websearch.tool_definition()) is not None:
+    # At `no_search` the live-checking tool is simply not offered. That is the
+    # whole mechanism: the model cannot search a tool it was never given, so
+    # the saving is real rather than a request we hope it does not make. The
+    # library still answers, at roughly a fifth of the cost.
+    if spend_mode == budget.NORMAL and (tool := websearch.tool_definition()) is not None:
         tools.append(tool)
 
     kwargs = {
@@ -189,20 +203,34 @@ async def chat(
     current: CurrentUser | None = Depends(optional_user),
 ) -> ChatResponse:
     try:
-        message, conversation, history, persist = await _prepare(body, request, db, current)
+        message, conversation, history, persist, spend_mode = await _prepare(body, request, db, current)
     except Refusal as refusal:
         return ChatResponse(
             reply=refusal.reply, sources=[], verified=True,
             conversation_id=body.conversation_id, stored=False,
         )
 
-    kwargs = _request_kwargs(history, message)
+    kwargs = _request_kwargs(history, message, spend_mode)
     # A repeated question is served from the last good answer. This is the
     # biggest single lever on cost at scale, and it is also faster for the
     # student. Risk-tiered topics are excluded inside the cache module.
     hit = await answercache.get(message, body.module_id)
     await answercache.note(hit is not None)
+    if hit is None and spend_mode == budget.CACHE_ONLY:
+        # Returned, not raised — we are past the try/except above, so a raise
+        # here would surface as a 500 instead of the message we wrote.
+        return ChatResponse(
+            reply=budget.message(budget.CACHE_ONLY), sources=[], verified=True,
+            conversation_id=body.conversation_id, stored=False,
+        )
     if hit is not None:
+        # A cached answer is still this student's answer: it goes into their
+        # saved conversation like any other, or the thread would have gaps in
+        # it for reasons only we can see.
+        if persist:
+            conversation = await _persist(
+                db, current, conversation, body.module_id, message, hit, hit.sources
+            )
         return ChatResponse(
             reply=hit.reply,
             sources=[SourceOut(**s) for s in hit.sources],
@@ -210,6 +238,7 @@ async def chat(
             searched=hit.searched,
             search_queries=[],
             conversation_id=conversation.id if conversation else None,
+            stored=persist,
         )
 
     blocks: list = []
@@ -253,6 +282,7 @@ async def chat(
         message, body.module_id,
         reply=checked.reply, sources=merged,
         verified=checked.verified, searched=trace.used,
+        degraded=spend_mode != budget.NORMAL,
     )
 
     return ChatResponse(
@@ -289,7 +319,7 @@ async def chat_stream(
         error    {detail}
     """
     try:
-        message, conversation, history, persist = await _prepare(body, request, db, current)
+        message, conversation, history, persist, spend_mode = await _prepare(body, request, db, current)
     except Refusal as refusal:
         async def refused() -> AsyncIterator[str]:
             yield _sse("done", {
@@ -299,9 +329,52 @@ async def chat_stream(
             })
         return StreamingResponse(refused(), media_type="text/event-stream")
 
+    # The cache is checked on this path too. It is the path students actually
+    # use, so a cache that only worked on the buffered fallback would be a
+    # cost lever that never fires.
+    hit = await answercache.get(message, body.module_id)
+    await answercache.note(hit is not None)
+
+    if hit is None and spend_mode == budget.CACHE_ONLY:
+        async def lean() -> AsyncIterator[str]:
+            yield _sse("done", {
+                "reply": budget.message(budget.CACHE_ONLY), "sources": [],
+                "verified": True, "searched": False, "stored": False,
+                "conversation_id": str(body.conversation_id) if body.conversation_id else None,
+            })
+        return StreamingResponse(lean(), media_type="text/event-stream")
+
+    if hit is not None:
+        async def cached() -> AsyncIterator[str]:
+            nonlocal conversation
+            if persist:
+                try:
+                    conversation = await _persist(
+                        db, current, conversation, body.module_id, message, hit, hit.sources
+                    )
+                except Exception:
+                    log.exception("persist_failed")
+            # Delivered whole rather than faked as a token stream — it arrives
+            # instantly, and pretending to type it would be slower on purpose.
+            yield _sse("delta", {"text": hit.reply})
+            yield _sse("done", {
+                "reply": hit.reply,
+                "sources": hit.sources,
+                "verified": hit.verified,
+                "searched": hit.searched,
+                "search_queries": [],
+                "conversation_id": str(conversation.id) if conversation else None,
+                "stored": persist,
+            })
+        return StreamingResponse(
+            cached(),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
+        )
+
     async def generate() -> AsyncIterator[str]:
         nonlocal conversation
-        kwargs = _request_kwargs(history, message)
+        kwargs = _request_kwargs(history, message, spend_mode)
         blocks: list = []
         usages: list[Usage] = []
         text_parts: list[str] = []
@@ -382,6 +455,7 @@ async def chat_stream(
             message, body.module_id,
             reply=checked.reply, sources=merged,
             verified=checked.verified, searched=trace.used,
+            degraded=spend_mode != budget.NORMAL,
         )
 
         yield _sse("done", {

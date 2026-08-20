@@ -940,6 +940,24 @@
       ]
     }
   },
+  "price_probe": {
+    "_note": "Let students set the price instead of us guessing it. Stated willingness to pay is close to worthless — the only signal worth acting on is somebody reaching for their wallet when they think it is real. So different students see the paywall at a different price and we measure who taps through. Nobody is charged; the flow stops at 'not open yet, want to be told when it is?'.",
+    "enabled": false,
+    "_enabled_note": "Off until the paywall screen exists. Turning it on before there is something behind the button teaches students the button does nothing.",
+    "prices": [
+      5,
+      10
+    ],
+    "_prices_note": "Two arms, far apart, on purpose. Telling $8 from $10 needs roughly 25x the traffic of telling $5 from $10 — at launch volume a three-way test does not resolve and you act on noise anyway. Run $5 against $10 and read revenue per impression, not conversion rate: half the conversion at twice the price is the same business.",
+    "min_detectable_lift": 0.5,
+    "_lift_note": "The conversion gap the probe is sized to see. It follows from the arm spacing rather than being a free knob: with $5 against $10, revenue per impression ties exactly when the dearer arm converts at half the rate, so 50% IS the decision boundary. Sizing for anything finer buys traffic you do not need.",
+    "salt": "kip-price-2026",
+    "_salt_note": "The variant is a hash of the salt and the subject, so one student sees one price forever, across devices and logouts. Showing someone $5 on Monday and $10 on Friday is a fair thing to be angry about. Change the salt to start a clean second round.",
+    "annual_multiple": 8,
+    "_annual_note": "Twelve months for the price of eight. Students think in semesters, and annual roughly halves churn.",
+    "_privacy_note": "Per-variant integer counters in Redis: shown, tapped. No row per person, no identity, no timestamp finer than the day — the same stance as the coverage-gap log. You cannot reconstruct who saw what.",
+    "_no_trial": "There is no trial in any arm. Nothing in this block may introduce one."
+  },
   "quotas": {
     "_note": "Free-tier allowances. Sliding windows, not calendar days — a calendar reset invites asking the daily cap at 23:59 and again at 00:01, and dumps everyone on the server at midnight. Rolling means the answer is always 'you can ask again in N hours', which is also easier to say kindly.",
     "_exempt_note": "SAFETY IS NEVER RATIONED. A student asking about family violence, an underpaying employer or a mental health crisis must never meet a paywall or a counter. These modules are not counted and cannot be blocked, at any tier, including signed out.",
@@ -985,5 +1003,19 @@
       "rights"
     ],
     "_never_note": "A crisis answer is generated fresh, in that student's own words, every time. Same reasoning as exempting them from quotas: these are the moments the product exists for and they are never optimised."
+  },
+  "budget": {
+    "_note": "A spend ceiling you cannot accidentally exceed. Pre-revenue the thing that matters is not cost per answer, it is that a good week cannot produce a bill you did not agree to. Being written about on a student forum should be good news, not an invoice.",
+    "enabled": true,
+    "monthly_cap_usd": 40,
+    "daily_cap_usd": 2.5,
+    "_cap_note": "USD, because that is what the model is billed in — no FX assumption baked in. $40/month at the measured 0.43c a cached answer is roughly 9,000 answers, or about 300 active students. Raise it the day revenue covers it, not before.",
+    "thresholds": {
+      "no_search": 0.6,
+      "cache_only": 0.85,
+      "pause": 1.0
+    },
+    "_ladder_note": "It degrades in stages rather than switching off. At 60% live checking stops and the library still answers at about a fifth of the cost — most students never notice. At 85% only questions we already have answers to. At 100% it stops generating.",
+    "_never_note": "Safety topics are NEVER degraded, at any stage, including past the cap. The ceiling protects against a surprise bill, not against helping someone in danger — if that means overshooting, we overshoot. Paying users degrade one stage later than free ones, because they paid."
   }
 }

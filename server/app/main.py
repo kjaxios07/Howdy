@@ -177,6 +177,87 @@ async def quota_status(request: Request):
     return await quota.status(subject, tier)
 
 
+def _probe_subject(request: Request) -> str:
+    """Who the price is assigned to. Same identity rule as the quota counters:
+    the session id when signed in, a hashed IP otherwise, so nothing durable
+    is written about someone who never signed up."""
+    from .ratelimit import client_ip, hash_ip
+
+    current = getattr(request.state, "user", None)
+    return str(current.id) if current else hash_ip(client_ip(request)).hex()[:32]
+
+
+@health.get("/api/pricing")
+async def pricing(request: Request):
+    """What Kip Plus costs *this* student, and what it includes.
+
+    The price comes from the probe, so it is stable for one person forever —
+    the frontend must render this rather than hard-coding a number, or the
+    same student will see two different prices and be right to distrust us.
+    Displaying the paywall also counts an impression; that is the denominator
+    of the whole experiment.
+    """
+    from . import priceprobe
+    from .appconfig import raw
+
+    subject = _probe_subject(request)
+    await priceprobe.shown(subject)
+    plan = raw().get("pricing", {})
+    plus = plan.get("plus", {})
+    return {
+        "free": {
+            "name": plan.get("free", {}).get("name", "Free"),
+            "price": 0,
+            "includes": plan.get("free", {}).get("includes", ""),
+        },
+        "plus": {
+            "name": plus.get("name", "Kip Plus"),
+            **priceprobe.offer(subject),
+            "live": bool(plus.get("live", False)),
+            "features": [
+                {"name": f.get("name"), "what": f.get("what"), "status": f.get("status")}
+                for f in plus.get("features", [])
+            ],
+        },
+    }
+
+
+@health.post("/api/pricing/intent")
+async def pricing_intent(request: Request):
+    """They tapped the button. Nothing is charged.
+
+    This is the numerator. It records one anonymous increment against the
+    price that person was shown — no row, no identity, no time finer than the
+    day — and returns the honest "not open yet" copy for the screen.
+    """
+    from . import priceprobe
+
+    price = await priceprobe.tapped(_probe_subject(request))
+    return {
+        "charged": False,
+        "price": price,
+        "message": (
+            "Not open just yet — I'm still building this part. "
+            "Leave your email and you'll be the first to know."
+        ),
+    }
+
+
+@health.get("/api/budget")
+async def budget_status():
+    """Whether the product is running lean right now.
+
+    Deliberately just the mode. The spend figures behind it are ours — a
+    public endpoint that reports how close we are to a cap tells anyone who
+    wants to push us over it exactly how far they have to go. `python -m
+    app.costs report` and the answer_costs table are where the money lives.
+    """
+    from . import budget
+
+    b = await budget.state()
+    return {"mode": b.mode, "lean": b.mode != budget.NORMAL, "note": budget.message(b.mode)}
+
+
 app.include_router(health)
 
 

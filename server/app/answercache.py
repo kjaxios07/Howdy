@@ -61,10 +61,19 @@ def never_cache_modules() -> frozenset[str]:
     return frozenset(_cfg().get("never_cache_modules", ("safety", "rights")))
 
 
-def ttl_for(*, searched: bool) -> int:
-    """Seconds. A searched answer contains something that can move."""
+def ttl_for(*, searched: bool, degraded: bool = False) -> int:
+    """Seconds. A searched answer contains something that can move.
+
+    `degraded` means the answer was produced with live checking switched off
+    by the budget guard. It is still a good answer, but it must not become the
+    canonical one for two days — it would outlive the lean period that caused
+    it. So it gets the short TTL and re-asks properly once we are back to
+    normal.
+    """
     c = _cfg()
-    return int(c.get("volatile_ttl_s", 900) if searched else c.get("stable_ttl_s", 172800))
+    if searched or degraded:
+        return int(c.get("volatile_ttl_s", 900))
+    return int(c.get("stable_ttl_s", 172800))
 
 
 @dataclass(frozen=True)
@@ -133,6 +142,7 @@ async def put(
     verified: bool,
     searched: bool,
     state: str = "",
+    degraded: bool = False,
 ) -> bool:
     """Store an answer if it is allowed to be stored. Never raises."""
     ok, _ = cacheable(module_id=module_id, verified=verified, searched=searched, reply=reply)
@@ -141,7 +151,7 @@ async def put(
     try:
         await redis_client().setex(
             key(question, module_id, state),
-            ttl_for(searched=searched),
+            ttl_for(searched=searched, degraded=degraded),
             json.dumps(
                 {"reply": reply, "sources": sources, "verified": verified, "searched": searched}
             ),
