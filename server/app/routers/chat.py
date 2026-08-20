@@ -49,7 +49,7 @@ from ..security import (
 from ..costreport import combine, record
 from ..costs import Usage
 from ..ratelimit import hash_ip
-from .. import quota
+from .. import answercache, quota
 from ..sources import verify_reply
 
 log = logging.getLogger("kip.chat")
@@ -197,6 +197,21 @@ async def chat(
         )
 
     kwargs = _request_kwargs(history, message)
+    # A repeated question is served from the last good answer. This is the
+    # biggest single lever on cost at scale, and it is also faster for the
+    # student. Risk-tiered topics are excluded inside the cache module.
+    hit = await answercache.get(message, body.module_id)
+    await answercache.note(hit is not None)
+    if hit is not None:
+        return ChatResponse(
+            reply=hit.reply,
+            sources=[SourceOut(**s) for s in hit.sources],
+            verified=hit.verified,
+            searched=hit.searched,
+            search_queries=[],
+            conversation_id=conversation.id if conversation else None,
+        )
+
     blocks: list = []
     usages: list[Usage] = []
 
@@ -234,6 +249,11 @@ async def chat(
 
     await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
     await record(db, settings.model, combine(usages), body.module_id)
+    await answercache.put(
+        message, body.module_id,
+        reply=checked.reply, sources=merged,
+        verified=checked.verified, searched=trace.used,
+    )
 
     return ChatResponse(
         reply=checked.reply,
@@ -358,6 +378,11 @@ async def chat_stream(
 
         await _record_gap(db, message, body.module_id, checked.reply, merged, trace.used)
         await record(db, settings.model, combine(usages), body.module_id)
+        await answercache.put(
+            message, body.module_id,
+            reply=checked.reply, sources=merged,
+            verified=checked.verified, searched=trace.used,
+        )
 
         yield _sse("done", {
             "reply": checked.reply,

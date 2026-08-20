@@ -922,5 +922,17 @@
       }
     },
     "_cost_basis": "Measured 2026-08-19: 0.43c a library answer, 2.04c when it searches. See app/costs.py."
+  },
+  "answer_cache": {
+    "_note": "Serving a repeated question from the last good answer. The single biggest cost lever we have — see `python -m app.scale 500000 --levers`. Students ask the same things; 'how do I apply for a TFN' does not have 50,000 different answers.",
+    "enabled": true,
+    "stable_ttl_s": 172800,
+    "volatile_ttl_s": 900,
+    "_ttl_note": "Two days for an answer that came from the library, fifteen minutes for one that needed a live search. Whether it searched is the volatility signal — if a figure can move, we do not serve it from memory for long.",
+    "never_cache_modules": [
+      "safety",
+      "rights"
+    ],
+    "_never_note": "A crisis answer is generated fresh, in that student's own words, every time. Same reasoning as exempting them from quotas: these are the moments the product exists for and they are never optimised."
   }
 }

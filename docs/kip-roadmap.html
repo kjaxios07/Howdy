@@ -454,6 +454,52 @@ tbody tr:last-child td{border-bottom:0}
   </div>
 </section>
 
+<!-- ═══ SCALE ═══ -->
+<section class="phase">
+  <span class="ptag">The long run</span>
+  <h2>What breaks at 500,000.</h2>
+  <p class="intro">Modelled, not guessed — <code>python -m app.scale</code>. The surprising part is where the cost <em>isn't</em>.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Users</th><th>Answers/mo</th><th>Model bill</th><th>Servers</th><th>Revenue</th><th>Margin</th></tr></thead>
+      <tbody>
+        <tr><td class="n">10,000</td><td class="n">165k</td><td class="n">$1.3k</td><td class="n">$25</td><td class="n">$1.0k</td><td class="n">−$338</td></tr>
+        <tr><td class="n">100,000</td><td class="n">1.65M</td><td class="n">$13.1k</td><td class="n">$470</td><td class="n">$10.0k</td><td class="n">−$3.6k</td></tr>
+        <tr><td class="n">500,000</td><td class="n">8.25M</td><td class="n">$65.7k</td><td class="n">$496</td><td class="n">$50.0k</td><td class="n">−$16.1k</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Servers are not the problem</b>
+    <p>At half a million users the whole thing still peaks at about <b>26 requests a second</b> and fits on one or two boxes — infrastructure is <b>$496 of a $66,000 bill</b>, under 1%. The model bill is everything. Any plan that starts with "we'll need Kubernetes" is solving the wrong problem.</p>
+  </div>
+
+  <div class="note">
+    <b>Quotas are the wrong tool for this</b>
+    <p>Per-user caps bound <em>abuse</em> — one person hammering the thing. They do nothing about the actual bill, because that comes from <b>normal use multiplied by a lot of people</b>. Half a million students behaving perfectly still costs $66k a month. The fix has to be structural.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Lever</th><th>Bill at 500k</th><th>Saved</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Base — today</td><td class="n">$66.1k</td><td>—</td><td>—</td></tr>
+        <tr><td>Answer cache (65% repeat)</td><td class="n">$23.5k</td><td class="n">65%</td><td><span class="pill p-done">Built</span></td></tr>
+        <tr><td>Route simple answers to a cheaper model</td><td class="n">$51.5k</td><td class="n">22%</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>Halve live searches</td><td class="n">$52.9k</td><td class="n">20%</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td><b>All three</b></td><td class="n"><b>$14.2k</b></td><td class="n"><b>79%</b></td><td><span class="pill p-later">Target</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Who pays decides everything</b>
+    <p>With the levers in, $14.2k of cost against $50k of consumer revenue works. But the honest version is that <b>the $5 tier alone never funds 500,000 free users</b> — it funds about 10,000 subscribers. The free tier is paid for by <b>institutions</b>: at $4 per enrolled international student per year, 25% coverage adds $42k a month and the whole thing is comfortable. That is why the university deal is Phase 3 and not an afterthought.</p>
+  </div>
+</section>
+
 <!-- ═══ MONEY ═══ -->
 <section class="phase">
   <span class="ptag">The business</span>
@@ -480,6 +526,7 @@ tbody tr:last-child td{border-bottom:0}
 <div class="end">
   <b>The Kip Build Board</b> · v1 · 19 August 2026<br>
   Phase 1 is essentially done. Phase 2 is the work. Phase 3 is what turns it into a business.<br>
+  Scale is modelled, not guessed: python -m app.scale<br>
   Every module above is its own file, so any of it can be replaced without touching the rest.
 </div>
 
