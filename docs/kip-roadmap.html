@@ -378,6 +378,30 @@ tbody tr:last-child td{border-bottom:0}
       </ul>
       <p class="why">Isolated behind one flag on the account. Nothing else in the app knows about money.</p>
     </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Spend ceiling</h3><span class="pill p-done">Done</span></div>
+      <p class="file">server/app/budget.py</p>
+      <ul>
+        <li>Hard monthly and daily cap, set in one config line</li>
+        <li>Degrades in stages instead of switching off</li>
+        <li>Safety topics are never degraded, even past the cap</li>
+        <li>Paying users degrade one stage later than free ones</li>
+      </ul>
+      <p class="why">A good week on a student forum should be good news, not an invoice.</p>
+    </div>
+
+    <div class="m">
+      <div class="m-head"><h3>Price probe</h3><span class="pill p-done">Done</span></div>
+      <p class="file">server/app/priceprobe.py</p>
+      <ul>
+        <li>Half the students see $5, half see $10 — nobody is charged</li>
+        <li>One student sees one price forever, across devices</li>
+        <li>Counts people, not page loads, and stores no identity</li>
+        <li>Refuses to report a result before it has the traffic</li>
+      </ul>
+      <p class="why">The students set the price. We stop guessing it.</p>
+    </div>
   </div>
 
   <div class="note">
@@ -400,6 +424,23 @@ tbody tr:last-child td{border-bottom:0}
   <div class="note">
     <b>What this actually decides</b>
     <p>$5 is comfortable — a subscriber would have to ask four times more than a heavy user before it stops paying. The number to watch is not the paid tier at all, it is <b>the free one</b>: free users have no ceiling, and at scale they are the whole bill. Two levers exist and both are already built — prompt caching (worth about 4x) and the three-search cap.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>When spend reaches</th><th>What changes</th><th>What a student notices</th></tr></thead>
+      <tbody>
+        <tr><td class="n">60%</td><td>Live source checking is no longer offered to the model</td><td>Almost nothing — the library still answers, at a fifth of the cost</td></tr>
+        <tr><td class="n">85%</td><td>Only questions we already have answers to</td><td>&ldquo;I'm running light today&rdquo; on anything new</td></tr>
+        <tr><td class="n">100%</td><td>Nothing is generated</td><td>&ldquo;Back tomorrow&rdquo; — with the crisis numbers still on screen</td></tr>
+        <tr><td><b>Safety topics</b></td><td><b>Never degraded, at any stage</b></td><td><b>Nothing. Ever.</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>The cap is a cost guard, not a safety control</b>
+    <p>If honouring the safety exemption overshoots the ceiling, we overshoot. Same reasoning as exempting those topics from the daily quota: a student asking about family violence, an underpaying employer or a mental health crisis must never meet a counter. A Redis fault reports <em>normal</em> rather than <em>out of money</em>, so a blip can never read as a lockout.</p>
   </div>
 </section>
 
@@ -542,13 +583,34 @@ tbody tr:last-child td{border-bottom:0}
   </div>
 
   <div class="note">
+    <b>So let the students decide it</b>
+    <p>&ldquo;Would you pay $10 a month?&rdquo; is worthless — people are kind to someone who built something, and stated willingness to pay barely predicts paying. Half the students see the paywall at $5, half at $10, and we measure who taps through. <b>Nobody is charged</b>; the flow stops at an honest &ldquo;not open yet, want to be told when it is?&rdquo; and an email box. That email list is the other half of the result, and it does not need statistical significance to be useful — those are the people to talk to.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>To tell apart</th><th>Students needed per price</th><th>Realistic?</th></tr></thead>
+      <tbody>
+        <tr><td>$5 vs $10</td><td class="n">~750</td><td>Yes — about 1,500 students who see the paywall</td></tr>
+        <tr><td>$5 vs $8</td><td class="n">~2,500</td><td>Months away</td></tr>
+        <tr><td>$8 vs $10</td><td class="n">~13,900</td><td>No. Not this year.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Two arms, far apart — and read it as revenue, not conversion</b>
+    <p>At a 3% tap-through, a three-way $5/$8/$10 test does not resolve at launch traffic, and the temptation is to act on the noise anyway. So there are two arms. The winner is the one earning more <b>per person who saw the paywall</b>, not the one converting best — half the conversion at twice the money is the same business, and ranking on conversion would pick the cheapest price every time. <code>python -m app.priceprobe</code> prints the arithmetic; <code>read()</code> returns &ldquo;not enough traffic yet&rdquo; rather than a rate computed from eleven people.</p>
+  </div>
+
+  <div class="note">
     <b>Three things not to do</b>
     <p>Never put advertising inside an answer — it is the fastest money and it ends the university business permanently. Never charge for emergency or safety help. Never take a commission per referral, only flat fees, so nobody can ever ask whether Kip sent them somewhere for the money.</p>
   </div>
 </section>
 
 <div class="end">
-  <b>The Kip Build Board</b> · v1 · 19 August 2026<br>
+  <b>The Kip Build Board</b> · v2 · 20 August 2026<br>
   Phase 1 is essentially done. Phase 2 is the work. Phase 3 is what turns it into a business.<br>
   Scale is modelled, not guessed: python -m app.scale<br>
   Every module above is its own file, so any of it can be replaced without touching the rest.
