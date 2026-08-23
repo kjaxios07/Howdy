@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#160E3A">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Howdy Jobs">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="/assets/howdy-jobs.css">
 <style>
 .choose{display:grid;gap:18px;margin:38px 0 0}
@@ -55,6 +62,11 @@
     </a>
   </section>
 
+  <p style="margin-top:22px">
+    <button class="btn btn-ghost btn-sm" id="installBtn" hidden>📲 Install Howdy Jobs</button>
+    <span class="hint" id="iosHint" hidden>On iPhone: tap Share, then <strong>Add to Home Screen</strong>.</span>
+  </p>
+
   <footer class="foot">
     <p>Howdy Jobs is a listing platform, not the employer. Pay rates and shifts are set by the business —
       check current minimums at fairwork.gov.au.</p>
@@ -62,6 +74,15 @@
 </main>
 
 <script src="/assets/howdy-jobs.js"></script>
-<script>document.getElementById('themeBtn').addEventListener('click', window.Howdy.toggleTheme);</script>
+<script>
+document.getElementById('themeBtn').addEventListener('click', window.Howdy.toggleTheme);
+document.getElementById('installBtn').addEventListener('click', function () { window.Howdy.install(); });
+// iOS has no install prompt API — tell iPhone users where the button lives.
+(function () {
+  var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  var standalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+  if (iOS && !standalone) document.getElementById('iosHint').hidden = false;
+})();
+</script>
 </body>
 </html>

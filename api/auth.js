@@ -11,7 +11,7 @@
 const store = require('../lib/store');
 const auth = require('../lib/auth');
 const {
-  STATES, CATEGORIES, json, fail, readBody, csrfOk, clean, isEmail, rateLimit, clientIp
+  STATES, CATEGORIES, json, fail, readBody, csrfOk, clean, cleanText, isEmail, rateLimit, clientIp
 } = require('../lib/jobs-core');
 
 const publicUser = u => u && ({
@@ -146,7 +146,7 @@ module.exports = async (req, res) => {
         hoursPerWeek: Math.max(0, Math.min(40, Number(body.hoursPerWeek) || 0)),
         phone: clean(body.phone, 20),
         studyAt: clean(body.studyAt, 100),
-        bio: clean(body.bio, 600)
+        bio: cleanText(body.bio, 600)
       };
     } else {
       const state = clean(body.state, 3).toUpperCase();

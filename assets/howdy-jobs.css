@@ -158,3 +158,22 @@ select.input option{background:var(--clay-card);color:var(--t1)}
 .searchbar{display:grid;gap:10px;align-items:center}
 @media(min-width:900px){.searchbar{grid-template-columns:2fr 1fr 1fr auto}}
 .filter-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin-top:14px}
+
+/* share pack */
+.share-preview{display:flex;justify-content:center;background:var(--gl);border:1px solid var(--gl-b);
+  border-radius:14px;padding:14px}
+.share-preview canvas{max-width:100%;max-height:44vh;height:auto;border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.reel-steps{display:grid;gap:12px}
+.reel-step{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;
+  background:var(--gl);border:1px solid var(--gl-b)}
+.reel-step .tag{flex:none}
+.reel-on{font-size:14px;font-weight:700}
+.days{display:flex;flex-wrap:wrap;gap:6px}
+.day{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:7px;border:1px solid var(--gl-b);
+  background:var(--gl-md);color:var(--t3)}
+.day.on{color:var(--t1);border-color:var(--accent);background:rgba(167,139,250,.2)}
+.save-btn{font-size:18px;line-height:1;padding:6px 10px;border-radius:9px;border:1px solid var(--gl-b);
+  background:var(--gl);color:var(--t2);transition:.15s}
+.save-btn:hover{color:var(--rose);border-color:var(--gl-t)}
+.save-btn.on{color:var(--rose);border-color:rgba(253,164,175,.5)}

@@ -9,7 +9,7 @@
 const store = require('../lib/store');
 const auth = require('../lib/auth');
 const {
-  json, fail, readBody, csrfOk, clean, rateLimit, clientIp
+  json, fail, readBody, csrfOk, clean, cleanText, rateLimit, clientIp
 } = require('../lib/jobs-core');
 
 const STATUSES = ['submitted', 'shortlisted', 'hired', 'declined'];
@@ -92,7 +92,7 @@ module.exports = async (req, res) => {
       id: store.id('app'),
       jobId: job.id,
       studentId: user.id,
-      message: clean(body.message, 1200),
+      message: cleanText(body.message, 1200),
       availability: clean(body.availability, 200),
       status: 'submitted',
       createdAt: new Date().toISOString()

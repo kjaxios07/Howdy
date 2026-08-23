@@ -85,6 +85,24 @@
 
   var money = function (n) { return '$' + Number(n).toFixed(2); };
 
+  var fmt = function (n) { return Number.isInteger(n) ? String(n) : n.toFixed(2); };
+
+  /** "$30–35/hr", or "$32/hr" when there is no range. */
+  function pay(job) {
+    var min = Number(job.payMin);
+    var max = Number(job.payMax);
+    if (!isFinite(min)) return '';
+    return max && max > min ? '$' + fmt(min) + '–' + fmt(max) + '/hr' : '$' + fmt(min) + '/hr';
+  }
+
+  /** "10–20 hrs/week", or "15 hrs/week" when there is no range. */
+  function hours(job) {
+    var min = Number(job.hoursMin);
+    var max = Number(job.hoursMax);
+    if (!isFinite(min) || min <= 0) return '';
+    return max && max > min ? min + '–' + max + ' hrs/week' : min + ' hrs/week';
+  }
+
   /* ── session ──────────────────────────────────────────────────────────── */
   var config = null;
   var user = null;
@@ -149,11 +167,40 @@
     document.head.appendChild(script);
   }
 
+  /* ── PWA ──────────────────────────────────────────────────────────────── */
+  // Registering the worker is what makes "Add to Home Screen" offer a real app
+  // icon on Android and lets iOS keep the page in standalone mode.
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () { /* offline shell is optional */ });
+    });
+  }
+
+  // Android/Chrome fires this instead of showing its own banner; we surface it
+  // on an install button when the page has one.
+  var installEvent = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    installEvent = e;
+    var btn = document.getElementById('installBtn');
+    if (btn) btn.hidden = false;
+  });
+
+  function install() {
+    if (!installEvent) return false;
+    installEvent.prompt();
+    installEvent = null;
+    var btn = document.getElementById('installBtn');
+    if (btn) btn.hidden = true;
+    return true;
+  }
+
   window.Howdy = {
     api: api, $: $, $$: $$, esc: esc, toast: toast,
     openModal: openModal, closeModal: closeModal,
-    timeAgo: timeAgo, money: money, toggleTheme: toggleTheme,
+    timeAgo: timeAgo, money: money, pay: pay, hours: hours, toggleTheme: toggleTheme,
     loadConfig: loadConfig, loadUser: loadUser, signOut: signOut, mountGoogle: mountGoogle,
+    install: install, canInstall: function () { return !!installEvent; },
     get user() { return user; },
     set user(value) { user = value; },
     get config() { return config; }

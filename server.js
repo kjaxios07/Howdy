@@ -29,6 +29,8 @@ app.get('/api/jobs-config', require('./api/jobs-config'));
 app.all('/api/auth', require('./api/auth'));
 app.all('/api/jobs', require('./api/jobs'));
 app.all('/api/applications', require('./api/applications'));
+app.post('/api/saved', require('./api/saved'));
+app.get('/api/social', require('./api/social'));
 
 // Static files (index.html, chat.html, etc.)
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));

@@ -2,7 +2,7 @@
  * Howdy Jobs — public front-end configuration (reference lists, feature flags).
  */
 const {
-  STATES, CATEGORIES, JOB_TYPES, MIN_HOURLY, STUDENT_VISA_FORTNIGHT_HOURS, json, fail
+  STATES, CATEGORIES, EMPLOYMENT_TYPES, DAYS, MIN_HOURLY, STUDENT_VISA_FORTNIGHT_HOURS, json, fail
 } = require('../lib/jobs-core');
 const store = require('../lib/store');
 
@@ -11,7 +11,8 @@ module.exports = (req, res) => {
   json(res, 200, {
     states: STATES,
     categories: CATEGORIES,
-    jobTypes: JOB_TYPES,
+    employmentTypes: EMPLOYMENT_TYPES,
+    days: DAYS,
     minHourly: MIN_HOURLY,
     studentVisaFortnightHours: STUDENT_VISA_FORTNIGHT_HOURS,
     googleClientId: process.env.GOOGLE_CLIENT_ID || null,

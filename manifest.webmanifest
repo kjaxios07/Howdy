@@ -1,0 +1,22 @@
+{
+  "name": "Howdy Jobs — student part-time & casual work",
+  "short_name": "Howdy Jobs",
+  "description": "Part-time and casual jobs for students across Australia. Search, save and apply.",
+  "start_url": "/jobs",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07040F",
+  "theme_color": "#160E3A",
+  "categories": ["business", "productivity"],
+  "lang": "en-AU",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Find a job", "url": "/jobs/browse" },
+    { "name": "Post a job", "url": "/employer" }
+  ]
+}
