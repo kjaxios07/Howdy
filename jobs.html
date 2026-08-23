@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Howdy Jobs — Part-time & casual work for students in Australia</title>
+<meta name="description" content="Browse casual and part-time jobs for students across every Australian state. Sign in with Google or email and apply in one click.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/howdy-jobs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
+  <ul class="nav-links">
+    <li><a href="/jobs" class="on">Browse jobs</a></li>
+    <li><a href="/employer">For employers</a></li>
+    <li><a href="/chat.html">Ask Kip</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="btn btn-ghost btn-sm" id="themeBtn" aria-label="Toggle theme">◐</button>
+    <span id="navAuth"></span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="page-head">
+    <span class="eyebrow">All states &amp; territories</span>
+    <h1>Part-time and casual jobs, built around your class timetable.</h1>
+    <p>Real employers, honest hourly rates, and shifts that fit study. Sign in with Google or email, set your
+      availability once, and apply in a couple of clicks.</p>
+  </header>
+
+  <section class="card" aria-label="Search jobs">
+    <div class="field-row three">
+      <div>
+        <label class="f" for="q">Search</label>
+        <input class="input" id="q" type="search" placeholder="Barista, tutoring, warehouse…" autocomplete="off">
+      </div>
+      <div>
+        <label class="f" for="state">State or territory</label>
+        <select class="input" id="state"><option value="">All of Australia</option></select>
+      </div>
+      <div>
+        <label class="f" for="category">Category</label>
+        <select class="input" id="category"><option value="">All categories</option></select>
+      </div>
+    </div>
+    <div class="field-row three" style="margin-top:12px">
+      <div>
+        <label class="f" for="jobType">Job type</label>
+        <select class="input" id="jobType">
+          <option value="">Casual and part-time</option>
+          <option value="Casual">Casual</option>
+          <option value="Part-time">Part-time</option>
+        </select>
+      </div>
+      <div>
+        <label class="f" for="sort">Sort by</label>
+        <select class="input" id="sort">
+          <option value="match">Best match for me</option>
+          <option value="recent">Most recent</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-primary" id="searchBtn" style="width:100%">Search jobs</button>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Sections">
+    <button class="tab on" data-tab="browse">Browse jobs</button>
+    <button class="tab" data-tab="applications">My applications</button>
+    <button class="tab" data-tab="profile">My profile</button>
+  </nav>
+
+  <section id="panel-browse">
+    <p id="count" class="hint" style="margin-bottom:14px"></p>
+    <div class="grid cols-3" id="jobs">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+  </section>
+
+  <section id="panel-applications" hidden></section>
+
+  <section id="panel-profile" hidden></section>
+
+  <footer class="foot">
+    <p><strong>Work rights:</strong> student visa (subclass 500) holders can generally work up to
+      <span id="visaHours">48</span> hours a fortnight while their course is in session, and unlimited hours during
+      scheduled course breaks. Pay rates shown are set by employers — check the current minimum for your role at
+      fairwork.gov.au before accepting a shift.</p>
+    <p style="margin-top:10px">© 2026 Howdy Jobs. General information only — not legal, migration or employment advice.</p>
+  </footer>
+</main>
+
+<!-- job detail + apply -->
+<div class="modal" id="jobModal" role="dialog" aria-modal="true" aria-labelledby="jobModalTitle">
+  <div class="modal-box" id="jobModalBody"></div>
+</div>
+
+<!-- sign in -->
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="authTitle">Sign in to apply</h2>
+      <button class="x" data-close="authModal" aria-label="Close">×</button>
+    </div>
+    <div id="googleBtn" style="margin-bottom:18px"></div>
+    <div class="chips" style="margin-bottom:16px">
+      <button class="chip on" id="modeSignin">I have an account</button>
+      <button class="chip" id="modeSignup">Create an account</button>
+    </div>
+    <form id="authForm">
+      <div class="field" id="nameField" hidden>
+        <label class="f" for="authName">Full name</label>
+        <input class="input" id="authName" autocomplete="name">
+      </div>
+      <div class="field">
+        <label class="f" for="authEmail">Email</label>
+        <input class="input" id="authEmail" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label class="f" for="authPassword">Password</label>
+        <input class="input" id="authPassword" type="password" autocomplete="current-password" required minlength="8">
+        <p class="hint">At least 8 characters.</p>
+      </div>
+      <button class="btn btn-primary" id="authSubmit" style="width:100%">Sign in</button>
+    </form>
+    <p class="hint" style="margin-top:14px">Employer instead? <a href="/employer" style="color:var(--accent)">Post a job →</a></p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/howdy-jobs.js"></script>
+<script>
+(function () {
+  'use strict';
+  var H = window.Howdy;
+  var $ = H.$, esc = H.esc;
+  var state = { jobs: [], tab: 'browse', authMode: 'signin', pendingJobId: null };
+
+  /* ── chrome ───────────────────────────────────────────────────────────── */
+  $('#themeBtn').addEventListener('click', H.toggleTheme);
+
+  function renderNav() {
+    var el = $('#navAuth');
+    if (H.user) {
+      el.innerHTML = '<span class="tag who" style="margin-right:8px">' + esc(H.user.name) + '</span>'
+        + '<button class="btn btn-ghost btn-sm" id="signOutBtn">Sign out</button>';
+      $('#signOutBtn').addEventListener('click', async function () {
+        await H.signOut();
+        renderNav();
+        loadJobs();
+        H.toast('Signed out.');
+      });
+    } else {
+      el.innerHTML = '<button class="btn btn-primary btn-sm" id="signInBtn">Sign in</button>';
+      $('#signInBtn').addEventListener('click', function () { openAuth(); });
+    }
+  }
+
+  /* ── auth ─────────────────────────────────────────────────────────────── */
+  function setAuthMode(mode) {
+    state.authMode = mode;
+    $('#modeSignin').classList.toggle('on', mode === 'signin');
+    $('#modeSignup').classList.toggle('on', mode === 'signup');
+    $('#nameField').hidden = mode !== 'signup';
+    $('#authName').required = mode === 'signup';
+    $('#authPassword').setAttribute('autocomplete', mode === 'signup' ? 'new-password' : 'current-password');
+    $('#authSubmit').textContent = mode === 'signup' ? 'Create student account' : 'Sign in';
+    $('#authTitle').textContent = mode === 'signup' ? 'Create your student account' : 'Sign in to apply';
+  }
+  $('#modeSignin').addEventListener('click', function () { setAuthMode('signin'); });
+  $('#modeSignup').addEventListener('click', function () { setAuthMode('signup'); });
+
+  function openAuth(jobId) {
+    state.pendingJobId = jobId || null;
+    H.openModal('authModal');
+  }
+
+  $('#authForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var btn = $('#authSubmit');
+    btn.disabled = true;
+    try {
+      var action = state.authMode === 'signup' ? 'signup' : 'login';
+      var body = { email: $('#authEmail').value.trim(), password: $('#authPassword').value };
+      if (state.authMode === 'signup') { body.name = $('#authName').value.trim(); body.role = 'student'; }
+      var data = await H.api('/api/auth?action=' + action, { body: body });
+      H.user = data.user;
+      afterSignIn();
+    } catch (err) {
+      H.toast(err.message, 'err');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function afterSignIn() {
+    H.closeModal('authModal');
+    renderNav();
+    $('#authForm').reset();
+    if (H.user.role === 'employer') {
+      H.toast('Signed in as an employer — taking you to your dashboard.');
+      setTimeout(function () { window.location.href = '/employer'; }, 900);
+      return;
+    }
+    H.toast('Welcome, ' + H.user.name + '!', 'ok');
+    var jobId = state.pendingJobId;
+    state.pendingJobId = null;
+    loadJobs().then(function () { if (jobId) openJob(jobId); });
+  }
+
+  document.addEventListener('click', function (e) {
+    var close = e.target.getAttribute && e.target.getAttribute('data-close');
+    if (close) H.closeModal(close);
+  });
+
+  /* ── tabs ─────────────────────────────────────────────────────────────── */
+  H.$$('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      state.tab = tab.getAttribute('data-tab');
+      H.$$('.tab').forEach(function (t) { t.classList.toggle('on', t === tab); });
+      ['browse', 'applications', 'profile'].forEach(function (name) {
+        $('#panel-' + name).hidden = name !== state.tab;
+      });
+      if (state.tab === 'applications') renderApplications();
+      if (state.tab === 'profile') renderProfile();
+    });
+  });
+
+  /* ── job list ─────────────────────────────────────────────────────────── */
+  function jobCard(job) {
+    var match = job.match
+      ? '<span class="match">★ ' + job.match.score + '% match</span>'
+      : '';
+    return '<article class="card job" data-id="' + esc(job.id) + '" tabindex="0">'
+      + '<div><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">'
+      + '<div><h3>' + esc(job.title) + '</h3><p class="biz">' + esc(job.business) + '</p></div>' + match + '</div></div>'
+      + '<div class="meta">'
+      + '<span class="tag state">' + esc(job.suburb) + ', ' + esc(job.state) + '</span>'
+      + '<span class="tag">' + esc(job.jobType) + '</span>'
+      + '<span class="tag pay">' + H.money(job.payRate) + '/hr</span>'
+      + '<span class="tag">' + esc(job.hoursPerWeek) + ' hrs/week</span>'
+      + (job.status === 'closed' ? '<span class="tag closed">Closed</span>' : '')
+      + '</div>'
+      + '<p class="desc">' + esc(job.description) + '</p>'
+      + '<div class="job-foot"><small>' + H.timeAgo(job.createdAt) + ' · '
+      + esc(job.applicantCount) + ' applicant' + (job.applicantCount === 1 ? '' : 's') + '</small>'
+      + (job.applied ? '<span class="pill submitted">Applied</span>'
+                     : '<span class="btn btn-ghost btn-sm">View &amp; apply</span>')
+      + '</div></article>';
+  }
+
+  async function loadJobs() {
+    var params = new URLSearchParams();
+    ['q', 'state', 'category', 'jobType', 'sort'].forEach(function (key) {
+      var value = $('#' + key).value;
+      if (value) params.set(key, value);
+    });
+    try {
+      var data = await H.api('/api/jobs?' + params.toString());
+      state.jobs = data.jobs;
+      $('#count').textContent = data.total + (data.total === 1 ? ' job' : ' jobs') + ' open'
+        + (H.user && H.user.role === 'student' ? ' · sorted by how well they fit your profile' : '');
+      $('#jobs').innerHTML = data.jobs.length
+        ? data.jobs.map(jobCard).join('')
+        : '<div class="empty" style="grid-column:1/-1"><strong>No jobs match that search yet.</strong>'
+          + 'Try a different state or clear the filters.</div>';
+    } catch (err) {
+      H.toast(err.message, 'err');
+    }
+  }
+
+  ['q', 'state', 'category', 'jobType', 'sort'].forEach(function (key) {
+    $('#' + key).addEventListener('change', loadJobs);
+  });
+  $('#searchBtn').addEventListener('click', loadJobs);
+  $('#q').addEventListener('keydown', function (e) { if (e.key === 'Enter') loadJobs(); });
+
+  $('#jobs').addEventListener('click', function (e) {
+    var card = e.target.closest('.job');
+    if (card) openJob(card.getAttribute('data-id'));
+  });
+  $('#jobs').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var card = e.target.closest('.job');
+    if (card) openJob(card.getAttribute('data-id'));
+  });
+
+  /* ── job detail + apply ───────────────────────────────────────────────── */
+  async function openJob(jobId) {
+    var data;
+    try {
+      data = await H.api('/api/jobs?id=' + encodeURIComponent(jobId));
+    } catch (err) {
+      return H.toast(err.message, 'err');
+    }
+    var job = data.job;
+    var reasons = job.match && job.match.reasons.length
+      ? '<div class="notice" style="margin:16px 0"><strong>Why this suits you:</strong> '
+        + job.match.reasons.map(esc).join(' · ') + '</div>'
+      : '';
+
+    var applySection;
+    if (!H.user) {
+      applySection = '<button class="btn btn-primary" id="applySignIn" style="width:100%">Sign in to apply</button>';
+    } else if (H.user.role !== 'student') {
+      applySection = '<p class="hint">You are signed in as an employer. Student accounts apply for jobs.</p>';
+    } else if (job.applied) {
+      applySection = '<p class="notice">You applied to this job. Track it under <strong>My applications</strong>.</p>';
+    } else {
+      applySection = '<form id="applyForm">'
+        + '<div class="field"><label class="f" for="applyAvail">Your availability</label>'
+        + '<input class="input" id="applyAvail" placeholder="e.g. Mon/Wed evenings, all weekend" maxlength="200"></div>'
+        + '<div class="field"><label class="f" for="applyMsg">Message to the employer</label>'
+        + '<textarea class="input" id="applyMsg" maxlength="1200" placeholder="A few lines on why you would be great in this role."></textarea></div>'
+        + '<button class="btn btn-primary" id="applyBtn" style="width:100%">Send application</button></form>';
+    }
+
+    $('#jobModalBody').innerHTML = '<div class="modal-head">'
+      + '<div><h2 id="jobModalTitle">' + esc(job.title) + '</h2>'
+      + '<p class="biz">' + esc(job.business) + ' · ' + esc(job.suburb) + ', ' + esc(job.state) + '</p></div>'
+      + '<button class="x" data-close="jobModal" aria-label="Close">×</button></div>'
+      + '<div class="meta"><span class="tag pay">' + H.money(job.payRate) + '/hr</span>'
+      + '<span class="tag">' + esc(job.jobType) + '</span>'
+      + '<span class="tag">' + esc(job.hoursPerWeek) + ' hrs/week</span>'
+      + '<span class="tag">' + esc(job.category) + '</span>'
+      + (job.closesOn ? '<span class="tag">Closes ' + esc(job.closesOn) + '</span>' : '') + '</div>'
+      + reasons
+      + '<h3 style="margin:18px 0 8px;font-size:14px">About the role</h3>'
+      + '<p style="color:var(--t2);font-size:14px;line-height:1.7;white-space:pre-wrap">' + esc(job.description) + '</p>'
+      + (job.requirements
+          ? '<h3 style="margin:18px 0 8px;font-size:14px">What you need</h3>'
+            + '<p style="color:var(--t2);font-size:14px;line-height:1.7;white-space:pre-wrap">' + esc(job.requirements) + '</p>'
+          : '')
+      + '<div style="margin-top:22px">' + applySection + '</div>';
+
+    H.openModal('jobModal');
+
+    var signIn = $('#applySignIn');
+    if (signIn) signIn.addEventListener('click', function () { H.closeModal('jobModal'); openAuth(job.id); });
+
+    var form = $('#applyForm');
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        $('#applyBtn').disabled = true;
+        try {
+          await H.api('/api/applications', {
+            body: { jobId: job.id, message: $('#applyMsg').value, availability: $('#applyAvail').value }
+          });
+          H.closeModal('jobModal');
+          H.toast('Application sent to ' + job.business + '.', 'ok');
+          loadJobs();
+        } catch (err) {
+          H.toast(err.message, 'err');
+          $('#applyBtn').disabled = false;
+        }
+      });
+    }
+  }
+
+  /* ── my applications ──────────────────────────────────────────────────── */
+  async function renderApplications() {
+    var panel = $('#panel-applications');
+    if (!H.user) {
+      panel.innerHTML = '<div class="empty"><strong>Sign in to see your applications.</strong>'
+        + 'Every job you apply to is tracked here.</div>';
+      return;
+    }
+    if (H.user.role !== 'student') {
+      panel.innerHTML = '<div class="empty"><strong>Employer account</strong>'
+        + 'Head to <a href="/employer" style="color:var(--accent)">your dashboard</a> to see applicants.</div>';
+      return;
+    }
+    try {
+      var data = await H.api('/api/applications');
+      panel.innerHTML = data.applications.length
+        ? '<div class="grid cols-2">' + data.applications.map(function (a) {
+            var job = a.job || {};
+            return '<article class="card">'
+              + '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">'
+              + '<div><h3 style="font-size:16px">' + esc(job.title || 'Removed listing') + '</h3>'
+              + '<p class="biz">' + esc(job.business || '') + '</p></div>'
+              + '<span class="pill ' + esc(a.status) + '">' + esc(a.status) + '</span></div>'
+              + (a.availability ? '<p class="hint"><strong>Availability:</strong> ' + esc(a.availability) + '</p>' : '')
+              + (a.message ? '<p class="desc" style="margin-top:8px">' + esc(a.message) + '</p>' : '')
+              + '<div class="job-foot"><small>Applied ' + H.timeAgo(a.createdAt) + '</small></div>'
+              + '</article>';
+          }).join('') + '</div>'
+        : '<div class="empty"><strong>No applications yet.</strong>Browse jobs and send your first one.</div>';
+    } catch (err) {
+      H.toast(err.message, 'err');
+    }
+  }
+
+  /* ── profile ──────────────────────────────────────────────────────────── */
+  function renderProfile() {
+    var panel = $('#panel-profile');
+    if (!H.user) {
+      panel.innerHTML = '<div class="empty"><strong>Sign in to build your profile.</strong>'
+        + 'Your state, availability and interests drive job matching.</div>';
+      return;
+    }
+    if (H.user.role !== 'student') {
+      panel.innerHTML = '<div class="empty"><strong>Employer account</strong>'
+        + 'Manage your business details on <a href="/employer" style="color:var(--accent)">the employer dashboard</a>.</div>';
+      return;
+    }
+    var p = H.user.profile || {};
+    var cfg = H.config;
+    panel.innerHTML = '<form class="card" id="profileForm" style="max-width:720px">'
+      + '<div class="field-row two"><div class="field"><label class="f" for="pName">Name</label>'
+      + '<input class="input" id="pName" value="' + esc(H.user.name) + '" maxlength="80"></div>'
+      + '<div class="field"><label class="f" for="pPhone">Phone (optional)</label>'
+      + '<input class="input" id="pPhone" value="' + esc(p.phone || '') + '" maxlength="20"></div></div>'
+      + '<div class="field-row two"><div class="field"><label class="f" for="pState">State or territory</label>'
+      + '<select class="input" id="pState"><option value="">Choose…</option>'
+      + cfg.states.map(function (s) {
+          return '<option' + (p.state === s ? ' selected' : '') + '>' + esc(s) + '</option>';
+        }).join('') + '</select></div>'
+      + '<div class="field"><label class="f" for="pSuburb">Suburb or city</label>'
+      + '<input class="input" id="pSuburb" value="' + esc(p.suburb || '') + '" maxlength="60"></div></div>'
+      + '<div class="field-row two"><div class="field"><label class="f" for="pHours">Hours a week you want</label>'
+      + '<input class="input" id="pHours" type="number" min="0" max="40" value="' + esc(p.hoursPerWeek || 0) + '">'
+      + '<p class="hint">Student visa holders: up to ' + esc(cfg.studentVisaFortnightHours)
+      + ' hours a fortnight while your course is in session.</p></div>'
+      + '<div class="field"><label class="f" for="pStudy">Where you study</label>'
+      + '<input class="input" id="pStudy" value="' + esc(p.studyAt || '') + '" maxlength="100"></div></div>'
+      + '<div class="field"><label class="f">Job types you want (pick up to 5)</label><div class="chips" id="pCats">'
+      + cfg.categories.map(function (c) {
+          var on = (p.categories || []).indexOf(c) > -1;
+          return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-cat="' + esc(c) + '">'
+            + esc(c) + '</button>';
+        }).join('') + '</div></div>'
+      + '<div class="field"><label class="f" for="pBio">Short intro employers will see</label>'
+      + '<textarea class="input" id="pBio" maxlength="600">' + esc(p.bio || '') + '</textarea></div>'
+      + '<button class="btn btn-primary" id="pSave">Save profile</button></form>';
+
+    $('#pCats').addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      var picked = H.$$('#pCats .chip.on').length;
+      if (!chip.classList.contains('on') && picked >= 5) return H.toast('Pick up to 5 categories.', 'err');
+      chip.classList.toggle('on');
+    });
+
+    $('#profileForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      $('#pSave').disabled = true;
+      try {
+        var data = await H.api('/api/auth?action=profile', {
+          body: {
+            name: $('#pName').value,
+            phone: $('#pPhone').value,
+            state: $('#pState').value,
+            suburb: $('#pSuburb').value,
+            hoursPerWeek: Number($('#pHours').value),
+            studyAt: $('#pStudy').value,
+            bio: $('#pBio').value,
+            categories: H.$$('#pCats .chip.on').map(function (c) { return c.getAttribute('data-cat'); })
+          }
+        });
+        H.user = data.user;
+        H.toast('Profile saved — your matches just got sharper.', 'ok');
+        renderNav();
+        loadJobs();
+      } catch (err) {
+        H.toast(err.message, 'err');
+      } finally {
+        $('#pSave').disabled = false;
+      }
+    });
+  }
+
+  /* ── boot ─────────────────────────────────────────────────────────────── */
+  (async function init() {
+    var cfg = await H.loadConfig();
+    $('#state').innerHTML += cfg.states.map(function (s) { return '<option>' + esc(s) + '</option>'; }).join('');
+    $('#category').innerHTML += cfg.categories.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
+    $('#visaHours').textContent = cfg.studentVisaFortnightHours;
+    await H.loadUser();
+    renderNav();
+    setAuthMode('signin');
+    H.mountGoogle('googleBtn', function () { return 'student'; }, afterSignIn);
+    await loadJobs();
+  })();
+})();
+</script>
+</body>
+</html>

@@ -62,3 +62,6 @@ build/
 
 # ── Misc ──────────────────────────────────────────────────
 *.bak
+
+# Howdy Jobs local data store
+data/

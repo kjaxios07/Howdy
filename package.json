@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "NODE_ENV=development node server.js"
+    "dev": "NODE_ENV=development node server.js",
+    "test:jobs": "node scripts/smoke-jobs.js"
   },
   "engines": {
     "node": ">=20.x"

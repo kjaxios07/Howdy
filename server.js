@@ -24,11 +24,19 @@ app.post('/api/chat', require('./api/chat'));
 app.get('/api/health', require('./api/health'));
 app.post('/api/subscribe', require('./api/subscribe'));
 
+// Howdy Jobs API
+app.get('/api/jobs-config', require('./api/jobs-config'));
+app.all('/api/auth', require('./api/auth'));
+app.all('/api/jobs', require('./api/jobs'));
+app.all('/api/applications', require('./api/applications'));
+
 // Static files (index.html, chat.html, etc.)
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));
 
 // Page routes
 app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
+app.get('/jobs', (req, res) => res.sendFile(path.join(__dirname, 'jobs.html')));
+app.get('/employer', (req, res) => res.sendFile(path.join(__dirname, 'employer.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // 404 fallback
