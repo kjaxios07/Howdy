@@ -30,7 +30,6 @@ app.all('/api/auth', require('./api/auth'));
 app.all('/api/jobs', require('./api/jobs'));
 app.all('/api/applications', require('./api/applications'));
 app.post('/api/saved', require('./api/saved'));
-app.get('/api/social', require('./api/social'));
 
 // Static files (index.html, chat.html, etc.)
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));
@@ -40,6 +39,7 @@ app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
 app.get('/jobs', (req, res) => res.sendFile(path.join(__dirname, 'jobs-home.html')));
 app.get('/jobs/browse', (req, res) => res.sendFile(path.join(__dirname, 'jobs.html')));
 app.get('/employer', (req, res) => res.sendFile(path.join(__dirname, 'employer.html')));
+app.get('/ads', (req, res) => res.sendFile(path.join(__dirname, 'ads.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // 404 fallback

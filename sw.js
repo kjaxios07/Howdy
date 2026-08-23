@@ -10,7 +10,6 @@ const SHELL = [
   '/employer',
   '/assets/howdy-jobs.css',
   '/assets/howdy-jobs.js',
-  '/assets/howdy-social.js',
   '/manifest.webmanifest'
 ];
 

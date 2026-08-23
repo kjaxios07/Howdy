@@ -14,6 +14,7 @@
     { "src": "/jobs/browse", "dest": "/jobs.html" },
     { "src": "/jobs", "dest": "/jobs-home.html" },
     { "src": "/employer", "dest": "/employer.html" },
+    { "src": "/ads", "dest": "/ads.html" },
     { "src": "/health", "dest": "/api/health" },
     { "src": "/", "dest": "/index.html" }
   ],

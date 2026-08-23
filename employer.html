@@ -36,6 +36,7 @@
   <header class="page-head">
     <h1>Post a job</h1>
     <p>Hire students for casual and part-time shifts. Free while we're in beta.</p>
+    <p class="hint" id="liveCount" style="margin-top:10px"></p>
   </header>
 
   <section id="signedOut" hidden>
@@ -166,7 +167,7 @@
         </div>
 
         <button class="btn btn-primary" id="jSubmit">Publish job</button>
-        <p class="hint">Publishing takes you straight to your Instagram post and Reel script.</p>
+        <p class="hint">Your listing goes live straight away and students can apply immediately.</p>
       </form>
     </div>
 
@@ -184,7 +185,6 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/assets/howdy-jobs.js"></script>
-<script src="/assets/howdy-social.js"></script>
 <script>
 (function () {
   'use strict';
@@ -276,7 +276,7 @@
     e.preventDefault();
     $('#jSubmit').disabled = true;
     try {
-      var created = await H.api('/api/jobs', {
+      await H.api('/api/jobs', {
         body: {
           title: $('#jTitle').value,
           category: $('#jCategory').value,
@@ -301,8 +301,6 @@
       $('#jHoursMax').value = 20;
       H.toast('Job published — students can see it now.', 'ok');
       H.$$('.tab').forEach(function (t) { if (t.getAttribute('data-tab') === 'jobs') t.click(); });
-      // The promote step runs itself: the share pack opens on publish.
-      H.sharePack(created.job.id);
     } catch (err) {
       H.toast(err.message, 'err');
     } finally {
@@ -328,7 +326,6 @@
               + '<div class="job-foot"><small>' + esc(job.applicantCount) + ' applicant'
               + (job.applicantCount === 1 ? '' : 's') + ' · posted ' + H.timeAgo(job.createdAt) + '</small>'
               + '<span style="display:flex;gap:6px;flex-wrap:wrap">'
-              + '<button class="btn btn-ghost btn-sm" data-promote="' + esc(job.id) + '">Promote</button>'
               + '<button class="btn btn-ghost btn-sm" data-view="' + esc(job.id) + '">Applicants</button>'
               + '<button class="btn btn-ghost btn-sm" data-toggle="' + esc(job.id) + '" data-status="'
               + (job.status === 'open' ? 'closed' : 'open') + '">'
@@ -343,8 +340,6 @@
   $('#panel-jobs').addEventListener('click', async function (e) {
     var toggle = e.target.getAttribute('data-toggle');
     var view = e.target.getAttribute('data-view');
-    var promote = e.target.getAttribute('data-promote');
-    if (promote) return H.sharePack(promote);
     if (toggle) {
       try {
         await H.api('/api/jobs?id=' + encodeURIComponent(toggle), {
@@ -490,7 +485,19 @@
     $('#payHint').textContent = 'Minimum accepted: ' + H.money(cfg.minHourly)
       + '/hr (indicative casual rate — confirm yours at fairwork.gov.au).';
     $('#visaHours').textContent = cfg.studentVisaFortnightHours;
-    setAuthMode('signin');
+    // Someone arriving from an ad has never signed up — open on the create form.
+    var fromAd = /utm_|signup/.test(window.location.search);
+    setAuthMode(fromAd ? 'signup' : 'signin');
+
+    // Ads land businesses here, so show them the board is actually alive.
+    H.api('/api/jobs?sort=recent').then(function (data) {
+      var states = {};
+      data.jobs.forEach(function (j) { states[j.state] = true; });
+      $('#liveCount').textContent = data.total + (data.total === 1 ? ' job' : ' jobs')
+        + ' live right now across ' + Object.keys(states).length
+        + (Object.keys(states).length === 1 ? ' state' : ' states and territories') + '.';
+    }).catch(function () { /* the page works without it */ });
+
     await H.loadUser();
     showState();
     H.mountGoogle('googleBtn', function () { return 'employer'; }, function () { showState(); });

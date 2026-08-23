@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Howdy Jobs — ad studio</title>
+<meta name="robots" content="noindex">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#160E3A">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/howdy-jobs.css">
+<style>
+.studio{display:grid;gap:22px;align-items:start}
+@media(min-width:940px){.studio{grid-template-columns:minmax(0,1fr) 330px}}
+.canvas-wrap{display:flex;justify-content:center;background:var(--gl);border:1px solid var(--gl-b);
+  border-radius:16px;padding:18px}
+.canvas-wrap canvas{max-width:100%;max-height:64vh;height:auto;border-radius:12px;
+  box-shadow:0 14px 40px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
+  <ul class="nav-links">
+    <li><a href="/jobs/browse">Browse jobs</a></li>
+    <li><a href="/employer">For employers</a></li>
+    <li><a href="/ads" class="on">Ad studio</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="btn btn-ghost btn-sm" id="themeBtn" aria-label="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="page-head">
+    <span class="eyebrow">Internal — Howdy marketing</span>
+    <h1>Ad studio</h1>
+    <p>Instagram creative for Howdy Jobs itself: ads that send businesses to the site to post a job, and
+      ads that send students to the board. Pick one, download it, post it.</p>
+  </header>
+
+  <div class="studio">
+    <div>
+      <div class="canvas-wrap"><canvas id="adCanvas" aria-label="Ad preview"></canvas></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">
+        <button class="btn btn-primary btn-sm" id="dlBtn">Download PNG</button>
+        <button class="btn btn-ghost btn-sm" id="capBtn">Copy caption</button>
+        <button class="btn btn-ghost btn-sm" id="allBtn">Download all sizes</button>
+      </div>
+      <div class="field" style="margin-top:18px">
+        <label class="f" for="caption">Suggested caption</label>
+        <textarea class="input" id="caption" rows="9" style="font-size:13px"></textarea>
+      </div>
+    </div>
+
+    <aside class="card">
+      <div class="field">
+        <label class="f" for="concept">Ad</label>
+        <select class="input" id="concept"></select>
+        <p class="hint" id="audience"></p>
+      </div>
+      <div class="field">
+        <label class="f">Size</label>
+        <div class="chips" id="sizeChips">
+          <button class="chip on" data-size="post">Feed 1:1</button>
+          <button class="chip" data-size="story">Story 9:16</button>
+        </div>
+      </div>
+      <div class="field">
+        <label class="f" for="site">Your web address</label>
+        <input class="input" id="site" value="howdyjobs.com.au" maxlength="40">
+        <p class="hint">Printed on the creative and used in the caption. Change it to whatever domain you land on.</p>
+      </div>
+      <div class="field">
+        <label class="f" for="headline">Headline</label>
+        <textarea class="input" id="headline" rows="3" style="min-height:0"></textarea>
+      </div>
+      <div class="field">
+        <label class="f" for="sub">Supporting line</label>
+        <textarea class="input" id="sub" rows="3" style="min-height:0"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label class="f" for="cta">Button text</label>
+        <input class="input" id="cta" maxlength="40">
+      </div>
+    </aside>
+  </div>
+
+  <footer class="foot">
+    <p>Creatives are drawn in your browser — nothing is uploaded and nothing posts on your behalf.
+      Download, then post from the Instagram app or Meta Ads Manager.</p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/howdy-jobs.js"></script>
+<script>
+(function () {
+  'use strict';
+  var H = window.Howdy;
+  var $ = H.$;
+
+  var SIZES = { post: { w: 1080, h: 1080 }, story: { w: 1080, h: 1920 } };
+
+  var ADS = [
+    {
+      id: 'weekend-staff',
+      name: 'Need weekend staff?',
+      audience: 'Businesses — cafés, venues, retail',
+      emoji: '☕',
+      headline: 'Need weekend staff?',
+      sub: 'Post the shift free. Students near you apply the same day.',
+      cta: 'Post a job free',
+      caption: 'Short-staffed this weekend? ☕\n\nPost your casual shift on Howdy Jobs — free while we\'re in beta — and students in your suburb can apply the same day.\n\nNo agency fees. No lock-in. Live in two minutes.\n\n👉 {site}\n\n#smallbusinessaustralia #nowhiring #casualjobs #hospitalityjobs #retailjobs #hiringstudents'
+    },
+    {
+      id: 'two-minutes',
+      name: 'Live in two minutes',
+      audience: 'Businesses — first-time posters',
+      emoji: '⚡',
+      headline: 'Your job ad, live in two minutes.',
+      sub: 'Title, pay, suburb, shifts. That is the whole form.',
+      cta: 'Post a job free',
+      caption: 'Hiring casual staff should take two minutes, not two weeks. ⚡\n\nTitle, pay, suburb, the days you need covered — done. Your listing goes straight to students looking for part-time work in your area.\n\nFree while we\'re in beta.\n\n👉 {site}\n\n#australianbusiness #nowhiring #parttimejobs #hiring #smallbusiness #casualwork'
+    },
+    {
+      id: 'students-nearby',
+      name: 'Students near you',
+      audience: 'Businesses — local hiring angle',
+      emoji: '📍',
+      headline: 'Your next hire studies down the road.',
+      sub: 'Reach students in your suburb who want shifts around class.',
+      cta: 'Post a job free',
+      caption: 'The best casual staff are already local. 📍\n\nHowdy Jobs puts your shift in front of students in your suburb — the ones who can actually get to a 6am start or a Sunday close.\n\nPost free while we\'re in beta.\n\n👉 {site}\n\n#localbusiness #nowhiring #studentjobs #casualjobs #hiringnow'
+    },
+    {
+      id: 'students-board',
+      name: 'For students — find work',
+      audience: 'Students — job seekers',
+      emoji: '🎓',
+      headline: 'Part-time jobs that fit your timetable.',
+      sub: 'Casual and part-time shifts across every Australian state. Free to use.',
+      cta: 'Find a job',
+      caption: 'Looking for part-time work around class? 🎓\n\nHowdy Jobs lists casual and part-time shifts across every Australian state — search by suburb, save the ones you like, and apply in a couple of taps.\n\nFree, always.\n\n👉 {site}\n\n#studentjobs #parttimejobs #casualjobs #internationalstudents #jobsnearme #studentlife'
+    }
+  ];
+
+  var state = { ad: ADS[0], size: 'post' };
+
+  /* ── canvas helpers ───────────────────────────────────────────────────── */
+  function wrap(ctx, text, maxWidth) {
+    var lines = [];
+    String(text).split('\n').forEach(function (paragraph) {
+      var words = paragraph.split(' ');
+      var line = '';
+      words.forEach(function (word) {
+        var next = line ? line + ' ' + word : word;
+        if (ctx.measureText(next).width > maxWidth && line) {
+          lines.push(line);
+          line = word;
+        } else {
+          line = next;
+        }
+      });
+      lines.push(line);
+    });
+    return lines;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function draw(canvas, sizeKey) {
+    var size = SIZES[sizeKey];
+    var w = size.w;
+    var h = size.h;
+    var tall = sizeKey === 'story';
+    canvas.width = w;
+    canvas.height = h;
+
+    var ctx = canvas.getContext('2d');
+    var pad = 96;
+    var maxW = w - pad * 2;
+    var F = 'Plus Jakarta Sans, system-ui, -apple-system, Segoe UI, sans-serif';
+
+    var bg = ctx.createLinearGradient(0, 0, w, h);
+    bg.addColorStop(0, '#1B1046');
+    bg.addColorStop(0.5, '#341E77');
+    bg.addColorStop(1, '#0C0722');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    var glow = ctx.createRadialGradient(w * 0.15, h * 0.85, 0, w * 0.15, h * 0.85, w * 0.9);
+    glow.addColorStop(0, 'rgba(103,232,249,.18)');
+    glow.addColorStop(1, 'rgba(103,232,249,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+
+    var headline = $('#headline').value || state.ad.headline;
+    var sub = $('#sub').value || state.ad.sub;
+    var cta = $('#cta').value || state.ad.cta;
+    var site = ($('#site').value || 'howdyjobs.com.au').trim();
+
+    /* headline sized to fit: shrink until it fits in four lines */
+    var hSize = tall ? 108 : 96;
+    var lines;
+    do {
+      ctx.font = '800 ' + hSize + 'px ' + F;
+      lines = wrap(ctx, headline, maxW);
+      if (lines.length <= 4) break;
+      hSize -= 6;
+    } while (hSize > 52);
+
+    var lineH = Math.round(hSize * 1.1);
+    ctx.font = '600 46px ' + F;
+    var subLines = wrap(ctx, sub, maxW);
+    var subH = subLines.length * 62;
+
+    var blockH = 96 + 70 + lines.length * lineH + 96 + subH + 60 + 108;
+    var y = Math.max(tall ? 330 : pad + 40, (h - blockH) / 2);
+
+    // wordmark
+    ctx.font = '800 42px ' + F;
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.fillText('HOWDY JOBS', pad, y);
+    y += 96;
+
+    // emoji
+    ctx.font = '92px ' + F;
+    ctx.fillText(state.ad.emoji, pad, y);
+    y += 70;
+
+    // headline
+    ctx.font = '800 ' + hSize + 'px ' + F;
+    ctx.fillStyle = '#FFFFFF';
+    lines.forEach(function (line) {
+      y += lineH;
+      ctx.fillText(line, pad, y);
+    });
+
+    // supporting line
+    y += 96;
+    ctx.font = '600 46px ' + F;
+    ctx.fillStyle = 'rgba(255,255,255,.72)';
+    subLines.forEach(function (line, i) {
+      ctx.fillText(line, pad, y + i * 62);
+    });
+    y += subH + 32;
+
+    // CTA button
+    ctx.font = '800 44px ' + F;
+    var btnW = ctx.measureText(cta).width + 100;
+    var btnGrad = ctx.createLinearGradient(pad, y, pad + btnW, y + 108);
+    btnGrad.addColorStop(0, '#7C3AED');
+    btnGrad.addColorStop(1, '#A78BFA');
+    ctx.fillStyle = btnGrad;
+    roundRect(ctx, pad, y, btnW, 108, 54);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(cta, pad + 50, y + 56);
+    ctx.textBaseline = 'alphabetic';
+
+    // footer
+    var footY = h - (tall ? 250 : 110);
+    ctx.font = '700 42px ' + F;
+    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    ctx.fillText(site, pad, footY);
+    ctx.font = '500 32px ' + F;
+    ctx.fillStyle = 'rgba(255,255,255,.45)';
+    ctx.fillText('Part-time & casual jobs for students', pad, footY + 48);
+  }
+
+  /* ── ui ───────────────────────────────────────────────────────────────── */
+  function paint() {
+    draw($('#adCanvas'), state.size);
+  }
+
+  function loadAd(ad) {
+    state.ad = ad;
+    $('#headline').value = ad.headline;
+    $('#sub').value = ad.sub;
+    $('#cta').value = ad.cta;
+    $('#audience').textContent = ad.audience;
+    $('#caption').value = ad.caption.replace(/\{site\}/g, $('#site').value.trim());
+    paint();
+  }
+
+  $('#concept').innerHTML = ADS.map(function (ad, i) {
+    return '<option value="' + i + '">' + H.esc(ad.name) + '</option>';
+  }).join('');
+  $('#concept').addEventListener('change', function () { loadAd(ADS[Number(this.value)]); });
+
+  ['headline', 'sub', 'cta'].forEach(function (id) {
+    $('#' + id).addEventListener('input', paint);
+  });
+  $('#site').addEventListener('input', function () {
+    $('#caption').value = state.ad.caption.replace(/\{site\}/g, $('#site').value.trim());
+    paint();
+  });
+
+  $('#sizeChips').addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    state.size = chip.getAttribute('data-size');
+    H.$$('#sizeChips .chip').forEach(function (c) { c.classList.toggle('on', c === chip); });
+    paint();
+  });
+
+  function download(sizeKey) {
+    var canvas = document.createElement('canvas');
+    draw(canvas, sizeKey);
+    canvas.toBlob(function (blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'howdy-ad-' + state.ad.id + '-' + sizeKey + '.png';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }, 'image/png');
+  }
+
+  $('#dlBtn').addEventListener('click', function () {
+    download(state.size);
+    H.toast('Saved — post it from the Instagram app.', 'ok');
+  });
+  $('#allBtn').addEventListener('click', function () {
+    Object.keys(SIZES).forEach(function (key, i) { setTimeout(function () { download(key); }, i * 400); });
+    H.toast('Saving both sizes…', 'ok');
+  });
+  $('#capBtn').addEventListener('click', function () {
+    var text = $('#caption').value;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { H.toast('Caption copied.', 'ok'); });
+    } else {
+      $('#caption').select();
+      H.toast('Press Ctrl/Cmd + C to copy.');
+    }
+  });
+
+  $('#themeBtn').addEventListener('click', H.toggleTheme);
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
+  loadAd(ADS[0]);
+})();
+</script>
+</body>
+</html>

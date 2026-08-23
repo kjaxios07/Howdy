@@ -17,7 +17,8 @@ npm run test:jobs  # end-to-end smoke test of the jobs platform
 | `/chat` | Kip, the AI life copilot |
 | `/jobs` | Front door — two options: student or business |
 | `/jobs/browse` | Student job board — search, match scores, apply, track applications |
-| `/employer` | Employer dashboard — post jobs, manage listings, review applicants, promote on Instagram |
+| `/employer` | Employer dashboard — post jobs, manage listings, review applicants |
+| `/ads` | Ad studio — Instagram creative for Howdy itself (internal) |
 
 ## Howdy Jobs
 
@@ -52,22 +53,21 @@ Hospitality · Retail · Warehouse & Logistics · Delivery & Driving · Cleaning
 Administration · Events & Promotions · Tutoring & Education · Childcare · Aged Care & Disability ·
 Healthcare · Construction & Trades · Farm & Agriculture · Security · IT & Tech Support · Other
 
-### Promote on Instagram
+### Marketing: the ad studio
 
-Publishing a job opens the share pack automatically — that is the whole automation. For any listing
-(button: **Promote**) it produces:
+`/ads` is Howdy's own marketing tool, not a feature for employers. It draws Instagram creative for the
+platform — ads that send businesses to `/employer` to post a job, and ads that send students to the board:
 
-- a **1080×1080 feed post** and a **1080×1920 story / Reel cover**, drawn on a canvas in the browser from
-  the job's own fields — download as PNG, or hit **Share** on a phone to hand the image and caption
-  straight to Instagram through the OS share sheet;
-- a **caption** with the pay, location and shift pattern, plus Australian hashtags picked from the state
-  and category (`#brisbanejobs #studentjobs #casualjobs #hospitalityjobs …`), editable before posting;
-- a **15-second Reel script** — four scenes with the shot, the on-screen text and the line to say, plus
-  audio and posting-time tips.
+- four ad concepts (three business-facing, one student-facing), each editable in the page — headline,
+  supporting line, button text and the web address printed on the creative;
+- **1080×1080 feed** and **1080×1920 story** exports, drawn on canvas in the browser, downloaded as PNG;
+- a suggested caption with hashtags for each concept.
 
-Nothing is posted on the business's behalf: publishing straight to Instagram needs an Instagram Business
-account connected to a Meta app with a Graph API token, which is a per-business setup, not an MVP feature.
-The generator is deliberately independent of that — a business can post the image by hand today.
+Nothing is uploaded and nothing posts automatically — download the PNG and post it from Instagram or Meta
+Ads Manager. Businesses do their own marketing; Howdy advertises the platform.
+
+A business arriving from an ad (any `utm_*` parameter on `/employer`) lands with the **create account**
+form already open, and sees a live count of the jobs currently on the board.
 
 ### API
 
@@ -85,7 +85,6 @@ works alongside the `SameSite=Lax` session cookie).
 | `PATCH /api/jobs?id=…` | Open or close a listing (owner only) |
 | `DELETE /api/jobs?id=…` | Remove a listing and its applications (owner only) |
 | `POST /api/saved` | Toggle ♡ on a job (students) |
-| `GET /api/social?id=…` | Instagram caption, hashtags, alt text and Reel script for a listing |
 | `POST /api/applications` | Apply to a job (students) |
 | `GET /api/applications` | A student's applications, or an employer's applicants (`?jobId=…`) |
 | `PATCH /api/applications?id=…` | Set status: `submitted`, `shortlisted`, `hired`, `declined` |

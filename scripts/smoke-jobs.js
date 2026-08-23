@@ -153,19 +153,6 @@ async function waitForServer(attempts = 60) {
     check('job keeps its rostered days',
       JSON.stringify(posted.body.job.days) === JSON.stringify(['Sat', 'Sun']), posted.body.job.days);
 
-    /* social share pack */
-    const social = await anon(`/api/social?id=${jobId}`);
-    check('share pack builds a caption',
-      social.body.post.caption.includes('NOW HIRING')
-      && social.body.post.caption.includes('Weekend barista'), social.body.post && social.body.post.caption);
-    check('share pack tags the right city',
-      social.body.post.hashtags.includes('#sydneyjobs')
-      && social.body.post.hashtags.includes('#studentjobs'), social.body.post && social.body.post.hashtags);
-    check('share pack writes a Reel script',
-      social.body.reel.scenes.length === 4 && social.body.reel.lengthSeconds === 15, social.body.reel);
-    check('share pack carries the render fields',
-      social.body.job.pay === '$33.50–38/hr' && social.body.job.location === 'Newtown, NSW', social.body.job);
-
     const mine = await employer('/api/jobs?mine=true');
     check('employer sees only their own jobs',
       mine.body.jobs.length === 1 && mine.body.jobs[0].id === jobId, mine.body.total);
@@ -247,8 +234,7 @@ async function waitForServer(attempts = 60) {
 
     /* pages render */
     for (const page of ['/jobs', '/jobs/browse', '/employer', '/manifest.webmanifest', '/sw.js',
-      '/assets/icons/icon-192.png', '/assets/howdy-jobs.css', '/assets/howdy-jobs.js',
-      '/assets/howdy-social.js']) {
+      '/assets/icons/icon-192.png', '/assets/howdy-jobs.css', '/assets/howdy-jobs.js']) {
       const res = await fetch(BASE + page);
       check(`${page} serves`, res.ok, res.status);
     }
