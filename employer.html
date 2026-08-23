@@ -15,7 +15,7 @@
 <nav class="nav">
   <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
   <ul class="nav-links">
-    <li><a href="/jobs">Browse jobs</a></li>
+    <li><a href="/jobs/browse">Browse jobs</a></li>
     <li><a href="/employer" class="on">For employers</a></li>
     <li><a href="/chat.html">Ask Kip</a></li>
   </ul>
@@ -27,10 +27,8 @@
 
 <main class="wrap">
   <header class="page-head">
-    <span class="eyebrow">For businesses &amp; vendors</span>
-    <h1>Hire students who actually turn up.</h1>
-    <p>Post a casual or part-time role in under two minutes, reach students in your suburb, and manage every
-      applicant from one dashboard. Free while we are in beta.</p>
+    <h1>Post a job</h1>
+    <p>Hire students for casual and part-time shifts. Free while we're in beta.</p>
   </header>
 
   <section id="signedOut" hidden>
@@ -63,17 +61,12 @@
       <div class="card">
         <h2 style="font-family:var(--fd);font-weight:400;font-size:24px;margin-bottom:12px">Why post here</h2>
         <ul style="list-style:none;display:grid;gap:12px;font-size:14px;color:var(--t2);line-height:1.6">
-          <li><strong style="color:var(--t1)">Students only.</strong> Every applicant is looking for shifts around
-            class, not a graduate career.</li>
-          <li><strong style="color:var(--t1)">All states covered.</strong> NSW, VIC, QLD, WA, SA, TAS, ACT and NT.</li>
-          <li><strong style="color:var(--t1)">Suburb-level reach.</strong> Matching favours students who live near
-            your venue, so shifts get covered.</li>
-          <li><strong style="color:var(--t1)">Fair pay by default.</strong> Listings below the indicative minimum
-            hourly rate are blocked before they go live.</li>
+          <li><strong style="color:var(--t1)">Students only.</strong> Everyone here wants shifts around class.</li>
+          <li><strong style="color:var(--t1)">Every state.</strong> NSW, VIC, QLD, WA, SA, TAS, ACT, NT.</li>
+          <li><strong style="color:var(--t1)">Nearby first.</strong> Matching favours students close to you.</li>
         </ul>
-        <p class="notice" style="margin-top:18px">Remember to check work rights before rostering. Student visa
-          holders can generally work up to <span id="visaHours">48</span> hours a fortnight while their course is
-          in session.</p>
+        <p class="notice" style="margin-top:18px">Student visa holders can usually work up to
+          <span id="visaHours">48</span> hours a fortnight while classes are on.</p>
       </div>
     </div>
   </section>
@@ -145,10 +138,8 @@
   </section>
 
   <footer class="foot">
-    <p>Howdy Jobs is a listing platform, not the employer. Businesses are responsible for meeting their obligations
-      under the Fair Work Act, including minimum pay rates, casual loading, superannuation and record keeping, and
-      for verifying each candidate's right to work in Australia (VEVO).</p>
-    <p style="margin-top:10px">© 2026 Howdy Jobs.</p>
+    <p>Howdy Jobs is a listing platform, not the employer. You are responsible for Fair Work obligations —
+      pay rates, casual loading, super and record keeping — and for checking each candidate's work rights (VEVO).</p>
   </footer>
 </main>
 
@@ -175,7 +166,7 @@
         H.toast('Signed out.');
       });
     } else {
-      el.innerHTML = '<a class="btn btn-ghost btn-sm" href="/jobs">Looking for work?</a>';
+      el.innerHTML = '<a class="btn btn-ghost btn-sm" href="/jobs/browse">Looking for work?</a>';
     }
   }
 

@@ -189,7 +189,7 @@ async function waitForServer(attempts = 60) {
     check('closed jobs drop off the public board', !afterClose.body.jobs.some(j => j.id === jobId));
 
     /* pages render */
-    for (const page of ['/jobs', '/employer', '/assets/howdy-jobs.css', '/assets/howdy-jobs.js']) {
+    for (const page of ['/jobs', '/jobs/browse', '/employer', '/assets/howdy-jobs.css', '/assets/howdy-jobs.js']) {
       const res = await fetch(BASE + page);
       check(`${page} serves`, res.ok, res.status);
     }

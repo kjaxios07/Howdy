@@ -35,7 +35,8 @@ app.use(express.static(path.join(__dirname), { index: 'index.html' }));
 
 // Page routes
 app.get('/chat', (req, res) => res.sendFile(path.join(__dirname, 'chat.html')));
-app.get('/jobs', (req, res) => res.sendFile(path.join(__dirname, 'jobs.html')));
+app.get('/jobs', (req, res) => res.sendFile(path.join(__dirname, 'jobs-home.html')));
+app.get('/jobs/browse', (req, res) => res.sendFile(path.join(__dirname, 'jobs.html')));
 app.get('/employer', (req, res) => res.sendFile(path.join(__dirname, 'employer.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 

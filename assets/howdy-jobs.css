@@ -153,3 +153,8 @@ select.input option{background:var(--clay-card);color:var(--t1)}
 .notice{font-size:12.5px;line-height:1.6;color:var(--t2);background:rgba(103,232,249,.08);
   border:1px solid rgba(103,232,249,.22);border-radius:12px;padding:12px 14px}
 .foot{margin-top:60px;padding:26px 0;border-top:1px solid var(--gl-b);color:var(--t3);font-size:12.5px;line-height:1.7}
+
+/* search bar + filter row */
+.searchbar{display:grid;gap:10px;align-items:center}
+@media(min-width:900px){.searchbar{grid-template-columns:2fr 1fr 1fr auto}}
+.filter-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin-top:14px}

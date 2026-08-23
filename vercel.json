@@ -11,7 +11,8 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/chat", "dest": "/chat.html" },
-    { "src": "/jobs", "dest": "/jobs.html" },
+    { "src": "/jobs/browse", "dest": "/jobs.html" },
+    { "src": "/jobs", "dest": "/jobs-home.html" },
     { "src": "/employer", "dest": "/employer.html" },
     { "src": "/health", "dest": "/api/health" },
     { "src": "/", "dest": "/index.html" }

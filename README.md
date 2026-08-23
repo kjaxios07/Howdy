@@ -15,7 +15,8 @@ npm run test:jobs  # end-to-end smoke test of the jobs platform
 | --- | --- |
 | `/` | Howdy marketing site |
 | `/chat` | Kip, the AI life copilot |
-| `/jobs` | Student job board — search, match scores, apply, track applications |
+| `/jobs` | Front door — two options: student or business |
+| `/jobs/browse` | Student job board — search, match scores, apply, track applications |
 | `/employer` | Employer dashboard — post jobs, manage listings, review applicants |
 
 ## Howdy Jobs

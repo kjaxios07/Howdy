@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Howdy Jobs — part-time & casual work for students in Australia</title>
+<meta name="description" content="Students find part-time and casual work. Businesses post a shift. Every state in Australia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/howdy-jobs.css">
+<style>
+.choose{display:grid;gap:18px;margin:38px 0 0}
+@media(min-width:820px){.choose{grid-template-columns:1fr 1fr;gap:22px}}
+.pick{display:flex;flex-direction:column;gap:14px;padding:34px 30px;border-radius:22px;
+  border:1px solid var(--gl-b);background:var(--gl);transition:transform .18s var(--ease),border-color .18s}
+[data-theme="light"] .pick{background:var(--gl-md)}
+.pick:hover{transform:translateY(-4px);border-color:var(--gl-t)}
+.pick .ico{font-size:34px;line-height:1}
+.pick h2{font-family:var(--fd);font-weight:400;font-size:28px;letter-spacing:-.02em}
+.pick p{color:var(--t2);font-size:15px;line-height:1.6}
+.pick .btn{margin-top:auto;align-self:flex-start}
+.hero-h1{font-family:var(--fd);font-weight:400;font-size:clamp(32px,6vw,52px);letter-spacing:-.025em;line-height:1.08}
+.hero-p{margin-top:12px;color:var(--t2);font-size:16px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
+  <div class="nav-r">
+    <button class="btn btn-ghost btn-sm" id="themeBtn" aria-label="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header style="padding:clamp(44px,8vw,86px) 0 0;max-width:760px">
+    <span class="eyebrow">All Australian states &amp; territories</span>
+    <h1 class="hero-h1">Part-time and casual jobs for students.</h1>
+    <p class="hero-p">Pick your side to get started.</p>
+  </header>
+
+  <section class="choose">
+    <a class="pick" href="/jobs/browse">
+      <span class="ico">🎓</span>
+      <h2>I'm a student</h2>
+      <p>Find casual and part-time shifts near you, and apply in a couple of clicks.</p>
+      <span class="btn btn-primary">Find jobs →</span>
+    </a>
+    <a class="pick" href="/employer">
+      <span class="ico">🏪</span>
+      <h2>I'm a business</h2>
+      <p>Post a shift and hire students in your suburb. Free while we're in beta.</p>
+      <span class="btn btn-ghost">Post a job →</span>
+    </a>
+  </section>
+
+  <footer class="foot">
+    <p>Howdy Jobs is a listing platform, not the employer. Pay rates and shifts are set by the business —
+      check current minimums at fairwork.gov.au.</p>
+  </footer>
+</main>
+
+<script src="/assets/howdy-jobs.js"></script>
+<script>document.getElementById('themeBtn').addEventListener('click', window.Howdy.toggleTheme);</script>
+</body>
+</html>
