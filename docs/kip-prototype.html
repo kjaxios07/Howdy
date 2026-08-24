@@ -48,9 +48,18 @@ a{color:var(--brand)} button{font-family:var(--fb)}
 .glass{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
   border:1px solid var(--glass-line);border-radius:22px;box-shadow:var(--shadow)}
 
-aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrollbar-width:thin}
+aside{display:flex;flex-direction:column;padding:20px 16px 0;overflow-y:auto;scrollbar-width:thin;
+  overscroll-behavior:contain;
+  /* The fade is painted by the scroll container itself, so it appears only
+     while there is content below and disappears at the end of the list. */
+  background:linear-gradient(var(--glass) 30%,transparent),
+    linear-gradient(transparent,var(--glass) 70%) 0 100%,
+    linear-gradient(rgba(23,34,43,.10),transparent),
+    linear-gradient(transparent,rgba(23,34,43,.10)) 0 100%;
+  background-repeat:no-repeat;background-attachment:local,local,scroll,scroll;
+  background-size:100% 34px,100% 34px,100% 12px,100% 12px}
 .side-kip{text-align:center}
-.side-kip .kip{width:86px;height:86px;margin:0 auto}
+.side-kip .kip{width:66px;height:66px;margin:0 auto}
 .side-kip h1{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;margin-top:10px}
 .side-kip h1 span{background:linear-gradient(90deg,var(--brand),var(--violet));
   -webkit-background-clip:text;background-clip:text;color:transparent}
@@ -65,12 +74,14 @@ aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrol
 .promise p+p{margin-top:5px;color:var(--ink-3)}
 
 .side-label{font-size:.66rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--ink-3);margin:18px 4px 8px}
-.side-mods{display:flex;flex-direction:column;gap:4px}
-.smod{display:flex;align-items:center;gap:10px;border:1px solid transparent;background:transparent;
-  border-radius:13px;padding:7px 11px;cursor:pointer;color:var(--ink-2);font-size:.83rem;
-  font-weight:600;text-align:left;transition:background .15s,color .15s}
-.smod:hover,.smod.active{background:var(--glass-2);color:var(--ink)}
+  color:var(--ink-3);margin:14px 4px 6px;position:sticky;top:-20px;z-index:1;
+  background:var(--glass);padding:4px}
+.side-mods{display:flex;flex-direction:column;gap:2px;padding-bottom:6px}
+.smod{display:flex;align-items:center;gap:9px;border:1px solid transparent;background:transparent;
+  border-radius:12px;padding:6px 10px;cursor:pointer;color:var(--ink);font-size:.83rem;
+  font-weight:600;text-align:left;transition:background .15s,border-color .15s}
+.smod:hover{background:var(--glass-2);border-color:var(--glass-line)}
+.smod.active{background:var(--glass-2);border-color:var(--brand);color:var(--brand)}
 .smod .em{width:27px;height:27px;border-radius:9px;display:flex;align-items:center;justify-content:center;
   font-size:.92rem;background:rgba(var(--c),.16);flex-shrink:0}
 .smod .n{margin-left:auto;font-size:.66rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -528,7 +539,7 @@ function suggest(mod,btn){
   btn.classList.add('active');
   document.getElementById('sb')?.remove();
   const d=document.createElement('div'); d.id='sb'; d.className='msg kip';
-  d.innerHTML=AV+`<div class="bubble"><p><strong>${mod.emoji} ${esc(mod.name)}</strong> — ${mod.n} seeded questions. A few students ask most:</p>
+  d.innerHTML=AV+`<div class="bubble"><p><strong>${mod.emoji} ${esc(mod.name)}</strong> — here's what students ask most:</p>
     <div class="suggest">${mod.ex.map(([q,v])=>`<button type="button" data-q="${esc(q)}">${esc(q)}${v?'<span class="v">⚡ live</span>':''}</button>`).join('')}</div>
     ${mod.disc?'<div class="disc-slot"></div>':''}</div>`;
   msgs.appendChild(d);
