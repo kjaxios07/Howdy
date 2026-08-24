@@ -43,7 +43,7 @@ log = logging.getLogger("kip.evolve")
 settings = get_settings()
 
 KB_PATH = Path(__file__).parent / "knowledge" / "base.json"
-QUESTIONS_PATH = Path(__file__).parents[2] / "knowledge" / "questions.json"
+QUESTIONS_PATH = Path(__file__).resolve().parents[2] / "knowledge" / "questions.json"
 CHANGELOG_PATH = Path(__file__).parent / "knowledge" / "changelog.jsonl"
 
 client = anthropic.AsyncAnthropic(api_key=settings.anthropic_key)

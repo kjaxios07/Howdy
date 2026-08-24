@@ -103,7 +103,7 @@ async def list_questions(module: str | None = None, q: str | None = None, limit:
     import json
     from pathlib import Path
 
-    path = Path(__file__).parents[2] / "knowledge" / "questions.json"
+    path = Path(__file__).resolve().parents[2] / "knowledge" / "questions.json"
     if not path.is_file():
         return {"questions": [], "count": 0}
 

@@ -1,0 +1,364 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-08-24",
+    "count": 21,
+    "_what": "Hand-written answers to the questions where the exact wording carries legal or safety weight. Served instead of calling the model, so a student gets the reviewed text every time rather than something composed fresh.",
+    "_why_these_21": "Every crisis and refer question in questions.json, and nothing else. These are the ones a lawyer or registered agent can read and sign off, which is impossible for generated answers and is the real argument for pre-writing. The cost saving is close to nil — the answer cache already removes about 98% of it.",
+    "_never_volatile": "Nothing flagged volatile may ever be pre-written. A stale figure served instantly and confidently, with a citation under it, is worse than a slow correct answer. A test enforces this.",
+    "_not_regenerated": "Hand-maintained. The nightly job rewrites knowledge/base.json and must never touch this file.",
+    "_gate": "status must be 'reviewed' before an answer is served. Drafts are ignored at runtime. Only a person can move that field.",
+    "review_interval_months": 6
+  },
+  "answers": [
+    {
+      "id": "health-036",
+      "q": "What should I do if I get seriously ill and have to miss university?",
+      "module": "health",
+      "risk": "crisis",
+      "intent": "Procedural",
+      "answer": "**If it is an emergency, call 000 now.** For anything else, **Healthdirect on 1800 022 222** gets you a registered nurse, free, any hour.\n\nBeing sick is not a visa problem. It becomes one only if nobody is told, so tell people early.\n\n1. **See a doctor and ask for a medical certificate.** You need it in writing, with dates — this is the document everything else rests on\n2. **Tell your university now, not when you are better.** Every institution has special consideration, extensions and leave; all of them have deadlines\n3. **Ask about a reduced study load or leave of absence** if it will be more than a week or two. Your provider can approve this — you do not arrange it yourself\n4. **Ask your international student adviser to check the visa side.** Compassionate and compelling circumstances, which serious illness is, are recognised — but the paperwork has to exist\n\n⚕️ **Your OSHC covers hospital and ambulance.** Ask any clinic *\"do you bulk bill OSHC?\"* — many charge no gap at all.\n\nYou are not the first student this has happened to, and the systems for it already exist. The mistake is going quiet, not getting sick.",
+      "sources": [
+        "https://www.healthdirect.gov.au",
+        "https://www.studyaustralia.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "health-037",
+      "q": "What should I do if I have a mental health emergency in Australia?",
+      "module": "health",
+      "risk": "crisis",
+      "intent": "Procedural",
+      "answer": "**Right now:**\n\n- **000** — if you or someone else is in immediate danger\n- **Lifeline 13 11 14** — 24/7, someone will answer\n- **Beyond Blue 1300 22 4636** — 24/7\n- **Your university counselling service** — free for international students, and separate from your academic record\n\nInterpreters are available on all of these. You do not have to explain yourself in English.\n\n**None of this touches your visa.** Getting help is not a condition breach, it is not reported to Home Affairs, and it will not be held against you. That fear stops more students from calling than anything else, and it is not true.\n\nIf you are not in crisis but not coping either, a GP can write a **mental health treatment plan** that covers subsidised sessions with a psychologist. Ask for a long appointment when you book.\n\nAsking was the hard part. 💚",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-005",
+      "q": "How do I report a sexual assault?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Informational",
+      "answer": "**You are in control of every step here, including whether to report at all.**\n\n- **000** — if you are in danger now\n- **1800RESPECT 1800 737 732** — 24/7 counselling, and they can talk you through the options before you decide anything\n- **Your university** has a sexual assault response team and can act without you going to police\n\n**You do not have to report to get help.** Medical care, counselling and support are available whether or not you ever speak to police, and nobody can make that decision for you.\n\nIf you are thinking about reporting:\n1. **A hospital or a sexual assault service can do a forensic examination**, and the evidence can be stored while you decide. It does not commit you to anything\n2. **Try not to shower or change clothes** first if you can manage it — but if you already have, that does not stop you reporting\n3. **Police can take a report at any time**, including much later\n\n🛡️ **Your visa is not affected.** Reporting a crime you are the victim of has no bearing on your student visa, and nobody will ask about your immigration status as a condition of helping you.\n\nNone of this was your fault.",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-026",
+      "q": "What is a crisis accommodation service and when should I use one?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Informational",
+      "answer": "**If you have nowhere safe to sleep tonight, ring 1800 825 955 — Ask Izzy's homelessness line — or 1800RESPECT on 1800 737 732 if the reason is violence at home.**\n\nCrisis accommodation is short-term emergency housing. It is for the night you cannot go back, not for a housing search.\n\n**Use it when:**\n- Going home is not safe\n- You have been locked out, evicted with no notice, or have nowhere at all\n- You are sleeping in a car, or on someone's floor with no plan\n\n**What it looks like:** a refuge or emergency place for days to weeks, free or nearly free, with workers who help you find something longer-term. Some are women-only, some take families, some take anyone.\n\n**Also ask your university.** Most have emergency accommodation and hardship grants for exactly this, and international students are eligible. It is not charity — it is a service you are entitled to.\n\n🛡️ **It does not affect your visa,** and services do not report your situation to Home Affairs.\n\nNeeding this is not a failure. It is what the service exists for.",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-029",
+      "q": "What is the process for getting a restraining order if I feel unsafe?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Procedural",
+      "answer": "**If you are in danger right now, call 000.** For support and help understanding your options: **1800RESPECT 1800 737 732**, 24/7.\n\nThe order has a different name in each state — intervention order, apprehended violence order, protection order — but it does the same thing: it legally stops a person contacting or approaching you.\n\n1. **You can apply yourself at a local court**, and it is free. You do not need a lawyer\n2. **Police can apply on your behalf**, which is common and often faster\n3. **In an urgent situation police can issue an interim order on the spot**, protecting you before any hearing\n4. **A hearing follows**, usually within weeks. A support worker can go with you\n5. **Breaching the order is a criminal offence** — police act on it\n\n**Get help with this rather than doing it alone.** A domestic violence service or your university's free legal service will help you prepare, and they know how it works in your state.\n\n🛡️ **Applying does not affect your visa,** and you do not need to be a citizen or permanent resident.\n\nBecause the process differs by state, check your own state's court or legal aid site for the exact steps — I can point you there if you tell me where you live.",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-032",
+      "q": "What should I do if I am the victim of a crime in Australia?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Procedural",
+      "answer": "**Happening now, or you are hurt: call 000.**\n**Already over, and you are safe: call 131 444** — police non-emergency.\n\n1. **Get safe first.** Everything else can wait\n2. **Report it.** You can do this by phone, online, or at any police station. You will get a **report number** — keep it, insurance and your university will both ask\n3. **Write down what happened while it is fresh** — time, place, descriptions. Memory fades faster than you expect\n4. **Tell your university's international student support.** They can help with police, insurance, and extensions if it has affected your study\n5. **Ask about victims of crime compensation.** Every state has a scheme, and international students can apply\n\n**If your phone, wallet or passport was taken:** cancel your cards immediately, and contact your consulate about the passport.\n\n🛡️ **Your visa is not affected by being a victim of crime.** Police are not immigration officers, and reporting will not put your status at risk. If someone has told you otherwise, they were wrong — or they were the person who hurt you.\n\nFree interpreters are available at every step. Ask.",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-034",
+      "q": "What should I do if a landlord threatens to evict me illegally?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Procedural",
+      "answer": "**A landlord cannot evict you. Only a tribunal can, and only after a process.** If someone is at your door demanding you leave today, that is not an eviction — and if you feel unsafe, call 000.\n\n**Illegal, everywhere in Australia:**\n- Changing the locks while you are out\n- Cutting off electricity, water or gas to force you out\n- Removing your belongings\n- Threatening you, or turning up repeatedly to intimidate you\n- Ordering you out without written notice and the required notice period\n\n**What to do:**\n1. **Do not move out because you were told to verbally.** Leaving voluntarily can forfeit rights you would otherwise keep\n2. **Ask for it in writing.** A real notice states a ground and a date, and the required period varies by state and reason\n3. **Photograph and save everything** — messages, notices, the state of the property\n4. **Call your state tenancy service.** Free, and they do this every day\n5. **Your university's legal service is also free** and knows the local rules\n\n⚠️ **This is more common where the arrangement is informal** — a room sublet, cash rent, no written lease. You still have rights in most of those situations, so do not assume you have none because there is no paperwork.\n\n🛡️ **Your visa is not affected by a tenancy dispute,** and a landlord threatening to \"report you\" is almost always bluffing about a power they do not have.",
+      "sources": [
+        "https://www.rta.qld.gov.au",
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-037",
+      "q": "What support is available if I experience domestic violence in Australia?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Informational",
+      "answer": "**1800RESPECT — 1800 737 732.** 24/7, free, confidential, interpreters available. **000 if you are in danger now.**\n\n**What exists for you:**\n- **Crisis accommodation** — somewhere safe tonight, including for you and children\n- **Free legal help** — protection orders, tenancy, family law\n- **Financial help** — emergency payments, and your university's hardship fund\n- **Counselling** — free, and separate from your studies\n- **Your university's support team**, who deal with this more often than you would think\n\n**The visa question, answered plainly.** If you are on a partner visa, there are **family violence provisions** that can allow your application to continue even if the relationship ends. If you are a student, your visa is your own and does not depend on your partner. Whichever applies to you, **do not let someone tell you that leaving means being deported** — that threat is a known tactic and it is usually a lie.\n\nBecause your situation decides which provision applies, get that part checked by a **MARA-registered agent** (verify anyone at **mara.gov.au**) or a free community legal centre. Many do this at no cost for exactly these circumstances.\n\n**Practical, when it is safe to:** keep your passport, visa grant and key documents somewhere you can reach quickly, and know that 000 works from a locked phone with no credit.\n\nYou are not trapped, even when it feels that way. 💚",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-040",
+      "q": "Where do I get domestic violence support?",
+      "module": "safety",
+      "risk": "crisis",
+      "intent": "Informational",
+      "answer": "**1800RESPECT — 1800 737 732.** Free, 24/7, confidential, interpreters available. It is the number to call first, and they will connect you to whatever your state has.\n\n- **000** — immediate danger\n- **1800RESPECT 1800 737 732** — counselling and referral, any hour\n- **Your university** — support team, free counselling, emergency accommodation and hardship money\n- **Legal Aid in your state** — free, including protection orders\n- **Men's Referral Service 1300 766 491** — if you are using violence and want it to stop, or are being abused yourself\n\n**You can call to ask questions without deciding anything.** People ring 1800RESPECT to understand their options and hang up. That is a completely normal use of it.\n\n🛡️ **Using any of these does not affect your visa,** and no service will report your immigration status.\n\n**If you are worried about someone finding out you looked:** these numbers do not show on a phone bill as anything identifying, and 1800RESPECT has a web chat that leaves less trace than a call.\n\n💚",
+      "sources": [
+        "https://www.healthdirect.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "safety-018",
+      "q": "What are my rights if police stop and question me in Australia?",
+      "module": "safety",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "**Stay calm, stay polite, and do not run.** Australian police are not immigration officers, and an ordinary stop is not about your visa.\n\n**Generally, across Australia:**\n- You must give your **name and address** when police have a lawful reason to ask\n- If you are **driving**, you must produce your licence\n- Beyond that you have a **right to silence** for questions about an offence. Saying *\"I would like to speak to a lawyer first\"* is a complete and acceptable answer\n- You may ask **\"am I free to go?\"** If yes, you may leave\n- You may ask for the officer's **name, rank and station**, and they should provide it\n- **You are entitled to an interpreter**, free. Ask for one if English is difficult under pressure — this is not a weakness, it is a protection\n\n**If you are arrested:** you may contact a lawyer, and you may contact your consulate. Say clearly that you want both before answering questions.\n\n**Do not** resist, give a false name, or sign anything you have not read and understood.\n\n**Search powers differ by state** and depend on the circumstances, so if you are unsure, say you do not consent and do not physically interfere — the lawfulness gets sorted out later, and it goes better for you that way.\n\n⚖️ **If you are charged, that can have visa consequences.** Get a criminal lawyer — Legal Aid and your university's free legal service both exist — and a **MARA-registered agent** for the visa side (**mara.gov.au**). Do not assume a minor matter is harmless, and do not assume a serious one is fatal. Both assumptions are made too often.\n\n⚖️ These are the general rights. How they apply to a specific incident is legal advice, and any visa consequence is migration advice — neither is something I can give you.",
+      "sources": [
+        "https://www.healthdirect.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "study-011",
+      "q": "How do I get my overseas qualifications recognised in Australia?",
+      "module": "study",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "There are **three different kinds of recognition**, they are not interchangeable, and picking the wrong one wastes months. This is the thing worth understanding before anything else.\n\n**1. For migration — a skills assessment.** Done by the assessing authority for your occupation, against the Australian standard for that occupation. Only this one counts for a skilled visa.\n\n**2. To practise a regulated profession — registration.** Doctors, nurses, teachers, lawyers, engineers in some states, electricians and many trades cannot work in the role without registration from the relevant board, regardless of any visa. This is often the longer and harder step, and it may require bridging study or a local exam.\n\n**3. To study further, or to satisfy an employer — a qualification comparison.** A statement of comparability showing what your qualification is equivalent to in the Australian framework. Useful for admissions and for unregulated jobs; **not sufficient** for migration or for a regulated profession.\n\n**Practical, whichever you need:**\n- Order official transcripts and certified translations early — this is usually the slowest part\n- Keep detailed employment references: dates, hours, duties, on letterhead\n- Expect months, not weeks\n\n⚖️ **If migration is the goal, get advice before you start**, because the order of these steps matters. A **MARA-registered agent** (**mara.gov.au**) or your university's adviser, who is free.\n\n⚖️ Which of the three you need depends on your occupation and your plans, and where migration is involved that judgement is migration advice.",
+      "sources": [
+        "https://www.studyaustralia.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-012",
+      "q": "How do I avoid migration agent scams in Australia?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Investigative",
+      "answer": "**One rule catches almost all of it: check the register before you pay anyone.** Every legitimate agent has a MARN you can verify free at **mara.gov.au**. No MARN, no money.\n\n**Walk away from any of these:**\n- A **guaranteed** visa or PR outcome. Nobody can guarantee a decision\n- Pressure to decide today, or a \"closing soon\" quota\n- Asking you to sign a blank or incomplete form\n- Telling you to put something untrue on an application — that is their crime and your refusal, and it can bar you for years\n- Cash only, no written agreement, no receipt\n- Holding your passport\n- Fees quoted only in a WhatsApp message\n\n**What a real agent does:** gives you a written agreement listing services and fees, has a MARN on their material, tells you honestly when your prospects are poor.\n\n**Free alternatives exist.** Your university's international student adviser and many community legal centres give migration help at no cost.\n\n**If you have been scammed:** report to **mara.gov.au** and **scamwatch.gov.au**, and tell your bank immediately. Being scammed is not itself a visa breach — but an application containing false information is a serious problem, so get advice quickly rather than hoping.\n\n⚖️ Whether a particular agent is right for your case is a judgement I cannot make for you. Verify the MARN, then talk to two of them before choosing.",
+      "sources": [
+        "https://www.mara.gov.au",
+        "https://www.scamwatch.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-022",
+      "q": "What are the PR pathways for a nursing graduate from the Philippines or Nepal?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "I can explain how the system works. **Which pathway fits you, I genuinely cannot say** — that depends on your qualification, registration, English, work history and age, and assessing it is migration advice.\n\n**How it fits together for nursing, in general terms:**\n\n1. **Registration comes before migration.** Nurses practising in Australia must be registered with the national regulator, and overseas-qualified nurses go through an assessment that may include bridging study. This is separate from any visa\n2. **A skills assessment** for migration purposes is done by the assessing authority for your occupation — for nursing that is ANMAC. Confirm on the official occupation list, since the mapping can change\n3. **English requirements for registration are usually higher** than for the visa itself. This surprises people, and it is the step that most often adds a year\n4. **Then the skilled pathways**: independent, state-nominated, and regional. Each has different requirements and different consequences for where you must live\n5. **Employer sponsorship** is a separate route, and in aged and disability care it is common\n\n**Two things worth knowing:** nursing frequently appears on state nomination lists, and regional pathways often ask less — but they commit you to a location for years.\n\n⚖️ **Take the specifics to a MARA-registered agent** — verify anyone at **mara.gov.au**. Your university's international student adviser may also help free. The order you do these steps in matters a great deal, and getting it wrong costs time rather than money.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-023",
+      "q": "What are the PR pathways for an IT graduate from India?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "I can set out the landscape. **Which one you should aim at is migration advice, and I am not able to give it.**\n\n**The general shape for IT:**\n\n1. **A skills assessment** from the assessing authority for your occupation — for most ICT occupations that is the ACS. They assess your qualification and experience against the occupation, and often discount some early years of work. Confirm the authority on the official occupation list\n2. **English** — a formal test, with higher bands worth more in the points system\n3. **An Expression of Interest** in SkillSelect. This is not an application. You are invited to apply, or you are not\n4. **Then one of**: skilled independent (permanent, no sponsor), state-nominated (permanent, commits you to a state), or skilled regional (provisional, leads to permanent later)\n5. **Employer-sponsored** is a parallel route and does not use the points test the same way\n\n**What actually decides IT outcomes** is less the pathway and more the assessment result and the points total — and the invitation threshold moves depending on how many people apply.\n\n⚖️ **This is exactly the kind of question a MARA-registered agent is for.** Verify anyone at **mara.gov.au**. Points totals, occupation lists and invitation rounds all change, so check the current position rather than a figure from a forum — including this one.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-027",
+      "q": "What happens if I fail too many subjects and my university enrolment is cancelled?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Investigative",
+      "answer": "**Act immediately. This is the situation where a week matters.**\n\nYour student visa is tied to enrolment, so losing enrolment puts the visa at risk — but it is a process with steps, not an instant cancellation, and each step is a chance to fix it.\n\n1. **Your provider must give you written notice** of intention to report before reporting you, and it names a deadline\n2. **You have a right to appeal internally**, usually within 20 working days. **Appealing suspends the reporting.** This is the single most important thing to know\n3. **If the internal appeal fails**, there is an external complaints body — and while that is live, the provider generally cannot report you\n4. **If you are reported**, Home Affairs writes to you. That letter has its own deadline and it is not the end either\n5. **Transferring to another provider** may be an option depending on your circumstances\n\n**Do today:** read the letter for its deadline, book your international student adviser, and lodge the appeal even if you are not sure it will succeed. Deadlines pass while people are deciding whether to try.\n\n**Genuine reasons carry weight** — illness, bereavement, family crisis. Get documents for whatever happened.\n\n⚖️ **Get a MARA-registered agent involved now, not after** (**mara.gov.au**), and use your university's free legal service. This is one where advice a week early is worth more than advice a month late.\n\n⚖️ I have set out the process, not what will happen in your case — that is migration advice and I am not able to give it.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-032",
+      "q": "What is a MARA-registered migration agent and how do I verify one?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "A registered migration agent is someone legally permitted to give **immigration assistance** — advice on your specific situation, and help preparing an application. Under the **Migration Act 1958**, doing that unregistered is a criminal offence.\n\nThat is also the line I work behind: I can explain how visas work in general, and I cannot advise on yours.\n\n**Verifying one takes two minutes:**\n1. Go to **mara.gov.au**\n2. Search by name or by their **MARN** — a registration number every agent has\n3. Check the registration is **current**, and look for any disciplinary history\n4. If they are not on the register, they cannot lawfully charge you for immigration assistance\n\n**What a registered agent must do:** give you a written agreement with services and fees before starting, act in your interests, keep your information confidential, and follow a code of conduct they can be sanctioned under.\n\n**Lawyers are different.** An Australian legal practitioner with a current practising certificate may also give immigration assistance, and is regulated by their state's legal body rather than by MARA.\n\n💡 **Free help exists first.** Your university's international student adviser and community legal centres cost nothing, and for straightforward matters that may be all you need.",
+      "sources": [
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-036",
+      "q": "What is a skills assessment and which body assesses IT graduates?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "A skills assessment is an independent check that your qualification and experience actually match the Australian occupation you are nominating. **Skilled visas generally require a positive one before you can apply.**\n\n**How it works in general:**\n1. You identify the occupation you are nominating\n2. Each occupation has a designated **assessing authority**, set out on the official occupation list\n3. You submit qualifications, transcripts, employment references and usually English results\n4. They assess against the Australian standard for that occupation\n5. You get a written outcome with a validity period\n\n**For most ICT occupations the authority is the ACS.** Confirm it against the current occupation list rather than taking my word — the mapping between occupations and authorities does change.\n\n**Two things that catch people out.** Assessing authorities often **discount some early years of employment** as the qualifying period, so your assessed experience can be shorter than your actual experience. And a positive assessment is **not a visa** — it is one requirement of one.\n\n**Other common authorities:** ANMAC for nursing, Engineers Australia for engineering, VETASSESS for many general professional occupations, and trade assessments through separate bodies.\n\n⚖️ **Choosing which occupation to nominate is a strategic decision with real consequences**, and it is migration advice. Take it to a **MARA-registered agent** — verify at **mara.gov.au**.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-038",
+      "q": "What is an Expression of Interest for PR and how does it work?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Procedural",
+      "answer": "An **Expression of Interest** is a submission through SkillSelect saying you would like to be considered. **It is not a visa application**, it costs nothing, and lodging one gives you no status or rights.\n\n**How the process runs:**\n1. **Get your skills assessment and English result first.** The EOI asks you to claim these\n2. **Lodge the EOI**, claiming your points across age, English, experience, qualifications and the other factors\n3. **You sit in a pool.** An EOI generally stays valid for two years\n4. **Invitation rounds happen periodically.** Higher-ranked EOIs are invited; states also select from the pool for nomination\n5. **If invited, you have a limited window to lodge the real application** — with the evidence for every point claimed\n6. **Not invited is not a refusal.** It means your score did not reach the threshold that round\n\n**The thing to understand:** you claim points, and later you **prove** them. Claiming points you cannot evidence is the most common way this goes wrong, and it can lead to refusal and worse.\n\n**The threshold is not fixed.** It moves with how many people apply in your occupation, so a score that was invited last year may not be this year.\n\n⚖️ **Do not lodge an EOI on a points total you worked out yourself.** Have a **MARA-registered agent** check the claims first — **mara.gov.au**. That review is cheap compared with what an unprovable claim costs.\n\n⚖️ Whether to lodge, and on what claims, is migration advice. I can only explain how the mechanism works.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-039",
+      "q": "What is employer-sponsored migration in Australia?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "Employer-sponsored migration is where **an Australian business sponsors you** for a visa, rather than you applying on points alone.\n\n**Three parties, three steps, in general terms:**\n1. **The employer** must be an approved sponsor\n2. **The position** must be nominated and genuine, meeting the market salary rate for that role\n3. **You** must meet the skill, English and health requirements for the occupation\n\n**Both temporary and permanent streams exist,** and some temporary sponsorship can lead to permanent residence after a qualifying period with the employer. There are also regional variants with different requirements.\n\n**What matters practically:**\n- Your visa is **tied to that employer and that role**. Changing jobs is not simply resigning — it usually needs a new nomination\n- **The employer must pay the sponsorship and nomination costs.** It is unlawful to pass them to you or to ask you to pay for your own sponsorship. If someone offers you sponsorship for a fee, that is illegal and a very bad sign\n- Sponsorship does **not** reduce your workplace rights. Minimum wage, leave and safe conditions apply exactly as they do to anyone\n- If the job ends, there is a limited period to find another sponsor or another visa\n\n🛡️ **Fair Work has an agreement with Home Affairs**: reporting exploitation will not cost you your visa. If a sponsor is using your visa as leverage, call **13 13 94**.\n\n⚖️ Whether sponsorship is realistic for your occupation and employer is migration advice — **mara.gov.au**.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-042",
+      "q": "What is the difference between state nomination and federal skilled migration?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "Both are points-tested skilled migration. The difference is **who selects you and what you give up.**\n\n**Federal — skilled independent**\n- No sponsor, no nomination\n- You may live and work anywhere in Australia\n- Selected purely on points ranking in invitation rounds\n- Generally the highest threshold, because everyone wants it\n\n**State or territory nomination**\n- A state government nominates you, which **adds points**\n- Each state publishes its **own occupation list and its own criteria**, and they differ a great deal\n- Usually a **commitment to live and work in that state** for a period after arrival\n- Often reachable at a lower total than independent, because you are competing within one state\n\n**Regional** is a third variant: more points again, provisional first, leading to permanent after you meet residence and income requirements in a regional area.\n\n**The honest trade-off:** nomination is usually the faster and more achievable route, and it costs you flexibility for a few years. Whether that trade is right depends on where you want to build a life — which is not a question about visas at all.\n\n**States open and close lists during the year**, and an occupation available in one state may not be in another. Check the current state lists rather than a summary.\n\n⚖️ **Which state to target is a strategic decision, and it is migration advice.** A **MARA-registered agent** — verify at **mara.gov.au** — will look at your occupation against current state lists.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    },
+    {
+      "id": "visa-044",
+      "q": "What is the points test for Australian permanent residency?",
+      "module": "visa",
+      "risk": "refer",
+      "intent": "Informational",
+      "answer": "The points test scores you against fixed factors, and only people above a threshold get invited to apply.\n\n**What is scored:**\n- **Age** — the highest band is a range, not \"younger is always better\"\n- **English** — more for higher test bands\n- **Skilled employment** — Australian and overseas experience, scored differently\n- **Qualifications** — recognised Australian and overseas\n- **Australian study**, and study in a regional area\n- **Specialist education** in some fields\n- **Credentialled community language**\n- **Partner skills** — or being single, which also scores\n- **State nomination or regional sponsorship** — a substantial addition\n\n**Two things about the number.** First, **the pass mark is not the real bar.** Meeting the minimum makes you eligible to submit an interest, not to be invited — the invited score in a competitive occupation is usually well above it. Second, **every point must be proved later** with documents.\n\n**I have deliberately not listed the values.** They are published, and they change; a table from a forum post two years old has cost people a great deal. Read the current one on the official site.\n\n⚖️ **Working out your own total is exactly where this goes wrong.** People miscount skilled employment and partner points more than any other category, and an unprovable claim can lead to refusal and a bar on reapplying. Have a **MARA-registered agent** check it — **mara.gov.au**.\n\n⚖️ I have explained what is scored. What *you* would score is migration advice, and working it out for you is exactly what I cannot do.",
+      "sources": [
+        "https://immi.homeaffairs.gov.au",
+        "https://www.mara.gov.au"
+      ],
+      "written": "2026-08-24",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "review_by": "2027-02-24"
+    }
+  ]
+}
