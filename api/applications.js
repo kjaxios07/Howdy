@@ -8,6 +8,7 @@
  */
 const store = require('../lib/store');
 const auth = require('../lib/auth');
+const { publicMeta } = require('./files');
 const {
   json, fail, readBody, csrfOk, clean, cleanText, rateLimit, clientIp
 } = require('../lib/jobs-core');
@@ -88,10 +89,25 @@ module.exports = async (req, res) => {
       return fail(res, 409, 'You have already applied to this job.');
     }
 
+    // Only files this student owns can ride along on their application.
+    const ownFiles = store.files().filter(f => f.ownerId === user.id);
+    const own = id => ownFiles.find(f => f.id === id);
+
+    const cvMeta = own((user.profile && user.profile.cv && user.profile.cv.id) || body.cvId);
+    if (!cvMeta) return fail(res, 400, 'Add your CV to your profile before applying.');
+
+    const attachments = (Array.isArray(body.attachmentIds) ? body.attachmentIds : [])
+      .slice(0, 3)
+      .map(own)
+      .filter(Boolean)
+      .map(publicMeta);
+
     const application = {
       id: store.id('app'),
       jobId: job.id,
       studentId: user.id,
+      cv: publicMeta(cvMeta),
+      attachments,
       message: cleanText(body.message, 1200),
       availability: clean(body.availability, 200),
       status: 'submitted',

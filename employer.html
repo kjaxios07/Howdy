@@ -380,6 +380,10 @@
                   + esc(a.message) + '</p>' : '')
               + '<p class="hint" style="margin-top:10px">' + esc(s.email || '')
               + (s.phone ? ' · ' + esc(s.phone) : '') + '</p>'
+              + (a.cv || (a.attachments || []).length
+                  ? '<div class="filelist">' + [a.cv].concat(a.attachments || []).filter(Boolean)
+                      .map(function (m) { return H.fileChip(m); }).join('') + '</div>'
+                  : '<p class="hint">No documents attached.</p>')
               + '<div class="job-foot"><small>Applied ' + H.timeAgo(a.createdAt) + '</small>'
               + '<span style="display:flex;gap:6px">'
               + '<button class="btn btn-ghost btn-sm" data-app="' + esc(a.id) + '" data-status="shortlisted">Shortlist</button>'

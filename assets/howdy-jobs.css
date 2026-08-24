@@ -177,3 +177,21 @@ select.input option{background:var(--clay-card);color:var(--t1)}
   background:var(--gl);color:var(--t2);transition:.15s}
 .save-btn:hover{color:var(--rose);border-color:var(--gl-t)}
 .save-btn.on{color:var(--rose);border-color:rgba(253,164,175,.5)}
+
+/* uploads */
+.filechip{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:7px 10px;border-radius:10px;
+  border:1px solid var(--gl-b);background:var(--gl-md);font-size:12.5px}
+.filekind{font-weight:800;font-size:10.5px;letter-spacing:.06em;color:var(--accent);
+  border:1px solid var(--gl-t);border-radius:6px;padding:2px 6px}
+.filename{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:24ch;color:var(--t1)}
+.filename:hover{color:var(--accent);text-decoration:underline}
+.filesize{color:var(--t3);font-variant-numeric:tabular-nums}
+.filechip button{font-size:12px;font-weight:700;color:var(--t2)}
+.filechip button:hover{color:var(--t1)}
+.filelist{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.filedrop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;border-radius:12px;
+  border:1px dashed var(--gl-t);background:var(--gl)}
+.filedrop input[type=file]{font-size:12.5px;color:var(--t2);max-width:100%}
+.filedrop input[type=file]::file-selector-button{font-family:var(--fb);font-weight:700;font-size:12.5px;
+  margin-right:10px;padding:7px 12px;border-radius:9px;border:1px solid var(--gl-b);
+  background:var(--gl-md);color:var(--t1);cursor:pointer}

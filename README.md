@@ -30,6 +30,17 @@ profile and the board is sorted best-match-first, with the reasons shown on the 
 decline applicants from one dashboard. Listings below the indicative minimum hourly rate are rejected
 before they go live.
 
+### CVs and attachments
+
+Students upload a CV once on their profile (PDF, DOC, DOCX, JPG or PNG, up to 10 MB); it rides along on
+every application, and they can add up to three extra documents per application — cover letter,
+transcript, RSA, work-rights evidence. Employers download them straight from the applicant card.
+
+Files are written under the data directory under a random name, never the uploaded one, and are only
+served through `/api/files` after an access check: the student who owns the file, or an employer they
+actually applied to. Downloads always go out as attachments, never rendered inline. Nothing is reachable
+by guessing a path.
+
 ### Job fields
 
 | Field | Notes |
@@ -85,6 +96,9 @@ works alongside the `SameSite=Lax` session cookie).
 | `PATCH /api/jobs?id=…` | Open or close a listing (owner only) |
 | `DELETE /api/jobs?id=…` | Remove a listing and its applications (owner only) |
 | `POST /api/saved` | Toggle ♡ on a job (students) |
+| `POST /api/files?name=…&type=…` | Upload a CV or attachment (raw body, ≤10 MB) |
+| `GET /api/files?id=…` | Download a file — owner or the employer applied to |
+| `DELETE /api/files?id=…` | Remove your own file |
 | `POST /api/applications` | Apply to a job (students) |
 | `GET /api/applications` | A student's applications, or an employer's applicants (`?jobId=…`) |
 | `PATCH /api/applications?id=…` | Set status: `submitted`, `shortlisted`, `hired`, `declined` |

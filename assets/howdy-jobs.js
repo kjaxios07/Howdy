@@ -32,6 +32,35 @@
     return data;
   }
 
+  /** Uploads one file and returns its metadata. */
+  async function upload(file) {
+    var res = await fetch('/api/files?name=' + encodeURIComponent(file.name)
+      + '&type=' + encodeURIComponent(file.type), {
+      method: 'POST',
+      headers: { 'X-Howdy-Client': 'web', 'Content-Type': file.type || 'application/octet-stream' },
+      credentials: 'same-origin',
+      body: file
+    });
+    var data = {};
+    try { data = await res.json(); } catch (e) {}
+    if (!res.ok) throw new Error(data.error || 'That file could not be uploaded.');
+    return data.file;
+  }
+
+  var fileSize = function (bytes) {
+    return bytes < 1048576
+      ? Math.max(1, Math.round(bytes / 1024)) + ' KB'
+      : (bytes / 1048576).toFixed(1) + ' MB';
+  };
+
+  /** A file row with a download link and optional actions. */
+  function fileChip(meta, extra) {
+    return '<span class="filechip"><span class="filekind">' + esc(meta.kind) + '</span>'
+      + '<a class="filename" href="/api/files?id=' + encodeURIComponent(meta.id) + '" download>'
+      + esc(meta.name) + '</a>'
+      + '<span class="filesize">' + fileSize(meta.size) + '</span>' + (extra || '') + '</span>';
+  }
+
   /* ── dom helpers ──────────────────────────────────────────────────────── */
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
@@ -199,6 +228,7 @@
     api: api, $: $, $$: $$, esc: esc, toast: toast,
     openModal: openModal, closeModal: closeModal,
     timeAgo: timeAgo, money: money, pay: pay, hours: hours, toggleTheme: toggleTheme,
+    upload: upload, fileChip: fileChip, fileSize: fileSize,
     loadConfig: loadConfig, loadUser: loadUser, signOut: signOut, mountGoogle: mountGoogle,
     install: install, canInstall: function () { return !!installEvent; },
     get user() { return user; },

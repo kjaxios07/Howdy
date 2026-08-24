@@ -34,19 +34,36 @@ function makeClient() {
   return async function call(pathname, options = {}) {
     const headers = { 'X-Howdy-Client': 'web' };
     if (options.body !== undefined) headers['Content-Type'] = 'application/json';
+    if (options.raw !== undefined) headers['Content-Type'] = options.contentType || 'application/octet-stream';
     if (cookie) headers.Cookie = cookie;
     if (options.noClientHeader) delete headers['X-Howdy-Client'];
 
     const res = await fetch(BASE + pathname, {
-      method: options.method || (options.body !== undefined ? 'POST' : 'GET'),
+      method: options.method
+        || (options.body !== undefined || options.raw !== undefined ? 'POST' : 'GET'),
       headers,
-      body: options.body !== undefined ? JSON.stringify(options.body) : undefined
+      body: options.raw !== undefined
+        ? options.raw
+        : (options.body !== undefined ? JSON.stringify(options.body) : undefined)
     });
     const setCookie = res.headers.get('set-cookie');
     if (setCookie) cookie = setCookie.split(';')[0];
+    if (options.binary) {
+      const buffer = Buffer.from(await res.arrayBuffer());
+      return { status: res.status, buffer, headers: res.headers };
+    }
     let body = null;
     try { body = await res.json(); } catch {}
     return { status: res.status, body };
+  };
+}
+
+/** Uploads bytes the way the browser does — raw body, type and name in the query. */
+function makeUploader(call) {
+  return async function upload(client, bytes, name, type) {
+    return call(`/api/files?name=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}`, {
+      method: 'POST', raw: bytes, contentType: type
+    });
   };
 }
 
@@ -177,6 +194,39 @@ async function waitForServer(attempts = 60) {
     check('students cannot post jobs',
       (await student('/api/jobs', { body: { title: 'Nope' } })).status === 403);
 
+    /* CV upload, attachments and who can read them */
+    const PDF = Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\ntrailer<</Root 1 0 R>>\n');
+    const upload = makeUploader((p, o) => student(p, o));
+
+    const badFileType = await student('/api/files?name=payload.exe&type=application/x-msdownload',
+      { raw: Buffer.from('MZ'), contentType: 'application/x-msdownload' });
+    check('unsupported file type is rejected', badFileType.status === 415, badFileType.body);
+
+    const tooBig = await student('/api/files?name=huge.pdf&type=application/pdf',
+      { raw: Buffer.alloc(11 * 1024 * 1024, 32), contentType: 'application/pdf' });
+    check('oversize upload is rejected', tooBig.status === 413 || tooBig.status === 400, tooBig.status);
+
+    const cvUp = await upload(student, PDF, 'mei-cv.pdf', 'application/pdf');
+    check('student can upload a CV', cvUp.status === 201 && cvUp.body.file.kind === 'PDF', cvUp.body);
+    const cvId = cvUp.body.file && cvUp.body.file.id;
+
+    const withCv = await student('/api/auth?action=profile', { body: { cv: cvUp.body.file } });
+    check('CV sticks to the profile', withCv.body.user.profile.cv.id === cvId, withCv.body.user.profile.cv);
+
+    const extraUp = await upload(student, PDF, 'work-rights.pdf', 'application/pdf');
+    check('student can upload an extra document', extraUp.status === 201, extraUp.body);
+
+    const mineFile = await student(`/api/files?id=${cvId}`, { binary: true });
+    check('student can download their own CV',
+      mineFile.status === 200 && mineFile.buffer.length === PDF.length, mineFile.status);
+    check('downloads are sent as attachments, never inline',
+      /attachment/.test(mineFile.headers.get('content-disposition') || ''),
+      mineFile.headers.get('content-disposition'));
+
+    const anonFile = await anon(`/api/files?id=${cvId}`);
+    check('signed-out visitors cannot read a CV', anonFile.status === 403 || anonFile.status === 401,
+      anonFile.status);
+
     /* saved jobs */
     const save = await student('/api/saved', { body: { jobId } });
     check('student can save a job', save.body.saved === true, save.body);
@@ -188,9 +238,17 @@ async function waitForServer(attempts = 60) {
     await student('/api/saved', { body: { jobId } });
 
     const applied = await student('/api/applications', {
-      body: { jobId, message: 'I live ten minutes away and have two years of cafe experience.', availability: 'Weekends' }
+      body: {
+        jobId,
+        message: 'I live ten minutes away and have two years of cafe experience.',
+        availability: 'Weekends',
+        attachmentIds: [extraUp.body.file.id]
+      }
     });
     check('student can apply', applied.status === 201, applied.body);
+    check('application carries the CV and attachment',
+      applied.body.application.cv.id === cvId
+      && applied.body.application.attachments.length === 1, applied.body.application);
     check('duplicate application is rejected',
       (await student('/api/applications', { body: { jobId, message: 'again' } })).status === 409);
 
@@ -203,6 +261,15 @@ async function waitForServer(attempts = 60) {
     check('employer sees the applicant',
       applicants.body.applications.length === 1
       && applicants.body.applications[0].student.email === 'mei@student.test', applicants.body);
+
+    check('employer sees the attached documents',
+      applicants.body.applications[0].cv.name === 'mei-cv.pdf'
+      && applicants.body.applications[0].attachments.length === 1,
+      applicants.body.applications[0].cv);
+
+    const employerRead = await employer(`/api/files?id=${cvId}`, { binary: true });
+    check('the employer applied to can download the CV',
+      employerRead.status === 200 && employerRead.buffer.length === PDF.length, employerRead.status);
 
     const appId = applicants.body.applications[0].id;
     const shortlisted = await employer(`/api/applications?id=${appId}`, {
@@ -217,6 +284,8 @@ async function waitForServer(attempts = 60) {
     });
     check('another employer cannot read your applicants',
       (await other(`/api/applications?jobId=${jobId}`)).status === 403);
+    check('another employer cannot read your CV',
+      (await other(`/api/files?id=${cvId}`)).status === 403);
     check('another employer cannot close your job',
       (await other(`/api/jobs?id=${jobId}`, { method: 'PATCH', body: { status: 'closed' } })).status === 403);
 

@@ -370,7 +370,22 @@
     } else if (job.applied) {
       applySection = '<p class="notice">You applied to this job. Track it under <strong>My applications</strong>.</p>';
     } else {
+      var cv = (H.user.profile || {}).cv;
       applySection = '<form id="applyForm">'
+        + '<div class="field"><label class="f">Your CV</label>'
+        + (cv
+            ? '<div class="filelist">' + H.fileChip(cv) + '</div>'
+              + '<p class="hint">Sent with this application.</p>'
+            : '<div class="filedrop"><input type="file" id="applyCv" '
+              + 'accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">'
+              + '<span class="hint" style="margin:0">Attach your CV — PDF, DOC, DOCX, JPG or PNG</span>'
+              + '</div><p class="hint">Saved to your profile, so you only do this once.</p>')
+        + '</div>'
+        + '<div class="field"><label class="f" for="applyExtra">Other documents (optional)</label>'
+        + '<div class="filedrop"><input type="file" id="applyExtra" multiple '
+        + 'accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">'
+        + '<span class="hint" style="margin:0">Cover letter, transcript, RSA, work rights — up to 3</span>'
+        + '</div><div class="filelist" id="applyExtraList"></div></div>'
         + '<div class="field"><label class="f" for="applyAvail">Your availability</label>'
         + '<input class="input" id="applyAvail" placeholder="e.g. Fri/Sat evenings, all weekend" maxlength="200"></div>'
         + '<div class="field"><label class="f" for="applyMsg">Message to the employer</label>'
@@ -420,12 +435,69 @@
 
     var form = $('#applyForm');
     if (form) {
+      var extras = [];
+
+      var paintExtras = function () {
+        $('#applyExtraList').innerHTML = extras.map(function (m) {
+          return H.fileChip(m, '<button type="button" data-drop="' + m.id + '">Remove</button>');
+        }).join('');
+      };
+
+      $('#applyExtraList').addEventListener('click', async function (e) {
+        var id = e.target.getAttribute('data-drop');
+        if (!id) return;
+        try {
+          await H.api('/api/files?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        } catch (err) { /* the record goes either way */ }
+        extras = extras.filter(function (m) { return m.id !== id; });
+        paintExtras();
+      });
+
+      var applyCv = $('#applyCv');
+      if (applyCv) {
+        applyCv.addEventListener('change', async function () {
+          var file = this.files && this.files[0];
+          if (!file) return;
+          this.disabled = true;
+          try {
+            var meta = await H.upload(file);
+            var data = await H.api('/api/auth?action=profile', { body: { cv: meta } });
+            H.user = data.user;
+            H.toast('CV attached and saved to your profile.', 'ok');
+            openJob(job.id);
+          } catch (err) {
+            this.disabled = false;
+            this.value = '';
+            H.toast(err.message, 'err');
+          }
+        });
+      }
+
+      $('#applyExtra').addEventListener('change', async function () {
+        var picked = Array.prototype.slice.call(this.files || []);
+        this.value = '';
+        for (var i = 0; i < picked.length; i++) {
+          if (extras.length >= 3) { H.toast('Up to three extra documents.', 'err'); break; }
+          try {
+            extras.push(await H.upload(picked[i]));
+            paintExtras();
+          } catch (err) {
+            H.toast(err.message, 'err');
+          }
+        }
+      });
+
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         $('#applyBtn').disabled = true;
         try {
           await H.api('/api/applications', {
-            body: { jobId: job.id, message: $('#applyMsg').value, availability: $('#applyAvail').value }
+            body: {
+              jobId: job.id,
+              message: $('#applyMsg').value,
+              availability: $('#applyAvail').value,
+              attachmentIds: extras.map(function (m) { return m.id; })
+            }
           });
           H.closeModal('jobModal');
           H.toast('Application sent to ' + job.business + '.', 'ok');
@@ -491,6 +563,10 @@
               + '<span class="pill ' + esc(a.status) + '">' + esc(a.status) + '</span></div>'
               + (a.availability ? '<p class="hint"><strong>Availability:</strong> ' + esc(a.availability) + '</p>' : '')
               + (a.message ? '<p class="desc" style="margin-top:8px">' + esc(a.message) + '</p>' : '')
+              + (a.cv || (a.attachments || []).length
+                  ? '<div class="filelist">' + [a.cv].concat(a.attachments || []).filter(Boolean)
+                      .map(function (m) { return H.fileChip(m); }).join('') + '</div>'
+                  : '')
               + '<div class="job-foot"><small>Applied ' + H.timeAgo(a.createdAt) + '</small></div>'
               + '</article>';
           }).join('') + '</div>'
@@ -533,6 +609,16 @@
       + ' hours a fortnight while your course is in session.</p></div>'
       + '<div class="field"><label class="f" for="pStudy">Where you study</label>'
       + '<input class="input" id="pStudy" value="' + esc(p.studyAt || '') + '" maxlength="100"></div></div>'
+      + '<div class="field"><label class="f">Resume / CV</label>'
+      + (p.cv
+          ? '<div class="filelist" id="cvRow">' + H.fileChip(p.cv,
+              '<button type="button" id="cvDrop">Remove</button>') + '</div>'
+          : '')
+      + '<div class="filedrop" style="margin-top:' + (p.cv ? '10' : '0') + 'px">'
+      + '<input type="file" id="pCv" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">'
+      + '<span class="hint" style="margin:0">' + (p.cv ? 'Replace your CV' : 'PDF, DOC, DOCX, JPG or PNG')
+      + ' · up to 10 MB</span></div>'
+      + '<p class="hint">Employers you apply to can download this. Nobody else can.</p></div>'
       + '<div class="field"><label class="f">Job types you want (pick up to 5)</label><div class="chips" id="pCats">'
       + cfg.categories.map(function (c) {
           var on = (p.categories || []).indexOf(c) > -1;
@@ -542,6 +628,39 @@
       + '<div class="field"><label class="f" for="pBio">Short intro employers will see</label>'
       + '<textarea class="input" id="pBio" maxlength="600">' + esc(p.bio || '') + '</textarea></div>'
       + '<button class="btn btn-primary" id="pSave">Save profile</button></form>';
+
+    $('#pCv').addEventListener('change', async function () {
+      var file = this.files && this.files[0];
+      if (!file) return;
+      var input = this;
+      input.disabled = true;
+      try {
+        var meta = await H.upload(file);
+        var data = await H.api('/api/auth?action=profile', { body: { cv: meta } });
+        H.user = data.user;
+        H.toast('CV saved — it goes out with every application.', 'ok');
+        renderProfile();
+      } catch (err) {
+        input.value = '';
+        input.disabled = false;
+        H.toast(err.message, 'err');
+      }
+    });
+
+    var cvDrop = $('#cvDrop');
+    if (cvDrop) {
+      cvDrop.addEventListener('click', async function () {
+        try {
+          await H.api('/api/files?id=' + encodeURIComponent(p.cv.id), { method: 'DELETE' });
+          var data = await H.api('/api/auth?action=profile', { body: { cv: null } });
+          H.user = data.user;
+          H.toast('CV removed.');
+          renderProfile();
+        } catch (err) {
+          H.toast(err.message, 'err');
+        }
+      });
+    }
 
     $('#pCats').addEventListener('click', function (e) {
       var chip = e.target.closest('.chip');

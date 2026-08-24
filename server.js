@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use('/api/files', express.raw({ type: '*/*', limit: '11mb' }));
 app.use(express.json({ limit: '16kb' }));
 
 // Security headers on every response
@@ -30,6 +31,7 @@ app.all('/api/auth', require('./api/auth'));
 app.all('/api/jobs', require('./api/jobs'));
 app.all('/api/applications', require('./api/applications'));
 app.post('/api/saved', require('./api/saved'));
+app.all('/api/files', require('./api/files'));
 
 // Static files (index.html, chat.html, etc.)
 app.use(express.static(path.join(__dirname), { index: 'index.html' }));
@@ -41,6 +43,17 @@ app.get('/jobs/browse', (req, res) => res.sendFile(path.join(__dirname, 'jobs.ht
 app.get('/employer', (req, res) => res.sendFile(path.join(__dirname, 'employer.html')));
 app.get('/ads', (req, res) => res.sendFile(path.join(__dirname, 'ads.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+// Body-size and malformed-JSON errors answer in JSON like the rest of the API
+app.use((err, req, res, next) => {
+  if (err && (err.type === 'entity.too.large' || err.status === 413)) {
+    return res.status(413).json({ error: 'Files must be 10 MB or smaller.' });
+  }
+  if (err && err.type === 'entity.parse.failed') {
+    return res.status(400).json({ error: 'Invalid JSON body.' });
+  }
+  return next(err);
+});
 
 // 404 fallback
 app.use((req, res) => res.status(404).sendFile(path.join(__dirname, 'index.html')));

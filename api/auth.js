@@ -14,6 +14,19 @@ const {
   STATES, CATEGORIES, json, fail, readBody, csrfOk, clean, cleanText, isEmail, rateLimit, clientIp
 } = require('../lib/jobs-core');
 
+/**
+ * A student may point their profile at a file they own, or clear it. Anything
+ * else keeps whatever is already there.
+ */
+function cvMeta(body, user) {
+  if (!('cv' in body)) return user.profile.cv || null;
+  if (!body.cv) return null;
+  const owned = store.files().find(f => f.id === body.cv.id && f.ownerId === user.id);
+  return owned
+    ? { id: owned.id, name: owned.name, type: owned.type, kind: owned.kind, size: owned.size }
+    : (user.profile.cv || null);
+}
+
 const publicUser = u => u && ({
   id: u.id,
   role: u.role,
@@ -38,7 +51,7 @@ function createUser({ role, name, email, passwordHash, provider }) {
     passwordHash,
     createdAt: new Date().toISOString(),
     profile: role === 'student'
-      ? { state: '', suburb: '', categories: [], hoursPerWeek: 0, phone: '', bio: '', studyAt: '' }
+      ? { state: '', suburb: '', categories: [], hoursPerWeek: 0, phone: '', bio: '', studyAt: '', cv: null }
       : {},
     employer: role === 'employer'
       ? { business: name, abn: '', website: '', contactPhone: '', state: '', suburb: '' }
@@ -146,7 +159,8 @@ module.exports = async (req, res) => {
         hoursPerWeek: Math.max(0, Math.min(40, Number(body.hoursPerWeek) || 0)),
         phone: clean(body.phone, 20),
         studyAt: clean(body.studyAt, 100),
-        bio: cleanText(body.bio, 600)
+        bio: cleanText(body.bio, 600),
+        cv: cvMeta(body, user)
       };
     } else {
       const state = clean(body.state, 3).toUpperCase();
