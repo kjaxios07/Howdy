@@ -25,7 +25,7 @@ app.post('/api/chat', require('./api/chat'));
 app.get('/api/health', require('./api/health'));
 app.post('/api/subscribe', require('./api/subscribe'));
 
-// Howdy Jobs API
+// Kip Jobs API
 app.get('/api/jobs-config', require('./api/jobs-config'));
 app.all('/api/auth', require('./api/auth'));
 app.all('/api/jobs', require('./api/jobs'));

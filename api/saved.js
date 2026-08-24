@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — saved jobs (the ♡ on a listing).
+ * Kip Jobs — saved jobs (the ♡ on a listing).
  *
  *   POST /api/saved  { jobId }  toggles the save, returns { saved: true|false }
  *

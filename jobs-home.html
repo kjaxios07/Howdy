@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Howdy Jobs — part-time & casual work for students in Australia</title>
+<title>Kip Jobs — part-time & casual work for students in Australia</title>
 <meta name="description" content="Students find part-time and casual work. Businesses post a shift. Every state in Australia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#160E3A">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Howdy Jobs">
+<meta name="apple-mobile-web-app-title" content="Kip Jobs">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="/assets/howdy-jobs.css">
+<link rel="stylesheet" href="/assets/kip-jobs.css">
 <style>
 .choose{display:grid;gap:18px;margin:38px 0 0}
 @media(min-width:820px){.choose{grid-template-columns:1fr 1fr;gap:22px}}
@@ -24,17 +24,17 @@
 [data-theme="light"] .pick{background:var(--gl-md)}
 .pick:hover{transform:translateY(-4px);border-color:var(--gl-t)}
 .pick .ico{font-size:34px;line-height:1}
-.pick h2{font-family:var(--fd);font-weight:400;font-size:28px;letter-spacing:-.02em}
+.pick h2{font-family:var(--fd);font-weight:800;letter-spacing:-.025em;font-size:28px;letter-spacing:-.02em}
 .pick p{color:var(--t2);font-size:15px;line-height:1.6}
 .pick .btn{margin-top:auto;align-self:flex-start}
-.hero-h1{font-family:var(--fd);font-weight:400;font-size:clamp(32px,6vw,52px);letter-spacing:-.025em;line-height:1.08}
+.hero-h1{font-family:var(--fd);font-weight:800;letter-spacing:-.025em;font-size:clamp(32px,6vw,52px);letter-spacing:-.025em;line-height:1.08}
 .hero-p{margin-top:12px;color:var(--t2);font-size:16px}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
+  <a href="/" class="brand"><span class="dot">🐨</span>Kip <small>Jobs</small></a>
   <div class="nav-r">
     <button class="btn btn-ghost btn-sm" id="themeBtn" aria-label="Toggle theme">◐</button>
   </div>
@@ -63,20 +63,20 @@
   </section>
 
   <p style="margin-top:22px">
-    <button class="btn btn-ghost btn-sm" id="installBtn" hidden>📲 Install Howdy Jobs</button>
+    <button class="btn btn-ghost btn-sm" id="installBtn" hidden>📲 Install Kip Jobs</button>
     <span class="hint" id="iosHint" hidden>On iPhone: tap Share, then <strong>Add to Home Screen</strong>.</span>
   </p>
 
   <footer class="foot">
-    <p>Howdy Jobs is a listing platform, not the employer. Pay rates and shifts are set by the business —
+    <p>Kip Jobs is a listing platform, not the employer. Pay rates and shifts are set by the business —
       check current minimums at fairwork.gov.au.</p>
   </footer>
 </main>
 
-<script src="/assets/howdy-jobs.js"></script>
+<script src="/assets/kip-jobs.js"></script>
 <script>
-document.getElementById('themeBtn').addEventListener('click', window.Howdy.toggleTheme);
-document.getElementById('installBtn').addEventListener('click', function () { window.Howdy.install(); });
+document.getElementById('themeBtn').addEventListener('click', window.Kip.toggleTheme);
+document.getElementById('installBtn').addEventListener('click', function () { window.Kip.install(); });
 // iOS has no install prompt API — tell iPhone users where the button lives.
 (function () {
   var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);

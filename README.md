@@ -1,6 +1,6 @@
 # Howdy
 
-Australia's AI Life Copilot for international students and new migrants — plus **Howdy Jobs**, a simple
+Australia's AI Life Copilot for international students and new migrants — plus **Kip Jobs**, a simple
 job board for student part-time and casual work across every Australian state.
 
 ```bash
@@ -20,7 +20,7 @@ npm run test:jobs  # end-to-end smoke test of the jobs platform
 | `/employer` | Employer dashboard — post jobs, manage listings, review applicants |
 | `/ads` | Ad studio — Instagram creative for Howdy itself (internal) |
 
-## Howdy Jobs
+## Kip Jobs
 
 **Students** sign in with Google or an email and password, save a profile (state, suburb, hours a week,
 job categories, where they study), then search, save (♡) and apply. Each listing is scored against the
@@ -82,7 +82,7 @@ form already open, and sees a live count of the jobs currently on the board.
 
 ### API
 
-All endpoints return JSON. Writes require the `X-Howdy-Client: web` header (a lightweight CSRF guard that
+All endpoints return JSON. Writes require the `X-Kip-Client: web` header (a lightweight CSRF guard that
 works alongside the `SameSite=Lax` session cookie).
 
 | Endpoint | Purpose |
@@ -122,7 +122,7 @@ so there is nothing opaque to explain away.
 ### PWA
 
 `manifest.webmanifest` plus `sw.js` make the site installable: Android/Chrome shows an install prompt
-(surfaced on the **Install Howdy Jobs** button on `/jobs`), iOS installs through Share → Add to Home
+(surfaced on the **Install Kip Jobs** button on `/jobs`), iOS installs through Share → Add to Home
 Screen, and the service worker caches the app shell so the pages open offline. `/api/*` is never cached,
 so job data is always live. Package it with Capacitor later if you need App Store presence.
 
@@ -138,4 +138,4 @@ concurrency control.
 
 Pay rates are set by employers and checked against an indicative floor only — the current award rate lives at
 fairwork.gov.au. Student visa (subclass 500) holders can generally work up to 48 hours a fortnight while their
-course is in session; both surfaces say so. Howdy Jobs is a listing platform, not the employer.
+course is in session; both surfaces say so. Kip Jobs is a listing platform, not the employer.

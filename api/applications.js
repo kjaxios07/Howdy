@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — applications.
+ * Kip Jobs — applications.
  *
  *   POST  /api/applications                  { jobId, message, availability } (students)
  *   GET   /api/applications                  the signed-in student's applications

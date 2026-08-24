@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — job listings.
+ * Kip Jobs — job listings.
  *
  *   GET    /api/jobs              list + filters
  *                                 (state, category, employmentType, q, minPay, postedWithin, sort)

@@ -1,4 +1,4 @@
-/* Howdy Jobs service worker — offline shell for the PWA.
+/* Kip Jobs service worker — offline shell for the PWA.
  *
  * Static shell: cache first, refreshed in the background.
  * Everything under /api: network only, so job data is never stale.
@@ -8,8 +8,8 @@ const SHELL = [
   '/jobs',
   '/jobs/browse',
   '/employer',
-  '/assets/howdy-jobs.css',
-  '/assets/howdy-jobs.js',
+  '/assets/kip-jobs.css',
+  '/assets/kip-jobs.js',
   '/manifest.webmanifest'
 ];
 

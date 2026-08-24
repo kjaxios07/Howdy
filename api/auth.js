@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — accounts and sessions.
+ * Kip Jobs — accounts and sessions.
  *
  *   POST /api/auth?action=signup   { role, name, email, password }
  *   POST /api/auth?action=login    { email, password }

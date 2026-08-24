@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — CV and application attachments.
+ * Kip Jobs — CV and application attachments.
  *
  *   POST   /api/files?name=cv.pdf&type=application/pdf   raw bytes, returns metadata
  *   GET    /api/files?id=file_xxx                        download (access-checked)

@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Howdy Jobs — ad studio</title>
+<title>Kip Jobs — ad studio</title>
 <meta name="robots" content="noindex">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#160E3A">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/howdy-jobs.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kip-jobs.css">
 <style>
 .studio{display:grid;gap:22px;align-items:start}
 @media(min-width:940px){.studio{grid-template-columns:minmax(0,1fr) 330px}}
@@ -24,7 +24,7 @@
 <body>
 
 <nav class="nav">
-  <a href="/" class="brand"><span class="dot">🐨</span>Howdy <small>Jobs</small></a>
+  <a href="/" class="brand"><span class="dot">🐨</span>Kip <small>Jobs</small></a>
   <ul class="nav-links">
     <li><a href="/jobs/browse">Browse jobs</a></li>
     <li><a href="/employer">For employers</a></li>
@@ -39,7 +39,7 @@
   <header class="page-head">
     <span class="eyebrow">Internal — Howdy marketing</span>
     <h1>Ad studio</h1>
-    <p>Instagram creative for Howdy Jobs itself: ads that send businesses to the site to post a job, and
+    <p>Instagram creative for Kip Jobs itself: ads that send businesses to the site to post a job, and
       ads that send students to the board. Pick one, download it, post it.</p>
   </header>
 
@@ -72,7 +72,7 @@
       </div>
       <div class="field">
         <label class="f" for="site">Your web address</label>
-        <input class="input" id="site" value="howdyjobs.com.au" maxlength="40">
+        <input class="input" id="site" value="kipjobs.com.au" maxlength="40">
         <p class="hint">Printed on the creative and used in the caption. Change it to whatever domain you land on.</p>
       </div>
       <div class="field">
@@ -98,11 +98,11 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/assets/howdy-jobs.js"></script>
+<script src="/assets/kip-jobs.js"></script>
 <script>
 (function () {
   'use strict';
-  var H = window.Howdy;
+  var H = window.Kip;
   var $ = H.$;
 
   var SIZES = { post: { w: 1080, h: 1080 }, story: { w: 1080, h: 1920 } };
@@ -116,7 +116,7 @@
       headline: 'Need weekend staff?',
       sub: 'Post the shift free. Students near you apply the same day.',
       cta: 'Post a job free',
-      caption: 'Short-staffed this weekend? ☕\n\nPost your casual shift on Howdy Jobs — free while we\'re in beta — and students in your suburb can apply the same day.\n\nNo agency fees. No lock-in. Live in two minutes.\n\n👉 {site}\n\n#smallbusinessaustralia #nowhiring #casualjobs #hospitalityjobs #retailjobs #hiringstudents'
+      caption: 'Short-staffed this weekend? ☕\n\nPost your casual shift on Kip Jobs — free while we\'re in beta — and students in your suburb can apply the same day.\n\nNo agency fees. No lock-in. Live in two minutes.\n\n👉 {site}\n\n#smallbusinessaustralia #nowhiring #casualjobs #hospitalityjobs #retailjobs #hiringstudents'
     },
     {
       id: 'two-minutes',
@@ -136,7 +136,7 @@
       headline: 'Your next hire studies down the road.',
       sub: 'Reach students in your suburb who want shifts around class.',
       cta: 'Post a job free',
-      caption: 'The best casual staff are already local. 📍\n\nHowdy Jobs puts your shift in front of students in your suburb — the ones who can actually get to a 6am start or a Sunday close.\n\nPost free while we\'re in beta.\n\n👉 {site}\n\n#localbusiness #nowhiring #studentjobs #casualjobs #hiringnow'
+      caption: 'The best casual staff are already local. 📍\n\nKip Jobs puts your shift in front of students in your suburb — the ones who can actually get to a 6am start or a Sunday close.\n\nPost free while we\'re in beta.\n\n👉 {site}\n\n#localbusiness #nowhiring #studentjobs #casualjobs #hiringnow'
     },
     {
       id: 'students-board',
@@ -146,7 +146,7 @@
       headline: 'Part-time jobs that fit your timetable.',
       sub: 'Casual and part-time shifts across every Australian state. Free to use.',
       cta: 'Find a job',
-      caption: 'Looking for part-time work around class? 🎓\n\nHowdy Jobs lists casual and part-time shifts across every Australian state — search by suburb, save the ones you like, and apply in a couple of taps.\n\nFree, always.\n\n👉 {site}\n\n#studentjobs #parttimejobs #casualjobs #internationalstudents #jobsnearme #studentlife'
+      caption: 'Looking for part-time work around class? 🎓\n\nKip Jobs lists casual and part-time shifts across every Australian state — search by suburb, save the ones you like, and apply in a couple of taps.\n\nFree, always.\n\n👉 {site}\n\n#studentjobs #parttimejobs #casualjobs #internationalstudents #jobsnearme #studentlife'
     }
   ];
 
@@ -193,7 +193,7 @@
     var ctx = canvas.getContext('2d');
     var pad = 96;
     var maxW = w - pad * 2;
-    var F = 'Plus Jakarta Sans, system-ui, -apple-system, Segoe UI, sans-serif';
+    var F = 'Manrope, system-ui, -apple-system, Segoe UI, sans-serif';
 
     var bg = ctx.createLinearGradient(0, 0, w, h);
     bg.addColorStop(0, '#1B1046');
@@ -211,7 +211,7 @@
     var headline = $('#headline').value || state.ad.headline;
     var sub = $('#sub').value || state.ad.sub;
     var cta = $('#cta').value || state.ad.cta;
-    var site = ($('#site').value || 'howdyjobs.com.au').trim();
+    var site = ($('#site').value || 'kipjobs.com.au').trim();
 
     /* headline sized to fit: shrink until it fits in four lines */
     var hSize = tall ? 108 : 96;
@@ -234,7 +234,7 @@
     // wordmark
     ctx.font = '800 42px ' + F;
     ctx.fillStyle = 'rgba(255,255,255,.55)';
-    ctx.fillText('HOWDY JOBS', pad, y);
+    ctx.fillText('KIP JOBS', pad, y);
     y += 96;
 
     // emoji

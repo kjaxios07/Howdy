@@ -1,22 +1,22 @@
-/* Howdy Jobs — shared front-end helpers (no build step, no dependencies). */
+/* Kip Jobs — shared front-end helpers (no build step, no dependencies). */
 (function () {
   'use strict';
 
   /* ── theme ────────────────────────────────────────────────────────────── */
   var saved = null;
-  try { saved = localStorage.getItem('howdy-theme'); } catch (e) {}
+  try { saved = localStorage.getItem('kip-theme'); } catch (e) {}
   document.documentElement.setAttribute('data-theme', saved || 'dark');
 
   function toggleTheme() {
     var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem('howdy-theme', next); } catch (e) {}
+    try { localStorage.setItem('kip-theme', next); } catch (e) {}
   }
 
   /* ── api ──────────────────────────────────────────────────────────────── */
   async function api(path, options) {
     var opts = options || {};
-    var headers = { 'X-Howdy-Client': 'web' };
+    var headers = { 'X-Kip-Client': 'web' };
     if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
 
     var res = await fetch(path, {
@@ -37,7 +37,7 @@
     var res = await fetch('/api/files?name=' + encodeURIComponent(file.name)
       + '&type=' + encodeURIComponent(file.type), {
       method: 'POST',
-      headers: { 'X-Howdy-Client': 'web', 'Content-Type': file.type || 'application/octet-stream' },
+      headers: { 'X-Kip-Client': 'web', 'Content-Type': file.type || 'application/octet-stream' },
       credentials: 'same-origin',
       body: file
     });
@@ -224,7 +224,7 @@
     return true;
   }
 
-  window.Howdy = {
+  window.Kip = {
     api: api, $: $, $$: $$, esc: esc, toast: toast,
     openModal: openModal, closeModal: closeModal,
     timeAgo: timeAgo, money: money, pay: pay, hours: hours, toggleTheme: toggleTheme,

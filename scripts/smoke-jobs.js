@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — end-to-end smoke test.
+ * Kip Jobs — end-to-end smoke test.
  *
  * Boots the Express app on a spare port against a throwaway data file and
  * walks the full flow: employer signs up → posts a job → student signs up →
@@ -32,11 +32,11 @@ function check(label, condition, detail) {
 function makeClient() {
   let cookie = '';
   return async function call(pathname, options = {}) {
-    const headers = { 'X-Howdy-Client': 'web' };
+    const headers = { 'X-Kip-Client': 'web' };
     if (options.body !== undefined) headers['Content-Type'] = 'application/json';
     if (options.raw !== undefined) headers['Content-Type'] = options.contentType || 'application/octet-stream';
     if (cookie) headers.Cookie = cookie;
-    if (options.noClientHeader) delete headers['X-Howdy-Client'];
+    if (options.noClientHeader) delete headers['X-Kip-Client'];
 
     const res = await fetch(BASE + pathname, {
       method: options.method
@@ -303,7 +303,7 @@ async function waitForServer(attempts = 60) {
 
     /* pages render */
     for (const page of ['/jobs', '/jobs/browse', '/employer', '/manifest.webmanifest', '/sw.js',
-      '/assets/icons/icon-192.png', '/assets/howdy-jobs.css', '/assets/howdy-jobs.js']) {
+      '/assets/icons/icon-192.png', '/assets/kip-jobs.css', '/assets/kip-jobs.js']) {
       const res = await fetch(BASE + page);
       check(`${page} serves`, res.ok, res.status);
     }

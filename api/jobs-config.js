@@ -1,5 +1,5 @@
 /**
- * Howdy Jobs — public front-end configuration (reference lists, feature flags).
+ * Kip Jobs — public front-end configuration (reference lists, feature flags).
  */
 const {
   STATES, CATEGORIES, EMPLOYMENT_TYPES, DAYS, MIN_HOURLY, STUDENT_VISA_FORTNIGHT_HOURS, json, fail
