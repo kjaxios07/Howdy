@@ -217,6 +217,14 @@ async def run_daily() -> dict:
     findings = await verify_facts()
     staged = await propose_answers()
 
+    # Stored answers are re-examined here too. They are served instantly with
+    # no hedging, which is exactly what makes an outdated one worse than not
+    # having it — so anything that cannot be stood up is withdrawn and that
+    # question goes back to the model until a person restores it.
+    from . import recheck
+
+    answers = await recheck.run(client=client, model=settings.model)
+
     async with SessionLocal() as db:
         stats = await coverage_stats(db)
 
@@ -224,6 +232,7 @@ async def run_daily() -> dict:
         "ran_at": started.isoformat(),
         "facts_changed": findings,
         "proposals_staged": staged,
+        "answers_rechecked": answers,
         "coverage": stats,
     }
 
@@ -231,8 +240,10 @@ async def run_daily() -> dict:
     with CHANGELOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    log.info("evolve_done changed=%d staged=%d open_gaps=%d",
-             len(findings), staged, stats["open_gaps"])
+    log.info("evolve_done changed=%d staged=%d withdrawn=%d open_gaps=%d",
+             len(findings), staged, len(answers["withdrawn"]), stats["open_gaps"])
+    for w in answers["withdrawn"]:
+        log.warning("answer_withdrawn id=%s reason=%s", w["id"], w["reason"])
     return entry
 
 

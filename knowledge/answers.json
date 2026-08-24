@@ -8,7 +8,8 @@
     "_never_volatile": "Nothing flagged volatile may ever be pre-written. A stale figure served instantly and confidently, with a citation under it, is worse than a slow correct answer. A test enforces this.",
     "_not_regenerated": "Hand-maintained. The nightly job rewrites knowledge/base.json and must never touch this file.",
     "_gate": "status must be 'reviewed' before an answer is served. Drafts are ignored at runtime. Only a person can move that field.",
-    "review_interval_months": 6
+    "review_interval_months": 6,
+    "_recheck": "Every answer carries checked_on and can be withdrawn to status 'stale' by the nightly recheck. See server/app/recheck.py. An answer that cannot be re-verified is not served."
   },
   "answers": [
     {
@@ -26,7 +27,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "health-037",
@@ -42,7 +46,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-005",
@@ -58,7 +65,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-026",
@@ -74,7 +84,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-029",
@@ -90,7 +103,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-032",
@@ -106,7 +122,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-034",
@@ -123,7 +142,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-037",
@@ -139,7 +161,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-040",
@@ -155,7 +180,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "safety-018",
@@ -172,7 +200,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "study-011",
@@ -189,7 +220,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-012",
@@ -206,7 +240,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-022",
@@ -223,7 +260,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-023",
@@ -240,7 +280,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-027",
@@ -257,7 +300,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-032",
@@ -273,7 +319,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-036",
@@ -290,7 +339,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-038",
@@ -307,7 +359,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-039",
@@ -324,7 +379,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-042",
@@ -341,7 +399,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     },
     {
       "id": "visa-044",
@@ -358,7 +419,10 @@
       "status": "draft",
       "reviewed_by": null,
       "reviewed_on": null,
-      "review_by": "2027-02-24"
+      "review_by": "2027-02-24",
+      "origin": "written",
+      "checked_on": null,
+      "stale_reason": null
     }
   ]
 }

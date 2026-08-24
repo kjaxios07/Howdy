@@ -39,17 +39,31 @@ def test_a_draft_is_never_served():
         assert not library.covers(a.id)
 
 
-def test_only_a_person_can_sign_one_off():
-    """mark_reviewed takes a named reviewer and is not called from anywhere
-    automated. If a nightly job could flip this field, the signature would
-    mean nothing."""
-    src = Path(library.__file__).read_text()
-    callers = [
-        p for p in (Path(library.__file__).parent).rglob("*.py")
-        if "mark_reviewed(" in p.read_text() and p.name != "library.py"
-    ]
-    assert not callers, f"mark_reviewed called outside library.py: {callers}"
-    assert "reviewer" in src
+# Modules that run on a timer with nobody watching. If any of these could
+# sign an answer off, the signature would mean nothing — the whole value of a
+# reviewed answer is that a person looked at it and can be asked why.
+UNATTENDED = ("recheck.py", "evolve.py", "retention.py", "chat.py")
+
+
+def test_nothing_that_runs_unattended_can_sign_an_answer_off():
+    """mark_reviewed is reachable from human-invoked commands — that is how a
+    reviewer records their sign-off, and drafting.release is one of them. What
+    must never reach it is anything on a schedule."""
+    app = Path(library.__file__).parent
+    for name in UNATTENDED:
+        for f in app.rglob(name):
+            assert "mark_reviewed" not in f.read_text(), f"{name} can sign answers off"
+
+
+def test_signing_off_always_records_a_name():
+    """Every path to reviewed carries a reviewer through to the file. An
+    anonymous sign-off is not a sign-off."""
+    from app import drafting
+
+    assert "reviewer" in Path(library.__file__).read_text()
+    assert "mark_reviewed(a.id, reviewer)" in Path(drafting.__file__).read_text()
+    with pytest.raises(TypeError):
+        library.mark_reviewed("safety-005")  # no reviewer named
 
 
 def test_every_answer_carries_its_review_dates():

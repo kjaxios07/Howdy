@@ -1013,6 +1013,32 @@
     ],
     "_never_note": "A crisis answer is generated fresh, in that student's own words, every time. Same reasoning as exempting them from quotas: these are the moments the product exists for and they are never optimised."
   },
+  "answer_review": {
+    "_note": "Pre-written answers are only worth having if they are still true. An outdated answer served instantly, with a citation under it and no hedging, is more damaging than no pre-written answer at all — the student has no reason to doubt it. So every stored answer carries a last-checked date and an interval, and one that fails a recheck STOPS BEING SERVED rather than being served stale.",
+    "enabled": true,
+    "check_interval_days": {
+      "crisis": 60,
+      "refer": 60,
+      "standard": 120
+    },
+    "_interval_note": "Crisis and refer are looked at twice as often. Not because those facts move faster — they move slower — but because being wrong there costs the most.",
+    "audit_per_night": 12,
+    "_audit_note": "How many answers get the expensive check (a live search against their own source) per night. The free structural checks run over everything, every night. At 12 a night the whole set is audited about monthly, for roughly the price of a coffee a year.",
+    "withdraw_on_failure": true,
+    "_withdraw_note": "A failed recheck drops the answer to `stale` and it stops being served — the question falls back to the model, which is slower and costs money but is current. Withdrawal is automatic; putting an answer BACK requires a person, same asymmetry as the original review. Machines may take an answer down, only people may put one up.",
+    "_never_withdraw_note": "A crisis answer whose only failure is being overdue keeps serving. Leaving someone in distress with nothing because a date passed is worse than showing them a two-month-old phone number, and those numbers do not change. Only a substantive failure withdraws a crisis answer."
+  },
+  "drafting": {
+    "_note": "Buy each answer once instead of every time it is asked. The whole stable bank costs about $8 to answer once with a live search and the full citation check; stored, they serve free forever. Rechecks keep them honest for about $90 a year.",
+    "enabled": true,
+    "batch_size": 25,
+    "bulk_releasable_risk": [
+      "standard"
+    ],
+    "_release_note": "Where the review bar sits. A standard-risk answer that passed citation verification can be released on a spot-check, with the checker's name on it. Refer and crisis answers are read individually — by a registered migration agent and by someone who knows the support services. Requiring a MARA agent to sign off 'do I have to tip in Australia?' would mean nothing ever ships; requiring nobody to read the migration answers would be indefensible. The line sits where the cost of being wrong changes.",
+    "_never_volatile": "Volatile questions are never drafted. There is no amount of demand that makes storing a moving figure a good idea — those keep going to the model, and paying for them every time is correct.",
+    "_rejected_are_not_stored": "A draft that fails the citation check is discarded, not stored with a warning. One bad answer stored forever is the worst outcome this file can produce."
+  },
   "budget": {
     "_note": "A spend ceiling you cannot accidentally exceed. Pre-revenue the thing that matters is not cost per answer, it is that a good week cannot produce a bill you did not agree to. Being written about on a student forum should be good news, not an invoice.",
     "enabled": true,

@@ -43,7 +43,17 @@ from pathlib import Path
 
 log = logging.getLogger(__name__)
 
-REVIEWED, DRAFT = "reviewed", "draft"
+# Three states, and the transitions between them are deliberately asymmetric.
+#   draft    written, nobody has signed it off      — never served
+#   reviewed a person put their name to it          — served
+#   stale    a recheck could not stand it up        — NOT served, falls back
+#            to the model, which is slower and costs money but is current
+#
+# A machine may move reviewed -> stale. Only a person may move anything ->
+# reviewed. Taking a questionable answer down is safe to automate; putting one
+# back up is a judgement about whether it is true, and that needs a name
+# against it.
+REVIEWED, DRAFT, STALE = "reviewed", "draft", "stale"
 
 # resolve() matters: imported through a relative sys.path entry — which is
 # how the tests import it — an unresolved __file__ makes parents[2] point at
@@ -65,9 +75,14 @@ class Answer:
     written: str
     reviewed_by: str | None
     review_by: str | None
+    origin: str = "written"
+    checked_on: str | None = None
+    stale_reason: str | None = None
 
     @property
     def servable(self) -> bool:
+        """Only a reviewed answer is served. A draft was never signed off and
+        a stale one failed a recheck — both fall through to the model."""
         return self.status == REVIEWED
 
     @property
@@ -100,7 +115,8 @@ def _load() -> dict[str, Answer]:
                 intent=a.get("intent", ""), answer=a["answer"],
                 sources=list(a.get("sources", [])), status=a.get("status", DRAFT),
                 written=a.get("written", ""), reviewed_by=a.get("reviewed_by"),
-                review_by=a.get("review_by"),
+                review_by=a.get("review_by"), origin=a.get("origin", "written"),
+                checked_on=a.get("checked_on"), stale_reason=a.get("stale_reason"),
             )
         except KeyError:
             log.warning("library_entry_malformed id=%s", a.get("id"))
@@ -134,7 +150,9 @@ def status() -> dict:
         "written": len(answers),
         "reviewed": len(reviewed),
         "draft": len(answers) - len(reviewed),
+        "stale": sorted(a.id for a in answers if a.status == STALE),
         "overdue": sorted(a.id for a in reviewed if a.overdue),
+        "never_checked": sorted(a.id for a in reviewed if not a.checked_on),
         "by_risk": {
             r: {
                 "written": sum(1 for a in answers if a.risk == r),
@@ -154,6 +172,11 @@ def print_status() -> None:
         state = "all signed off" if n["reviewed"] == n["written"] else \
                 f"{n['written'] - n['reviewed']} still draft — NOT being served"
         print(f"  {risk:<8} {n['written']:>3} written   {state}")
+    if s["stale"]:
+        print(f"\n  ⛔ WITHDRAWN by a recheck, now going to the model instead:")
+        for qid in s["stale"]:
+            print(f"     {qid} — {_load()[qid].stale_reason or 'no reason recorded'}")
+        print("     Put one back with: python -m app.library review <id> \"<who>\"")
     if s["overdue"]:
         print(f"\n  ⚠ past their review date: {', '.join(s['overdue'])}")
     if s["draft"]:
@@ -164,19 +187,51 @@ def print_status() -> None:
         print()
 
 
+def withdraw(question_id: str, reason: str) -> bool:
+    """Stop serving this answer. Safe to automate — the failure mode is that
+    the question goes to the model, which costs money and is slower but is
+    current. Returns True if it changed anything."""
+    doc = json.loads(PATH.read_text(encoding="utf-8"))
+    for a in doc["answers"]:
+        if a["id"] == question_id and a["status"] == REVIEWED:
+            a["status"] = STALE
+            a["stale_reason"] = reason
+            PATH.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
+            _load.cache_clear()
+            log.warning("answer_withdrawn id=%s reason=%s", question_id, reason)
+            return True
+    return False
+
+
+def mark_checked(question_id: str, when: str | None = None) -> None:
+    """A recheck stood this answer up. Records the date, nothing else."""
+    doc = json.loads(PATH.read_text(encoding="utf-8"))
+    for a in doc["answers"]:
+        if a["id"] == question_id:
+            a["checked_on"] = when or date.today().isoformat()
+            PATH.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
+            _load.cache_clear()
+            return
+
+
 def mark_reviewed(question_id: str, reviewer: str) -> None:
     """Record that a person has read and approved this answer.
 
     Deliberately a human action with a named reviewer, and deliberately not
-    something any automated job can do. The value of these answers is that
-    somebody qualified put their name to them.
+    something any automated job can do. This is also how a withdrawn answer
+    comes back: a machine may take one down, only a person may put one up.
     """
     doc = json.loads(PATH.read_text(encoding="utf-8"))
     for a in doc["answers"]:
         if a["id"] == question_id:
+            was = a["status"]
             a["status"] = REVIEWED
+            a["stale_reason"] = None
             a["reviewed_by"] = reviewer
             a["reviewed_on"] = date.today().isoformat()
+            a["checked_on"] = date.today().isoformat()
+            if was == STALE:
+                print(f"  {question_id} was withdrawn; restored by {reviewer}.")
             PATH.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
             _load.cache_clear()
             print(f"  {question_id} signed off by {reviewer} — now served.")
