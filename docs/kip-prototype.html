@@ -1,4 +1,7 @@
 <title>Kip by Howdy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap">
 <style>
 :root{
   --ink:#17222B; --ink-2:#44545F; --ink-3:#7E8E98;
@@ -6,7 +9,7 @@
   --violet:#7C5CFC; --coral:#FF7A59; --gold:#FFC24B; --sky:#38BDF8; --pink:#F472B6;
   --glass:rgba(255,255,255,.62); --glass-2:rgba(255,255,255,.45);
   --glass-line:rgba(255,255,255,.75); --shadow:0 8px 32px rgba(23,34,43,.12);
-  --fb:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+  --fb:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --bubble:rgba(255,255,255,.82);
   --blur:blur(14px) saturate(1.35);
@@ -56,10 +59,10 @@ aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrol
   font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--coral);
   border:1px solid currentColor;border-radius:99px;padding:4px 11px}
 
-.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 4px}
-.stat div{background:var(--glass-2);border:1px solid var(--glass-line);border-radius:13px;padding:10px 11px}
-.stat b{display:block;font-size:1.1rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.stat span{display:block;font-size:.65rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.promise{background:var(--glass-2);border:1px solid var(--glass-line);border-radius:13px;
+  padding:12px 13px;margin:16px 0 4px}
+.promise p{font-size:.76rem;line-height:1.5;color:var(--ink-2)}
+.promise p+p{margin-top:5px;color:var(--ink-3)}
 
 .side-label{font-size:.66rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
   color:var(--ink-3);margin:18px 4px 8px}
@@ -71,6 +74,8 @@ aside{display:flex;flex-direction:column;padding:22px 18px;overflow-y:auto;scrol
 .smod .em{width:27px;height:27px;border-radius:9px;display:flex;align-items:center;justify-content:center;
   font-size:.92rem;background:rgba(var(--c),.16);flex-shrink:0}
 .smod .n{margin-left:auto;font-size:.66rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.smod .n.plus{font-weight:800;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--violet);background:rgba(124,92,252,.14);border-radius:99px;padding:2px 8px}
 
 .panel{display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .panel-head{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--glass-line)}
@@ -231,9 +236,9 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
       <span class="proto">Prototype · scripted answers</span>
     </div>
 
-    <div class="stat">
-      <div><b>463</b><span>questions</span></div>
-      <div><b>52</b><span>trusted sources</span></div>
+    <div class="promise">
+      <p>Every answer comes with the source it came from.</p>
+      <p>Guidance, never legal advice.</p>
     </div>
 
     <div class="side-label">Topics</div>
@@ -247,7 +252,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <b>Chat with Kip</b>
         <p><span class="dot"></span> Verified sources on every answer</p>
       </div>
-      <span class="pill">🇦🇺 official sources only</span>
+      <span class="pill">✓ verified sources</span>
     </div>
     <div class="chips" id="chips"></div>
     <main id="main"><div class="msgs" id="msgs"></div></main>
@@ -291,6 +296,10 @@ const S = {
   mara:{d:'mara.gov.au',u:'https://www.mara.gov.au'},
   accc:{d:'accc.gov.au',u:'https://www.accc.gov.au/consumers/buying-products-and-services/consumer-rights-and-guarantees'},
   rta:{d:'rta.qld.gov.au',u:'https://www.rta.qld.gov.au/renting/ending-a-tenancy/bond-refunds'},
+  qld:{d:'queensland.com',u:'https://www.queensland.com/au/en/things-to-do/destinations/brisbane'},
+  aus:{d:'australia.com',u:'https://www.australia.com/en/places/brisbane-and-surrounds.html'},
+  parks:{d:'parks.des.qld.gov.au',u:'https://parks.des.qld.gov.au/parks/moreton-island'},
+  tlgo:{d:'translink.com.au',u:'https://translink.com.au/plan-your-journey'},
 };
 
 // Each answer carries: intent (drives SHAPE), risk tier, live-search flag.
@@ -343,6 +352,17 @@ function brain(t){
     r:"Most student pricing in Australia runs off **proof that you're enrolled**, so get that sorted first:\n\n1. **Your university student ID** — the single most useful one. Cinemas, museums, galleries, some transport and most on-campus services accept it\n2. **UNiDAYS** — free, verified with your student email address, works at a lot of retail and tech brands\n3. **Student Beans** — free, same idea, different set of brands. Worth having both\n4. **Your .edu.au email address** — software companies verify education pricing directly off it\n\nWhere students actually save the most:\n- **Software** — education pricing is often free or heavily reduced\n- **On campus** — libraries, printing, gyms, counselling, legal advice, sometimes free food\n- **Museums and galleries** — student rates are standard, and many are free anyway\n\n⚠️ I won't quote you a percentage. Offers change weekly and a stale number sends you to a checkout that doesn't match. Verify your student status, then check the current offer on the day.",
     src:[S.uni,S.sb,S.sau]};
 
+  // ── TRAVEL: the shape students actually ask in — "what can I do Saturday" ──
+  if(has('day trip','one day','one-day','things to do near','worth a visit','lone pine','moreton','stradbroke','gold coast','sunshine coast')) return {
+    intent:'info', risk:null, live:true, q:['day trips from Brisbane site:queensland.com'],
+    r:"Brisbane is unusually good for this — most of these are doable in a day without a car.\n\n**By train, no planning needed**\n- **Gold Coast** — about 1h20 on the train, then the tram to the beach\n- **Sunshine Coast** — train to Nambour or Landsborough, then a connecting bus\n- **Ipswich and the Scenic Rim** — the cheapest day out, and almost nobody does it\n\n**By ferry**\n- **North Stradbroke Island** — bus to Cleveland, then the water taxi. Gorgeous, and busy on weekends\n- **Moreton Island** — ferry from the Port of Brisbane. Sand dunes and shipwrecks\n\n**In the city, half a day**\n- **Lone Pine Koala Sanctuary** — reachable by bus, or the river cruise if you want the scenic version\n- **Mount Coot-tha** — free, and the lookout at sunset is the best view in Brisbane\n\n💡 A **weekend go card fare cap** exists and makes Saturday–Sunday travel much cheaper. Check the current cap before you plan.\n\nI won't quote you ferry prices or opening hours — those move, and a stale figure is how you end up at a closed gate.",
+    src:[S.qld,S.aus,S.tlgo]};
+
+  if(has('weekend away','getaway','weekend trip','camping','national park','road trip')) return {
+    intent:'proc', risk:null, live:true, q:['national park camping permit booking site:parks.des.qld.gov.au'],
+    r:"A weekend away is very affordable here if you plan around two things: **transport** and **permits**.\n\n1. **Pick somewhere reachable without a car** unless someone in the group drives. Trains reach the Gold Coast, Sunshine Coast and Toowoomba; ferries reach the bay islands\n2. **Book accommodation early** — hostels and campsites fill weeks ahead over summer and every long weekend\n3. **Camping in a national park needs a permit, booked in advance.** Turning up without one is a fine, not a warning\n4. **A vehicle access permit** is separate again for sand-driving islands like Moreton and K'gari\n5. **Check the park alerts page the morning you leave** — closures for fire, flood and track work are common and not always obvious\n\n🐊 North of Rockhampton, assume every waterway has crocodiles unless a sign says otherwise. Swim only where locals swim.\n\n💧 Beaches: swim **between the red and yellow flags**. It is the single most important safety rule in the country, and it is free.",
+    src:[S.parks,S.qld,S.aus]};
+
   // ── refer: the migration line, made visible ──
   if(has('pr pathway','permanent residency','points test','expression of interest','189','190','491','skills assessment')) return {
     intent:'info', risk:'refer',
@@ -387,7 +407,7 @@ function brain(t){
 
   return {
     intent:'info', risk:null,
-    r:"This prototype carries a sample of Kip's verified knowledge. **The live app answers all 463 seeded questions** — and searches official Australian sources in real time for anything with a current figure or date in it.\n\nTry a topic on the left, or ask about: **TFN, tax return, work hours, rent, bond refund, OSHC, cost of living, refunds, scams, underpayment, PR pathways, or tipping**.",
+    r:"That one isn't in the prototype yet — it carries a sample of what Kip knows. **The live app answers the whole set**, and checks a verified source in real time whenever an answer has a current figure or date in it.\n\nTry a topic on the left, or ask me about: **TFN, tax return, work hours, rent, bond refund, OSHC, cost of living, refunds, scams, underpayment, PR pathways, day trips, or tipping**.",
     src:[S.study]};
 }
 
@@ -408,7 +428,8 @@ const MODULES=[
  {id:'cost',emoji:'💸',name:'Cost of Living',c:'18,161,132',n:19,ex:[['How much money do I need per week in Sydney?',1]]},
  {id:'transport',emoji:'🚋',name:'Transport',c:'124,92,252',n:38,ex:[['How do I get around Brisbane without a car?',0]]},
  {id:'study',emoji:'🎓',name:'Student Life',c:'255,194,75',n:39,ex:[['Where do I get free academic help?',0]]},
- {id:'discounts',emoji:'🎟️',name:'Discounts',c:'255,194,75',n:33,disc:1,ex:[['Am I eligible for a transport concession as an international student?',1],['What happens if I travel on a concession fare I am not entitled to?',1],['How do I prove I am a student to get a discount?',0]]},
+ {id:'discounts',emoji:'🎟️',name:'Discounts',c:'255,194,75',n:33,disc:1,plus:1,ex:[['Am I eligible for a transport concession as an international student?',1],['What happens if I travel on a concession fare I am not entitled to?',1],['How do I prove I am a student to get a discount?',0]]},
+ {id:'travel',emoji:'🗺️',name:'Travel & Weekends',c:'56,189,248',n:20,plus:1,ex:[['What are the best one-day trips near Brisbane?',1],['How do I plan a cheap weekend getaway with camping?',1]]},
  {id:'rights',emoji:'⚖️',name:'Your Rights',c:'124,92,252',n:6,ex:[['What are my refund rights under Australian Consumer Law?',0]]},
  {id:'culture',emoji:'🤝',name:'Fitting In',c:'255,194,75',n:8,ex:[['Do I have to tip in Australia?',0],['What does shouting a round mean?',0]]},
  {id:'safety',emoji:'🛡️',name:'Safety & Scams',c:'255,122,89',n:40,ex:[['Someone called saying my visa will be cancelled unless I pay — is this a scam?',0],['What free mental health services are available?',0]]},
@@ -496,7 +517,8 @@ document.addEventListener('visibilitychange',()=>
 const sideMods=document.getElementById('side-mods'), chipsEl=document.getElementById('chips');
 MODULES.forEach(m=>{
   const b=document.createElement('button'); b.className='smod';
-  b.innerHTML=`<span class="em" style="--c:${m.c}">${m.emoji}</span>${esc(m.name)}<span class="n">${m.n}</span>`;
+  b.innerHTML=`<span class="em" style="--c:${m.c}">${m.emoji}</span>${esc(m.name)}`
+    + (m.plus?'<span class="n plus">Plus</span>':'');
   b.addEventListener('click',()=>suggest(m,b)); sideMods.appendChild(b);
   const c=document.createElement('button'); c.className='chip'; c.textContent=`${m.emoji} ${m.name}`;
   c.addEventListener('click',()=>suggest(m,c)); chipsEl.appendChild(c);
