@@ -208,8 +208,9 @@ h1,h2{text-wrap:balance}
 .mod h3{font-size:.92rem;font-weight:700;letter-spacing:-.02em;margin-top:4px}
 .mod .try{font-size:.78rem;color:var(--ink-3);line-height:1.45}
 .mod:hover .try{color:rgb(var(--c))}
-.mod .tag{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9px;font-weight:600;
-  letter-spacing:.08em;color:var(--gold);border:1px solid rgba(232,185,58,.4);border-radius:5px;padding:1px 5px}
+.mod .tag{position:absolute;top:14px;right:14px;font-size:9.5px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(232,185,58,.4);border-radius:99px;padding:2px 8px}
 
 /* ── Pricing ───────────────────────────────────────────────── */
 .plan{padding:32px 30px;display:flex;flex-direction:column;gap:14px}
@@ -429,7 +430,9 @@ var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
 
 /* The 15 modules, in step with howdy.config.json. `paid` marks the two that
-   sit behind Student Deals. */
+   sit behind Kip Plus. It marks WHICH tier, never the price — the price is
+   still being tested on students and Plus is not open, so a number on a tile
+   is one more place to contradict ourselves later. */
 var MODULES = [
   {e:'🏠', n:'Housing',      c:'255,122,89',  a:'“Is this listing a scam?”'},
   {e:'🛂', n:'Visas',        c:'124,92,252',  a:'“How many hours can I work?”'},
@@ -450,7 +453,7 @@ var MODULES = [
 
 document.getElementById('mods').innerHTML = MODULES.map(function(m){
   return '<a class="mod" style="--c:' + m.c + '" href="' + esc(CHAT) + '">' +
-    (m.paid ? '<span class="tag">$5</span>' : '') +
+    (m.paid ? '<span class="tag">Plus</span>' : '') +
     '<span class="em">' + m.e + '</span>' +
     '<h3>' + esc(m.n) + '</h3><span class="try">' + esc(m.a) + '</span></a>';
 }).join('');
