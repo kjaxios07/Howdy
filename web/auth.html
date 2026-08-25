@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en-AU" data-theme="midnight">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in — Kip</title>
+<meta name="description" content="Sign in to keep your answers. You can also just ask — no account needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+
+<!--
+  Sign in.
+
+  Google only, because that is the only thing the server actually does —
+  app/routers/auth.py is Google OIDC and there are no passwords in the system
+  at all. A password field here would be a form that cannot work, and a
+  "Continue with GitHub" button would be a lie about a product for
+  international students. Better to offer one honest door.
+
+  The artwork is inline SVG rather than a photograph. The CSP is
+  img-src 'self' data:, so a remote image silently fails to load — and drawn
+  artwork can respond to the theme, weighs nothing, and raises no question
+  about whose photograph it is.
+-->
+
+<style>
+:root{
+  --sans:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+:root,:root[data-theme="midnight"]{
+  --ground:#070B12; --surface:#0D131D; --surface-2:#141D29;
+  --ink:#EAF1F7; --ink-2:#93A5B5; --ink-3:#5B6E7E;
+  --rule:rgba(255,255,255,.075); --rule-2:rgba(255,255,255,.14);
+  --verify:#2FD3AE; --warm:#E8763F; --gold:#E8B93A; --violet:#8B7BFF;
+  --on-verify:#04150F; --chip:rgba(255,255,255,.045);
+  --sky-1:#070B12; --sky-2:#131B2E; --sky-3:#2A2140;
+  --land:#0A0F17; --glow:#8B7BFF;
+}
+:root[data-theme="daylight"]{
+  --ground:#FBF9F5; --surface:#FFFFFF; --surface-2:#F2EFE9;
+  --ink:#16211C; --ink-2:#4E5D57; --ink-3:#8A968F;
+  --rule:rgba(22,33,28,.09); --rule-2:rgba(22,33,28,.16);
+  --verify:#0B6E5C; --warm:#C2542A; --gold:#9A7400; --violet:#5B4BC4;
+  --on-verify:#FFFFFF; --chip:rgba(22,33,28,.04);
+  --sky-1:#FDF1E2; --sky-2:#F8C98A; --sky-3:#E8763F;
+  --land:#2C3A34; --glow:#E8B93A;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--sans); background:var(--ground); color:var(--ink);
+  -webkit-font-smoothing:antialiased; line-height:1.6;
+}
+a{color:var(--verify)}
+:focus-visible{outline:2px solid var(--verify);outline-offset:3px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.split{display:grid;grid-template-columns:1.05fr 1fr;min-height:100dvh}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+
+/* ── Left: the country ────────────────────────────────────────────────── */
+.scene{position:relative;overflow:hidden;background:var(--sky-1);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:44px}
+@media (max-width:900px){.scene{min-height:270px;padding:26px}}
+
+.scene svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* One drawing, two hours of the day. Night has the Southern Cross — the one
+   thing in this sky that is not in the sky they left — and daylight has a low
+   sun, because stars over a sunset would just look like dirt on the screen. */
+.sun{display:none}
+:root[data-theme="daylight"] .stars{display:none}
+:root[data-theme="daylight"] .sun{display:block}
+
+/* The horizon glow — an arc of light rising once, then settling. Transform
+   and opacity only, so it never touches layout. */
+.horizon{position:absolute;left:50%;bottom:-42%;width:150%;aspect-ratio:2/1;
+  translate:-50% 0;border-radius:50%;
+  background:radial-gradient(closest-side,var(--glow),transparent 70%);
+  opacity:.78;filter:blur(38px);animation:rise 2.4s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{
+  from{transform:translateY(26%) scaleY(1.5);opacity:0;filter:blur(70px)}
+  to{transform:none;opacity:.78;filter:blur(38px)}
+}
+
+.scene-words{position:relative;z-index:2;max-width:30ch}
+.scene-words h2{font-size:clamp(1.35rem,2.4vw,1.9rem);font-weight:700;
+  letter-spacing:-.025em;line-height:1.2;text-wrap:balance;color:#F5F9FC;
+  text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.scene-words p{margin-top:10px;font-size:.94rem;color:rgba(245,249,252,.8);
+  text-shadow:0 1px 14px rgba(0,0,0,.5)}
+:root[data-theme="daylight"] .scene-words h2,
+:root[data-theme="daylight"] .scene-words p{color:#FFF8EE}
+
+.back{position:absolute;top:26px;left:26px;z-index:3;display:inline-flex;
+  align-items:center;gap:8px;padding:9px 15px 9px 12px;border-radius:99px;
+  background:rgba(7,11,18,.42);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);
+  color:#F5F9FC;text-decoration:none;font-size:.85rem;font-weight:600}
+.back:hover{background:rgba(7,11,18,.62)}
+.back svg{width:15px;height:15px;flex-shrink:0}
+
+/* ── Right: the one thing to do ───────────────────────────────────────── */
+.panel{display:flex;align-items:center;justify-content:center;padding:44px 32px;
+  background:var(--ground)}
+.card{width:100%;max-width:400px}
+
+.kip{width:60px;height:60px;position:relative;margin-bottom:22px}
+.kip i{position:absolute;inset:0;border-radius:47% 53% 51% 49%/49% 47% 53% 51%;
+  background:conic-gradient(from 210deg,var(--verify),var(--violet) 40%,var(--warm) 70%,var(--verify));
+  animation:drift 9s ease-in-out infinite;will-change:transform}
+.kip b{position:absolute;top:40%;width:13%;height:13%;background:#fff;border-radius:50%;
+  box-shadow:0 0 8px rgba(255,255,255,.7);animation:blink 5.4s infinite}
+.kip b.l{left:31%} .kip b.r{right:31%}
+@keyframes drift{0%,100%{transform:rotate(0) scale(1)}
+  33%{transform:rotate(5deg) scale(1.03)} 66%{transform:rotate(-4deg) scale(.98)}}
+@keyframes blink{0%,93%,100%{scale:1 1}96%{scale:1 .1}}
+
+h1{font-size:1.75rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;
+  margin-bottom:8px;text-wrap:balance}
+.sub{color:var(--ink-2);font-size:.97rem;margin-bottom:28px}
+
+.google{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;
+  padding:15px 20px;border-radius:14px;border:1px solid var(--rule-2);
+  background:var(--surface);color:var(--ink);font-family:var(--sans);
+  font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;
+  transition:border-color .15s,transform .12s}
+.google:hover{border-color:var(--verify);transform:translateY(-1px)}
+.google:active{transform:none}
+.google svg{width:20px;height:20px;flex-shrink:0}
+
+.why{margin-top:26px;padding-top:22px;border-top:1px solid var(--rule)}
+.why h3{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px}
+.why ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.why li{display:flex;gap:10px;font-size:.9rem;color:var(--ink-2);line-height:1.55}
+.why li svg{width:17px;height:17px;flex-shrink:0;margin-top:3px;color:var(--verify)}
+
+.guest{margin-top:26px;padding:15px 17px;border-radius:13px;background:var(--chip);
+  border:1px solid var(--rule);font-size:.88rem;color:var(--ink-2);line-height:1.55}
+.guest a{font-weight:700}
+
+.fine{margin-top:22px;font-size:.78rem;color:var(--ink-3);line-height:1.6}
+</style>
+</head>
+<body>
+
+<main class="split">
+
+  <!-- The country. Drawn, not photographed. -->
+  <section class="scene" aria-label="A eucalypt ridge under the Southern Cross">
+    <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--sky-1)"/>
+          <stop offset="58%" stop-color="var(--sky-2)"/>
+          <stop offset="100%" stop-color="var(--sky-3)"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="1000" fill="url(#sky)"/>
+
+      <!-- The Southern Cross. Five stars, in roughly the right arrangement:
+           the one thing in the sky here that is not in the sky they left. -->
+      <!-- Daylight: a low sun over the ridge. -->
+      <circle class="sun" cx="560" cy="470" r="54" fill="#FFF1D6" opacity=".85"/>
+      <circle class="sun" cx="560" cy="470" r="96" fill="#FFD79A" opacity=".3"/>
+
+      <g class="stars" fill="var(--ink)" opacity=".9">
+        <circle cx="486" cy="188" r="4.2"/>
+        <circle cx="452" cy="286" r="5.4"/>
+        <circle cx="536" cy="300" r="3.4"/>
+        <circle cx="474" cy="368" r="6"/>
+        <circle cx="500" cy="252" r="2.4"/>
+      </g>
+      <g class="stars" fill="var(--ink)" opacity=".28">
+        <circle cx="140" cy="120" r="1.8"/><circle cx="248" cy="212" r="1.5"/>
+        <circle cx="640" cy="150" r="2"/><circle cx="712" cy="330" r="1.6"/>
+        <circle cx="92" cy="330" r="1.4"/><circle cx="330" cy="96" r="1.7"/>
+        <circle cx="600" cy="420" r="1.4"/><circle cx="190" cy="440" r="1.6"/>
+      </g>
+
+      <!-- A ridge, and gums on it. Simplified to silhouette, which is how
+           they actually read at dusk. -->
+      <path d="M0 720 Q140 664 268 700 T520 686 Q652 660 800 706 L800 1000 L0 1000 Z"
+            fill="var(--land)"/>
+      <g fill="var(--land)" stroke="var(--land)" stroke-linecap="round">
+        <!-- Left gum -->
+        <path d="M124 722 L131 600" stroke-width="9" fill="none"/>
+        <path d="M131 622 L104 592 M131 640 L158 606 M131 604 L118 578"
+              stroke-width="5" fill="none"/>
+        <ellipse cx="128" cy="566" rx="52" ry="31"/>
+        <ellipse cx="92"  cy="588" rx="27" ry="17"/>
+        <ellipse cx="166" cy="586" rx="24" ry="15"/>
+        <!-- Right gum, the tall one -->
+        <path d="M652 708 L644 546" stroke-width="11" fill="none"/>
+        <path d="M646 578 L610 542 M646 600 L686 560 M645 556 L664 528"
+              stroke-width="6" fill="none"/>
+        <ellipse cx="648" cy="510" rx="62" ry="36"/>
+        <ellipse cx="598" cy="536" rx="30" ry="19"/>
+        <ellipse cx="700" cy="534" rx="27" ry="17"/>
+        <!-- A sapling, for depth -->
+        <path d="M386 694 L390 632" stroke-width="6" fill="none"/>
+        <ellipse cx="389" cy="618" rx="32" ry="19"/>
+      </g>
+    </svg>
+    <div class="horizon"></div>
+
+    <a class="back" href="/">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="scene-words">
+      <h2>Somewhere new, and a lot to work out.</h2>
+      <p>Kip is here for the bits nobody explains.</p>
+    </div>
+  </section>
+
+  <!-- The one thing to do. -->
+  <section class="panel">
+    <div class="card">
+
+      <div class="kip" aria-hidden="true"><i></i><b class="l"></b><b class="r"></b></div>
+
+      <h1>Good to see you.</h1>
+      <p class="sub">Sign in and Kip remembers what you asked, so you don't start over every time.</p>
+
+      <a class="google" href="/api/auth/google">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Continue with Google
+      </a>
+
+      <div class="why">
+        <h3>What you get</h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            Your chats saved, and readable only by you
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            Answers for your city, not a generic one
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            Delete the lot whenever you want
+          </li>
+        </ul>
+      </div>
+
+      <p class="guest">
+        Don't want an account? <a href="/chat.html">Just ask Kip</a> — nothing is written down,
+        and you can sign in later if you change your mind.
+      </p>
+
+      <p class="fine">
+        Every answer comes from a verified source. Guidance, never legal advice.
+        We only ever see your name and email from Google.
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+// Match whatever theme the student picked on the way in.
+(function () {
+  try {
+    var t = localStorage.getItem('kip-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) { /* private window — the default theme is fine */ }
+})();
+</script>
+
+</body>
+</html>

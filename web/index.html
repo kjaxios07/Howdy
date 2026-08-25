@@ -279,8 +279,16 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <a href="#help">What Kip helps with</a>
     <a href="#pricing">Pricing</a>
   </div>
+  <a class="signin" id="signin" href="/auth.html">Sign in</a>
   <a class="cta sm" id="nav-cta" href="/chat">Ask Kip</a>
 </div></nav>
+
+<style>
+.signin{color:var(--ink-2);font-size:.92rem;font-weight:600;text-decoration:none;
+  padding:8px 4px;margin-right:14px;white-space:nowrap}
+.signin:hover{color:var(--ink)}
+@media (max-width:560px){.signin{display:none}}
+</style>
 
 <!-- ══ HERO ══ -->
 <header class="hero" id="top">
@@ -291,7 +299,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   <div class="inner"><div class="hero-grid">
     <div>
       <h1>Your friendly companion for <em>life in Australia</em>.</h1>
-      <p>New here? Kip is the mate who already knows how it works — visas, work, rent, tax, health, weekends away. Ask anything, in your own words.</p>
+      <p>Everyone else seems to know how this works. Kip is the friend who'll just tell you — visas, work, rent, tax, health, weekends away. Ask in your own words, any language you like.</p>
       <div class="hero-actions">
         <a class="cta" id="hero-cta" href="/chat">Ask Kip <span aria-hidden="true">→</span></a>
         <a class="cta ghost" href="#help">What can it help with?</a>
@@ -337,13 +345,13 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   <div class="inner">
     <div class="band-head rev">
       <span class="eyebrow">Pricing</span>
-      <h2 class="h2">Questions are free. Deals are $5.</h2>
+      <h2 class="h2">Ask anything, free.</h2>
     </div>
     <div class="grid g2 rev">
       <div class="plan">
         <span class="k">Free</span>
         <div class="amt"><b>$0</b></div>
-        <p>Every question about living in Australia.</p>
+        <p>Every question about living here. No account needed.</p>
         <ul>
           <li>All thirteen everyday topics</li>
           <li>The rules on concessions and who qualifies</li>
@@ -352,15 +360,15 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <a class="cta" id="free-cta" href="/chat">Ask Kip <span aria-hidden="true">→</span></a>
       </div>
       <div class="plan paid">
-        <span class="k">Student Deals</span>
-        <div class="amt"><b>$5</b><span>per month, AUD</span></div>
-        <p>The live deals layer, kept current for where you live.</p>
+        <span class="k">Kip Plus</span>
+        <div class="amt"><b>Soon</b><span>we'll tell you first</span></div>
+        <p>For the deadlines that cost you if you miss them.</p>
         <ul>
-          <li>Student discounts near you</li>
-          <li>Travel deals, day trips and weekend getaways</li>
-          <li>Cancel any time</li>
+          <li>Visa, cover, lease and tax dates — tracked</li>
+          <li>Student discounts and weekends away near you</li>
+          <li>Your documents, where you can find them</li>
         </ul>
-        <a class="cta" id="deals-cta" href="/chat" style="background:var(--gold);color:var(--on-gold);box-shadow:0 2px 20px rgba(232,185,58,.24)">Get Student Deals</a>
+        <a class="cta" id="deals-cta" href="/auth.html" style="background:var(--gold);color:var(--on-gold);box-shadow:0 2px 20px rgba(232,185,58,.24)">Tell me when it opens</a>
       </div>
     </div>
   </div>
@@ -398,12 +406,21 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 'use strict';
 
 var OFF_HOST = location.protocol === 'file:' || /claude\.ai|claudeusercontent/.test(location.hostname);
-var CHAT = OFF_HOST ? 'https://claude.ai/code/artifact/b7b39843-ad38-40d0-a4d4-508bf3bcbabc' : '/chat';
+
+/* Off the real host there are no sibling pages, so each destination needs a
+   standalone address. On the host they are ordinary relative paths. */
+var CHAT = OFF_HOST ? 'https://claude.ai/code/artifact/ad4f315a-90fa-4737-9662-9141c5b94921' : '/chat';
+var AUTH = OFF_HOST ? 'https://claude.ai/code/artifact/f6bb926a-fbbc-4222-92c5-7200b15d0f98' : '/auth.html';
 var CONTACT = 'hello@example.com';   /* CHANGE ME before launch */
 
-['nav-cta','hero-cta','free-cta','deals-cta'].forEach(function(id){
+/* Two destinations, not one. deals-cta used to be swept into this list and
+   silently pointed at the chat demo — so the button that says "tell me when
+   it opens" took you somewhere that could not tell you anything. */
+var ROUTES = { 'nav-cta': CHAT, 'hero-cta': CHAT, 'free-cta': CHAT,
+               'deals-cta': AUTH, 'signin': AUTH };
+Object.keys(ROUTES).forEach(function(id){
   var el = document.getElementById(id);
-  if (el){ el.href = CHAT; if (OFF_HOST){ el.target = '_blank'; el.rel = 'noopener noreferrer'; } }
+  if (el){ el.href = ROUTES[id]; if (OFF_HOST){ el.target = '_blank'; el.rel = 'noopener noreferrer'; } }
 });
 document.getElementById('uni-link').href = 'mailto:' + CONTACT + '?subject=' +
   encodeURIComponent('Kip for our students');

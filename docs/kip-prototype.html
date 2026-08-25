@@ -243,13 +243,13 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <div class="side-kip">
       <div class="kip float"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
       <h1>Kip <span>· Howdy</span></h1>
-      <p>Your companion for life in Australia</p>
+      <p>The friend who already knows how it works</p>
       <span class="proto">Prototype · scripted answers</span>
     </div>
 
     <div class="promise">
-      <p>Every answer comes with the source it came from.</p>
-      <p>Guidance, never legal advice.</p>
+      <p>Ask anything. No question is too small.</p>
+      <p>Every answer shows where it came from.</p>
     </div>
 
     <div class="side-label">Topics</div>
@@ -260,8 +260,8 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <div class="panel-head">
       <div class="kip"><i class="blob"></i><i class="blob2"></i><span class="e l"></span><span class="e r"></span></div>
       <div class="ph-txt">
-        <b>Chat with Kip</b>
-        <p><span class="dot"></span> Verified sources on every answer</p>
+        <b>Hey — what's on your mind?</b>
+        <p><span class="dot"></span> Every answer comes with its source</p>
       </div>
       <span class="pill">✓ verified sources</span>
     </div>
@@ -269,7 +269,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <main id="main"><div class="msgs" id="msgs"></div></main>
     <div class="composer">
       <form class="comp-in" id="form">
-        <input id="input" type="text" placeholder="Ask about visas, tax, housing…" maxlength="800" autocomplete="off">
+        <input id="input" type="text" placeholder="Ask me anything — visas, rent, work, tax…" maxlength="800" autocomplete="off">
         <button id="send" type="submit">Ask ✦</button>
       </form>
       <p class="fine">Prototype with scripted answers — the live app connects to Kip's verified AI and searches
@@ -539,7 +539,7 @@ function suggest(mod,btn){
   btn.classList.add('active');
   document.getElementById('sb')?.remove();
   const d=document.createElement('div'); d.id='sb'; d.className='msg kip';
-  d.innerHTML=AV+`<div class="bubble"><p><strong>${mod.emoji} ${esc(mod.name)}</strong> — here's what students ask most:</p>
+  d.innerHTML=AV+`<div class="bubble"><p><strong>${mod.emoji} ${esc(mod.name)}</strong> — here's what people usually want to know:</p>
     <div class="suggest">${mod.ex.map(([q,v])=>`<button type="button" data-q="${esc(q)}">${esc(q)}${v?'<span class="v">⚡ live</span>':''}</button>`).join('')}</div>
     ${mod.disc?'<div class="disc-slot"></div>':''}</div>`;
   msgs.appendChild(d);
