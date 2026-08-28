@@ -30,7 +30,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .. import gaps, websearch
+from .. import gateway, gaps, websearch
 from ..config import get_settings
 from ..crypto import Sealed, open_sealed, seal
 from ..db import get_db
@@ -56,7 +56,9 @@ log = logging.getLogger("kip.chat")
 settings = get_settings()
 router = APIRouter(prefix="/api", tags=["chat"])
 
-client = anthropic.AsyncAnthropic(api_key=settings.anthropic_key)
+# One place decides where model calls go, so one place can be tested for
+# whether allowed_domains survived the trip. See app/gateway.py.
+client = gateway.client()
 
 UNAVAILABLE = "Kip is momentarily unavailable. Try again shortly."
 

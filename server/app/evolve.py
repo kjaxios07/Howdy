@@ -34,6 +34,7 @@ import anthropic
 from sqlalchemy import select
 
 from . import websearch
+from . import gateway
 from .config import get_settings
 from .db import SessionLocal
 from .gaps import coverage_stats, top_gaps
@@ -46,7 +47,7 @@ KB_PATH = Path(__file__).parent / "knowledge" / "base.json"
 QUESTIONS_PATH = Path(__file__).resolve().parents[2] / "knowledge" / "questions.json"
 CHANGELOG_PATH = Path(__file__).parent / "knowledge" / "changelog.jsonl"
 
-client = anthropic.AsyncAnthropic(api_key=settings.anthropic_key)
+client = gateway.client()   # see app/gateway.py
 
 
 # ── 1. Verify: re-check the figures we already publish ───────────────────

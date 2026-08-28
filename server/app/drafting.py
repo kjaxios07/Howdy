@@ -39,7 +39,7 @@ from dataclasses import dataclass, field
 from datetime import date, timedelta
 from pathlib import Path
 
-from . import library, websearch
+from . import gateway, library, websearch
 from .appconfig import raw
 from .costs import Usage, price
 from .prompt import system_prompt
@@ -256,7 +256,7 @@ if __name__ == "__main__":  # pragma: no cover
 
         s = get_settings()
         n = int(sys.argv[2]) if len(sys.argv) > 2 else batch_size()
-        out = asyncio.run(run(anthropic.AsyncAnthropic(api_key=s.anthropic_key), s.model, n))
+        out = asyncio.run(run(gateway.client(), s.model, n))
         print(json.dumps(out, indent=2))
     elif len(sys.argv) >= 4 and sys.argv[1] == "release":
         print(f"  released {release(sys.argv[2], ' '.join(sys.argv[3:]))} answers")

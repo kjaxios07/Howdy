@@ -33,7 +33,7 @@ class Settings(BaseSettings):
 
     # ── Environment ──────────────────────────────────────────────────────
     env: str = "production"
-    base_url: str = "https://howdy.example"
+    base_url: str = "https://kipchat.com.au"
     log_level: str = "INFO"
     sentry_dsn: str = ""
 

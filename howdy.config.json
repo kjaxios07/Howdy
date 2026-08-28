@@ -10,8 +10,8 @@
     "assistant": "Kip",
     "tagline": "Your companion for life in Australia",
     "description": "Verified-source guidance for international students and new migrants in Australia. Guidance, not legal advice.",
-    "domain": "CHANGE-ME.au",
-    "admin_email": "you@example.com",
+    "domain": "kipchat.com.au",
+    "admin_email": "kaja_rajendran@outlook.com",
     "locale": "en-AU",
     "min_age": 16,
     "mission": "Be the first point of contact for every international student and new migrant in Australia — accurate, warm, cited, and always pointing to the right registered expert when the question is bigger than general information.",
@@ -19,7 +19,7 @@
   },
   "hosting": {
     "_comment": "Sizing hints for deploy.sh. Cheapest first.",
-    "profile": "free",
+    "profile": "launch",
     "profiles": {
       "free": {
         "target": "Oracle Cloud Always Free — ARM Ampere",
@@ -46,7 +46,8 @@
         "monthly_usd": 24,
         "note": "Australian data residency. Required by most university procurement."
       }
-    }
+    },
+    "_profile_note": "Sydney from day one, not the free tier. Where student data physically sits is the first question any university asks, and answering it with 'Sydney' beats answering it with an explanation. Moving a live database across regions later is much worse than $24 a month now."
   },
   "model": {
     "id": "claude-sonnet-5",
@@ -56,6 +57,17 @@
       "claude-haiku-4-5": "~60% cheaper. Worth a blind quality test before launch.",
       "claude-opus-4-8": "Higher ceiling, ~2x cost. Overkill for knowledge-base-grounded answers."
     }
+  },
+  "llm": {
+    "_note": "Where model calls go. `direct` talks to Anthropic; `gateway` points at an Anthropic-compatible proxy such as Portkey, OpenRouter or LiteLLM. One place decides, so one place can be tested.",
+    "mode": "direct",
+    "_mode_note": "Stay on direct until there is a reason not to. Kip leans on Anthropic server-side features — web_search with allowed_domains, prompt caching, pause_turn, the usage fields costs.py prices from — and a gateway that normalises requests will drop some of them. The dangerous one is allowed_domains: if it does not survive the round trip Kip searches the open web, and it fails SILENTLY because the citation verifier still strips the bad links afterwards. Run `python -m app.gateway check --search` against any gateway before it carries real traffic.",
+    "base_url": "",
+    "_base_url_note": "e.g. https://api.portkey.ai/v1 . Empty means direct.",
+    "headers": {},
+    "_headers_note": "Gateway routing headers. A value of 'env:NAME' is read from the environment at runtime, so a virtual key never lands in this file. Example for Portkey: {\"x-portkey-provider\": \"anthropic\", \"x-portkey-api-key\": \"env:PORTKEY_API_KEY\"}",
+    "_privacy_note": "A gateway sees every question a student asks, including the ones about family violence and underpayment. This codebase encrypts conversations on the assumption the database will be stolen one day; routing plaintext through a third party undoes part of that. Adding one is a privacy decision as much as an infrastructure one, and it belongs in the privacy policy.",
+    "_cheap_model_note": "On 'a cheaper model for chat': the honest lever is not a cheaper provider, it is fewer calls. The answer cache already removes about 98% of repeat spend and the stored-answer library removes the rest for questions we have written. A measured answer costs 0.43c cached and 2.04c searched — a cheaper model saves a fraction of a cent on a call we increasingly do not make. Route the simple questions to Haiku if you want (scale.py values it at 22%), but do it after the cache, not instead of it."
   },
   "web_search": {
     "_note": "Live search for volatile facts (wage rates, fees, dates). HARD-RESTRICTED to the same trusted domains as citation verification — Claude physically cannot search anything else.",
